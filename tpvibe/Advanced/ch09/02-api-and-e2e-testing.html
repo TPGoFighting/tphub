@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="geo.region" content="CN">
+<meta name="geo.placename" content="China">
+<meta name="geo.position" content="39.9042;116.4074">
+<meta name="ICBM" content="39.9042, 116.4074">
+<link rel="icon" href="/tpvibe/images/tp_logo.jpg" type="image/png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>API 与端到端测试 | TPvibe</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/tpvibe/style.css">
+<!-- SEO:tphub -->
+<meta name="description" content="API 与端到端测试 — TPvibe 中文 AI 学习与实战教程，从零基础到进阶，边学边做。">
+<link rel="canonical" href="https://tphub.tpgofighting.top/tpvibe/Advanced/ch09/02-api-and-e2e-testing.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="TPvibe">
+<meta property="og:title" content="API 与端到端测试 | TPvibe">
+<meta property="og:description" content="API 与端到端测试 — TPvibe 中文 AI 学习与实战教程，从零基础到进阶，边学边做。">
+<meta property="og:url" content="https://tphub.tpgofighting.top/tpvibe/Advanced/ch09/02-api-and-e2e-testing.html">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://tphub.tpgofighting.top/tpvibe/images/tp_logo.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="API 与端到端测试 | TPvibe">
+<meta name="twitter:description" content="API 与端到端测试 — TPvibe 中文 AI 学习与实战教程，从零基础到进阶，边学边做。">
+<meta name="twitter:image" content="https://tphub.tpgofighting.top/tpvibe/images/tp_logo.jpg">
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "name": "API 与端到端测试 | TPvibe",
+  "url": "https://tphub.tpgofighting.top/tpvibe/Advanced/ch09/02-api-and-e2e-testing.html",
+  "description": "TPvibe 中文 AI 学习与实战教程：从零基础到进阶，边学边做，附可运行示例与实战项目。",
+  "inLanguage": "zh-CN",
+  "isPartOf": {"@type": "WebSite", "name": "TPvibe", "url": "https://tphub.tpgofighting.top/tpvibe/"}
+}</script>
+<!-- GEO:v2 -->
+<!-- LOGOFIX:v2 -->
+</head>
+<body>
+<aside class="toc" id="toc">
+<button class="toc-toggle" id="tocToggle" aria-label="收起目录">«</button>
+<div class="toc-inner">
+<a class="toc-home" href="/tpvibe/index.html">TPvibe 首页</a>
+<details class="toc-sec">
+<summary>基础篇</summary>
+<ul class="toc-tree">
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Basic/lecture-1.html">00 序言</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Basic/lecture-1/0.1-start-here.html">开始之前</a></li>
+<li><a href="/tpvibe/Basic/lecture-1/0.2-what-you-will-build.html">你要做什么</a></li>
+<li><a href="/tpvibe/Basic/lecture-1/0.3-who-this-is-for.html">适合谁学</a></li>
+<li><a href="/tpvibe/Basic/lecture-1/0.4-how-to-learn.html">怎么学</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Basic/lecture-2.html">01 觉醒</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Basic/lecture-2/1.1-coder-to-commander.html">从程序员到指挥官</a></li>
+<li><a href="/tpvibe/Basic/lecture-2/1.2-breaking-myths.html">打破误区</a></li>
+<li><a href="/tpvibe/Basic/lecture-2/1.3-tools-guide.html">工具选择指南</a></li>
+<li><a href="/tpvibe/Basic/lecture-2/1.4-vibe-vs-spec.html">Vibe Coding vs 规格驱动</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Basic/lecture-3.html">02 心智</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Basic/lecture-3/2.1-thinking-upgrade.html">思维升级</a></li>
+<li><a href="/tpvibe/Basic/lecture-3/2.2-inversion-thinking.html">逆向思维</a></li><li><a href="/tpvibe/Basic/lecture-3/2.3-subtraction-thinking.html">减法思维</a></li>
+<li><a href="/tpvibe/Basic/lecture-3/2.4-story-thinking.html">故事思维</a></li>
+
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Basic/lecture-4.html">03 技法</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Basic/lecture-4/3.1-prompt-basics.html">提示词基础</a></li>
+<li><a href="/tpvibe/Basic/lecture-4/3.2-structured-frameworks.html">结构化框架</a></li>
+<li><a href="/tpvibe/Basic/lecture-4/3.3-advanced-techniques.html">进阶技巧</a></li>
+<li><a href="/tpvibe/Basic/lecture-4/3.4-first-prd.html">第一份 PRD</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Basic/lecture-5.html">04 从0到1</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Basic/lecture-5/4.1-before-start.html">搭建前准备</a></li>
+<li><a href="/tpvibe/Basic/lecture-5/4.2-build-page.html">搭建页面</a></li>
+<li><a href="/tpvibe/Basic/lecture-5/4.3-core-features.html">核心功能</a></li>
+<li><a href="/tpvibe/Basic/lecture-5/4.4-data-storage.html">数据存储</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Basic/appendix-a.html">05 进阶</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Basic/appendix-a/5.1-version-control.html">版本控制</a></li>
+<li><a href="/tpvibe/Basic/appendix-a/5.2-deployment.html">部署上线</a></li>
+<li><a href="/tpvibe/Basic/appendix-a/5.3-security.html">安全防护</a></li>
+<li><a href="/tpvibe/Basic/appendix-a/5.4-iteration.html">迭代优化</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Basic/appendix-b.html">06 上线</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Basic/appendix-b/6.1-preflight.html">发布前检查</a></li>
+<li><a href="/tpvibe/Basic/appendix-b/6.2-deploy.html">发布流程</a></li>
+<li><a href="/tpvibe/Basic/appendix-b/6.3-feedback.html">收集反馈</a></li>
+<li><a href="/tpvibe/Basic/appendix-b/6.4-wrap-up.html">总结回顾</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Basic/appendix-c.html">99 附录</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Basic/appendix-c/a-prompt-cheatsheet.html">提示词速查表</a></li>
+<li><a href="/tpvibe/Basic/appendix-c/b-errors-and-asking-ai.html">常见错误与求助</a></li>
+<li><a href="/tpvibe/Basic/appendix-c/c-ui-cheatsheet.html">UI 速查表</a></li>
+<li><a href="/tpvibe/Basic/appendix-c/d-git-minimal-card.html">Git 最小知识卡</a></li>
+<li><a href="/tpvibe/Basic/appendix-c/e-api-key-env-security.html">API Key 与环境安全</a></li>
+<li><a href="/tpvibe/Basic/appendix-c/f-vibe-coding-can-and-cannot.html">Vibe Coding 能做与不能做</a></li>
+<li><a href="/tpvibe/Basic/appendix-c/g-advanced-jump-map.html">进阶跳转地图</a></li>
+</ul>
+</li>
+<li class="toc-chapter">
+<a href="/tpvibe/Basic/conclusion.html">100 结语</a>
+</li>
+</ul>
+</details>
+<details class="toc-sec">
+<summary>进阶篇</summary>
+<ul class="toc-tree">
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch01.html">01 环境搭建</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch01/00-quick-start.html">快速上手</a></li>
+<li><a href="/tpvibe/Advanced/ch01/01-code-formats.html">代码格式与编辑器</a></li>
+<li><a href="/tpvibe/Advanced/ch01/02-tech-stack.html">技术栈选择</a></li>
+<li><a href="/tpvibe/Advanced/ch01/03-browser-server.html">浏览器与服务器</a></li>
+<li><a href="/tpvibe/Advanced/ch01/04-terminal-basics.html">终端基础操作</a></li>
+<li><a href="/tpvibe/Advanced/ch01/05-package-manager-and-config.html">包管理与配置文件</a></li>
+<li><a href="/tpvibe/Advanced/ch01/06-models-and-tools.html">AI 模型与工具选择</a></li>
+<li><a href="/tpvibe/Advanced/ch01/07-creating-project.html">创建你的第一个项目</a></li>
+<li><a href="/tpvibe/Advanced/ch01/08-localhost-and-ports.html">本地服务器与端口</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch02.html">02 开发工具与AI调优</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch02/01-ai-economics.html">AI 经济学</a></li>
+<li><a href="/tpvibe/Advanced/ch02/02-vibecoding-workflow.html">Vibe Coding 工作流</a></li>
+<li><a href="/tpvibe/Advanced/ch02/03-mcp-and-skills.html">MCP 与 Skills</a></li>
+<li><a href="/tpvibe/Advanced/ch02/04-project-config.html">项目配置</a></li>
+<li><a href="/tpvibe/Advanced/ch02/05-debugging-tips.html">调试技巧</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch03.html">03 产品验证</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch03/01-product-validation.html">产品验证</a></li>
+<li><a href="/tpvibe/Advanced/ch03/02-discuss-with-ai.html">与 AI 讨论</a></li>
+<li><a href="/tpvibe/Advanced/ch03/03-prd-template-guide.html">PRD 模板指南</a></li>
+<li><a href="/tpvibe/Advanced/ch03/04-coding-agents.html">编码代理</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch04.html">04 编程基础</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch04/00-build-basics.html">构建基础</a></li>
+<li><a href="/tpvibe/Advanced/ch04/01-tech-stack-decision.html">技术栈决策</a></li>
+<li><a href="/tpvibe/Advanced/ch04/03-programming-basics.html">编程基础</a></li>
+<li><a href="/tpvibe/Advanced/ch04/02-prd-and-tech-docs.html">PRD 与技术文档</a></li>
+<li><a href="/tpvibe/Advanced/ch04/04-api-and-http.html">API 与 HTTP</a></li>
+<li><a href="/tpvibe/Advanced/ch04/05-frontend-backend-separation.html">前后端分离</a></li>
+<li><a href="/tpvibe/Advanced/ch04/06-config-formats.html">配置格式</a></li>
+<li><a href="/tpvibe/Advanced/ch04/07-api-integration.html">API 集成</a></li>
+<li><a href="/tpvibe/Advanced/ch04/08-readme-structure.html">README 结构</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch05.html">05 好看好用的界面</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch05/03-animation-libraries.html">动画库</a></li>
+</ul>
+</li>
+<li class="toc-chapter">
+<a href="/tpvibe/Advanced/ch06.html">06 数据存哪里</a>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch07.html">07 连接前后端</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch07/00-crud-example.html">CRUD 示例</a></li>
+<li><a href="/tpvibe/Advanced/ch07/02-when-things-go-wrong.html">出错处理</a></li>
+<li><a href="/tpvibe/Advanced/ch07/03-api-as-product.html">API 即产品</a></li>
+<li><a href="/tpvibe/Advanced/ch07/01-api-growing-pains.html">API 成长烦恼</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch08.html">08 谁能访问数据</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch08/00-user-system-example.html">用户系统示例</a></li>
+<li><a href="/tpvibe/Advanced/ch08/01-env-and-secrets.html">环境变量与密钥</a></li>
+<li><a href="/tpvibe/Advanced/ch08/03-route-protection.html">路由保护</a></li>
+<li><a href="/tpvibe/Advanced/ch08/04-security-checklist.html">安全清单</a></li>
+<li><a href="/tpvibe/Advanced/ch08/05-advanced-security.html">高级安全</a></li>
+<li><a href="/tpvibe/Advanced/ch08/02-auth-methods.html">认证方式</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch09.html">09 功能测试</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch09/01-testing-strategy.html">测试策略</a></li>
+<li><a href="/tpvibe/Advanced/ch09/02-api-and-e2e-testing.html" class="active">API 与 E2E 测试</a></li>
+<li><a href="/tpvibe/Advanced/ch09/03-automation-workflow.html">自动化工作流</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch10.html">10 公网访问</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch10/01-network-layers.html">网络分层</a></li>
+<li><a href="/tpvibe/Advanced/ch10/02-tunneling.html">隧道穿透</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch11.html">11 协作开发</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch11/01-why-git.html">为什么用 Git</a></li>
+<li><a href="/tpvibe/Advanced/ch11/02-remote-and-collaboration.html">远程与协作</a></li>
+<li><a href="/tpvibe/Advanced/ch11/03-branch-and-workflow.html">分支与工作流</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch12.html">12 无服务器部署</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch12/01-deploy-edgeone.html">EdgeOne 部署</a></li>
+<li><a href="/tpvibe/Advanced/ch12/02-deploy-vercel-platforms.html">Vercel 等平台部署</a></li>
+<li><a href="/tpvibe/Advanced/ch12/03-cicd-automation.html">CI/CD 自动化</a></li>
+<li><a href="/tpvibe/Advanced/ch12/04-operations-cost.html">运维成本</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch13.html">13 域名解析</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch13/01-domain-setup.html">域名设置</a></li>
+<li><a href="/tpvibe/Advanced/ch13/02-compliance-access.html">合规接入</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch14.html">14 部署到服务器</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch14/01-vps-selection.html">VPS 选择</a></li>
+<li><a href="/tpvibe/Advanced/ch14/02-vps-setup.html">VPS 配置</a></li>
+<li><a href="/tpvibe/Advanced/ch14/03-1-docker-apps.html">Docker 应用</a></li>
+<li><a href="/tpvibe/Advanced/ch14/03-2-deploy-nextjs.html">部署 Next.js</a></li>
+<li><a href="/tpvibe/Advanced/ch14/03-4-deploy-fullstack.html">部署全栈应用</a></li>
+<li><a href="/tpvibe/Advanced/ch14/05-cool-apps.html">酷应用</a></li>
+<li><a href="/tpvibe/Advanced/ch14/03-3-deploy-static.html">部署静态站点</a></li>
+<li><a href="/tpvibe/Advanced/ch14/04-domain-ssl.html">域名与 SSL</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch15.html">15 SEO与统计</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch15/01-opengraph-sharing.html">OpenGraph 分享</a></li>
+<li><a href="/tpvibe/Advanced/ch15/02-seo-guide.html">SEO 指南</a></li>
+<li><a href="/tpvibe/Advanced/ch15/03-umami.html">Umami 统计</a></li>
+<li><a href="/tpvibe/Advanced/ch15/04-legal.html">法律合规</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch16.html">16 反馈与迭代</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch16/01-facing-real-users.html">面向真实用户</a></li>
+<li><a href="/tpvibe/Advanced/ch16/02-feedback-prioritization.html">反馈优先级</a></li>
+<li><a href="/tpvibe/Advanced/ch16/03-understanding-users.html">理解用户</a></li>
+<li><a href="/tpvibe/Advanced/ch16/04-iteration-and-growth.html">迭代与增长</a></li>
+</ul>
+</li>
+<li class="toc-chapter">
+<a href="/tpvibe/Advanced/next-level.html">进阶实战</a>
+</li>
+</ul>
+</details>
+<details class="toc-sec">
+<summary>文章</summary>
+<ul class="toc-tree">
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Articles/core-concepts.html">核心概念</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Articles/core-concepts/what-are-ai-agents-why-do-they-matter.html">AI Agent 是什么</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Articles/architecture.html">技术架构</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Articles/architecture/how-claude-code-works.html">Claude Code 如何工作</a></li>
+<li><a href="/tpvibe/Articles/architecture/mcp-what-it-is-and-why-it-matters.html">MCP 是什么及为何重要</a></li>
+<li><a href="/tpvibe/Articles/architecture/build-agents-with-filesystems-and-bash.html">用文件系统和 Bash 构建 Agent</a></li>
+<li><a href="/tpvibe/Articles/architecture/testing-bash-vs-sql.html">Bash vs SQL 测试</a></li>
+<li><a href="/tpvibe/Articles/architecture/multi-agent-systems-ai-native-engineering.html">多 Agent 系统与 AI 原生工程</a></li>
+<li><a href="/tpvibe/Articles/architecture/self-improving-coding-agents.html">自我改进的编码 Agent</a></li>
+<li><a href="/tpvibe/Articles/architecture/nvidia-ai-5-layer-cake.html">NVIDIA AI 五层架构</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Articles/tools.html">工具链</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Articles/tools/how-to-write-good-spec-for-ai-agents.html">如何为 AI Agent 写 Spec</a></li>
+<li><a href="/tpvibe/Articles/tools/ai-driven-prototyping-v0-bolt-and-lovable-compared.html">AI 原型工具对比</a></li>
+<li><a href="/tpvibe/Articles/tools/why-i-use-cline-for-ai-engineering.html">为什么用 Cline 做 AI 工程</a></li>
+<li><a href="/tpvibe/Articles/tools/agents-md-vs-skills.html">AGENTS.md 与 Skills 对比</a></li>
+<li><a href="/tpvibe/Articles/tools/complete-guide-to-building-skills-for-claude.html">Claude Skills 构建指南</a></li>
+<li><a href="/tpvibe/Articles/tools/we-removed-80-percent-tools.html">我们移除了 80% 的工具</a></li>
+<li><a href="/tpvibe/Articles/tools/claude-code-swarms.html">Claude Code 集群</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Articles/engineering.html">工程实践</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Articles/engineering/ai-writes-code-faster-your-job-is-to-prove-it-works.html">AI 写代码更快，你要证明它有效</a></li>
+<li><a href="/tpvibe/Articles/engineering/beyond-the-70-maximizing-the-human-30-of-ai-assisted-coding.html">超越 70%：最大化人类 30%</a></li>
+<li><a href="/tpvibe/Articles/engineering/avoiding-skill-atrophy-in-the-age-of-ai.html">AI 时代的技能退化</a></li>
+<li><a href="/tpvibe/Articles/engineering/how-to-write-a-good-spec-for-ai-agents.html">如何为 AI Agent 写好 Spec</a></li>
+<li><a href="/tpvibe/Articles/engineering/leading-effective-engineering-teams-in-the-age-of-genai.html">GenAI 时代的工程团队领导</a></li>
+<li><a href="/tpvibe/Articles/engineering/your-ai-coding-agents-need-a-manager.html">AI 编码 Agent 需要管理者</a></li>
+<li><a href="/tpvibe/Articles/engineering/ai-code-review-implementation.html">AI 代码审查实现</a></li>
+<li><a href="/tpvibe/Articles/engineering/react-best-practices.html">React 最佳实践</a></li>
+<li><a href="/tpvibe/Articles/engineering/vercel-aeo-tracking.html">Vercel AEO 追踪</a></li>
+<li><a href="/tpvibe/Articles/engineering/my-llm-coding-workflow-going-into-2026.html">2026 年我的 LLM 工作流</a></li>
+<li><a href="/tpvibe/Articles/engineering/stop-using-init-for-agents.html">停止对 Agent 使用 init</a></li>
+<li><a href="/tpvibe/Articles/engineering/video-generation-with-ai-gateway.html">AI 网关视频生成</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Articles/security.html">安全合规</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Articles/security/ai-agents-threats-and-mitigations.html">AI Agent 威胁与缓解</a></li>
+<li><a href="/tpvibe/Articles/security/security-boundaries-in-agentic-architectures.html">Agent 架构安全边界</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Articles/business.html">商业趋势</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Articles/business/the-next-two-years-of-software-engineering.html">软件工程的未来两年</a></li>
+<li><a href="/tpvibe/Articles/business/how-openevidence-built-healthcare-ai-physicians-trust.html">OpenEvidence 医疗 AI</a></li>
+<li><a href="/tpvibe/Articles/business/keeping-community-human-while-scaling-with-agents.html">用 Agent 扩展时保持人性</a></li>
+</ul>
+</li>
+</ul>
+</details>
+<details class="toc-sec">
+<summary>实践案例</summary>
+<ul class="toc-tree">
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Practice/index.html">实践案例</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Practice/index/vibe-coding-methodology.html">Vibe Coding 方法论</a></li>
+<li><a href="/tpvibe/Practice/index/ai-canvas-vibecoding-journey.html">AI Canvas 之旅</a></li>
+<li><a href="/tpvibe/Practice/index/ai-picture-book-generator.html">AI 绘本生成器</a></li>
+<li><a href="/tpvibe/Practice/index/ai-resume-saas.html">AI 简历 SaaS</a></li>
+<li><a href="/tpvibe/Practice/index/full-stack-21-day-thinking-habit-game.html">21 天思维习惯游戏</a></li>
+</ul>
+</li>
+</ul>
+</details>
+</div>
+</aside>
+<script>
+(function(){
+  /* Move toc-toggle to body to avoid overflow/transform clipping */
+  var tocToggle=document.getElementById('tocToggle');
+  var toc=document.getElementById('toc');
+  if(tocToggle&&toc){
+    document.body.appendChild(tocToggle);
+    tocToggle.style.position='fixed';
+    tocToggle.style.top='70px';
+    tocToggle.style.left='254px';
+    tocToggle.style.zIndex='41';
+    tocToggle.style.width='28px';
+    tocToggle.style.height='28px';
+    tocToggle.style.borderRadius='50%';
+    tocToggle.style.border='1px solid var(--line)';
+    tocToggle.style.background='var(--card)';
+    tocToggle.style.color='var(--muted)';
+    tocToggle.style.cursor='pointer';
+    tocToggle.style.display='grid';
+    tocToggle.style.placeItems='center';
+    tocToggle.style.boxShadow='0 4px 14px var(--shadow)';
+    tocToggle.style.fontSize='14px';
+    tocToggle.style.fontWeight='700';
+    tocToggle.style.transition='left .35s cubic-bezier(.34,1.3,.64,1), background .2s, color .2s, border-color .2s';
+    tocToggle.addEventListener('mouseenter',function(){
+      this.style.background='var(--soft)';
+      this.style.color='var(--accent)';
+      this.style.borderColor='var(--accent)';
+    });
+    tocToggle.addEventListener('mouseleave',function(){
+      this.style.background='var(--card)';
+      this.style.color='var(--muted)';
+      this.style.borderColor='var(--line)';
+    });
+    tocToggle.addEventListener('click',function(){
+      toc.classList.toggle('collapsed');
+      var c=toc.classList.contains('collapsed');
+      this.style.left=c?'8px':'254px';
+      this.textContent=c?'»':'«';
+      this.setAttribute('aria-label',c?'展开目录':'收起目录');
+    });
+  }
+  /* Mobile scrim click to close */
+  var scrim=document.querySelector('.toc-scrim');
+  if(scrim){
+    scrim.addEventListener('click',function(){
+      var cb=document.getElementById('tocToggleMobile');
+      if(cb)cb.checked=false;
+    });
+  }
+  /* Chapter expand/collapse (L1) */
+  document.querySelectorAll('.toc-chapter-toggle').forEach(function(btn){
+    btn.addEventListener('click',function(e){
+      e.preventDefault();
+      e.stopPropagation();
+      var li=this.closest('.toc-chapter');
+      if(li)li.classList.toggle('expanded');
+    });
+  });
+  /* Auto-expand: find active link and open its section + chapter */
+  var currentRaw=location.pathname.replace(/\/$/,'');
+  var activeLink=null;
+  document.querySelectorAll('aside.toc a[href]').forEach(function(a){
+    var href=a.getAttribute('href')||'';
+    if(!href||href.startsWith('http')||href.startsWith('#'))return;
+    var path=href.replace(/^https?:\/\/[^\/]+/,'').replace(/\/$/,'');
+    /* Skip home link for active matching */
+    if(path.indexOf('/index.html')>=0&&currentRaw.indexOf('/index.html')<0)return;
+    if(currentRaw===path){activeLink=a;return;}
+    /* Also check if currentRaw contains the path (for sub-pages) */
+    if(path.length>5&&currentRaw.indexOf(path)>=0){activeLink=a;}
+  });
+  /* Open the section (L0) containing active link, close others */
+  var sections=document.querySelectorAll('aside.toc details.toc-sec');
+  if(sections.length>0){
+    sections.forEach(function(d){
+      if(activeLink&&d.contains(activeLink)){d.setAttribute('open','');}
+      else{d.removeAttribute('open');}
+    });
+  }
+  /* Expand the chapter (L1) containing active link */
+  if(activeLink){
+    var chap=activeLink.closest('.toc-chapter.has-children');
+    if(chap)chap.classList.add('expanded');
+  }
+  /* If no active link found (e.g. index page), open first section and first chapter */
+  if(!activeLink&&sections.length>0){
+    sections[0].setAttribute('open','');
+    var firstChapter=sections[0].querySelector('.toc-chapter.has-children');
+    if(firstChapter)firstChapter.classList.add('expanded');
+  }
+})();
+</script>
+
+<div id="progress"></div>
+<header class="site-header">
+<div class="header-inner">
+  <a href="/tpvibe/index.html" class="logo"><img src="/tpvibe/images/tp_logo.jpg" alt="TPvibe" width="200" height="200"> TPvibe</a>
+  <input type="checkbox" id="nav-toggle-cb" class="nav-toggle-cb" aria-hidden="true">
+  <label for="nav-toggle-cb" class="nav-toggle" aria-label="打开菜单">&#9776;</label>
+  <nav><ul class="nav-links"><li><a href="/tpvibe/index.html">TPvibe</a></li><li><a href="/tpvibe/index.html">首页</a></li><li><a href="/tpvibe/Basic/lecture-1.html">基础篇</a></li><li><a href="/tpvibe/Advanced/ch01.html">进阶篇</a></li><li><a href="/tpvibe/Articles/core-concepts.html">文章</a></li><li><a href="/tpvibe/Practice/index.html">实践案例</a></li></ul>
+</nav>
+<button class="theme-btn" aria-label="切换主题" onclick="document.documentElement.dataset.theme=document.documentElement.dataset.theme==='dark'?'light':'dark';localStorage.setItem('tpvibe-theme',document.documentElement.dataset.theme)">🌙</button>
+</div>
+</header>
+<main class="container">
+<h1 class="page-title">API 与端到端测试</h1>
+<div class="page-cover reveal">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400" preserveAspectRatio="xMidYMid slice" style="width:100%;height:100%;display:block;">
+  <defs>
+    <linearGradient id="bg-3718614010" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0f172a"/>
+      <stop offset="100%" style="stop-color:#1e3a8a"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="400" fill="url(#bg-3718614010)"/>
+  <polygon points="38,72 0,94 -38,72 -38,28 -0,6 38,28" fill="white" opacity="0.11"/>
+<polygon points="188,66 160,83 132,66 132,34 160,17 188,34" fill="white" opacity="0.06"/>
+<polygon points="357,71 320,92 283,71 283,29 320,8 357,29" fill="white" opacity="0.10"/>
+<polygon points="507,66 480,81 453,66 453,34 480,19 507,34" fill="white" opacity="0.06"/>
+<polygon points="675,70 640,91 605,70 605,30 640,9 675,30" fill="white" opacity="0.10"/>
+<polygon points="826,65 800,80 774,65 774,35 800,20 826,35" fill="white" opacity="0.05"/>
+<polygon points="994,70 960,89 926,70 926,30 960,11 994,30" fill="white" opacity="0.09"/>
+<polygon points="1162,74 1120,99 1078,74 1078,26 1120,1 1162,26" fill="white" opacity="0.05"/>
+<polygon points="113,169 80,188 47,169 47,131 80,112 113,131" fill="white" opacity="0.08"/>
+<polygon points="281,174 240,197 199,174 199,126 240,103 281,126" fill="white" opacity="0.04"/>
+<polygon points="432,168 400,187 368,168 368,132 400,113 432,132" fill="white" opacity="0.08"/>
+<polygon points="600,173 560,196 520,173 520,127 560,104 600,127" fill="white" opacity="0.04"/>
+<polygon points="751,168 720,185 689,168 689,132 720,115 751,132" fill="white" opacity="0.07"/>
+<polygon points="919,172 880,195 841,172 841,128 880,105 919,128" fill="white" opacity="0.03"/>
+<polygon points="1069,167 1040,184 1011,167 1011,133 1040,116 1069,133" fill="white" opacity="0.07"/>
+<polygon points="1237,172 1200,193 1163,172 1163,128 1200,107 1237,128" fill="white" opacity="0.11"/>
+<polygon points="28,266 0,283 -28,266 -28,234 -0,217 28,234" fill="white" opacity="0.06"/>
+<polygon points="196,271 160,292 124,271 124,229 160,208 196,229" fill="white" opacity="0.10"/>
+<polygon points="347,266 320,281 293,266 293,234 320,219 347,234" fill="white" opacity="0.06"/>
+<polygon points="515,270 480,290 445,270 445,230 480,210 515,230" fill="white" opacity="0.09"/>
+<polygon points="683,275 640,300 597,275 597,225 640,200 683,225" fill="white" opacity="0.05"/>
+<polygon points="834,270 800,289 766,270 766,230 800,211 834,230" fill="white" opacity="0.09"/>
+<polygon points="1002,274 960,298 918,274 918,226 960,202 1002,226" fill="white" opacity="0.05"/>
+<polygon points="1153,269 1120,288 1087,269 1087,231 1120,212 1153,231" fill="white" opacity="0.08"/>
+<polygon points="121,374 80,397 39,374 39,326 80,303 121,326" fill="white" opacity="0.04"/>
+<polygon points="271,368 240,386 209,368 209,332 240,314 271,332" fill="white" opacity="0.08"/>
+<polygon points="440,373 400,396 360,373 360,327 400,304 440,327" fill="white" opacity="0.03"/>
+<polygon points="590,367 560,385 530,367 530,333 560,315 590,333" fill="white" opacity="0.07"/>
+<polygon points="758,372 720,394 682,372 682,328 720,306 758,328" fill="white" opacity="0.11"/>
+<polygon points="909,367 880,384 851,367 851,333 880,316 909,333" fill="white" opacity="0.07"/>
+<polygon points="1077,371 1040,393 1003,371 1003,329 1040,307 1077,329" fill="white" opacity="0.10"/>
+<polygon points="1228,366 1200,382 1172,366 1172,334 1200,318 1228,334" fill="white" opacity="0.06"/>
+
+  
+  <text x="60" y="340" font-family="system-ui, -apple-system, sans-serif" font-size="36" font-weight="700" fill="white">API 与端到端测试</text>
+  <rect x="60" y="355" width="60" height="4" rx="2" fill="#06b6d4"/>
+</svg>
+</div>
+
+<div class="content reveal">
+<blockquote><p><strong>本节目标</strong>：掌握 API 测试的覆盖思路和 E2E 测试的实战方法，学会排查 Flaky 测试和阅读测试日志。</p></blockquote><hr><h2>为什么先测 API </h2><p>小明决定开始写测试。但从哪里开始？他的 app 有前端页面、有后端接口、有数据库操作——测哪个？</p><p>老师傅说：&quot;先测地基——API 接口。&quot;</p><p>原因很实际。小明的评分页面报错了，他打开浏览器一看，页面上显示&quot;评分提交失败&quot;。问题出在哪？可能是前端的提交按钮没有正确调用接口，可能是接口本身返回了错误数据，也可能是数据库写入失败。如果没有 API 测试，他得打开浏览器、登录、找到电影、点评分、看结果——每次调试都要走一遍完整流程，才能判断&quot;到底是前端的问题还是后端的问题&quot;。</p><p>但如果有 API 测试，他可以直接发一个请求到 <code>POST /api/movies/42/rate</code>，看返回值。接口返回 200 和正确数据？那问题在前端。接口返回 500？那问题在后端。<strong>API 测试帮你把问题定位到&quot;前端还是后端&quot;这个层面</strong>，不用每次都从浏览器开始排查。</p><p>还有一个重要原因：<strong>API 接口比 UI 稳定得多</strong>。小明的评分页面可能经常改——按钮换位置、改样式、加动画。每次 UI 变动，依赖 UI 元素的测试都可能失败，即使功能本身没问题。但 API 接口的契约相对稳定——&quot;发这个请求，返回这个数据&quot;不会因为按钮换了颜色就变。API 测试写一次，能用很久；UI 测试写一次，可能下周就要改。</p><p>就像检查汽车：你可以单独测发动机能不能启动（API 测试），也可以开上路跑一圈看整体表现（E2E 测试）。发动机测试快、稳定、容易定位问题；路测全面但耗时，而且路况、天气都可能影响结果。大部分问题在发动机测试阶段就能发现。</p><h2>一个接口该测什么 </h2><p>小明的评分接口是 <code>POST /api/movies/:id/rate</code>，接收 <code>{ rating: 4 }</code> 这样的请求体，把评分写入数据库，返回更新后的均分。这个接口该测哪些场景？</p><p><strong>正常路径</strong>：已登录用户提交合法评分（1-5 之间的整数），期望返回 200 和正确的均分。这是最基本的——功能本身能不能用。</p><p><strong>参数校验</strong>：用户提交了评分 0 或者 6（超出 1-5 的范围），期望返回 400 和错误提示。用户提交了一个字符串 <code>&quot;abc&quot;</code> 而不是数字，期望返回 400。这测的是&quot;接口能不能拒绝不合法的输入&quot;——如果接口不校验，数据库里就会出现脏数据。</p><p><strong>权限控制</strong>：未登录用户提交评分，期望返回 401。这测的是&quot;接口有没有检查身份&quot;——第八章你已经加了认证，这里验证它确实在工作。</p><p><strong>边界情况</strong>：同一个用户对同一部电影重复评分——应该更新旧评分还是拒绝？电影 ID 不存在（比如 <code>/api/movies/99999/rate</code>），期望返回 404。这些是业务特有的场景。如果你已经在代码里实现了重复评分的处理逻辑，AI 读代码时会看到并生成对应测试；但如果这个规则还只在你脑子里（你打算实现但还没写），就需要你主动提出来。</p><p><strong>一个接口至少覆盖这四类场景</strong>：正常、校验、权限、边界。这不是教条，而是一种思维方式——每次写测试时问自己：正常情况能用吗？错误输入会被拦住吗？没权限的人能访问吗？有没有我知道但 AI 不知道的特殊情况？</p><div class="api-test-scenarios" data-v-658b3ed8><div class="scenarios-header" data-v-658b3ed8><div class="header-icon" data-v-658b3ed8>📡</div><h3>API 测试四类场景</h3><p class="header-subtitle" data-v-658b3ed8>每个接口至少覆盖这四类场景</p></div><div class="scenarios-grid" data-v-658b3ed8><!--[--><div class="scenario-card" style="--scenario-color:#15a051;--scenario-bg:rgba(21, 160, 81, 0.1);" data-v-658b3ed8><div class="scenario-header" data-v-658b3ed8><span class="scenario-icon" data-v-658b3ed8>✅</span><h4>正常场景</h4></div><p class="scenario-description" data-v-658b3ed8>验证核心功能在理想条件下能正常工作</p><div class="scenario-examples" data-v-658b3ed8><h5 class="examples-title" data-v-658b3ed8>示例</h5><ul class="examples-list" data-v-658b3ed8><!--[--><li class="example-item" data-v-658b3ed8><span class="example-bullet" data-v-658b3ed8>→</span><span class="example-text" data-v-658b3ed8>有效评分 (1-5) → 保存成功 → 返回 201</span></li><li class="example-item" data-v-658b3ed8><span class="example-bullet" data-v-658b3ed8>→</span><span class="example-text" data-v-658b3ed8>查询已存在的电影 → 返回完整数据 → 200</span></li><li class="example-item" data-v-658b3ed8><span class="example-bullet" data-v-658b3ed8>→</span><span class="example-text" data-v-658b3ed8>登录用户访问个人资料 → 返回用户信息</span></li><!--]--></ul></div></div><div class="scenario-card" style="--scenario-color:#2eb3df;--scenario-bg:rgba(46, 179, 223, 0.1);" data-v-658b3ed8><div class="scenario-header" data-v-658b3ed8><span class="scenario-icon" data-v-658b3ed8>🔍</span><h4>校验场景</h4></div><p class="scenario-description" data-v-658b3ed8>验证输入校验逻辑能正确拦截错误数据</p><div class="scenario-examples" data-v-658b3ed8><h5 class="examples-title" data-v-658b3ed8>示例</h5><ul class="examples-list" data-v-658b3ed8><!--[--><li class="example-item" data-v-658b3ed8><span class="example-bullet" data-v-658b3ed8>→</span><span class="example-text" data-v-658b3ed8>评分为 0 或 6 → 校验失败 → 返回 422</span></li><li class="example-item" data-v-658b3ed8><span class="example-bullet" data-v-658b3ed8>→</span><span class="example-text" data-v-658b3ed8>缺少必填字段 → 返回 400 + 错误提示</span></li><li class="example-item" data-v-658b3ed8><span class="example-bullet" data-v-658b3ed8>→</span><span class="example-text" data-v-658b3ed8>邮箱格式错误 → 拒绝注册 → 返回 400</span></li><!--]--></ul></div></div><div class="scenario-card" style="--scenario-color:#D4952C;--scenario-bg:rgba(212, 149, 44, 0.1);" data-v-658b3ed8><div class="scenario-header" data-v-658b3ed8><span class="scenario-icon" data-v-658b3ed8>🔒</span><h4>权限场景</h4></div><p class="scenario-description" data-v-658b3ed8>验证权限控制能阻止未授权访问</p><div class="scenario-examples" data-v-658b3ed8><h5 class="examples-title" data-v-658b3ed8>示例</h5><ul class="examples-list" data-v-658b3ed8><!--[--><li class="example-item" data-v-658b3ed8><span class="example-bullet" data-v-658b3ed8>→</span><span class="example-text" data-v-658b3ed8>未登录访问受保护接口 → 返回 401</span></li><li class="example-item" data-v-658b3ed8><span class="example-bullet" data-v-658b3ed8>→</span><span class="example-text" data-v-658b3ed8>普通用户访问管理员接口 → 返回 403</span></li><li class="example-item" data-v-658b3ed8><span class="example-bullet" data-v-658b3ed8>→</span><span class="example-text" data-v-658b3ed8>访问其他用户的私有数据 → 返回 403</span></li><!--]--></ul></div></div><div class="scenario-card" style="--scenario-color:#e53935;--scenario-bg:rgba(229, 57, 53, 0.1);" data-v-658b3ed8><div class="scenario-header" data-v-658b3ed8><span class="scenario-icon" data-v-658b3ed8>⚠️</span><h4>边界场景</h4></div><p class="scenario-description" data-v-658b3ed8>验证业务特有的边界情况和异常处理</p><div class="scenario-examples" data-v-658b3ed8><h5 class="examples-title" data-v-658b3ed8>示例</h5><ul class="examples-list" data-v-658b3ed8><!--[--><li class="example-item" data-v-658b3ed8><span class="example-bullet" data-v-658b3ed8>→</span><span class="example-text" data-v-658b3ed8>重复评分 → 更新旧评分 → 返回 200</span></li><li class="example-item" data-v-658b3ed8><span class="example-bullet" data-v-658b3ed8>→</span><span class="example-text" data-v-658b3ed8>电影不存在 → 返回 404</span></li><li class="example-item" data-v-658b3ed8><span class="example-bullet" data-v-658b3ed8>→</span><span class="example-text" data-v-658b3ed8>并发请求同一资源 → 正确处理竞态条件</span></li><!--]--></ul></div></div><!--]--></div><div class="scenarios-footer" data-v-658b3ed8><div class="footer-tip" data-v-658b3ed8><span class="tip-icon" data-v-658b3ed8>💡</span><span class="tip-text" data-v-658b3ed8>点击卡片查看详细示例</span></div><div class="footer-note" data-v-658b3ed8> 覆盖这四类场景 = 高质量测试 </div></div></div><details><summary>好奇的话展开看看：评分接口的完整测试</summary><div class="language-typescript vp-adaptive-theme"><button title="Copy Code" class="copy" aria-label="复制代码"></button><span class="lang">typescript</span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">import</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> { describe, test, expect, beforeEach } </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">from</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> &#39;vitest&#39;</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">describe</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&#39;POST /api/movies/:id/rate&#39;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">, () </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=&gt;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> {</span></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;">  // 正常路径</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">  test</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&#39;已登录用户提交合法评分&#39;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">, </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">async</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> () </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=&gt;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> {</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">    const</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;"> res</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> =</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> await</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;"> request</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(app)</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">      .</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">post</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&#39;/api/movies/42/rate&#39;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">)</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">      .</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">set</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&#39;Authorization&#39;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">, </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">`Bearer ${</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">userToken</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">}`</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">)</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">      .</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">send</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">({ rating: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">4</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> })</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">    expect</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(res.status).</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">toBe</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">200</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">)</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">    expect</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(res.body.averageRating).</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">toBeCloseTo</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">4.0</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">)</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">  })</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;">  // 参数校验</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">  test</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&#39;评分超出范围返回 400&#39;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">, </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">async</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> () </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=&gt;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> {</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">    const</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;"> res</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> =</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> await</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;"> request</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(app)</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">      .</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">post</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&#39;/api/movies/42/rate&#39;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">)</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">      .</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">set</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&#39;Authorization&#39;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">, </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">`Bearer ${</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">userToken</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">}`</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">)</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">      .</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">send</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">({ rating: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">6</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> })</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">    expect</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(res.status).</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">toBe</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">400</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">)</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">  })</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;">  // 权限控制</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">  test</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&#39;未登录用户返回 401&#39;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">, </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">async</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> () </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=&gt;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> {</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">    const</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;"> res</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> =</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> await</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;"> request</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(app)</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">      .</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">post</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&#39;/api/movies/42/rate&#39;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">)</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">      .</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">send</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">({ rating: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">4</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> })</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">    expect</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(res.status).</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">toBe</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">401</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">)</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">  })</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;">  // 边界情况</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">  test</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&#39;重复评分更新旧记录&#39;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">, </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">async</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> () </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=&gt;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> {</span></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;">    // 第一次评分</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">    await</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;"> request</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(app)</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">      .</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">post</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&#39;/api/movies/42/rate&#39;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">)</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">      .</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">set</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&#39;Authorization&#39;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">, </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">`Bearer ${</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">userToken</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">}`</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">)</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">      .</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">send</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">({ rating: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">3</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> })</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;">    // 第二次评分（同一用户同一电影）</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">    const</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;"> res</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> =</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> await</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;"> request</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(app)</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">      .</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">post</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&#39;/api/movies/42/rate&#39;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">)</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">      .</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">set</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&#39;Authorization&#39;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">, </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">`Bearer ${</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">userToken</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">}`</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">)</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">      .</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">send</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">({ rating: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">5</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> })</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">    expect</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(res.status).</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">toBe</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">200</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">)</span></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;">    // 应该是更新，不是新增</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">    expect</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(res.body.averageRating).</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">toBe</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">5</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">)</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">  })</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">  test</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&#39;电影不存在返回 404&#39;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">, </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">async</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> () </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=&gt;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> {</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">    const</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;"> res</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> =</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> await</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;"> request</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(app)</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">      .</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">post</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&#39;/api/movies/99999/rate&#39;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">)</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">      .</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">set</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&#39;Authorization&#39;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">, </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">`Bearer ${</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">userToken</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">}`</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">)</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">      .</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">send</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">({ rating: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">4</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> })</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">    expect</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(res.status).</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">toBe</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">404</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">)</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">  })</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">})</span></span></code></pre></div></details><h2>让 AI 帮你生成 API 测试 </h2><p>你已经习惯了让 Claude Code 分析代码库并生成代码，测试也一样。把你的 API 文件夹引用给它，告诉它为每个接口生成测试：</p><blockquote><p>跟 AI 说：&quot;阅读 <code>app/api</code> 文件夹下的所有路由，为每个 API 生成 Vitest 测试。每个接口覆盖：正常请求（200）、参数错误（400）、未授权（401）。&quot;</p></blockquote><p>它会遍历你的接口文件，分析每个路由的参数、返回值和中间件，生成对应的测试代码。但你要审查生成的结果——不是看语法（AI 不太会写错语法），而是看覆盖度。上面说的&quot;四类场景&quot;，AI 读代码后通常能覆盖已实现的逻辑对应的场景。你需要关注的是：有没有你计划实现但还没写的业务规则？有没有代码里没有显式处理的边界情况（比如并发提交、极端数据量）？这些是你作为业务理解者需要补充的。</p><p>还有一个实用技巧：怎么验证测试真的在&quot;测东西&quot;而不是走过场？试着手动在业务代码里引入一个 bug（比如把评分范围校验从 <code>1-5</code> 改成 <code>1-10</code>），然后跑测试。如果测试没有报红，说明它没有真正验证这个约束——你需要加一个针对范围边界的断言。这种&quot;故意破坏代码看测试能不能抓住&quot;的方法叫变异测试，是检验测试质量的好手段。</p><h2>从接口到界面：E2E 测试 </h2><p>小明的 API 测试全过了。他松了口气，觉得评分功能应该没问题了。结果朋友反馈：&quot;点了评分按钮没反应。&quot;</p><p>他去查——API 接口本身没问题，直接发请求能正常返回。问题出在前端：评分按钮的点击事件根本没有调用 API。小明在重构组件时把提交逻辑移到了另一个文件，但忘了在新组件里引入。TypeScript 编译没报错（函数签名是对的，只是没被调用），页面也能正常渲染（按钮在那里，只是点了没反应）。API 测试测不到这个问题，因为 API 测试绕过了前端，直接发请求。</p><p>这就是 E2E 测试的价值：它测的是<strong>用户的完整体验</strong>——从打开页面、点击按钮、到看到结果。它不关心&quot;API 能不能用&quot;或&quot;函数返回值对不对&quot;，它关心的是&quot;用户能不能完成他想做的事&quot;。</p><p><strong>Playwright</strong> 是目前最主流的 E2E 测试工具，微软开源。它能自动打开浏览器（Chrome、Firefox、Safari 都支持），模拟用户的点击、输入、滚动等操作，还能截图和录屏。你可以把它理解为一个&quot;机器人用户&quot;——它按照你写的脚本，像真人一样操作你的应用，然后检查结果是否符合预期。</p><p>Playwright 有一个特别实用的功能：<strong>录制模式</strong>。你不需要从零开始写测试脚本，可以让 Playwright 录制你的操作——你在浏览器里点哪里、输入什么，它自动生成对应的测试代码。生成的代码可能需要微调（比如选择器不够稳定），但作为起点比从零写快得多。运行 <code>npx playwright codegen http://localhost:3000</code> 就能启动录制模式。</p><p>小明的第一个 E2E 测试：用户登录后给电影打分。</p><details><summary>好奇的话展开看看：Playwright 测试代码</summary><div class="language-typescript vp-adaptive-theme"><button title="Copy Code" class="copy" aria-label="复制代码"></button><span class="lang">typescript</span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">import</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> { test, expect } </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">from</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> &#39;@playwright/test&#39;</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">test</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&#39;用户给电影打分&#39;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">, </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">async</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> ({ </span><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70;">page</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> }) </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=&gt;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> {</span></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;">  // 登录</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">  await</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> page.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">goto</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&#39;/login&#39;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">)</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">  await</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> page.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">fill</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&#39;[name=&quot;email&quot;]&#39;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">, </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&#39;ming@example.com&#39;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">)</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">  await</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> page.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">fill</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&#39;[name=&quot;password&quot;]&#39;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">, </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&#39;password123&#39;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">)</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">  await</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> page.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">click</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&#39;button[type=&quot;submit&quot;]&#39;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;">  // 等待登录完成，跳转到首页</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">  await</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> page.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">waitForURL</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&#39;/&#39;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;">  // 进入电影详情页</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">  await</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> page.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">click</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&#39;text=星际穿越&#39;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">)</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">  await</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> page.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">waitForURL</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&#39;/movies/**&#39;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;">  // 点击 4 星</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">  await</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> page.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">click</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&#39;[data-testid=&quot;star-4&quot;]&#39;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">)</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">  await</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> page.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">click</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&#39;[data-testid=&quot;submit-rating&quot;]&#39;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;">  // 验证均分更新</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">  await</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;"> expect</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(page.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">locator</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&#39;.average-rating&#39;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">)).</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">toContainText</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&#39;4&#39;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">)</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">})</span></span></code></pre></div></details><p>注意代码里的 <code>waitForURL</code> 和 <code>waitForURL(&#39;/movies/**&#39;)</code>——这些是<strong>显式等待</strong>，告诉 Playwright &quot;等到页面跳转完成再继续&quot;。如果不等，脚本可能在页面还没加载完就去找元素，找不到就报错。这是 E2E 测试最常见的坑之一，下面会详细讲。</p><h2>Flaky 测试——测试界的&quot;玄学&quot; </h2><div class="component-wrapper" data-v-eed92cd3><div class="component-header" data-v-eed92cd3><h3>Flaky 测试原因分析</h3><div class="category-filter" data-v-eed92cd3><!--[--><button class="active filter-btn" data-v-eed92cd3>全部</button><button class="filter-btn" data-v-eed92cd3>时序问题</button><button class="filter-btn" data-v-eed92cd3>数据竞争</button><button class="filter-btn" data-v-eed92cd3>环境差异</button><!--]--></div></div><div class="component-body" data-v-eed92cd3><div class="cases-grid" data-v-eed92cd3><!--[--><div class="active case-card" data-v-eed92cd3><div class="case-icon" data-v-eed92cd3>⏱️</div><div class="case-name" data-v-eed92cd3>异步操作时序问题</div></div><div class="case-card" data-v-eed92cd3><div class="case-icon" data-v-eed92cd3>😴</div><div class="case-name" data-v-eed92cd3>硬编码等待时间</div></div><div class="case-card" data-v-eed92cd3><div class="case-icon" data-v-eed92cd3>🏁</div><div class="case-name" data-v-eed92cd3>测试间数据竞争</div></div><div class="case-card" data-v-eed92cd3><div class="case-icon" data-v-eed92cd3>🎯</div><div class="case-name" data-v-eed92cd3>脆弱的选择器</div></div><div class="case-card" data-v-eed92cd3><div class="case-icon" data-v-eed92cd3>🌍</div><div class="case-name" data-v-eed92cd3>环境差异</div></div><div class="case-card" data-v-eed92cd3><div class="case-icon" data-v-eed92cd3>⚡</div><div class="case-name" data-v-eed92cd3>并行测试冲突</div></div><!--]--></div><div class="analysis-panel" data-v-eed92cd3><div class="analysis-header" data-v-eed92cd3><div class="analysis-icon" data-v-eed92cd3>⏱️</div><div class="analysis-title" data-v-eed92cd3>异步操作时序问题</div></div><div class="analysis-section" data-v-eed92cd3><div class="section-label" data-v-eed92cd3>❓ 问题表现</div><div class="section-content" data-v-eed92cd3>点击按钮后立刻检查结果，但请求还没返回</div></div><div class="analysis-section" data-v-eed92cd3><div class="section-label" data-v-eed92cd3>🔍 典型症状</div><div class="section-content symptom" data-v-eed92cd3>本地通过，CI 偶尔失败；网络快时通过，慢时失败</div></div><div class="analysis-section" data-v-eed92cd3><div class="section-label" data-v-eed92cd3>💡 根本原因</div><div class="section-content cause" data-v-eed92cd3>测试脚本没有等待异步操作完成就开始断言</div></div><div class="analysis-section" data-v-eed92cd3><div class="section-label" data-v-eed92cd3>✅ 解决方案</div><div class="section-content solution" data-v-eed92cd3>使用显式等待，等到目标元素出现或更新后再断言</div></div><div class="code-comparison" data-v-eed92cd3><div class="code-block bad" data-v-eed92cd3><div class="code-header" data-v-eed92cd3>❌ 错误写法</div><pre data-v-eed92cd3><code data-v-eed92cd3>// ❌ 错误：立刻断言
+await page.click(&#39;[data-testid=&quot;submit&quot;]&#39;)
+await expect(page.locator(&#39;.result&#39;)).toContainText(&#39;成功&#39;)</code></pre></div><div class="code-arrow" data-v-eed92cd3>→</div><div class="code-block good" data-v-eed92cd3><div class="code-header" data-v-eed92cd3>✅ 正确写法</div><pre data-v-eed92cd3><code data-v-eed92cd3>// ✅ 正确：等待元素出现
+await page.click(&#39;[data-testid=&quot;submit&quot;]&#39;)
+await page.waitForSelector(&#39;.result&#39;)
+await expect(page.locator(&#39;.result&#39;)).toContainText(&#39;成功&#39;)</code></pre></div></div></div><div class="diagnosis-box" data-v-eed92cd3><div class="diagnosis-title" data-v-eed92cd3>🔧 Flaky 测试诊断流程</div><ol class="diagnosis-steps" data-v-eed92cd3><li data-v-eed92cd3><strong data-v-eed92cd3>连续跑 5 次</strong>：用 <code data-v-eed92cd3>--repeat-each=5</code> 判断是 Flaky 还是真 bug </li><li data-v-eed92cd3><strong data-v-eed92cd3>看错误类型</strong>：超时？断言失败？网络错误？ </li><li data-v-eed92cd3><strong data-v-eed92cd3>看截图</strong>：测试失败时页面是什么状态？ </li><li data-v-eed92cd3><strong data-v-eed92cd3>看 Trace</strong>：网络请求返回了什么？哪一步卡住了？ </li><li data-v-eed92cd3><strong data-v-eed92cd3>检查数据隔离</strong>：测试之间有没有共享状态？ </li><li data-v-eed92cd3><strong data-v-eed92cd3>检查等待逻辑</strong>：有没有用 <code data-v-eed92cd3>sleep</code>？是否用了显式等待？ </li></ol></div><div class="knowledge-box" data-v-eed92cd3><div class="knowledge-title" data-v-eed92cd3>💡 避免 Flaky 测试的最佳实践</div><ul class="knowledge-list" data-v-eed92cd3><li data-v-eed92cd3>永远不要用 <code data-v-eed92cd3>waitForTimeout</code>（固定等待），用条件等待</li><li data-v-eed92cd3>每个测试独立准备数据，不依赖其他测试的状态</li><li data-v-eed92cd3>使用 <code data-v-eed92cd3>data-testid</code> 而不是 CSS 类名或文本定位元素</li><li data-v-eed92cd3>给断言设置合理的超时时间，考虑 CI 环境性能</li><li data-v-eed92cd3>遇到 Flaky 测试立刻修复，不要让它&quot;偶尔红&quot;</li><li data-v-eed92cd3>用 Playwright 的 <code data-v-eed92cd3>trace</code> 功能记录测试过程，方便排查</li></ul></div></div></div><p>小明写了第一个 E2E 测试，跑了三次：通过、通过、失败。同样的代码，同样的环境，为什么结果不一样？</p><p>这就是 <strong>Flaky 测试</strong>——有时通过有时失败的测试。就像自动售货机偶尔吞钱不出货——不是你投错了硬币，是机器本身不稳定。Flaky 测试是 E2E 测试最让人头疼的问题，几乎每个写 E2E 测试的人都会遇到。</p><p>为什么会 Flaky？原因通常是这几种：</p><p><strong>异步操作的时序问题</strong>。小明点了&quot;提交评分&quot;按钮，测试脚本立刻去检查页面上的均分有没有更新。但评分提交是异步的——请求发出去了，服务器还没返回，页面还没更新，测试就已经断言了。本地网络快的时候，请求瞬间返回，测试通过；网络稍微慢一点，请求还没回来，测试就失败了。解决方法是<strong>显式等待</strong>：不要在操作后立刻断言，而是等到目标元素出现或更新后再断言。Playwright 的 <code>expect(locator).toContainText()</code> 默认会等待一段时间（5 秒），但如果你的操作特别慢（比如涉及文件上传或复杂计算），可能需要手动加长超时时间。</p><p><strong>数据竞争</strong>。小明写了两个测试：测试 A 给电影 42 打了 5 分，测试 B 检查电影 42 的均分是不是 0（假设没人评过分）。如果测试 A 先跑，测试 B 就会失败——因为测试 A 留下的数据影响了测试 B。解决方法是<strong>数据隔离</strong>：每个测试独立准备自己需要的数据，测试结束后清理干净。不要让测试之间共享状态。</p><p><strong>环境差异</strong>。本地开发机性能好、网络快，测试跑得顺畅。但 CI 环境（GitHub Actions 的虚拟机）可能性能差一些、网络延迟高一些，同样的等待时间在本地够用，在 CI 上就不够了。解决方法是给断言设置<strong>合理的超时时间</strong>，不要假设操作会瞬间完成。</p><p>Flaky 测试不能忽略。&quot;偶尔失败&quot;意味着你永远不确定测试结果是否可信——测试通过了，是真的没问题，还是恰好这次没触发 Flaky？安全网上有个洞，你就不敢信任它。遇到 Flaky 测试，要么修好它（找到不稳定的原因并解决），要么暂时跳过它（标记为 <code>skip</code>）并记录原因，但不要让它一直在那里&quot;偶尔红&quot;。</p><p>怎么判断一个测试是 Flaky 还是真的有 bug？一个简单的方法：<strong>连续跑 5 次</strong>。如果 5 次都失败，那大概率是真 bug；如果 5 次里有几次过几次不过，那就是 Flaky。Playwright 支持 <code>--repeat-each=5</code> 参数，让每个测试重复跑 5 次，方便你快速判断。</p><p>修 Flaky 测试的核心原则是：<strong>不要用 <code>sleep</code> 来&quot;等一等&quot;</strong>。<code>await page.waitForTimeout(2000)</code>（等 2 秒）看起来能解决问题，但它只是把问题藏起来了——本地 2 秒够用，CI 上可能不够；今天够用，数据量大了以后可能不够。正确的做法是用<strong>条件等待</strong>：<code>await page.waitForSelector(&#39;.average-rating&#39;)</code>（等到这个元素出现）、<code>await expect(locator).toContainText(&#39;4&#39;)</code>（等到文本变成预期值）。条件等待会在条件满足的瞬间继续执行，既不会等太久（浪费时间），也不会等太短（导致 Flaky）。</p><blockquote><p>跟 AI 说：&quot;这个 E2E 测试有时候通过有时候失败，帮我分析原因并修复。错误信息是：[粘贴错误日志]&quot;</p></blockquote><h2>测试失败了怎么看日志 </h2><p>小明的 E2E 测试挂了，终端输出了一堆信息。他看着满屏的红色文字，不知道从哪里开始。老师傅说：&quot;别慌，三步定位。&quot;</p><p><strong>第一步：看错误类型</strong>。测试失败的错误信息通常分几种：</p><p><code>Timeout waiting for selector &quot;[data-testid=&#39;submit-rating&#39;]&quot;</code> ——这是<strong>等待超时</strong>，意思是 Playwright 在规定时间内没有找到这个元素。可能的原因：页面还没加载完、元素的 <code>data-testid</code> 改了、前面的操作（比如登录）失败了导致页面停在了错误的地方。</p><p><code>Expected &quot;4.0&quot; but received &quot;3.5&quot;</code> ——这是<strong>断言失败</strong>，元素找到了，但值不对。可能的原因：计算逻辑有 bug、测试数据没有正确准备（比如数据库里已经有别的评分记录影响了均分）。</p><p><code>Error: net::ERR_CONNECTION_REFUSED</code> ——这是<strong>网络错误</strong>，通常意味着后端服务没有启动，或者端口不对。</p><p><strong>第二步：看截图</strong>。Playwright 会自动保存测试失败时的页面截图，默认在 <code>test-results/</code> 目录下。打开截图一看就知道页面当时是什么状态——是停在登录页（说明登录失败了）？是显示了错误提示（说明 API 返回了错误）？还是页面一片空白（说明前端渲染崩了）？截图比日志直观得多，很多时候一张截图就能定位问题。</p><p><strong>第三步：看网络请求</strong>。如果截图看不出问题，就要看测试过程中的网络请求。Playwright 可以配置 trace（追踪），记录测试过程中的每一个网络请求和响应。打开 trace 文件，找到评分提交的那个请求——它返回了 200 还是 500？返回的数据是什么？如果 API 返回了 500，那问题在后端；如果 API 返回了正确数据但页面没更新，那问题在前端的渲染逻辑。</p><details><summary>好奇的话展开看看：开启 Playwright Trace</summary><div class="language-typescript vp-adaptive-theme"><button title="Copy Code" class="copy" aria-label="复制代码"></button><span class="lang">typescript</span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;">// playwright.config.ts</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">export</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> default</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;"> defineConfig</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">({</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">  use: {</span></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;">    // 只在测试失败时保存 trace</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">    trace: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&#39;on-first-retry&#39;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">,</span></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;">    // 失败时自动截图</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">    screenshot: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&#39;only-on-failure&#39;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">,</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">  },</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">})</span></span></code></pre></div><p>查看 trace：</p><div class="language-bash vp-adaptive-theme"><button title="Copy Code" class="copy" aria-label="复制代码"></button><span class="lang">bash</span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">npx</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> playwright</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> show-trace</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> test-results/xxx/trace.zip</span></span></code></pre></div><p>这会打开一个可视化界面，你可以逐步回放测试过程，看到每一步操作时页面的状态、网络请求和控制台日志。</p></details><p><strong>错误信息 → 截图 → 网络请求</strong>，三步走下来，绝大部分测试失败都能定位到原因。如果还是找不到，把错误日志和截图一起丢给 AI，让它帮你分析。</p><h2>什么时候用 E2E，什么时候用 API 测试 </h2><p>小明现在有了 API 测试和 E2E 测试两种工具，但他不确定什么时候该用哪个。老师傅给了一个简单的判断标准：</p><p><strong>API 测试覆盖&quot;数据对不对&quot;</strong>——接口返回的状态码、数据格式、业务逻辑是否正确。大部分功能的核心逻辑都可以通过 API 测试验证。写起来快，跑起来快，维护成本低。</p><p><strong>E2E 测试覆盖&quot;用户能不能用&quot;</strong>——页面能不能打开、按钮能不能点、流程能不能走通。只用在最关键的用户流程上：注册登录、核心业务操作（评分、搜索）、支付流程。不要给每个页面都写 E2E 测试——维护成本会爆炸。</p><p>小明的&quot;个人豆瓣&quot;，合理的测试分配是：所有 API 接口都有集成测试（覆盖四类场景），E2E 测试只写两三个——&quot;用户注册登录&quot;、&quot;搜索电影并查看详情&quot;、&quot;给电影评分&quot;。这三个流程覆盖了最核心的用户体验，其他的交给 API 测试就够了。</p><p>一个常见的误区是&quot;E2E 测试更真实，所以更好&quot;。真实不等于更好——E2E 测试确实最接近用户体验，但它的维护成本也最高。小明的评分页面改了一次布局，所有涉及评分的 E2E 测试都要更新选择器；但 API 测试完全不受影响。如果你发现自己花在维护 E2E 测试上的时间比写新功能还多，那说明 E2E 测试写太多了——把一部分逻辑下沉到 API 测试层。</p><p>另一个判断标准：<strong>如果一个 bug 只能通过 E2E 测试发现（比如按钮没绑事件、页面跳转错误），那就用 E2E 测试；如果一个 bug 通过 API 测试就能发现（比如接口返回错误数据、权限没校验），就用 API 测试</strong>。能用更轻量的方式验证的，就不要用更重的方式。</p><hr><div class="callout"><p><strong>本节核心要点</strong></p><ul><li>先测 API：快、稳定、容易定位问题。一个接口至少测四类场景：正常、校验、权限、边界</li><li>E2E 测试测&quot;用户体验&quot;：只覆盖最关键的流程，不要过度使用</li><li>Flaky 测试三大原因：异步时序、数据竞争、环境差异。用显式等待、数据隔离、合理超时来解决</li><li>测试失败三步定位：错误信息 → 截图 → 网络请求</li></ul></div><div class="info custom-block"><p><strong>下一步</strong></p><p>有了测试，但经常忘了跑？去 <a href="./03-automation-workflow.html">自动化工作流</a>——让 Git Hooks 和 GitHub Actions 帮你记住&quot;每次都要检查&quot;。</p></div></div></div>
+</div>
+
+
+</main>
+
+<footer class="site-footer">
+<p>© 2026 TPvibe · 内部预览版</p>
+<p style="margin-top:8px;">
+<a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer">蜀ICP备2024097797号-3</a>
+</p>
+</footer>
+<!-- THEME:tpvibe -->
+<script>
+/* Theme toggle */
+(function(){
+  var r=document.documentElement;
+  var saved=localStorage.getItem('tpvibe-theme');r.dataset.theme=saved||'light';
+  
+  /* sync button icon */
+  
+})();
+/* Reveal on scroll */
+(function(){
+  var obs=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');obs.unobserve(e.target);}});},{threshold:.15});
+  document.querySelectorAll('.reveal').forEach(function(el){obs.observe(el);});
+})();
+/* Progress bar */
+(function(){
+  var bar=document.getElementById('progress');
+  if(!bar)return;
+  window.addEventListener('scroll',function(){
+    var h=document.documentElement.scrollHeight-window.innerHeight;
+    bar.style.width=(h>0?(window.scrollY/h*100):0)+'%';
+  });
+})();
+</script>
+<script>
+/* Theme button icon sync */
+(function(){
+  var btn=document.querySelector('.theme-btn');
+  if(!btn)return;
+  function sync(){btn.textContent=document.documentElement.dataset.theme==='dark'?'☀️':'🌙';}
+  sync();
+  btn.addEventListener('click',function(){setTimeout(sync,0);});
+})();
+</script>
+
+<nav class="mobile-bottom-tabs"><ul><li><a href="/tpvibe/index.html"><svg viewBox="0 0 24 24"><path d="M3 12L12 3l9 9M5 10v10h4v-6h6v6h4V10"/></svg><span>首页</span></a></li><li><a href="/tpvibe/Basic/lecture-1.html"><svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg><span>基础篇</span></a></li><li><a href="/tpvibe/Advanced/ch01.html"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg><span>进阶篇</span></a></li><li><a href="/tpvibe/Articles/core-concepts.html"><svg viewBox="0 0 24 24"><path d="M4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zM8 7h8M8 11h8M8 15h6"/></svg><span>文章</span></a></li><li><a href="/tpvibe/Practice/index.html"><svg viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg><span>实践</span></a></li></ul></nav>
+<script>
+(function(){
+  // 判断当前页面，高亮对应的 tab（目录前缀匹配）
+  var path=location.pathname.replace(/\/index\.html$/,'/').replace(/\/$/,'');
+  var tabs=document.querySelectorAll('.mobile-bottom-tabs a');
+  var bestMatch=null;
+  var bestMatchLen=0;
+  tabs.forEach(function(a){
+    var href=a.getAttribute('href')||'';
+    if(!href)return;
+    var hrefPath=href.replace(/https?:\/\/[^\/]+/,'').replace(/\/index\.html$/,'/').replace(/\/$/,'');
+    if(path===hrefPath){bestMatch=a;return;}
+    // 目录前缀匹配：当前路径以 tab 路径开头
+    if(hrefPath.length>2&&path.indexOf(hrefPath)>=0&&hrefPath.length>bestMatchLen){bestMatch=a;bestMatchLen=hrefPath.length;}
+  });
+  if(bestMatch)bestMatch.classList.add('active');
+})();
+</script>
+
+
+<script src="/tpvibe/toc-sheet.js"></script>
+</body>
+</html>

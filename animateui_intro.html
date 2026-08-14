@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Animate UI · 深度解读</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#ffffff; --grid:#edeff4; --glow:#fff5f0;
+    --ink:#14151a; --muted:#60667a; --line:#e6e8ef;
+    --accent:#d98324; --accent-2:#cf5b3e;
+    --green:#1f9d6b; --yellow:#e0a200; --pink:#e0457f;
+    --card:#ffffff; --soft:#f7f8fb; --shadow:rgba(20,21,26,.08);
+    --radius:18px;
+  }
+  [data-theme="dark"]{
+    --bg:#0e0f14; --grid:#1a1c25; --glow:#1a1410;
+    --ink:#f1f2f6; --muted:#9aa0b4; --line:#262936;
+    --card:#15171f; --soft:#191b24; --shadow:rgba(0,0,0,.5);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0; color:var(--ink); font-family:'Inter','Noto Sans SC',system-ui,sans-serif;
+    background:var(--bg);
+    background-image:
+      linear-gradient(var(--grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+    background-size:34px 34px;
+    background-attachment:fixed;
+    line-height:1.65; -webkit-font-smoothing:antialiased;
+  }
+  body::before{
+    content:""; position:fixed; inset:0; pointer-events:none; z-index:0;
+    background:radial-gradient(60% 50% at 50% -10%, var(--glow), transparent 70%);
+  }
+  h1,h2,h3,.display{font-family:'Space Grotesk','Noto Sans SC',sans-serif; letter-spacing:-.02em;}
+  a{color:var(--accent); text-decoration:none;}
+  code,.mono{font-family:'JetBrains Mono',monospace;}
+  .wrap{max-width:1080px; margin:0 auto; padding:0 22px; position:relative; z-index:1;}
+
+  /* progress + nav */
+  #progress{position:fixed; top:0; left:0; height:3px; width:0; z-index:100;
+    background:linear-gradient(90deg,var(--accent),var(--accent-2)); transition:width .1s;}
+  nav{position:sticky; top:0; z-index:50; backdrop-filter:blur(14px);
+    background:color-mix(in srgb, var(--bg) 78%, transparent);
+    border-bottom:1px solid var(--line);}
+  .nav-in{max-width:1080px; margin:0 auto; padding:13px 22px; display:flex; align-items:center; gap:18px;}
+  .logo{font-family:'Space Grotesk'; font-weight:700; font-size:20px; display:flex; align-items:center; gap:9px;}
+  .logo .dot{width:13px;height:13px;border-radius:4px;background:linear-gradient(135deg,var(--accent),var(--accent-2)); box-shadow:0 0 0 4px color-mix(in srgb,var(--accent) 18%,transparent);}
+  .nav-links{display:flex; gap:6px; margin-left:auto; flex-wrap:wrap;}
+  .nav-links a{color:var(--muted); font-size:14px; font-weight:500; padding:7px 11px; border-radius:9px; transition:.2s;}
+  .nav-links a:hover{color:var(--ink); background:var(--soft);}
+  .toggle{cursor:pointer; border:1px solid var(--line); background:var(--card); border-radius:10px;
+    width:40px; height:36px; display:grid; place-items:center; font-size:16px; transition:.2s;}
+  .toggle:hover{border-color:var(--accent);}
+  .ghost-btn{border:1px solid var(--line); background:var(--card); color:var(--ink); padding:8px 13px;
+    border-radius:10px; font-size:14px; font-weight:600; transition:.2s; cursor:pointer;}
+  .ghost-btn:hover{border-color:var(--accent); transform:translateY(-1px);}
+
+  /* hero */
+  .hero{padding:70px 0 40px; text-align:center;}
+  .eyebrow{display:inline-flex; align-items:center; gap:8px; font-size:13px; font-weight:600; color:var(--accent);
+    background:color-mix(in srgb,var(--accent) 10%,transparent); padding:6px 13px; border-radius:99px; border:1px solid color-mix(in srgb,var(--accent) 25%,transparent);}
+  .hero h1{font-size:clamp(40px,8vw,82px); margin:18px 0 8px; line-height:1; font-weight:700;}
+  .hero h1 .grad{background:linear-gradient(120deg,var(--accent),var(--accent-2)); -webkit-background-clip:text; background-clip:text; color:transparent;}
+  .hero p.sub{font-size:clamp(16px,2.4vw,21px); color:var(--muted); max-width:680px; margin:10px auto 0;}
+  .cta{display:flex; gap:12px; justify-content:center; margin-top:26px; flex-wrap:wrap;}
+  .btn{display:inline-flex; align-items:center; gap:8px; padding:13px 22px; border-radius:12px; font-weight:600; font-size:15px; transition:.22s; cursor:pointer; border:1px solid transparent;}
+  .btn.primary{background:linear-gradient(120deg,var(--accent),var(--accent-2)); color:#fff; box-shadow:0 10px 26px color-mix(in srgb,var(--accent) 35%,transparent);}
+  .btn.primary:hover{transform:translateY(-2px); box-shadow:0 16px 34px color-mix(in srgb,var(--accent) 45%,transparent);}
+  .btn.sec{background:var(--card); border-color:var(--line); color:var(--ink);}
+  .btn.sec:hover{border-color:var(--accent); transform:translateY(-2px);}
+
+  /* stats */
+  .stats{display:grid; grid-template-columns:repeat(6,1fr); gap:14px; margin:40px 0 10px;}
+  .stat{background:var(--card); border:1px solid var(--line); border-radius:var(--radius); padding:18px 12px; text-align:center; box-shadow:0 6px 20px var(--shadow); transition:.25s;}
+  .stat:hover{transform:translateY(-3px); border-color:var(--accent);}
+  .stat .n{font-family:'Space Grotesk'; font-weight:700; font-size:clamp(20px,3vw,28px); color:var(--ink);}
+  .stat .l{font-size:12.5px; color:var(--muted); margin-top:3px;}
+
+  /* sections */
+  section{padding:54px 0; scroll-margin-top:74px;}
+  .sec-head{margin-bottom:26px;}
+  .sec-head .k{font-size:13px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--accent);}
+  .sec-head h2{font-size:clamp(26px,4vw,38px); margin:8px 0 6px;}
+  .sec-head p{color:var(--muted); max-width:720px; margin:0;}
+
+  .card{background:var(--card); border:1px solid var(--line); border-radius:var(--radius); padding:22px; box-shadow:0 6px 22px var(--shadow); transition:.25s;}
+  .card:hover{transform:translateY(-3px); box-shadow:0 14px 34px var(--shadow); border-color:color-mix(in srgb,var(--accent) 40%,var(--line));}
+  .grid{display:grid; gap:16px;}
+  .g2{grid-template-columns:repeat(2,1fr);} .g3{grid-template-columns:repeat(3,1fr);} .g4{grid-template-columns:repeat(4,1fr);}
+  .pillar .ic{width:44px;height:44px;border-radius:12px; display:grid; place-items:center; font-size:22px; margin-bottom:12px;
+    background:color-mix(in srgb,var(--accent) 12%,transparent); border:1px solid color-mix(in srgb,var(--accent) 22%,transparent);}
+  .pillar h3{font-size:18px; margin:0 0 6px;} .pillar p{color:var(--muted); font-size:14.5px; margin:0;}
+
+  .chips{display:flex; gap:10px; flex-wrap:wrap;}
+  .chip{display:inline-flex; align-items:center; gap:8px; padding:10px 15px; border-radius:12px; border:1px solid var(--line);
+    background:var(--card); font-weight:600; font-size:14.5px; transition:.2s;}
+  .chip:hover{border-color:var(--accent-2); transform:translateY(-2px); box-shadow:0 8px 20px var(--shadow);}
+  .chip .d{width:9px;height:9px;border-radius:50%; background:linear-gradient(135deg,var(--accent),var(--accent-2));}
+
+  /* flow */
+  .flow{display:flex; align-items:stretch; justify-content:center; gap:0; flex-wrap:wrap; margin:10px 0;}
+  .node{flex:1 1 200px; min-width:180px; background:var(--card); border:1px solid var(--line);
+    padding:16px; text-align:center; box-shadow:0 6px 20px var(--shadow); margin:6px; border-radius:var(--radius);}
+  .node h3{font-size:16px; color:var(--accent); margin:6px 0;}
+  .node .d{font-size:14.5px; color:var(--muted);}
+  .arrow{align-self:center; font-family:'Space Grotesk'; color:var(--accent-2); font-size:20px; padding:0 6px;}
+
+  /* tabs */
+  .tabs{display:flex; gap:6px; flex-wrap:wrap; margin-bottom:18px; border-bottom:1px solid var(--line); padding-bottom:12px;}
+  .tab{border:1px solid var(--line); background:var(--card); color:var(--muted); padding:9px 15px; border-radius:11px; font-weight:600; font-size:14px; cursor:pointer; transition:.2s;}
+  .tab:hover{color:var(--ink);}
+  .tab.active{background:linear-gradient(120deg,var(--accent),var(--accent-2)); color:#fff; border-color:transparent; box-shadow:0 8px 20px color-mix(in srgb,var(--accent) 35%,transparent);}
+  .panel-box{display:none;} .panel-box.active{display:block; animation:fade .35s ease;}
+  @keyframes fade{from{opacity:0; transform:translateY(8px);} to{opacity:1; transform:none;}}
+
+  /* code */
+  .code{background:var(--ink); color:#e7e9f2; border-radius:14px; padding:16px 18px; overflow:auto; box-shadow:0 10px 30px var(--shadow);}
+  .code pre{margin:0; font-family:'JetBrains Mono'; font-size:13.5px; line-height:1.7;}
+  .code .c{color:#7c8499;} .code .s{color:#9be8b0;} .code .p{color:#ffae8a;} .code .b{color:#8db4ff;}
+  .copy{float:right; cursor:pointer; font-size:12px; color:#aeb4c8; border:1px solid #2c2f3a; background:#1b1d26; padding:4px 9px; border-radius:8px;}
+  .copy:hover{color:#fff;}
+
+  .callout{border-left:4px solid var(--accent); background:color-mix(in srgb,var(--accent) 7%,var(--card)); padding:14px 17px; border-radius:0 12px 12px 0; font-size:14.5px; color:var(--muted); margin:16px 0;}
+  .callout b{color:var(--ink);}
+
+  /* accordion (FAQ) */
+  .acc{border:1px solid var(--line); border-radius:14px; overflow:hidden; background:var(--card); margin-bottom:11px; box-shadow:0 4px 16px var(--shadow);}
+  .acc-h{display:flex; align-items:center; gap:13px; padding:17px 19px; cursor:pointer; transition:.2s; user-select:none;}
+  .acc-h:hover{background:var(--soft);}
+  .acc-h .num{font-family:'Space Grotesk'; font-weight:700; color:var(--accent); font-size:15px; min-width:30px;}
+  .acc-h h3{font-size:17px; margin:0; flex:1;}
+  .acc-h .ar{transition:.3s; color:var(--muted); font-size:18px;}
+  .acc.open .acc-h .ar{transform:rotate(45deg); color:var(--accent);}
+  .acc-b{max-height:0; overflow:hidden; transition:max-height .35s ease;}
+  .acc-b-in{padding:0 19px 19px 62px; color:var(--muted); font-size:15px;}
+  .acc-b-in ul{margin:8px 0 0; padding-left:18px;} .acc-b-in li{margin:5px 0;}
+
+  /* timeline */
+  .tl{position:relative; margin-left:14px; padding-left:30px; border-left:2px solid var(--line);}
+  .tl-item{position:relative; padding:0 0 28px 0;}
+  .tl-item::before{content:""; position:absolute; left:-39px; top:4px; width:15px; height:15px; border-radius:50%; background:var(--card); border:3px solid var(--accent);}
+  .tl-item .v{font-family:'Space Grotesk'; font-weight:700; color:var(--accent); font-size:15px;}
+  .tl-item .t{font-weight:700; font-size:17px; margin:2px 0 5px;}
+  .tl-item p{color:var(--muted); margin:0; font-size:14.5px;}
+
+  /* list */
+  ul.b{list-style:none; padding-left:0; margin:10px 0;}
+  ul.b li{padding:6px 0 6px 26px; position:relative; color:var(--muted); font-size:15px;}
+  ul.b li::before{content:"▸"; position:absolute; left:4px; color:var(--accent); font-weight:bold;}
+
+  footer{border-top:1px solid var(--line); padding:36px 0 60px; text-align:center; color:var(--muted); font-size:14px;}
+  .reveal{opacity:0; transform:translateY(22px); transition:opacity .7s ease, transform .7s ease;}
+  .reveal.in{opacity:1; transform:none;}
+  @media(max-width:760px){.stats{grid-template-columns:repeat(3,1fr);} .g2,.g3,.g4{grid-template-columns:1fr;} .nav-links{display:none;}}
+</style>
+</head>
+<body>
+<div id="progress"></div>
+<nav>
+  <div class="nav-in">
+    <div class="logo"><span class="dot"></span>Animate UI</div>
+    <div class="nav-links">
+      <a href="#overview">概览</a>
+      <a href="#deep">深读</a>
+      <a href="#faq">FAQ</a>
+      <a href="#start">快速开始</a>
+    </div>
+    <button class="toggle" id="themeBtn" title="切换明暗">◐</button>
+    <a class="ghost-btn" href="tp.html">← 返回 TP 中心</a>
+  </div>
+</nav>
+
+<div class="wrap">
+
+  <!-- HERO -->
+  <header class="hero">
+    <span class="eyebrow">React · 轻量动画库</span>
+    <h1><span class="grad">Animate UI</span></h1>
+    <p class="sub">基于 Motion（Framer Motion）的轻量 React 动画组件库：用声明式 props 直接包裹元素，就能拿到入场、退场与循环动画，打包体积几乎无感。</p>
+    <div class="cta">
+      <a class="btn primary" href="https://animate-ui.com" target="_blank" rel="noopener">⚡ 访问官网 ↗</a>
+      <a class="btn sec" href="#overview">🔍 深入了解</a>
+    </div>
+    <div class="stats">
+      <div class="stat reveal"><div class="n" data-to="30" data-suf="+">0</div><div class="l">动画组件</div></div>
+      <div class="stat reveal"><div class="n" data-to="3" data-suf=" KB">0</div><div class="l">gzip 包体积(约)</div></div>
+      <div class="stat reveal"><div class="n" data-to="1" data-suf="">0</div><div class="l">核心依赖 (Motion)</div></div>
+      <div class="stat reveal"><div class="n" data-to="5" data-suf="">0</div><div class="l">触发方式</div></div>
+      <div class="stat reveal"><div class="n" data-to="18" data-suf="+">0</div><div class="l">支持 React 版本</div></div>
+      <div class="stat reveal"><div class="n" data-to="3" data-suf="">0</div><div class="l">动画类型</div></div>
+    </div>
+    <div class="callout" style="text-align:left; max-width:760px; margin:18px auto 0;">
+      ⚠️ 数据说明：上方「包体积 / 组件数」为基于官网与 Tabbit 报告的合理估算，未在本次会话中独立打包核验；安装包名为 <code>animate-ui-react</code>。Animate UI 的卖点是「比 ReactBits 更精简」，适合只为页面加少量动画增强、不想引入重框架的项目。
+    </div>
+  </header>
+
+  <!-- OVERVIEW -->
+  <section id="overview">
+    <div class="sec-head reveal">
+      <div class="k">Overview</div>
+      <h2>它解决什么问题：让动画回到「写组件」本身</h2>
+      <p>传统做法是手写 CSS keyframes 或在组件里挂载 useEffect 调用 Motion API——样板代码多、退场动画（unmount 时）尤其难写。Animate UI 把常见动效封装成声明式组件，包裹即生效。</p>
+    </div>
+    <div class="grid g3">
+      <div class="card pillar reveal"><div class="ic">🧩</div><h3>声明式 API</h3><p>用 <code>FadeIn</code> / <code>SlideUp</code> / <code>Scale</code> 等组件包裹目标元素，动画行为靠 props 表达，不再手写 keyframes。</p></div>
+      <div class="card pillar reveal"><div class="ic">↔️</div><h3>入场 / 退场</h3><p>元素挂载时淡入、卸载时淡出，退场过渡由组件托管，避免手动管理 unmount 时序。</p></div>
+      <div class="card pillar reveal"><div class="ic">🔁</div><h3>循环动画</h3><p>内置 loop 模式，适合 loading 指示、呼吸灯等需要无限循环的场景，无需自己写 animation-iteration。</p></div>
+      <div class="card pillar reveal"><div class="ic">🎯</div><h3>触发控制</h3><p>支持 scroll、hover、click、in-view 等触发方式，把动画绑定到用户交互或滚动位置。</p></div>
+      <div class="card pillar reveal"><div class="ic">🪶</div><h3>体积小</h3><p>gzip 约 3 KB 量级，仅依赖 Motion，不会显著拉高打包体积；比 ReactBits 更克制。</p></div>
+      <div class="card pillar reveal"><div class="ic">🧱</div><h3>可组合</h3><p>组件可嵌套，配合 <code>delay</code> prop 实现错落有致的连续动画，复合效果由组合而非新 API 产生。</p></div>
+    </div>
+  </section>
+
+  <!-- DEEP DIVE -->
+  <section id="deep">
+    <div class="sec-head reveal">
+      <div class="k">Deep Dive</div>
+      <h2>设计理念：声明式 + 基于 Motion 的薄封装</h2>
+      <p>Animate UI 不是另起炉灶的动画引擎，而是在 Motion（原 Framer Motion）之上做的一层「组件化薄封装」。真正的动画计算、退场编排、可访问性（prefers-reduced-motion）都交给成熟的 Motion，库本身只负责把常见模式变成可读的 JSX。</p>
+    </div>
+    <div class="card reveal" style="margin-bottom:18px">
+      <ul class="b">
+        <li><b style="color:var(--ink)">底层引擎是 Motion</b>：位移、缩放、不透明度由 Motion 的 <code>animate</code> 驱动，性能与退场时序有社区验证。</li>
+        <li><b style="color:var(--ink)">组件即动画</b>：一个 <code>&lt;FadeIn&gt;</code> 等于「初始 opacity 0 → 1」的预设，省去重复声明初态/终态。</li>
+        <li><b style="color:var(--ink)">props 即配置</b>：<code>delay</code>、<code>duration</code>、<code>loop</code> 等参数直接写在标签上，改一处即可调节奏。</li>
+        <li><b style="color:var(--ink)">零额外心智负担</b>：没有新的状态管理概念，组件卸载时自动处理退场，不残留定时器。</li>
+      </ul>
+      <div class="callout reveal" style="text-align:left; margin-bottom:0;">💡 选它的理由很直接：如果你的项目只想给卡片、列表、弹窗加「出现/消失」的润色，又不想为动画引入一整套设计系统，Animate UI 的「薄」就是它的核心优势。</div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head reveal">
+      <div class="k">Usage</div>
+      <h2>上手用法：包一层组件就动起来</h2>
+      <p>安装 <code>animate-ui-react</code>，用动画组件包裹任意子元素即可。下面是最典型的三种预设与错落延迟写法。</p>
+    </div>
+    <div class="code reveal"><button class="copy">复制</button><pre><span class="c">// 1) 安装</span>
+<span class="p">npm</span> install animate-ui-react
+
+<span class="c">// 2) 用组件包裹目标元素</span>
+<span class="b">import</span> { FadeIn, SlideUp, Scale } <span class="b">from</span> <span class="s">'animate-ui-react'</span>;
+
+<span class="b">function</span> Card() {
+  <span class="b">return</span> (
+    <span class="b">&lt;</span>FadeIn delay={<span class="s">0.1</span>}<span class="b">&gt;</span>
+      <span class="b">&lt;</span>SlideUp delay={<span class="s">0.2</span>}<span class="b">&gt;</span>
+        <span class="b">&lt;</span>Scale<span class="b">&gt;</span>Hello Animate UI<span class="b">&lt;/</span>Scale<span class="b">&gt;</span>
+      <span class="b">&lt;/</span>SlideUp<span class="b">&gt;</span>
+    <span class="b">&lt;/</span>FadeIn<span class="b">&gt;</span>
+  );
+}</pre></div>
+    <div class="callout reveal" style="text-align:left">⚠️ <code>delay</code> 单位为秒（与 Motion 一致）。多个动画组件嵌套时，给内层递增 delay 即可形成「先淡入、再上滑、最后放大」的连续节奏，无需手动编排 Promise。</div>
+  </section>
+
+  <section>
+    <div class="sec-head reveal">
+      <div class="k">Triggers</div>
+      <h2>触发控制与循环：把动画交给交互</h2>
+      <p>除了挂载即播放，Animate UI 支持把动画挂到交互/滚动事件上，并用 loop 模式做持续动画。</p>
+    </div>
+    <div class="flow reveal">
+      <div class="node"><div class="ic">🖱️</div><h3>交互触发</h3><div class="d">hover / click 时播放或反向播放</div></div>
+      <div class="arrow">→</div>
+      <div class="node"><div class="ic">📜</div><h3>滚动触发</h3><div class="d">元素进入视口（in-view）才入场</div></div>
+      <div class="arrow">→</div>
+      <div class="node"><div class="ic">🔁</div><h3>循环触发</h3><div class="d">loading 等无限循环动画</div></div>
+    </div>
+    <div class="chips reveal" style="margin:14px 0 18px">
+      <span class="chip"><span class="d"></span>scroll · 进入视口入场</span>
+      <span class="chip"><span class="d"></span>hover · 悬停高亮/位移</span>
+      <span class="chip"><span class="d"></span>click · 点击触发</span>
+      <span class="chip"><span class="d"></span>in-view · 可见即播放</span>
+      <span class="chip"><span class="d"></span>loop · 无限循环</span>
+    </div>
+    <div class="code reveal"><button class="copy">复制</button><pre><span class="c">// 滚动进入视口时入场 + loading 循环动画</span>
+<span class="b">import</span> { FadeIn, Loop } <span class="b">from</span> <span class="s">'animate-ui-react'</span>;
+
+<span class="b">&lt;</span>FadeIn <span class="b">in-view</span> delay={<span class="s">0.1</span>}<span class="b">&gt;</span>
+  <span class="b">&lt;</span>Loop<span class="b">&gt;</span>
+    <span class="b">&lt;</span>span<span class="b">&gt;</span>加载中…<span class="b">&lt;/</span>span<span class="b">&gt;</span>
+  <span class="b">&lt;/</span>Loop<span class="b">&gt;</span>
+<span class="b">&lt;/</span>FadeIn<span class="b">&gt;</span></pre></div>
+    <div class="callout reveal" style="text-align:left; margin-bottom:0;">📌 触发类 props 的具体命名以官网文档为准（如 <code>in-view</code> / <code>whileHover</code> 等可能随版本调整）。思路不变：把「何时播放」从 JS 逻辑挪到组件属性上。</div>
+  </section>
+
+  <section>
+    <div class="sec-head reveal">
+      <div class="k">Comparison</div>
+      <h2>它和 ReactBits、Framer Motion 怎么选</h2>
+      <p>三者不是替代关系，而是不同抽象层。按「想要的掌控力 / 想写的代码量」取其一。</p>
+    </div>
+    <div class="tl reveal">
+      <div class="tl-item"><div class="v">Framer Motion / Motion</div><div class="t">底层引擎层</div><p>给需要完全自定义动画参数的场景。你能控制每一帧，但要手写初态/终态/退场逻辑，样板最多。</p></div>
+      <div class="tl-item"><div class="v">Animate UI</div><div class="t">组件预设层</div><p>在 Motion 之上封装常见动效（淡入/上滑/缩放/循环）。想「包一层就动」、又想比 ReactBits 更轻，选它。</p></div>
+      <div class="tl-item"><div class="v">ReactBits</div><div class="t">组件 + 模板层</div><p>更全的动画/特效组件合集，覆盖面广但体积更大。项目需要大量花哨特效时可上，否则 Animate UI 更克制。</p></div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq">
+    <div class="sec-head reveal">
+      <div class="k">FAQ</div>
+      <h2>常见问题</h2>
+      <p>关于体积、依赖、退场动画与选型的高频疑问。</p>
+    </div>
+    <div class="reveal">
+      <div class="acc">
+        <div class="acc-h"><span class="num">01</span><h3>Animate UI 依赖什么？会拉进很重的包吗？</h3><span class="ar">＋</span></div>
+        <div class="acc-b"><div class="acc-b-in">唯一的运行时依赖是 Motion（原 Framer Motion）。库本身就是一层薄封装，gzip 体积约在 3 KB 量级，不会显著拉高打包体积——这也是它相比 ReactBits 更「轻」的原因。</div></div>
+      </div>
+      <div class="acc">
+        <div class="acc-h"><span class="num">02</span><h3>它和 Framer Motion 是什么关系？</h3><span class="ar">＋</span></div>
+        <div class="acc-b"><div class="acc-b-in">Animate UI 运行在 Motion 之上，是对常见动效的「组件化预设」：
+          <ul><li>想完全自定义每一帧 → 直接用 Motion</li>
+          <li>想用声明式组件快速加动效 → 用 Animate UI</li>
+          <li>两者可并存，Animate UI 不屏蔽底层 Motion 能力</li></ul></div></div>
+      </div>
+      <div class="acc">
+        <div class="acc-h"><span class="num">03</span><h3>退场（unmount）动画怎么处理？</h3><span class="ar">＋</span></div>
+        <div class="acc-b"><div class="acc-b-in">由组件托管。你只需把元素包进动画组件，组件内部在卸载前播放退场过渡，再真正移除 DOM——不需要你手写 <code>useEffect</code> + 定时器去延迟 unmount。</div></div>
+      </div>
+      <div class="acc">
+        <div class="acc-h"><span class="num">04</span><h3>支持 React 18 之外的版本吗？要用 TS 吗？</h3><span class="ar">＋</span></div>
+        <div class="acc-b"><div class="acc-b-in">面向 React 18+ 的现代 React 项目，普通函数组件即可使用。它提供声明式 JSX 组件，TypeScript 项目能直接拿到 prop 类型提示，无需额外配置。</div></div>
+      </div>
+      <div class="acc">
+        <div class="acc-h"><span class="num">05</span><h3>能在 ReactBits 与 Animate UI 之间二选一吗？</h3><span class="ar">＋</span></div>
+        <div class="acc-b"><div class="acc-b-in">可以二选一，不必都装。准则：
+          <ul><li>只要少量入场/退场/循环润色 → Animate UI 更轻</li>
+          <li>需要大量特效组件与模板 → ReactBits 覆盖更全</li>
+          <li>两者都不想引入重依赖 → 直接用 Motion 手写</li></ul></div></div>
+      </div>
+      <div class="acc">
+        <div class="acc-h"><span class="num">06</span><h3>循环动画会一直占主线程吗？</h3><span class="ar">＋</span></div>
+        <div class="acc-b"><div class="acc-b-in">循环类动画（如 <code>Loop</code>）由 Motion 驱动，走 GPU 友好的 transform/opacity 属性，开销很低。仍建议用 React DevTools Profiler 抽样检查，避免在列表里对成百上千个元素同时开循环动画。</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- START -->
+  <section id="start">
+    <div class="sec-head reveal">
+      <div class="k">Quick Start</div>
+      <h2>两分钟上手</h2>
+      <p>装包 → 引入组件 → 包裹元素。下面给出真实安装命令与一个最小可用示例。</p>
+    </div>
+
+    <div class="tabs reveal" id="tabs">
+      <button class="tab active" data-t="install">📦 安装</button>
+      <button class="tab" data-t="demo">⚛️ 最小用法</button>
+    </div>
+
+    <div class="panel-box active" data-p="install">
+      <div class="code reveal"><button class="copy">复制</button><pre><span class="c"># npm</span>
+<span class="p">npm</span> install animate-ui-react
+
+<span class="c"># 或 pnpm</span>
+<span class="p">pnpm</span> add animate-ui-react
+
+<span class="c"># 或 yarn</span>
+<span class="p">yarn</span> add animate-ui-react</pre></div>
+      <div class="callout reveal" style="text-align:left">⚠️ 包名是 <code>animate-ui-react</code>（不是 <code>animate-ui</code>）。安装前确认项目已是 React 18+。</div>
+    </div>
+
+    <div class="panel-box" data-p="demo">
+      <div class="code reveal"><button class="copy">复制</button><pre><span class="b">import</span> { FadeIn, SlideUp } <span class="b">from</span> <span class="s">'animate-ui-react'</span>;
+
+<span class="b">export default function</span> App() {
+  <span class="b">return</span> (
+    <span class="b">&lt;</span>main<span class="b">&gt;</span>
+      <span class="b">&lt;</span>FadeIn delay={<span class="s">0.1</span>}<span class="b">&gt;</span>
+        <span class="b">&lt;</span>h1<span class="b">&gt;</span>欢迎<span class="b">&lt;/</span>h1<span class="b">&gt;</span>
+      <span class="b">&lt;/</span>FadeIn<span class="b">&gt;</span>
+      <span class="b">&lt;</span>SlideUp delay={<span class="s">0.25</span>}<span class="b">&gt;</span>
+        <span class="b">&lt;</span>p<span class="b">&gt;</span>这一段会向上滑入。<span class="b">&lt;/</span>p<span class="b">&gt;</span>
+      <span class="b">&lt;/</span>SlideUp<span class="b">&gt;</span>
+    <span class="b">&lt;/</span>main<span class="b">&gt;</span>
+  );
+}</pre></div>
+      <div class="callout reveal" style="text-align:left; margin-bottom:0;">💡 跑起来后用 React DevTools Profiler 抽查渲染开销；需要无限循环时换用 <code>Loop</code> 组件，需要交互触发时挂 hover/click/in-view 类 props。</div>
+    </div>
+  </section>
+
+  <footer>made with ♥ &amp; a white grid — <b>Animate UI 深度解读</b><div style="margin-top:6px;font-size:13px">数据抓取于 2026-07-14 · 内容综合自官网与 Tabbit 报告</div></footer>
+</div>
+
+<script>
+/* theme */
+const root=document.documentElement, tb=document.getElementById('themeBtn');
+tb.onclick=()=>{root.dataset.theme=root.dataset.theme==='light'?'dark':'light';};
+/* progress bar */
+const prog=document.getElementById('progress');
+addEventListener('scroll',()=>{const h=document.documentElement;
+  prog.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+'%';});
+/* reveal */
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in');}),{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+/* counters */
+function animateCounters(){
+  document.querySelectorAll('.stat .n').forEach(el=>{
+    const to=parseFloat(el.dataset.to), suf=el.dataset.suf||'';
+    let cur=0; const step=to/46;
+    const t=setInterval(()=>{cur+=step; if(cur>=to){cur=to; clearInterval(t);}
+      el.textContent=(to%1?cur.toFixed(1):Math.round(cur))+suf;},22);
+  });
+}
+const heroIO=new IntersectionObserver((es,o)=>{es.forEach(e=>{if(e.isIntersecting){animateCounters();o.disconnect();}});},{threshold:.4});
+heroIO.observe(document.querySelector('.hero'));
+/* tabs */
+document.querySelectorAll('.tabs').forEach(wrap=>{
+  const boxes=Array.from(wrap.parentElement.children).filter(c=>c.classList.contains('panel-box'));
+  wrap.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{
+    wrap.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
+    b.classList.add('active');
+    const t=b.dataset.t;
+    boxes.forEach(p=>p.classList.toggle('active',p.dataset.p===t));
+  });
+});
+/* accordion */
+document.querySelectorAll('.acc-h').forEach(h=>h.onclick=()=>{
+  const acc=h.parentElement, b=acc.querySelector('.acc-b');
+  const open=acc.classList.toggle('open');
+  b.style.maxHeight=open?b.scrollHeight+'px':'0';
+});
+/* copy */
+document.querySelectorAll('.copy').forEach(b=>b.onclick=()=>{
+  const pre=b.parentElement.querySelector('pre');
+  navigator.clipboard.writeText(pre.innerText).then(()=>{const t=b.textContent;b.textContent='已复制 ✓';setTimeout(()=>b.textContent=t,1400);});
+});
+</script>
+<a href="tp.html" style="position:fixed;left:18px;bottom:18px;z-index:90;display:inline-flex;align-items:center;gap:7px;font:600 14px/1 system-ui,sans-serif;color:#fff;text-decoration:none;background:linear-gradient(120deg,var(--accent),var(--accent-2));padding:11px 17px;border-radius:12px;box-shadow:0 8px 30px rgba(0,0,0,.3)">← 返回 TP 中心</a>
+<script>
+/* Theme button icon sync */
+(function(){
+  var btn=document.querySelector('.theme-btn');
+  if(!btn)return;
+  function sync(){btn.textContent=document.documentElement.dataset.theme==='dark'?'☀️':'🌙';}
+  sync();
+  btn.addEventListener('click',function(){setTimeout(sync,0);});
+})();
+</script>
+<script>
+/* Auto-collapse TOC: only expand the section containing the current page */
+(function(){
+  var details=document.querySelectorAll('aside.toc details.toc-sec');
+  if(details.length<2)return;
+  var current=location.pathname.replace(/\/$/,'');
+  var activeLink=null;
+  document.querySelectorAll('aside.toc a').forEach(function(a){
+    var href=a.getAttribute('href')||'';
+    if(href && !href.startsWith('http') && !href.startsWith('#')){
+      var path=href.replace(/^https?:\/\/[^\/]+/,'').replace(/\/$/,'');
+      if(current===path || current.indexOf(path)>-1 || path.indexOf(current)>-1){
+        activeLink=a;
+      }
+    }
+  });
+  details.forEach(function(d){
+    if(activeLink && d.contains(activeLink)){d.setAttribute('open','');}
+    else{d.removeAttribute('open');}
+  });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Refero · 深度解读</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#ffffff; --grid:#edeff4; --glow:#fff5f0;
+    --ink:#14151a; --muted:#60667a; --line:#e6e8ef;
+    --accent:#cf5b3e; --accent-2:#e0a200;
+    --green:#1f9d6b; --yellow:#e0a200; --pink:#e0457f;
+    --card:#ffffff; --soft:#f7f8fb; --shadow:rgba(20,21,26,.08);
+    --radius:18px;
+  }
+  [data-theme="dark"]{
+    --bg:#0e0f14; --grid:#1a1c25; --glow:#1a1410;
+    --ink:#f1f2f6; --muted:#9aa0b4; --line:#262936;
+    --card:#15171f; --soft:#191b24; --shadow:rgba(0,0,0,.5);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0; color:var(--ink); font-family:'Inter','Noto Sans SC',system-ui,sans-serif;
+    background:var(--bg);
+    background-image:
+      linear-gradient(var(--grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+    background-size:34px 34px;
+    background-attachment:fixed;
+    line-height:1.65; -webkit-font-smoothing:antialiased;
+  }
+  body::before{
+    content:""; position:fixed; inset:0; pointer-events:none; z-index:0;
+    background:radial-gradient(60% 50% at 50% -10%, var(--glow), transparent 70%);
+  }
+  h1,h2,h3,.display{font-family:'Space Grotesk','Noto Sans SC',sans-serif; letter-spacing:-.02em;}
+  a{color:var(--accent); text-decoration:none;}
+  code,.mono{font-family:'JetBrains Mono',monospace;}
+  .wrap{max-width:1080px; margin:0 auto; padding:0 22px; position:relative; z-index:1;}
+
+  /* progress + nav */
+  #progress{position:fixed; top:0; left:0; height:3px; width:0; z-index:100;
+    background:linear-gradient(90deg,var(--accent),var(--accent-2)); transition:width .1s;}
+  nav{position:sticky; top:0; z-index:50; backdrop-filter:blur(14px);
+    background:color-mix(in srgb, var(--bg) 78%, transparent);
+    border-bottom:1px solid var(--line);}
+  .nav-in{max-width:1080px; margin:0 auto; padding:13px 22px; display:flex; align-items:center; gap:18px;}
+  .logo{font-family:'Space Grotesk'; font-weight:700; font-size:20px; display:flex; align-items:center; gap:9px;}
+  .logo .dot{width:13px;height:13px;border-radius:4px;background:linear-gradient(135deg,var(--accent),var(--accent-2)); box-shadow:0 0 0 4px color-mix(in srgb,var(--accent) 18%,transparent);}
+  .nav-links{display:flex; gap:6px; margin-left:auto; flex-wrap:wrap;}
+  .nav-links a{color:var(--muted); font-size:14px; font-weight:500; padding:7px 11px; border-radius:9px; transition:.2s;}
+  .nav-links a:hover{color:var(--ink); background:var(--soft);}
+  .toggle{cursor:pointer; border:1px solid var(--line); background:var(--card); border-radius:10px;
+    width:40px; height:36px; display:grid; place-items:center; font-size:16px; transition:.2s;}
+  .toggle:hover{border-color:var(--accent);}
+  .ghost-btn{border:1px solid var(--line); background:var(--card); color:var(--ink); padding:8px 13px;
+    border-radius:10px; font-size:14px; font-weight:600; transition:.2s; cursor:pointer;}
+  .ghost-btn:hover{border-color:var(--accent); transform:translateY(-1px);}
+
+  /* hero */
+  .hero{padding:70px 0 40px; text-align:center;}
+  .eyebrow{display:inline-flex; align-items:center; gap:8px; font-size:13px; font-weight:600; color:var(--accent);
+    background:color-mix(in srgb,var(--accent) 10%,transparent); padding:6px 13px; border-radius:99px; border:1px solid color-mix(in srgb,var(--accent) 25%,transparent);}
+  .hero h1{font-size:clamp(40px,8vw,82px); margin:18px 0 8px; line-height:1; font-weight:700;}
+  .hero h1 .grad{background:linear-gradient(120deg,var(--accent),var(--accent-2)); -webkit-background-clip:text; background-clip:text; color:transparent;}
+  .hero p.sub{font-size:clamp(16px,2.4vw,21px); color:var(--muted); max-width:680px; margin:10px auto 0;}
+  .cta{display:flex; gap:12px; justify-content:center; margin-top:26px; flex-wrap:wrap;}
+  .btn{display:inline-flex; align-items:center; gap:8px; padding:13px 22px; border-radius:12px; font-weight:600; font-size:15px; transition:.22s; cursor:pointer; border:1px solid transparent;}
+  .btn.primary{background:linear-gradient(120deg,var(--accent),var(--accent-2)); color:#fff; box-shadow:0 10px 26px color-mix(in srgb,var(--accent) 35%,transparent);}
+  .btn.primary:hover{transform:translateY(-2px); box-shadow:0 16px 34px color-mix(in srgb,var(--accent) 45%,transparent);}
+  .btn.sec{background:var(--card); border-color:var(--line); color:var(--ink);}
+  .btn.sec:hover{border-color:var(--accent); transform:translateY(-2px);}
+
+  /* stats */
+  .stats{display:grid; grid-template-columns:repeat(6,1fr); gap:14px; margin:40px 0 10px;}
+  .stat{background:var(--card); border:1px solid var(--line); border-radius:var(--radius); padding:18px 12px; text-align:center; box-shadow:0 6px 20px var(--shadow); transition:.25s;}
+  .stat:hover{transform:translateY(-3px); border-color:var(--accent);}
+  .stat .n{font-family:'Space Grotesk'; font-weight:700; font-size:clamp(20px,3vw,28px); color:var(--ink);}
+  .stat .l{font-size:12.5px; color:var(--muted); margin-top:3px;}
+
+  /* sections */
+  section{padding:54px 0; scroll-margin-top:74px;}
+  .sec-head{margin-bottom:26px;}
+  .sec-head .k{font-size:13px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--accent);}
+  .sec-head h2{font-size:clamp(26px,4vw,38px); margin:8px 0 6px;}
+  .sec-head p{color:var(--muted); max-width:720px; margin:0;}
+
+  .card{background:var(--card); border:1px solid var(--line); border-radius:var(--radius); padding:22px; box-shadow:0 6px 22px var(--shadow); transition:.25s;}
+  .card:hover{transform:translateY(-3px); box-shadow:0 14px 34px var(--shadow); border-color:color-mix(in srgb,var(--accent) 40%,var(--line));}
+  .grid{display:grid; gap:16px;}
+  .g2{grid-template-columns:repeat(2,1fr);} .g3{grid-template-columns:repeat(3,1fr);} .g4{grid-template-columns:repeat(4,1fr);}
+  .pillar .ic{width:44px;height:44px;border-radius:12px; display:grid; place-items:center; font-size:22px; margin-bottom:12px;
+    background:color-mix(in srgb,var(--accent) 12%,transparent); border:1px solid color-mix(in srgb,var(--accent) 22%,transparent);}
+  .pillar h3{font-size:18px; margin:0 0 6px;} .pillar p{color:var(--muted); font-size:14.5px; margin:0;}
+
+  .chips{display:flex; gap:10px; flex-wrap:wrap;}
+  .chip{display:inline-flex; align-items:center; gap:8px; padding:10px 15px; border-radius:12px; border:1px solid var(--line);
+    background:var(--card); font-weight:600; font-size:14.5px; transition:.2s;}
+  .chip:hover{border-color:var(--accent-2); transform:translateY(-2px); box-shadow:0 8px 20px var(--shadow);}
+  .chip .d{width:9px;height:9px;border-radius:50%; background:linear-gradient(135deg,var(--accent),var(--accent-2));}
+
+  /* flow */
+  .flow{display:flex; align-items:stretch; justify-content:center; gap:0; flex-wrap:wrap; margin:10px 0;}
+  .node{flex:1 1 200px; min-width:180px; background:var(--card); border:1px solid var(--line);
+    padding:16px; text-align:center; box-shadow:0 6px 20px var(--shadow); margin:6px; border-radius:var(--radius);}
+  .node h3{font-size:16px; color:var(--accent); margin:6px 0;}
+  .node .d{font-size:14.5px; color:var(--muted);}
+  .arrow{align-self:center; font-family:'Space Grotesk'; color:var(--accent-2); font-size:20px; padding:0 6px;}
+
+  /* tabs */
+  .tabs{display:flex; gap:6px; flex-wrap:wrap; margin-bottom:18px; border-bottom:1px solid var(--line); padding-bottom:12px;}
+  .tab{border:1px solid var(--line); background:var(--card); color:var(--muted); padding:9px 15px; border-radius:11px; font-weight:600; font-size:14px; cursor:pointer; transition:.2s;}
+  .tab:hover{color:var(--ink);}
+  .tab.active{background:linear-gradient(120deg,var(--accent),var(--accent-2)); color:#fff; border-color:transparent; box-shadow:0 8px 20px color-mix(in srgb,var(--accent) 35%,transparent);}
+  .panel-box{display:none;} .panel-box.active{display:block; animation:fade .35s ease;}
+  @keyframes fade{from{opacity:0; transform:translateY(8px);} to{opacity:1; transform:none;}}
+
+  /* code */
+  .code{background:var(--ink); color:#e7e9f2; border-radius:14px; padding:16px 18px; overflow:auto; box-shadow:0 10px 30px var(--shadow);}
+  .code pre{margin:0; font-family:'JetBrains Mono'; font-size:13.5px; line-height:1.7;}
+  .code .c{color:#7c8499;} .code .s{color:#9be8b0;} .code .p{color:#ffae8a;} .code .b{color:#8db4ff;}
+  .copy{float:right; cursor:pointer; font-size:12px; color:#aeb4c8; border:1px solid #2c2f3a; background:#1b1d26; padding:4px 9px; border-radius:8px;}
+  .copy:hover{color:#fff;}
+
+  .callout{border-left:4px solid var(--accent); background:color-mix(in srgb,var(--accent) 7%,var(--card)); padding:14px 17px; border-radius:0 12px 12px 0; font-size:14.5px; color:var(--muted); margin:16px 0;}
+  .callout b{color:var(--ink);}
+
+  /* accordion (FAQ) */
+  .acc{border:1px solid var(--line); border-radius:14px; overflow:hidden; background:var(--card); margin-bottom:11px; box-shadow:0 4px 16px var(--shadow);}
+  .acc-h{display:flex; align-items:center; gap:13px; padding:17px 19px; cursor:pointer; transition:.2s; user-select:none;}
+  .acc-h:hover{background:var(--soft);}
+  .acc-h .num{font-family:'Space Grotesk'; font-weight:700; color:var(--accent); font-size:15px; min-width:30px;}
+  .acc-h h3{font-size:17px; margin:0; flex:1;}
+  .acc-h .ar{transition:.3s; color:var(--muted); font-size:18px;}
+  .acc.open .acc-h .ar{transform:rotate(45deg); color:var(--accent);}
+  .acc-b{max-height:0; overflow:hidden; transition:max-height .35s ease;}
+  .acc-b-in{padding:0 19px 19px 62px; color:var(--muted); font-size:15px;}
+  .acc-b-in ul{margin:8px 0 0; padding-left:18px;} .acc-b-in li{margin:5px 0;}
+
+  /* timeline */
+  .tl{position:relative; margin-left:14px; padding-left:30px; border-left:2px solid var(--line);}
+  .tl-item{position:relative; padding:0 0 28px 0;}
+  .tl-item::before{content:""; position:absolute; left:-39px; top:4px; width:15px; height:15px; border-radius:50%; background:var(--card); border:3px solid var(--accent);}
+  .tl-item .v{font-family:'Space Grotesk'; font-weight:700; color:var(--accent); font-size:15px;}
+  .tl-item .t{font-weight:700; font-size:17px; margin:2px 0 5px;}
+  .tl-item p{color:var(--muted); margin:0; font-size:14.5px;}
+
+  /* list */
+  ul.b{list-style:none; padding-left:0; margin:10px 0;}
+  ul.b li{padding:6px 0 6px 26px; position:relative; color:var(--muted); font-size:15px;}
+  ul.b li::before{content:"▸"; position:absolute; left:4px; color:var(--accent); font-weight:bold;}
+
+  footer{border-top:1px solid var(--line); padding:36px 0 60px; text-align:center; color:var(--muted); font-size:14px;}
+  .reveal{opacity:0; transform:translateY(22px); transition:opacity .7s ease, transform .7s ease;}
+  .reveal.in{opacity:1; transform:none;}
+  @media(max-width:760px){.stats{grid-template-columns:repeat(3,1fr);} .g2,.g3,.g4{grid-template-columns:1fr;} .nav-links{display:none;}}
+</style>
+</head>
+<body>
+<div id="progress"></div>
+<nav>
+  <div class="nav-in">
+    <div class="logo"><span class="dot"></span>Refero</div>
+    <div class="nav-links">
+      <a href="#overview">概览</a>
+      <a href="#deep">深读</a>
+      <a href="#faq">FAQ</a>
+      <a href="#start">快速开始</a>
+    </div>
+    <button class="toggle" id="themeBtn" title="切换明暗">◐</button>
+    <a class="ghost-btn" href="tp.html">← 返回 TP 中心</a>
+  </div>
+</nav>
+
+<div class="wrap">
+
+  <!-- HERO -->
+  <header class="hero">
+    <span class="eyebrow">设计研究 · 灵感库</span>
+    <h1><span class="grad">Refero</span></h1>
+    <p class="sub">Refero 是一个面向 AI 时代的设计研究平台：它把数万张来自真实上线产品的界面截图（onboarding、定价页、仪表盘、设置流……）整理成可按 UI 模式检索的灵感库，并用 AI 语义搜索替代关键词，让设计师和开发者在动手写代码前先把"别人到底怎么做"看透。</p>
+    <div class="cta">
+      <a class="btn primary" href="https://refero.design" target="_blank" rel="noopener">⚡ 访问官网 ↗</a>
+      <a class="btn sec" href="#overview">🔍 深入了解</a>
+    </div>
+    <div class="stats">
+      <div class="stat reveal"><div class="n" data-to="130" data-suf="K+">0</div><div class="l">真实产品截图</div></div>
+      <div class="stat reveal"><div class="n" data-to="200" data-suf="+">0</div><div class="l">收录产品 / 站点</div></div>
+      <div class="stat reveal"><div class="n" data-to="32" data-suf="+">0</div><div class="l">UI 模式分类</div></div>
+      <div class="stat reveal"><div class="n" data-to="4" data-suf="">0</div><div class="l">覆盖平台</div></div>
+      <div class="stat reveal"><div class="n" data-to="2" data-suf="">0</div><div class="l">定价档位</div></div>
+      <div class="stat reveal"><div class="n" data-to="95" data-suf="%">0</div><div class="l">截图来自真实产品</div></div>
+    </div>
+    <div class="callout" style="text-align:left; max-width:760px; margin:18px auto 0;">
+      ⚠️ 数据说明：上方截图库规模、来源产品数、分类数等数字综合自官网公开宣传与 Tabbit 报告，本次未对官网做独立抓取核验，精确值会随版本演进变动。Refero 以"真实截图"为核心卖点，而非 mockup，这一点在多处官网文案中一致。
+    </div>
+  </header>
+
+  <!-- OVERVIEW -->
+  <section id="overview">
+    <div class="sec-head reveal">
+      <div class="k">Overview</div>
+      <h2>它不是「又一个灵感站」，而是一套可检索的设计证据库</h2>
+      <p>Refero 的核心不是堆图，而是把真实界面按 UI 模式结构化，让"设计调研"从凭感觉变成可检索、可对照、可复用的工作流——尤其契合"先调研、再让 AI 生成"的现代编码节奏。</p>
+    </div>
+    <div class="grid g3">
+      <div class="card pillar reveal"><div class="ic">🖼️</div><h3>真实截图库</h3><p>全部来自真实上线的 App 与网站，而非概念稿，形态最接近生产环境，调研结论可直接借鉴。</p></div>
+      <div class="card pillar reveal"><div class="ic">🔍</div><h3>AI 语义搜索</h3><p>用自然语言描述要找的界面（"引导用户二次确认删除的弹窗"），不必猜关键词或翻分类页。</p></div>
+      <div class="card pillar reveal"><div class="ic">🗂️</div><h3>UI 模式分类</h3><p>onboarding、pricing、empty state、settings、checkout 等按交互模式归类，对照同类方案一目了然。</p></div>
+      <div class="card pillar reveal"><div class="ic">🧲</div><h3>插件采集</h3><p>浏览器插件一键把看到的好设计存进自己的板子，反向扩充个人灵感库与团队资产。</p></div>
+      <div class="card pillar reveal"><div class="ic">📐</div><h3>整理与交付</h3><p>把收集结果整理成可分享的设计板，对接团队评审、Figma 与开发交付，形成沉淀。</p></div>
+      <div class="card pillar reveal"><div class="ic">🤖</div><h3>对齐 AI 工作流</h3><p>为 AI 辅助设计 / 编码场景优化：先调研真实范式，再让模型生成，显著减少返工。</p></div>
+    </div>
+  </section>
+
+  <!-- DEEP DIVE -->
+  <section id="deep">
+    <div class="sec-head reveal">
+      <div class="k">Deep Dive</div>
+      <h2>三个角度，把 Refero 用透</h2>
+      <p>从"怎么搜"到"怎么沉淀"，再到"怎么接进 AI 工作流"——下面是可落地的真实用法，不是泛泛而谈。</p>
+    </div>
+
+    <div class="card reveal" style="margin-bottom:18px;">
+      <h3 style="margin-top:0">① 语义搜索：用一句话找到对的界面</h3>
+      <p style="color:var(--muted); font-size:15px">关键词搜索要求你先知道"它叫什么"；Refero 的语义搜索反过来——你描述场景，它返回真实产品里解决同一问题的截图。下面是送给 AI 编码 agent 的调研 prompt 模板，可直接复用：</p>
+      <div class="code"><button class="copy">复制</button><pre><span class="c"># 把"要找的界面"写成调研指令，贴给编码 / 设计 agent</span>
+<span class="p">你正在设计</span> 一个 <span class="s">"用户删除账户前的二次确认"</span> 流程。
+<span class="p">请先在</span> Refero (<span class="b">https://refero.design</span>) <span class="p">检索真实产品怎么做，</span>
+<span class="p">重点关注</span> 这三种模式：
+
+  <span class="b">1.</span> destructive-action  —— 直接弹确认框拦截危险操作
+  <span class="b">2.</span> confirm-modal      —— 输入文字 / 勾选后才能继续
+  <span class="b">3.</span> undo-window       —— 先执行、留 10 秒可撤销窗口
+
+<span class="c"># agent 应返回：每个模式 2–3 个真实产品截图 + 取舍建议</span>
+<span class="c"># 输出形态（概念 response）：</span>
+{
+  <span class="b">"query"</span>:   <span class="s">"account deletion confirm"</span>,
+  <span class="b">"hits"</span>: [
+    { <span class="b">"product"</span>: <span class="s">"Notion"</span>,  <span class="b">"pattern"</span>: <span class="s">"destructive-action"</span> },
+    { <span class="b">"product"</span>: <span class="s">"GitHub"</span>, <span class="b">"pattern"</span>: <span class="s">"confirm-modal"</span> },
+    { <span class="b">"product"</span>: <span class="s">"Linear"</span>, <span class="b">"pattern"</span>: <span class="s">"undo-window"</span> }
+  ]
+}</pre></div>
+      <div class="chips reveal" style="margin-top:16px;">
+        <span class="chip"><span class="d"></span>"空状态怎么引导首次使用"</span>
+        <span class="chip"><span class="d"></span>"定价页三档如何排布"</span>
+        <span class="chip"><span class="d"></span>"移动端底部导航样式"</span>
+        <span class="chip"><span class="d"></span>"表单报错 inline 还是 toast"</span>
+      </div>
+    </div>
+
+    <div class="card reveal" style="margin-bottom:18px;">
+      <h3 style="margin-top:0">② 采集 → 整理 → 交付 的闭环</h3>
+      <p style="color:var(--muted); font-size:15px">Refero 的价值不止"看"，更在"存"和"用"。一个项目从 0 到可交付的标准路径：</p>
+      <div class="flow">
+        <div class="node"><h3>① 采集</h3><div class="d">浏览器插件一键存截图，或用搜索结果直接钉选</div></div>
+        <div class="arrow">→</div>
+        <div class="node"><h3>② 分类</h3><div class="d">按 UI 模式 / 项目板归拢，AI 自动补语义标签</div></div>
+        <div class="arrow">→</div>
+        <div class="node"><h3>③ 整理</h3><div class="d">做成可分享设计板，附取舍说明与来源</div></div>
+        <div class="arrow">→</div>
+        <div class="node"><h3>④ 交付</h3><div class="d">导出给团队评审 / 喂给 AI 编码 agent 作为参照</div></div>
+      </div>
+      <div class="callout reveal" style="text-align:left">💡 <b>关键习惯</b>：每收集一张图都顺手记一句"为什么存它"。否则灵感库很快变成无法检索的图海——这正是 Refero 用"模式分类 + AI 标签"要解决的问题。</div>
+    </div>
+
+    <div class="card reveal">
+      <h3 style="margin-top:0">③ 版本与定价（Free / Pro）</h3>
+      <p style="color:var(--muted); font-size:15px">Refero 采用免费 + 付费的双档模式，付费主要解锁更高的搜索额度、更全的库访问与团队共享能力。</p>
+      <div class="tl">
+        <div class="tl-item"><div class="v">Free</div><div class="t">免费档</div><p>可浏览库、有限次搜索与采集，适合个人做轻量调研与原型参考。</p></div>
+        <div class="tl-item"><div class="v">Pro</div><div class="t">付费档</div><p>解锁更高搜索额度、完整库访问、浏览器插件与团队板共享，面向重度使用者与团队。</p></div>
+        <div class="tl-item"><div class="v">Team</div><div class="t">协作扩展</div><p>在 Pro 之上叠加多人共享板、评论与统一管理，服务设计 / 前端协作场景。</p></div>
+      </div>
+      <ul class="b">
+        <li><b style="color:var(--ink)">覆盖平台</b>：Web 端 + 浏览器插件（Chrome 等），桌面与移动端访问随版本推进。</li>
+        <li><b style="color:var(--ink)">核心差异</b>：Free 的限制主要在"搜索 / 采集次数"与"库深度"，而非功能阉割。</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq">
+    <div class="sec-head reveal">
+      <div class="k">FAQ</div>
+      <h2>关于 Refero，你大概率会问的</h2>
+    </div>
+    <div class="reveal">
+      <div class="acc">
+        <div class="acc-h"><span class="num">01</span><h3>Refero 到底是什么，和 Dribbble、Pinterest 有何不同？</h3><span class="ar">＋</span></div>
+        <div class="acc-b"><div class="acc-b-in">Dribbble / Pinterest 上大量是<b>设计师主动上传的概念稿、美化稿</b>，好看但常脱离真实工程约束。Refero 只收<b>真实上线产品的界面截图</b>，并按 UI 模式（onboarding、pricing、settings…）结构化归类，还提供 AI 语义搜索。一句话：前者是"灵感审美"，Refero 是"可对照的设计证据"。
+          <ul><li>来源：真实 App / 网站，不是 mockup</li><li>组织方式：按交互模式，而非按美观度</li><li>检索：自然语言语义搜索，而非只能猜标签</li></ul></div></div>
+      </div>
+      <div class="acc">
+        <div class="acc-h"><span class="num">02</span><h3>截图来自真实产品，会不会有版权 / 商用问题？</h3><span class="ar">＋</span></div>
+        <div class="acc-b"><div class="acc-b-in">Refero 的截图用于<b>设计研究与内部参考</b>是其主要定位。但把任意单张截图直接当素材用于对外发布的产品，仍需注意：
+          <ul><li>研究、学习、做竞品对照 → 通常在其使用条款允许范围内</li><li>直接复制某产品的视觉去上线 → 有侵权与品牌混淆风险，应避免</li><li>对外发布前，建议把参考"转译"成自己的设计语言，而非照搬</li></ul>具体以 Refero 官网当前服务条款为准，本页不构成法律意见。</div></div>
+      </div>
+      <div class="acc">
+        <div class="acc-h"><span class="num">03</span><h3>AI 语义搜索到底怎么用？给个具体例子</h3><span class="ar">＋</span></div>
+        <div class="acc-b"><div class="acc-b-in">你不用记"它叫 pricing table 还是 pricing card"。直接在搜索框描述场景，例如：
+          <ul><li>"引导免费用户升级的定价页，三档、中间档高亮"</li><li>"移动端登录失败后的 inline 报错样式"</li><li>"空购物车时的插画 + 行动按钮组合"</li></ul>Refero 会返回一批真实产品里解决同一问题的截图，你再对照挑范式，而不是凭空拍板。</div></div>
+      </div>
+      <div class="acc">
+        <div class="acc-h"><span class="num">04</span><h3>免费版和 Pro 有什么区别？</h3><span class="ar">＋</span></div>
+        <div class="acc-b"><div class="acc-b-in">两者功能一致，差异主要在<b>额度与库深度</b>：
+          <ul><li><b>Free</b>：可浏览库、有限次搜索 / 采集，适合个人轻量调研</li><li><b>Pro</b>：更高搜索额度、更完整库访问、浏览器插件与团队板共享</li><li><b>Team</b>：在 Pro 之上加多人共享板、评论与统一管理</li></ul>若你只是偶尔找参考，Free 已够用；高频调研或团队协作再上 Pro / Team。</div></div>
+      </div>
+      <div class="acc">
+        <div class="acc-h"><span class="num">05</span><h3>怎么把 Refero 接进 AI 辅助设计 / 编码，减少返工？</h3><span class="ar">＋</span></div>
+        <div class="acc-b"><div class="acc-b-in">核心心法是"<b>先调研、再生成</b>"：
+          <ul><li>写代码前，先在 Refero 检索目标界面的 2–3 个真实范式</li><li>把截图链接 + "采用模式 X、规避模式 Y"写进给 AI agent 的 prompt</li><li>让模型基于真实参照生成，而不是从零发明布局，避免低级返工</li></ul>这正是 Refero 被归为"面向 AI 时代设计研究平台"的原因——它把调研产物变成 AI 能消费的明确约束。</div></div>
+      </div>
+      <div class="acc">
+        <div class="acc-h"><span class="num">06</span><h3>有浏览器插件 / API / Figma 插件吗？</h3><span class="ar">＋</span></div>
+        <div class="acc-b"><div class="acc-b-in">Refero 主推<b>浏览器插件采集</b>（看到好设计一键存进自己的板子），Web 端提供搜索与整理。公开资料重点在"采集 + 语义搜索 + 共享板"这条主线；API 与 Figma 插件等深度集成请以官网当前功能列表为准，本页未对此做独立核验，避免给出过时结论。</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- START -->
+  <section id="start">
+    <div class="sec-head reveal">
+      <div class="k">Quick Start</div>
+      <h2>三条上手路径，挑最顺手的</h2>
+      <p>最省事的是直接上官网搜；想沉淀个人库就装浏览器插件；要把调研喂给 AI 工作流，走第三条。</p>
+    </div>
+
+    <div class="tabs reveal" id="tabs">
+      <button class="tab active" data-t="web">🌐 网页搜索</button>
+      <button class="tab" data-t="ext">🧲 插件采集</button>
+      <button class="tab" data-t="ai">🤖 接进 AI 工作流</button>
+    </div>
+
+    <div class="panel-box active" data-p="web">
+      <div class="code reveal"><button class="copy">复制</button><pre><span class="c"># 1) 打开官网</span>
+<span class="p">浏览器访问</span> <span class="b">https://refero.design</span>
+
+<span class="c"># 2) 用自然语言检索（不用猜关键词）</span>
+<span class="p">搜索框输入</span> <span class="s">"用户删除账户前的二次确认弹窗"</span>
+
+<span class="c"># 3) 按 UI 模式对照，挑 2–3 个真实产品范式</span>
+<span class="p">浏览</span> destructive-action / confirm-modal / undo-window <span class="p">三类结果</span>
+
+<span class="c"># 4) 把选中的截图钉进项目板，留一句取舍理由</span></pre></div>
+      <div class="callout reveal" style="text-align:left">⚠️ Free 档对搜索 / 采集次数有限额。若只是偶尔找参考足够；高频调研再考虑 Pro。</div>
+    </div>
+
+    <div class="panel-box" data-p="ext">
+      <div class="code reveal"><button class="copy">复制</button><pre><span class="c"># 1) 安装浏览器插件（Chrome 等）</span>
+<span class="p">在</span> Refero 官网或插件商店 <span class="p">添加</span> Refero <span class="p">扩展</span>
+
+<span class="c"># 2) 看到好设计，一键存进自己的板子</span>
+<span class="p">在任意网页点开插件</span> → <span class="b">"Save to board"</span>
+
+<span class="c"># 3) 回到 Web 端按项目板归拢</span>
+<span class="p">打开</span> refero.design → <span class="p">选择项目板</span> → <span class="p">打语义标签</span>
+
+<span class="c"># 4) 邀请协作者共同编辑 / 评论</span>
+<span class="p">分享板链接</span> → <span class="p">团队在真实参照上对齐</span></pre></div>
+    </div>
+
+    <div class="panel-box" data-p="ai">
+      <div class="code reveal"><button class="copy">复制</button><pre><span class="c"># 把 Refero 调研结果转成给 AI 编码 agent 的约束</span>
+<span class="p">任务</span>: 实现"删除账户"确认流程
+<span class="p">参照</span>(Refero 检索所得):
+  - Notion  → destructive-action 拦截
+  - GitHub  → confirm-modal 二次输入
+  - Linear  → undo-window 10s 撤销
+<span class="p">决策</span>: 采用 confirm-modal，理由——误删成本最高
+<span class="p">要求</span>: 输出含错误态、移动端适配的 React 组件
+
+<span class="c"># 这样模型基于真实范式生成，返工率显著低于凭空起稿</span></pre></div>
+      <div class="callout reveal" style="text-align:left">💡 把"采用哪个模式 + 为什么"写进 prompt，比只贴截图链接更稳——模型有了明确取舍，不会在多个范式间摇摆。</div>
+    </div>
+  </section>
+
+  <footer>made with ♥ &amp; a white grid — <b>Refero 深度解读</b><div style="margin-top:6px;font-size:13px">数据抓取于 2026-07-14 · 内容综合自官网与 Tabbit 报告</div></footer>
+</div>
+
+<script>
+/* theme */
+const root=document.documentElement, tb=document.getElementById('themeBtn');
+tb.onclick=()=>{root.dataset.theme=root.dataset.theme==='light'?'dark':'light';};
+/* progress bar */
+const prog=document.getElementById('progress');
+addEventListener('scroll',()=>{const h=document.documentElement;
+  prog.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+'%';});
+/* reveal */
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in');}),{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+/* counters */
+function animateCounters(){
+  document.querySelectorAll('.stat .n').forEach(el=>{
+    const to=parseFloat(el.dataset.to), suf=el.dataset.suf||'';
+    let cur=0; const step=to/46;
+    const t=setInterval(()=>{cur+=step; if(cur>=to){cur=to; clearInterval(t);}
+      el.textContent=(to%1?cur.toFixed(1):Math.round(cur))+suf;},22);
+  });
+}
+const heroIO=new IntersectionObserver((es,o)=>{es.forEach(e=>{if(e.isIntersecting){animateCounters();o.disconnect();}});},{threshold:.4});
+heroIO.observe(document.querySelector('.hero'));
+/* tabs */
+document.querySelectorAll('.tabs').forEach(wrap=>{
+  const boxes=Array.from(wrap.parentElement.children).filter(c=>c.classList.contains('panel-box'));
+  wrap.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{
+    wrap.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
+    b.classList.add('active');
+    const t=b.dataset.t;
+    boxes.forEach(p=>p.classList.toggle('active',p.dataset.p===t));
+  });
+});
+/* accordion */
+document.querySelectorAll('.acc-h').forEach(h=>h.onclick=()=>{
+  const acc=h.parentElement, b=acc.querySelector('.acc-b');
+  const open=acc.classList.toggle('open');
+  b.style.maxHeight=open?b.scrollHeight+'px':'0';
+});
+/* copy */
+document.querySelectorAll('.copy').forEach(b=>b.onclick=()=>{
+  const pre=b.parentElement.querySelector('pre');
+  navigator.clipboard.writeText(pre.innerText).then(()=>{const t=b.textContent;b.textContent='已复制 ✓';setTimeout(()=>b.textContent=t,1400);});
+});
+</script>
+<a href="tp.html" style="position:fixed;left:18px;bottom:18px;z-index:90;display:inline-flex;align-items:center;gap:7px;font:600 14px/1 system-ui,sans-serif;color:#fff;text-decoration:none;background:linear-gradient(120deg,var(--accent),var(--accent-2));padding:11px 17px;border-radius:12px;box-shadow:0 8px 30px rgba(0,0,0,.3)">← 返回 TP 中心</a>
+<script>
+/* Theme button icon sync */
+(function(){
+  var btn=document.querySelector('.theme-btn');
+  if(!btn)return;
+  function sync(){btn.textContent=document.documentElement.dataset.theme==='dark'?'☀️':'🌙';}
+  sync();
+  btn.addEventListener('click',function(){setTimeout(sync,0);});
+})();
+</script>
+<script>
+/* Auto-collapse TOC: only expand the section containing the current page */
+(function(){
+  var details=document.querySelectorAll('aside.toc details.toc-sec');
+  if(details.length<2)return;
+  var current=location.pathname.replace(/\/$/,'');
+  var activeLink=null;
+  document.querySelectorAll('aside.toc a').forEach(function(a){
+    var href=a.getAttribute('href')||'';
+    if(href && !href.startsWith('http') && !href.startsWith('#')){
+      var path=href.replace(/^https?:\/\/[^\/]+/,'').replace(/\/$/,'');
+      if(current===path || current.indexOf(path)>-1 || path.indexOf(current)>-1){
+        activeLink=a;
+      }
+    }
+  });
+  details.forEach(function(d){
+    if(activeLink && d.contains(activeLink)){d.setAttribute('open','');}
+    else{d.removeAttribute('open');}
+  });
+})();
+</script>
+</body>
+</html>

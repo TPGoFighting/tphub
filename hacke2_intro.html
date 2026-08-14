@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hacke2 Issue #1 · 深度解读</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#ffffff; --grid:#edeff4; --glow:#fff5f0;
+    --ink:#14151a; --muted:#60667a; --line:#e6e8ef;
+    --accent:#a8552f; --accent-2:#d9a521;
+    --green:#1f9d6b; --yellow:#e0a200; --pink:#e0457f;
+    --card:#ffffff; --soft:#f7f8fb; --shadow:rgba(20,21,26,.08);
+    --radius:18px;
+  }
+  [data-theme="dark"]{
+    --bg:#0e0f14; --grid:#1a1c25; --glow:#1a1410;
+    --ink:#f1f2f6; --muted:#9aa0b4; --line:#262936;
+    --card:#15171f; --soft:#191b24; --shadow:rgba(0,0,0,.5);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0; color:var(--ink); font-family:'Inter','Noto Sans SC',system-ui,sans-serif;
+    background:var(--bg);
+    background-image:
+      linear-gradient(var(--grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+    background-size:34px 34px;
+    background-attachment:fixed;
+    line-height:1.65; -webkit-font-smoothing:antialiased;
+  }
+  body::before{
+    content:""; position:fixed; inset:0; pointer-events:none; z-index:0;
+    background:radial-gradient(60% 50% at 50% -10%, var(--glow), transparent 70%);
+  }
+  h1,h2,h3,.display{font-family:'Space Grotesk','Noto Sans SC',sans-serif; letter-spacing:-.02em;}
+  a{color:var(--accent); text-decoration:none;}
+  code,.mono{font-family:'JetBrains Mono',monospace;}
+  .wrap{max-width:1080px; margin:0 auto; padding:0 22px; position:relative; z-index:1;}
+
+  /* progress + nav */
+  #progress{position:fixed; top:0; left:0; height:3px; width:0; z-index:100;
+    background:linear-gradient(90deg,var(--accent),var(--accent-2)); transition:width .1s;}
+  nav{position:sticky; top:0; z-index:50; backdrop-filter:blur(14px);
+    background:color-mix(in srgb, var(--bg) 78%, transparent);
+    border-bottom:1px solid var(--line);}
+  .nav-in{max-width:1080px; margin:0 auto; padding:13px 22px; display:flex; align-items:center; gap:18px;}
+  .logo{font-family:'Space Grotesk'; font-weight:700; font-size:20px; display:flex; align-items:center; gap:9px;}
+  .logo .dot{width:13px;height:13px;border-radius:4px;background:linear-gradient(135deg,var(--accent),var(--accent-2)); box-shadow:0 0 0 4px color-mix(in srgb,var(--accent) 18%,transparent);}
+  .nav-links{display:flex; gap:6px; margin-left:auto; flex-wrap:wrap;}
+  .nav-links a{color:var(--muted); font-size:14px; font-weight:500; padding:7px 11px; border-radius:9px; transition:.2s;}
+  .nav-links a:hover{color:var(--ink); background:var(--soft);}
+  .toggle{cursor:pointer; border:1px solid var(--line); background:var(--card); border-radius:10px;
+    width:40px; height:36px; display:grid; place-items:center; font-size:16px; transition:.2s;}
+  .toggle:hover{border-color:var(--accent);}
+  .ghost-btn{border:1px solid var(--line); background:var(--card); color:var(--ink); padding:8px 13px;
+    border-radius:10px; font-size:14px; font-weight:600; transition:.2s; cursor:pointer;}
+  .ghost-btn:hover{border-color:var(--accent); transform:translateY(-1px);}
+
+  /* hero */
+  .hero{padding:70px 0 40px; text-align:center;}
+  .eyebrow{display:inline-flex; align-items:center; gap:8px; font-size:13px; font-weight:600; color:var(--accent);
+    background:color-mix(in srgb,var(--accent) 10%,transparent); padding:6px 13px; border-radius:99px; border:1px solid color-mix(in srgb,var(--accent) 25%,transparent);}
+  .hero h1{font-size:clamp(40px,8vw,82px); margin:18px 0 8px; line-height:1; font-weight:700;}
+  .hero h1 .grad{background:linear-gradient(120deg,var(--accent),var(--accent-2)); -webkit-background-clip:text; background-clip:text; color:transparent;}
+  .hero p.sub{font-size:clamp(16px,2.4vw,21px); color:var(--muted); max-width:680px; margin:10px auto 0;}
+  .cta{display:flex; gap:12px; justify-content:center; margin-top:26px; flex-wrap:wrap;}
+  .btn{display:inline-flex; align-items:center; gap:8px; padding:13px 22px; border-radius:12px; font-weight:600; font-size:15px; transition:.22s; cursor:pointer; border:1px solid transparent;}
+  .btn.primary{background:linear-gradient(120deg,var(--accent),var(--accent-2)); color:#fff; box-shadow:0 10px 26px color-mix(in srgb,var(--accent) 35%,transparent);}
+  .btn.primary:hover{transform:translateY(-2px); box-shadow:0 16px 34px color-mix(in srgb,var(--accent) 45%,transparent);}
+  .btn.sec{background:var(--card); border-color:var(--line); color:var(--ink);}
+  .btn.sec:hover{border-color:var(--accent); transform:translateY(-2px);}
+
+  /* stats */
+  .stats{display:grid; grid-template-columns:repeat(6,1fr); gap:14px; margin:40px 0 10px;}
+  .stat{background:var(--card); border:1px solid var(--line); border-radius:var(--radius); padding:18px 12px; text-align:center; box-shadow:0 6px 20px var(--shadow); transition:.25s;}
+  .stat:hover{transform:translateY(-3px); border-color:var(--accent);}
+  .stat .n{font-family:'Space Grotesk'; font-weight:700; font-size:clamp(20px,3vw,28px); color:var(--ink);}
+  .stat .l{font-size:12.5px; color:var(--muted); margin-top:3px;}
+
+  /* sections */
+  section{padding:54px 0; scroll-margin-top:74px;}
+  .sec-head{margin-bottom:26px;}
+  .sec-head .k{font-size:13px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--accent);}
+  .sec-head h2{font-size:clamp(26px,4vw,38px); margin:8px 0 6px;}
+  .sec-head p{color:var(--muted); max-width:720px; margin:0;}
+
+  .card{background:var(--card); border:1px solid var(--line); border-radius:var(--radius); padding:22px; box-shadow:0 6px 22px var(--shadow); transition:.25s;}
+  .card:hover{transform:translateY(-3px); box-shadow:0 14px 34px var(--shadow); border-color:color-mix(in srgb,var(--accent) 40%,var(--line));}
+  .grid{display:grid; gap:16px;}
+  .g2{grid-template-columns:repeat(2,1fr);} .g3{grid-template-columns:repeat(3,1fr);} .g4{grid-template-columns:repeat(4,1fr);}
+  .pillar .ic{width:44px;height:44px;border-radius:12px; display:grid; place-items:center; font-size:22px; margin-bottom:12px;
+    background:color-mix(in srgb,var(--accent) 12%,transparent); border:1px solid color-mix(in srgb,var(--accent) 22%,transparent);}
+  .pillar h3{font-size:18px; margin:0 0 6px;} .pillar p{color:var(--muted); font-size:14.5px; margin:0;}
+
+  .chips{display:flex; gap:10px; flex-wrap:wrap;}
+  .chip{display:inline-flex; align-items:center; gap:8px; padding:10px 15px; border-radius:12px; border:1px solid var(--line);
+    background:var(--card); font-weight:600; font-size:14.5px; transition:.2s;}
+  .chip:hover{border-color:var(--accent-2); transform:translateY(-2px); box-shadow:0 8px 20px var(--shadow);}
+  .chip .d{width:9px;height:9px;border-radius:50%; background:linear-gradient(135deg,var(--accent),var(--accent-2));}
+
+  /* flow */
+  .flow{display:flex; align-items:stretch; justify-content:center; gap:0; flex-wrap:wrap; margin:10px 0;}
+  .node{flex:1 1 200px; min-width:180px; background:var(--card); border:1px solid var(--line);
+    padding:16px; text-align:center; box-shadow:0 6px 20px var(--shadow); margin:6px; border-radius:var(--radius);}
+  .node h3{font-size:16px; color:var(--accent); margin:6px 0;}
+  .node .d{font-size:14.5px; color:var(--muted);}
+  .arrow{align-self:center; font-family:'Space Grotesk'; color:var(--accent-2); font-size:20px; padding:0 6px;}
+
+  /* tabs */
+  .tabs{display:flex; gap:6px; flex-wrap:wrap; margin-bottom:18px; border-bottom:1px solid var(--line); padding-bottom:12px;}
+  .tab{border:1px solid var(--line); background:var(--card); color:var(--muted); padding:9px 15px; border-radius:11px; font-weight:600; font-size:14px; cursor:pointer; transition:.2s;}
+  .tab:hover{color:var(--ink);}
+  .tab.active{background:linear-gradient(120deg,var(--accent),var(--accent-2)); color:#fff; border-color:transparent; box-shadow:0 8px 20px color-mix(in srgb,var(--accent) 35%,transparent);}
+  .panel-box{display:none;} .panel-box.active{display:block; animation:fade .35s ease;}
+  @keyframes fade{from{opacity:0; transform:translateY(8px);} to{opacity:1; transform:none;}}
+
+  /* code */
+  .code{background:var(--ink); color:#e7e9f2; border-radius:14px; padding:16px 18px; overflow:auto; box-shadow:0 10px 30px var(--shadow);}
+  .code pre{margin:0; font-family:'JetBrains Mono'; font-size:13.5px; line-height:1.7;}
+  .code .c{color:#7c8499;} .code .s{color:#9be8b0;} .code .p{color:#ffae8a;} .code .b{color:#8db4ff;}
+  .copy{float:right; cursor:pointer; font-size:12px; color:#aeb4c8; border:1px solid #2c2f3a; background:#1b1d26; padding:4px 9px; border-radius:8px;}
+  .copy:hover{color:#fff;}
+
+  .callout{border-left:4px solid var(--accent); background:color-mix(in srgb,var(--accent) 7%,var(--card)); padding:14px 17px; border-radius:0 12px 12px 0; font-size:14.5px; color:var(--muted); margin:16px 0;}
+  .callout b{color:var(--ink);}
+
+  /* accordion (FAQ) */
+  .acc{border:1px solid var(--line); border-radius:14px; overflow:hidden; background:var(--card); margin-bottom:11px; box-shadow:0 4px 16px var(--shadow);}
+  .acc-h{display:flex; align-items:center; gap:13px; padding:17px 19px; cursor:pointer; transition:.2s; user-select:none;}
+  .acc-h:hover{background:var(--soft);}
+  .acc-h .num{font-family:'Space Grotesk'; font-weight:700; color:var(--accent); font-size:15px; min-width:30px;}
+  .acc-h h3{font-size:17px; margin:0; flex:1;}
+  .acc-h .ar{transition:.3s; color:var(--muted); font-size:18px;}
+  .acc.open .acc-h .ar{transform:rotate(45deg); color:var(--accent);}
+  .acc-b{max-height:0; overflow:hidden; transition:max-height .35s ease;}
+  .acc-b-in{padding:0 19px 19px 62px; color:var(--muted); font-size:15px;}
+  .acc-b-in ul{margin:8px 0 0; padding-left:18px;} .acc-b-in li{margin:5px 0;}
+
+  /* timeline */
+  .tl{position:relative; margin-left:14px; padding-left:30px; border-left:2px solid var(--line);}
+  .tl-item{position:relative; padding:0 0 28px 0;}
+  .tl-item::before{content:""; position:absolute; left:-39px; top:4px; width:15px; height:15px; border-radius:50%; background:var(--card); border:3px solid var(--accent);}
+  .tl-item .v{font-family:'Space Grotesk'; font-weight:700; color:var(--accent); font-size:15px;}
+  .tl-item .t{font-weight:700; font-size:17px; margin:2px 0 5px;}
+  .tl-item p{color:var(--muted); margin:0; font-size:14.5px;}
+
+  /* list */
+  ul.b{list-style:none; padding-left:0; margin:10px 0;}
+  ul.b li{padding:6px 0 6px 26px; position:relative; color:var(--muted); font-size:15px;}
+  ul.b li::before{content:"▸"; position:absolute; left:4px; color:var(--accent); font-weight:bold;}
+
+  footer{border-top:1px solid var(--line); padding:36px 0 60px; text-align:center; color:var(--muted); font-size:14px;}
+  .reveal{opacity:0; transform:translateY(22px); transition:opacity .7s ease, transform .7s ease;}
+  .reveal.in{opacity:1; transform:none;}
+  @media(max-width:760px){.stats{grid-template-columns:repeat(3,1fr);} .g2,.g3,.g4{grid-template-columns:1fr;} .nav-links{display:none;}}
+</style>
+</head>
+<body>
+<div id="progress"></div>
+<nav>
+  <div class="nav-in">
+    <div class="logo"><span class="dot"></span>Hacke2 Issue #1</div>
+    <div class="nav-links">
+      <a href="#overview">概览</a>
+      <a href="#deep">深读</a>
+      <a href="#faq">FAQ</a>
+      <a href="#start">快速开始</a>
+    </div>
+    <button class="toggle" id="themeBtn" title="切换明暗">◐</button>
+    <a class="ghost-btn" href="tp.html">← 返回 TP 中心</a>
+  </div>
+</nav>
+
+<div class="wrap">
+
+  <!-- HERO -->
+  <header class="hero">
+    <span class="eyebrow">前端历史 · 资源档案</span>
+    <h1><span class="grad">Hacke2 Issue #1</span></h1>
+    <p class="sub">这是 GitHub 用户 hacke2 在 2014 年 9 月开的一个前端资源分享帖，把当时中文前端社区最热门的文章与工具链接一一列出。十多年后再看，它是一份不该被遗忘的 2014 前端技术栈「时间胶囊」。</p>
+    <div class="cta">
+      <a class="btn primary" href="https://github.com/hacke2/hacke2.github.io/issues/1" target="_blank" rel="noopener">⚡ 访问官网 ↗</a>
+      <a class="btn sec" href="#overview">🔍 深入了解</a>
+    </div>
+    <div class="stats">
+      <div class="stat reveal"><div class="n" data-to="2014" data-suf="">0</div><div class="l">创建年份</div></div>
+      <div class="stat reveal"><div class="n" data-to="9" data-suf="月">0</div><div class="l">创建月份</div></div>
+      <div class="stat reveal"><div class="n" data-to="12" data-suf="年">0</div><div class="l">距今年限</div></div>
+      <div class="stat reveal"><div class="n" data-to="1" data-suf="">0</div><div class="l">Issue 编号</div></div>
+      <div class="stat reveal"><div class="n" data-to="4" data-suf="">0</div><div class="l">代表主题</div></div>
+      <div class="stat reveal"><div class="n" data-to="30" data-suf="+">0</div><div class="l">收录链接(估)</div></div>
+    </div>
+    <div class="callout" style="text-align:left; max-width:760px; margin:18px auto 0;">
+      📜 <b>历史价值</b>：这篇 Issue #1 是 2014 年中文前端社区的一份真实切片，记录了单元测试、单页应用、Grunt、Bootstrap 等当年的主流话题。注意——帖内部分外链文章距今已十余年，<b>链接可能已失效或站点已关停</b>，建议配合 archive.org 快照或克隆仓库本地存档阅读。
+    </div>
+  </header>
+
+  <!-- OVERVIEW -->
+  <section id="overview">
+    <div class="sec-head reveal">
+      <div class="k">Overview</div>
+      <h2>它到底是什么</h2>
+      <p>不是框架、不是文档站，而是一个 GitHub Issue——被作者当成「前端学习资源分享帖」来用。形式上它是仓库 hacke2.github.io 的 Issue #1，内容上它是一张 2014 年的中文前端「好文清单」。</p>
+    </div>
+    <div class="grid g3">
+      <div class="card pillar reveal"><div class="ic">🗂️</div><h3>资源分享帖</h3><p>以 Issue 形式长期沉淀的链接聚合，涵盖文章、工具、框架教程，是早期社区自发的「个人周刊」雏形。</p></div>
+      <div class="card pillar reveal"><div class="ic">🧪</div><h3>单元测试</h3><p>收录 JS 单元测试相关文章，2014 年前后正是 Jasmine / Mocha / Karma 在国内普及的关键期。</p></div>
+      <div class="card pillar reveal"><div class="ic">🧭</div><h3>单页应用</h3><p>围绕 SPA 的文章，那时候 Backbone、Angular 1.x、Ember 仍是单页开发的主角。</p></div>
+      <div class="card pillar reveal"><div class="ic">⚙️</div><h3>Grunt 构建</h3><p>记录了 Grunt 这类任务runner 的玩法，那年「自动化构建」刚成为前端标配。</p></div>
+      <div class="card pillar reveal"><div class="ic">🎨</div><h3>Bootstrap</h3><p>收录 Bootstrap 框架资源，v3 时代它几乎是中文团队做后台与落地页的默认起点。</p></div>
+      <div class="card pillar reveal"><div class="ic">🏛️</div><h3>历史档案</h3><p>它不追求时效，而是一座可溯源的时间胶囊：今天读它，读的是「十年前大家怎么学前端」。</p></div>
+    </div>
+  </section>
+
+  <!-- DEEP DIVE (one or more <section> blocks) -->
+  <section id="deep">
+    <div class="sec-head reveal">
+      <div class="k">Deep Dive</div>
+      <h2>当年代表性话题，逐个拆开</h2>
+      <p>帖子里反复出现的四个主题，恰好是 2014 年中文前端社区的主航道。下面把每个主题当时的样貌，和今天做个对照。</p>
+    </div>
+
+    <div class="grid g2">
+      <div class="card reveal">
+        <h3 style="margin-top:0">🧪 JavaScript 单元测试</h3>
+        <ul class="b">
+          <li><b>当时</b>：Jasmine、Mocha + Chai、Karma 跑浏览器，前端开始认真谈「自动化测试」。</li>
+          <li><b>今天</b>：Jest、Vitest 一统江湖，Playwright / Cypress 接管端到端，测试被纳入 CI 门禁。</li>
+          <li><b>延续</b>：describe / it / expect 的写法十年没变，老文章的方法论仍读得通。</li>
+        </ul>
+      </div>
+      <div class="card reveal">
+        <h3 style="margin-top:0">🧭 单页应用（SPA）</h3>
+        <ul class="b">
+          <li><b>当时</b>：Backbone.js、Angular 1.x、Ember.js 三足鼎立，路由与双向绑定是热点话题。</li>
+          <li><b>今天</b>：React、Vue、Svelte + Vite，组件化与编译时优化替代了重运行时框架。</li>
+          <li><b>延续</b>：「前端路由 + 局部刷新」的思想从没过时，只是实现换了三代。</li>
+        </ul>
+      </div>
+      <div class="card reveal">
+        <h3 style="margin-top:0">⚙️ Grunt 构建工具</h3>
+        <ul class="b">
+          <li><b>当时</b>：Grunt（以及 Gulp）是「任务runner」代名词，靠 Gruntfile 串起压缩、合并、预编译。</li>
+          <li><b>今天</b>：npm scripts、Vite、esbuild、Webpack 把构建收进工具链，Grunt/Gulp 基本退场。</li>
+          <li><b>延续</b>：「声明式任务流」的概念被 Vite / Turborepo 继承得更好。</li>
+        </ul>
+      </div>
+      <div class="card reveal">
+        <h3 style="margin-top:0">🎨 Bootstrap 框架</h3>
+        <ul class="b">
+          <li><b>当时</b>：Bootstrap 3 是中文团队做后台与营销页的默认起点，栅格 + 组件开箱即用。</li>
+          <li><b>今天</b>：Bootstrap 5（移除 jQuery 依赖）仍在，但 Tailwind 等原子化方案抢走大量份额。</li>
+          <li><b>延续</b>：「快速搭出能看的界面」的需求没变，只是审美与体积约束变了。</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="callout reveal" style="text-align:left">
+      💡 <b>读它的正确姿势</b>：别把它当「最新教程」读。把它当作一份带链接的<b>田野调查</b>——看十年前大家在关心什么、用什么词、怎么组织知识，比单篇链接本身更有价值。
+    </div>
+  </section>
+
+  <section id="then">
+    <div class="sec-head reveal">
+      <div class="k">Snapshot</div>
+      <h2>2014 前端技术栈速写</h2>
+      <p>把四个主题放进同一条时间线，就能看清那年中文前端的整体「水位」：从手写 DOM 走向工程化，从 jQuery 走向框架与构建。</p>
+    </div>
+
+    <div class="tl reveal">
+      <div class="tl-item"><div class="v">基础层</div><div class="t">jQuery 仍是标配</div><p>多数团队仍在用 jQuery 操作 DOM、发 Ajax；「脱离 jQuery」的讨论刚开始出现。</p></div>
+      <div class="tl-item"><div class="v">结构层</div><div class="t">SPA 框架上位</div><p>Backbone / Angular 1.x / Ember 让「前端路由 + 模板」成为项目骨架，单页应用普及。</p></div>
+      <div class="tl-item"><div class="v">质量层</div><div class="t">单元测试进入日常</div><p>Jasmine / Mocha / Karma 让「前端也要写测试」从口号变成可落地的流程。</p></div>
+      <div class="tl-item"><div class="v">工程层</div><div class="t">Grunt / Gulp 自动化</div><p>压缩、合并、预编译被自动化串起来，「前端工程化」这个词正式进入日常语汇。</p></div>
+      <div class="tl-item"><div class="v">界面层</div><div class="t">Bootstrap 3 占道</div><p>栅格 + 组件库让中小团队一天搭出后台，UI 一致性不再靠手写 CSS。</p></div>
+    </div>
+
+    <div class="flow reveal">
+      <div class="node"><h3>手写 DOM</h3><div class="d">jQuery 时代</div></div>
+      <div class="arrow">→</div>
+      <div class="node"><h3>框架 + 路由</h3><div class="d">SPA 时代</div></div>
+      <div class="arrow">→</div>
+      <div class="node"><h3>构建 + 测试</h3><div class="d">工程化时代</div></div>
+    </div>
+  </section>
+
+  <section id="access">
+    <div class="sec-head reveal">
+      <div class="k">Access</div>
+      <h2>怎么访问与存档</h2>
+      <p>Issue 本身托管在 GitHub，公开可读。但帖内很多外链是十年前的文章，建议把仓库克隆到本地做长期存档。</p>
+    </div>
+
+    <div class="tabs reveal" id="tabs">
+      <button class="tab active" data-t="online">🌐 在线阅读</button>
+      <button class="tab" data-t="clone">💾 克隆存档</button>
+      <button class="tab" data-t="wayback">🕰️ 失效链接补救</button>
+    </div>
+
+    <div class="panel-box active" data-p="online">
+      <div class="code reveal"><button class="copy" data-c="online">复制</button><pre><span class="c"># 直接打开 Issue（无需登录即可阅读）</span>
+<span class="p">open</span> https://github.com/hacke2/hacke2.github.io/issues/1
+
+<span class="c"># 或在浏览器里访问</span>
+<span class="p">xdg-open</span> https://github.com/hacke2/hacke2.github.io/issues/1</pre></div>
+    </div>
+
+    <div class="panel-box" data-p="clone">
+      <div class="code reveal"><button class="copy" data-c="clone">复制</button><pre><span class="c"># 克隆仓库到本地（含 Issue 所在的项目）</span>
+git clone https://github.com/hacke2/hacke2.github.io.git <span class="b">&amp;&amp;</span> cd hacke2.github.io
+
+<span class="c"># Fork 一份到自己账号，长期保存你关心的链接</span>
+<span class="p">gh</span> repo fork hacke2/hacke2.github.io --clone=false</pre></div>
+      <div class="callout reveal" style="text-align:left">
+        📌 <b>为什么克隆</b>：GitHub 仓库通常长期在线，但帖内引用的第三方博客、瀑布流图床、旧文档站可能已关停。把仓库 + 你筛选出的链接一起存档，等于给这份档案上了双保险。
+      </div>
+    </div>
+
+    <div class="panel-box" data-p="wayback">
+      <div class="code reveal"><button class="copy" data-c="wayback">复制</button><pre><span class="c"># 把失效链接塞进 Wayback Machine 查历史快照</span>
+<span class="p">open</span> https://web.archive.org/web/*/https://example.com/old-frontend-post
+
+<span class="c"># 或提交一个页面让 archive.org 重新抓取</span>
+<span class="p">open</span> https://web.archive.org/save/https://example.com/old-frontend-post</pre></div>
+      <div class="callout reveal" style="text-align:left">
+        ⚠️ 上面的 <code>example.com</code> 只是占位。把帖里失效的真实链接替换进去即可；若 archive.org 也无快照，可尝试在中文技术社区（如 CSDN、博客园、掘金早期文章）用标题关键词检索。
+      </div>
+    </div>
+  </section>
+
+  <section id="worth">
+    <div class="sec-head reveal">
+      <div class="k">Why It Matters</div>
+      <h2>今天为什么还值得读</h2>
+      <p>技术会过时，但「人怎么学、怎么分享」不会。这篇 Issue 的价值在四个层面，跟它链接是否有效是两回事。</p>
+    </div>
+    <div class="grid g3">
+      <div class="card pillar reveal"><div class="ic">🕰️</div><h3>历史视角</h3><p>看清 2014 年前端技术栈的真实状态，理解今天 React / Vite / Tailwind 这套主流是怎么一步步长出来的。</p></div>
+      <div class="card pillar reveal"><div class="ic">📚</div><h3>经典资源</h3><p>部分推荐文章讲原理而非追新，关于测试思维、组件化、构建流程的内容至今仍站得住脚。</p></div>
+      <div class="card pillar reveal"><div class="ic">🧭</div><h3>方法论</h3><p>看前辈如何把零散链接组织成一份可检索的清单，这套「资源策展」能力放今天也不过时。</p></div>
+      <div class="card pillar reveal"><div class="ic">🤝</div><h3>社区文化</h3><p>一个 Issue 被当成分享帖，是早期中文前端社区互助、开源精神的朴素样本。</p></div>
+      <div class="card pillar reveal"><div class="ic">🗿</div><h3>怀旧收藏</h3><p>珍贵的一手资料：十年后回看，能瞬间把自己拉回「那时候大家都在追什么」的现场。</p></div>
+      <div class="card pillar reveal"><div class="ic">🔁</div><h3>延续精神</h3><p>受它启发，你也可以开一个属于自己时代的资源 Issue，把今天的「好文清单」留给后人。</p></div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq">
+    <div class="sec-head reveal">
+      <div class="k">FAQ</div>
+      <h2>常见问题</h2>
+      <p>关于这个 Issue 的访问、作者、内容价值，以及链接失效后的处理方式。</p>
+    </div>
+
+    <div class="reveal">
+      <div class="acc">
+        <div class="acc-h"><span class="num">01</span><h3>这个 Issue 现在还能打开吗？</h3><span class="ar">＋</span></div>
+        <div class="acc-b"><div class="acc-b-in">能。仓库 <code>hacke2/hacke2.github.io</code> 与 Issue #1 仍托管在 GitHub，公开可读、无需登录。但帖内引用的第三方文章、图床、旧文档站多为 2014 年前后，<b>部分外链可能已经失效或域名已易主</b>，读到 404 属正常现象。
+          <ul><li>正文可正常阅读，失效的只是「被链接出去」的资源</li><li>失效资源可用 archive.org 或标题关键词检索补救</li></ul></div></div>
+      </div>
+      <div class="acc">
+        <div class="acc-h"><span class="num">02</span><h3>hacke2 是谁？这个仓库是做什么的？</h3><span class="ar">＋</span></div>
+        <div class="acc-b"><div class="acc-b-in"><code>hacke2</code> 是一位 GitHub 个人用户；<code>hacke2.github.io</code> 是其 GitHub Pages 个人站点仓库。Issue #1 并不是一个「项目工单」，而是被作者当作<b>前端资源分享帖</b>来长期使用——这是早期社区很常见的用法：用 Issue 当公告板、当收藏夹。</div></div>
+      </div>
+      <div class="acc">
+        <div class="acc-h"><span class="num">03</span><h3>帖子里主要收录了哪些主题？</h3><span class="ar">＋</span></div>
+        <div class="acc-b"><div class="acc-b-in">报告明确点名的四大主题是：
+          <ul><li>JavaScript 单元测试</li><li>单页应用（SPA）开发</li><li>Grunt 构建工具</li><li>Bootstrap 框架</li></ul>
+          此外还涵盖当时中文前端社区其他热门学习资源与文章链接，整体是一张 2014 风格的前端「好文清单」。</div></div>
+      </div>
+      <div class="acc">
+        <div class="acc-h"><span class="num">04</span><h3>2014 年的资源，今天读了还有用吗？</h3><span class="ar">＋</span></div>
+        <div class="acc-b"><div class="acc-b-in">分两层看：<b>具体工具</b>大多已被取代（Grunt→Vite、Backbone→React）；但<b>底层思路</b>不过时——测试为什么重要、组件化怎么拆解、构建为什么该自动化。这些讲原理的文章，配合「今昔对照」来读，反而比追新的快餐教程更有嚼头。</div></div>
+      </div>
+      <div class="acc">
+        <div class="acc-h"><span class="num">05</span><h3>遇到失效链接怎么办？</h3><span class="ar">＋</span></div>
+        <div class="acc-b"><div class="acc-b-in">按优先级试三招：
+          <ul><li>把链接丢进 <code>web.archive.org/web/*/&lt;URL&gt;</code> 查历史快照</li><li>用文章标题在 CSDN / 博客园 / 掘金早期文章里搜</li><li>直接 <code>git clone</code> 仓库本地存档，将来检索更稳</li></ul></div></div>
+      </div>
+      <div class="acc">
+        <div class="acc-h"><span class="num">06</span><h3>我想延续这种分享精神，怎么做？</h3><span class="ar">＋</span></div>
+        <div class="acc-b"><div class="acc-b-in">最简单：在你的仓库开一个 Issue，持续往里贴你这周读到的高质量前端文章，分类打标签。进阶：Fork <code>hacke2.github.io</code> 在自己账号下维护一份；或干脆用现在的静态站点 / Notion / 备忘录搭一个「属于 2026 的资源档案」，把今天的 React、Vite、Tailwind、AI 辅助编码好文留给十年后的人。</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- START -->
+  <section id="start">
+    <div class="sec-head reveal">
+      <div class="k">Quick Start</div>
+      <h2>三分钟上手：访问、存档、补救</h2>
+      <p>路径很轻——在线读、克隆存、失效补。下面三个标签对应三种最实用的打开方式，默认选「在线阅读」。</p>
+    </div>
+
+    <div class="tabs reveal" id="tabs2">
+      <button class="tab active" data-t="read">🌐 在线阅读</button>
+      <button class="tab" data-t="save">💾 克隆存档</button>
+      <button class="tab" data-t="fix">🕰️ 失效链接</button>
+    </div>
+
+    <div class="panel-box active" data-p="read">
+      <div class="code reveal"><button class="copy" data-c="read">复制</button><pre><span class="c"># 浏览器直接打开 Issue #1（公开、无需登录）</span>
+https://github.com/hacke2/hacke2.github.io/issues/1
+
+<span class="c"># 命令行一键打开</span>
+<span class="p">open</span> https://github.com/hacke2/hacke2.github.io/issues/1</pre></div>
+    </div>
+
+    <div class="panel-box" data-p="save">
+      <div class="code reveal"><button class="copy" data-c="save">复制</button><pre><span class="c"># 克隆仓库，把这份档案留在本地</span>
+git clone https://github.com/hacke2/hacke2.github.io.git <span class="b">&amp;&amp;</span> cd hacke2.github.io
+
+<span class="c"># 在自己的 GitHub 账号下 Fork 一份，长期维护</span>
+<span class="p">gh</span> repo fork hacke2/hacke2.github.io --clone=false</pre></div>
+    </div>
+
+    <div class="panel-box" data-p="fix">
+      <div class="code reveal"><button class="copy" data-c="fix">复制</button><pre><span class="c"># 把帖里失效的真实链接替换进下面的占位 URL</span>
+<span class="p">open</span> https://web.archive.org/web/*/https://example.com/old-post
+
+<span class="c"># 让 archive.org 重新抓取一次</span>
+<span class="p">open</span> https://web.archive.org/save/https://example.com/old-post</pre></div>
+    </div>
+
+    <div class="grid g3 reveal" style="margin-top:22px">
+      <div class="card"><h3 style="margin-top:0; font-size:17px">📜 当档案读</h3><p style="color:var(--muted); font-size:14px">把它当 2014 前端时间胶囊，看当时大家在关心什么、用什么词组织知识。</p></div>
+      <div class="card"><h3 style="margin-top:0; font-size:17px">🔍 做对照</h3><p style="color:var(--muted); font-size:14px">每个老主题都配一份「今天怎么做」的对照，老思路反而更清晰。</p></div>
+      <div class="card"><h3 style="margin-top:0; font-size:17px">🔁 延续它</h3><p style="color:var(--muted); font-size:14px">开一个属于你时代的资源 Issue，把今天的好文清单留给十年后的人。</p></div>
+    </div>
+  </section>
+
+  <footer>made with ♥ & a white grid — <b>Hacke2 Issue #1 深度解读</b><div style="margin-top:6px;font-size:13px">数据抓取于 2026-07-14 · 内容综合自官网与 Tabbit 报告</div></footer>
+</div>
+
+<script>
+/* theme */
+const root=document.documentElement, tb=document.getElementById('themeBtn');
+tb.onclick=()=>{root.dataset.theme=root.dataset.theme==='light'?'dark':'light';};
+/* progress bar */
+const prog=document.getElementById('progress');
+addEventListener('scroll',()=>{const h=document.documentElement;
+  prog.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+'%';});
+/* reveal */
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in');}),{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+/* counters */
+function animateCounters(){
+  document.querySelectorAll('.stat .n').forEach(el=>{
+    const to=parseFloat(el.dataset.to), suf=el.dataset.suf||'';
+    let cur=0; const step=to/46;
+    const t=setInterval(()=>{cur+=step; if(cur>=to){cur=to; clearInterval(t);}
+      el.textContent=(to%1?cur.toFixed(1):Math.round(cur))+suf;},22);
+  });
+}
+const heroIO=new IntersectionObserver((es,o)=>{es.forEach(e=>{if(e.isIntersecting){animateCounters();o.disconnect();}});},{threshold:.4});
+heroIO.observe(document.querySelector('.hero'));
+/* tabs */
+document.querySelectorAll('.tabs').forEach(wrap=>{
+  const boxes=Array.from(wrap.parentElement.children).filter(c=>c.classList.contains('panel-box'));
+  wrap.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{
+    wrap.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
+    b.classList.add('active');
+    const t=b.dataset.t;
+    boxes.forEach(p=>p.classList.toggle('active',p.dataset.p===t));
+  });
+});
+/* accordion */
+document.querySelectorAll('.acc-h').forEach(h=>h.onclick=()=>{
+  const acc=h.parentElement, b=acc.querySelector('.acc-b');
+  const open=acc.classList.toggle('open');
+  b.style.maxHeight=open?b.scrollHeight+'px':'0';
+});
+/* copy */
+document.querySelectorAll('.copy').forEach(b=>b.onclick=()=>{
+  const pre=b.parentElement.querySelector('pre');
+  navigator.clipboard.writeText(pre.innerText).then(()=>{const t=b.textContent;b.textContent='已复制 ✓';setTimeout(()=>b.textContent=t,1400);});
+});
+</script>
+<a href="tp.html" style="position:fixed;left:18px;bottom:18px;z-index:90;display:inline-flex;align-items:center;gap:7px;font:600 14px/1 system-ui,sans-serif;color:#fff;text-decoration:none;background:linear-gradient(120deg,var(--accent),var(--accent-2));padding:11px 17px;border-radius:12px;box-shadow:0 8px 30px rgba(0,0,0,.3)">← 返回 TP 中心</a>
+<script>
+/* Theme button icon sync */
+(function(){
+  var btn=document.querySelector('.theme-btn');
+  if(!btn)return;
+  function sync(){btn.textContent=document.documentElement.dataset.theme==='dark'?'☀️':'🌙';}
+  sync();
+  btn.addEventListener('click',function(){setTimeout(sync,0);});
+})();
+</script>
+<script>
+/* Auto-collapse TOC: only expand the section containing the current page */
+(function(){
+  var details=document.querySelectorAll('aside.toc details.toc-sec');
+  if(details.length<2)return;
+  var current=location.pathname.replace(/\/$/,'');
+  var activeLink=null;
+  document.querySelectorAll('aside.toc a').forEach(function(a){
+    var href=a.getAttribute('href')||'';
+    if(href && !href.startsWith('http') && !href.startsWith('#')){
+      var path=href.replace(/^https?:\/\/[^\/]+/,'').replace(/\/$/,'');
+      if(current===path || current.indexOf(path)>-1 || path.indexOf(current)>-1){
+        activeLink=a;
+      }
+    }
+  });
+  details.forEach(function(d){
+    if(activeLink && d.contains(activeLink)){d.setAttribute('open','');}
+    else{d.removeAttribute('open');}
+  });
+})();
+</script>
+</body>
+</html>

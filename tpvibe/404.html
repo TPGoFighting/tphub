@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>404 页面不存在 | TPvibe</title>
+<link rel="icon" href="/tpvibe/images/tp_logo.jpg" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/tpvibe/style.css">
+<meta name="robots" content="noindex">
+<meta name="description" content="404 页面不存在 — TPvibe 中文 AI 学习与实战教程，从零基础到进阶，边学边做。">
+<link rel="canonical" href="https://tphub.tpgofighting.top/tpvibe/404.html">
+</head>
+<body>
+<header class="site-header">
+<div class="header-inner">
+  <a href="/tpvibe/index.html" class="logo"><img src="/tpvibe/images/tp_logo.jpg" alt="TPvibe" style="width:32px;height:32px;border-radius:8px;" width="200" height="200"> TPvibe</a>
+  <nav><ul class="nav-links">
+    <li><a href="/tpvibe/index.html">首页</a></li>
+    <li><a href="/tpvibe/Basic/lecture-1.html">基础篇</a></li>
+    <li><a href="/tpvibe/Advanced/ch01.html">进阶篇</a></li>
+    <li><a href="/tpvibe/Articles/core-concepts.html">文章</a></li>
+    <li><a href="/tpvibe/Practice/index.html">实践案例</a></li>
+  </ul></nav>
+  <button class="theme-btn" aria-label="切换主题" onclick="document.documentElement.dataset.theme=document.documentElement.dataset.theme==='dark'?'light':'dark';localStorage.setItem('tpvibe-theme',document.documentElement.dataset.theme)">🌙</button>
+</div>
+</header>
+
+<div class="container" style="text-align:center; padding-top:80px; padding-bottom:120px;">
+  <div style="font-size:120px; font-family:'Space Grotesk',sans-serif; font-weight:800; line-height:1; background:linear-gradient(120deg,var(--accent),var(--accent-2)); -webkit-background-clip:text; background-clip:text; color:transparent; margin-bottom:16px;">404</div>
+  <h1 style="font-size:28px; font-family:'Space Grotesk',sans-serif; margin-bottom:12px;">页面走丢了</h1>
+  <p style="font-size:16px; color:var(--muted); margin-bottom:40px;">您访问的页面不存在或已被移动。</p>
+  <div class="btn-group" style="justify-content:center;">
+    <a class="btn btn-primary" href="/tpvibe/index.html">返回首页</a>
+    <a class="btn btn-secondary" href="/tpvibe/Basic/lecture-1.html">基础篇</a>
+    <a class="btn btn-secondary" href="/tpvibe/Advanced/ch01.html">进阶篇</a>
+  </div>
+</div>
+
+<footer class="site-footer">
+<p>© 2026 TPvibe · 内部预览版</p>
+</footer>
+<script>
+(function(){var r=document.documentElement;var s=localStorage.getItem('tpvibe-theme');r.dataset.theme=s||'light';var b=document.querySelector('.theme-btn');if(b){function sync(){b.textContent=document.documentElement.dataset.theme==='dark'?'☀️':'🌙';}sync();b.addEventListener('click',function(){setTimeout(sync,0);});}})();
+</script>
+</body>
+</html>

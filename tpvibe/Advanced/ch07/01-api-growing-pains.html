@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="geo.region" content="CN">
+<meta name="geo.placename" content="China">
+<meta name="geo.position" content="39.9042;116.4074">
+<meta name="ICBM" content="39.9042, 116.4074">
+<link rel="icon" href="/tpvibe/images/tp_logo.jpg" type="image/png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>API 成长的烦恼 | TPvibe</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/tpvibe/style.css">
+<!-- SEO:tphub -->
+<meta name="description" content="API 成长的烦恼 — TPvibe 中文 AI 学习与实战教程，从零基础到进阶，边学边做。">
+<link rel="canonical" href="https://tphub.tpgofighting.top/tpvibe/Advanced/ch07/01-api-growing-pains.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="TPvibe">
+<meta property="og:title" content="API 成长的烦恼 | TPvibe">
+<meta property="og:description" content="API 成长的烦恼 — TPvibe 中文 AI 学习与实战教程，从零基础到进阶，边学边做。">
+<meta property="og:url" content="https://tphub.tpgofighting.top/tpvibe/Advanced/ch07/01-api-growing-pains.html">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://tphub.tpgofighting.top/tpvibe/images/tp_logo.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="API 成长的烦恼 | TPvibe">
+<meta name="twitter:description" content="API 成长的烦恼 — TPvibe 中文 AI 学习与实战教程，从零基础到进阶，边学边做。">
+<meta name="twitter:image" content="https://tphub.tpgofighting.top/tpvibe/images/tp_logo.jpg">
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "name": "API 成长的烦恼 | TPvibe",
+  "url": "https://tphub.tpgofighting.top/tpvibe/Advanced/ch07/01-api-growing-pains.html",
+  "description": "TPvibe 中文 AI 学习与实战教程：从零基础到进阶，边学边做，附可运行示例与实战项目。",
+  "inLanguage": "zh-CN",
+  "isPartOf": {"@type": "WebSite", "name": "TPvibe", "url": "https://tphub.tpgofighting.top/tpvibe/"}
+}</script>
+<!-- GEO:v2 -->
+<!-- LOGOFIX:v2 -->
+</head>
+<body>
+<aside class="toc" id="toc">
+<button class="toc-toggle" id="tocToggle" aria-label="收起目录">«</button>
+<div class="toc-inner">
+<a class="toc-home" href="/tpvibe/index.html">TPvibe 首页</a>
+<details class="toc-sec">
+<summary>基础篇</summary>
+<ul class="toc-tree">
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Basic/lecture-1.html">00 序言</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Basic/lecture-1/0.1-start-here.html">开始之前</a></li>
+<li><a href="/tpvibe/Basic/lecture-1/0.2-what-you-will-build.html">你要做什么</a></li>
+<li><a href="/tpvibe/Basic/lecture-1/0.3-who-this-is-for.html">适合谁学</a></li>
+<li><a href="/tpvibe/Basic/lecture-1/0.4-how-to-learn.html">怎么学</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Basic/lecture-2.html">01 觉醒</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Basic/lecture-2/1.1-coder-to-commander.html">从程序员到指挥官</a></li>
+<li><a href="/tpvibe/Basic/lecture-2/1.2-breaking-myths.html">打破误区</a></li>
+<li><a href="/tpvibe/Basic/lecture-2/1.3-tools-guide.html">工具选择指南</a></li>
+<li><a href="/tpvibe/Basic/lecture-2/1.4-vibe-vs-spec.html">Vibe Coding vs 规格驱动</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Basic/lecture-3.html">02 心智</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Basic/lecture-3/2.1-thinking-upgrade.html">思维升级</a></li>
+<li><a href="/tpvibe/Basic/lecture-3/2.2-inversion-thinking.html">逆向思维</a></li><li><a href="/tpvibe/Basic/lecture-3/2.3-subtraction-thinking.html">减法思维</a></li>
+<li><a href="/tpvibe/Basic/lecture-3/2.4-story-thinking.html">故事思维</a></li>
+
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Basic/lecture-4.html">03 技法</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Basic/lecture-4/3.1-prompt-basics.html">提示词基础</a></li>
+<li><a href="/tpvibe/Basic/lecture-4/3.2-structured-frameworks.html">结构化框架</a></li>
+<li><a href="/tpvibe/Basic/lecture-4/3.3-advanced-techniques.html">进阶技巧</a></li>
+<li><a href="/tpvibe/Basic/lecture-4/3.4-first-prd.html">第一份 PRD</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Basic/lecture-5.html">04 从0到1</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Basic/lecture-5/4.1-before-start.html">搭建前准备</a></li>
+<li><a href="/tpvibe/Basic/lecture-5/4.2-build-page.html">搭建页面</a></li>
+<li><a href="/tpvibe/Basic/lecture-5/4.3-core-features.html">核心功能</a></li>
+<li><a href="/tpvibe/Basic/lecture-5/4.4-data-storage.html">数据存储</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Basic/appendix-a.html">05 进阶</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Basic/appendix-a/5.1-version-control.html">版本控制</a></li>
+<li><a href="/tpvibe/Basic/appendix-a/5.2-deployment.html">部署上线</a></li>
+<li><a href="/tpvibe/Basic/appendix-a/5.3-security.html">安全防护</a></li>
+<li><a href="/tpvibe/Basic/appendix-a/5.4-iteration.html">迭代优化</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Basic/appendix-b.html">06 上线</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Basic/appendix-b/6.1-preflight.html">发布前检查</a></li>
+<li><a href="/tpvibe/Basic/appendix-b/6.2-deploy.html">发布流程</a></li>
+<li><a href="/tpvibe/Basic/appendix-b/6.3-feedback.html">收集反馈</a></li>
+<li><a href="/tpvibe/Basic/appendix-b/6.4-wrap-up.html">总结回顾</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Basic/appendix-c.html">99 附录</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Basic/appendix-c/a-prompt-cheatsheet.html">提示词速查表</a></li>
+<li><a href="/tpvibe/Basic/appendix-c/b-errors-and-asking-ai.html">常见错误与求助</a></li>
+<li><a href="/tpvibe/Basic/appendix-c/c-ui-cheatsheet.html">UI 速查表</a></li>
+<li><a href="/tpvibe/Basic/appendix-c/d-git-minimal-card.html">Git 最小知识卡</a></li>
+<li><a href="/tpvibe/Basic/appendix-c/e-api-key-env-security.html">API Key 与环境安全</a></li>
+<li><a href="/tpvibe/Basic/appendix-c/f-vibe-coding-can-and-cannot.html">Vibe Coding 能做与不能做</a></li>
+<li><a href="/tpvibe/Basic/appendix-c/g-advanced-jump-map.html">进阶跳转地图</a></li>
+</ul>
+</li>
+<li class="toc-chapter">
+<a href="/tpvibe/Basic/conclusion.html">100 结语</a>
+</li>
+</ul>
+</details>
+<details class="toc-sec">
+<summary>进阶篇</summary>
+<ul class="toc-tree">
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch01.html">01 环境搭建</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch01/00-quick-start.html">快速上手</a></li>
+<li><a href="/tpvibe/Advanced/ch01/01-code-formats.html">代码格式与编辑器</a></li>
+<li><a href="/tpvibe/Advanced/ch01/02-tech-stack.html">技术栈选择</a></li>
+<li><a href="/tpvibe/Advanced/ch01/03-browser-server.html">浏览器与服务器</a></li>
+<li><a href="/tpvibe/Advanced/ch01/04-terminal-basics.html">终端基础操作</a></li>
+<li><a href="/tpvibe/Advanced/ch01/05-package-manager-and-config.html">包管理与配置文件</a></li>
+<li><a href="/tpvibe/Advanced/ch01/06-models-and-tools.html">AI 模型与工具选择</a></li>
+<li><a href="/tpvibe/Advanced/ch01/07-creating-project.html">创建你的第一个项目</a></li>
+<li><a href="/tpvibe/Advanced/ch01/08-localhost-and-ports.html">本地服务器与端口</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch02.html">02 开发工具与AI调优</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch02/01-ai-economics.html">AI 经济学</a></li>
+<li><a href="/tpvibe/Advanced/ch02/02-vibecoding-workflow.html">Vibe Coding 工作流</a></li>
+<li><a href="/tpvibe/Advanced/ch02/03-mcp-and-skills.html">MCP 与 Skills</a></li>
+<li><a href="/tpvibe/Advanced/ch02/04-project-config.html">项目配置</a></li>
+<li><a href="/tpvibe/Advanced/ch02/05-debugging-tips.html">调试技巧</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch03.html">03 产品验证</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch03/01-product-validation.html">产品验证</a></li>
+<li><a href="/tpvibe/Advanced/ch03/02-discuss-with-ai.html">与 AI 讨论</a></li>
+<li><a href="/tpvibe/Advanced/ch03/03-prd-template-guide.html">PRD 模板指南</a></li>
+<li><a href="/tpvibe/Advanced/ch03/04-coding-agents.html">编码代理</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch04.html">04 编程基础</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch04/00-build-basics.html">构建基础</a></li>
+<li><a href="/tpvibe/Advanced/ch04/01-tech-stack-decision.html">技术栈决策</a></li>
+<li><a href="/tpvibe/Advanced/ch04/03-programming-basics.html">编程基础</a></li>
+<li><a href="/tpvibe/Advanced/ch04/02-prd-and-tech-docs.html">PRD 与技术文档</a></li>
+<li><a href="/tpvibe/Advanced/ch04/04-api-and-http.html">API 与 HTTP</a></li>
+<li><a href="/tpvibe/Advanced/ch04/05-frontend-backend-separation.html">前后端分离</a></li>
+<li><a href="/tpvibe/Advanced/ch04/06-config-formats.html">配置格式</a></li>
+<li><a href="/tpvibe/Advanced/ch04/07-api-integration.html">API 集成</a></li>
+<li><a href="/tpvibe/Advanced/ch04/08-readme-structure.html">README 结构</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch05.html">05 好看好用的界面</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch05/03-animation-libraries.html">动画库</a></li>
+</ul>
+</li>
+<li class="toc-chapter">
+<a href="/tpvibe/Advanced/ch06.html">06 数据存哪里</a>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch07.html">07 连接前后端</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch07/00-crud-example.html">CRUD 示例</a></li>
+<li><a href="/tpvibe/Advanced/ch07/02-when-things-go-wrong.html">出错处理</a></li>
+<li><a href="/tpvibe/Advanced/ch07/03-api-as-product.html">API 即产品</a></li>
+<li><a href="/tpvibe/Advanced/ch07/01-api-growing-pains.html" class="active">API 成长烦恼</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch08.html">08 谁能访问数据</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch08/00-user-system-example.html">用户系统示例</a></li>
+<li><a href="/tpvibe/Advanced/ch08/01-env-and-secrets.html">环境变量与密钥</a></li>
+<li><a href="/tpvibe/Advanced/ch08/03-route-protection.html">路由保护</a></li>
+<li><a href="/tpvibe/Advanced/ch08/04-security-checklist.html">安全清单</a></li>
+<li><a href="/tpvibe/Advanced/ch08/05-advanced-security.html">高级安全</a></li>
+<li><a href="/tpvibe/Advanced/ch08/02-auth-methods.html">认证方式</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch09.html">09 功能测试</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch09/01-testing-strategy.html">测试策略</a></li>
+<li><a href="/tpvibe/Advanced/ch09/02-api-and-e2e-testing.html">API 与 E2E 测试</a></li>
+<li><a href="/tpvibe/Advanced/ch09/03-automation-workflow.html">自动化工作流</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch10.html">10 公网访问</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch10/01-network-layers.html">网络分层</a></li>
+<li><a href="/tpvibe/Advanced/ch10/02-tunneling.html">隧道穿透</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch11.html">11 协作开发</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch11/01-why-git.html">为什么用 Git</a></li>
+<li><a href="/tpvibe/Advanced/ch11/02-remote-and-collaboration.html">远程与协作</a></li>
+<li><a href="/tpvibe/Advanced/ch11/03-branch-and-workflow.html">分支与工作流</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch12.html">12 无服务器部署</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch12/01-deploy-edgeone.html">EdgeOne 部署</a></li>
+<li><a href="/tpvibe/Advanced/ch12/02-deploy-vercel-platforms.html">Vercel 等平台部署</a></li>
+<li><a href="/tpvibe/Advanced/ch12/03-cicd-automation.html">CI/CD 自动化</a></li>
+<li><a href="/tpvibe/Advanced/ch12/04-operations-cost.html">运维成本</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch13.html">13 域名解析</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch13/01-domain-setup.html">域名设置</a></li>
+<li><a href="/tpvibe/Advanced/ch13/02-compliance-access.html">合规接入</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch14.html">14 部署到服务器</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch14/01-vps-selection.html">VPS 选择</a></li>
+<li><a href="/tpvibe/Advanced/ch14/02-vps-setup.html">VPS 配置</a></li>
+<li><a href="/tpvibe/Advanced/ch14/03-1-docker-apps.html">Docker 应用</a></li>
+<li><a href="/tpvibe/Advanced/ch14/03-2-deploy-nextjs.html">部署 Next.js</a></li>
+<li><a href="/tpvibe/Advanced/ch14/03-4-deploy-fullstack.html">部署全栈应用</a></li>
+<li><a href="/tpvibe/Advanced/ch14/05-cool-apps.html">酷应用</a></li>
+<li><a href="/tpvibe/Advanced/ch14/03-3-deploy-static.html">部署静态站点</a></li>
+<li><a href="/tpvibe/Advanced/ch14/04-domain-ssl.html">域名与 SSL</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch15.html">15 SEO与统计</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch15/01-opengraph-sharing.html">OpenGraph 分享</a></li>
+<li><a href="/tpvibe/Advanced/ch15/02-seo-guide.html">SEO 指南</a></li>
+<li><a href="/tpvibe/Advanced/ch15/03-umami.html">Umami 统计</a></li>
+<li><a href="/tpvibe/Advanced/ch15/04-legal.html">法律合规</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch16.html">16 反馈与迭代</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch16/01-facing-real-users.html">面向真实用户</a></li>
+<li><a href="/tpvibe/Advanced/ch16/02-feedback-prioritization.html">反馈优先级</a></li>
+<li><a href="/tpvibe/Advanced/ch16/03-understanding-users.html">理解用户</a></li>
+<li><a href="/tpvibe/Advanced/ch16/04-iteration-and-growth.html">迭代与增长</a></li>
+</ul>
+</li>
+<li class="toc-chapter">
+<a href="/tpvibe/Advanced/next-level.html">进阶实战</a>
+</li>
+</ul>
+</details>
+<details class="toc-sec">
+<summary>文章</summary>
+<ul class="toc-tree">
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Articles/core-concepts.html">核心概念</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Articles/core-concepts/what-are-ai-agents-why-do-they-matter.html">AI Agent 是什么</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Articles/architecture.html">技术架构</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Articles/architecture/how-claude-code-works.html">Claude Code 如何工作</a></li>
+<li><a href="/tpvibe/Articles/architecture/mcp-what-it-is-and-why-it-matters.html">MCP 是什么及为何重要</a></li>
+<li><a href="/tpvibe/Articles/architecture/build-agents-with-filesystems-and-bash.html">用文件系统和 Bash 构建 Agent</a></li>
+<li><a href="/tpvibe/Articles/architecture/testing-bash-vs-sql.html">Bash vs SQL 测试</a></li>
+<li><a href="/tpvibe/Articles/architecture/multi-agent-systems-ai-native-engineering.html">多 Agent 系统与 AI 原生工程</a></li>
+<li><a href="/tpvibe/Articles/architecture/self-improving-coding-agents.html">自我改进的编码 Agent</a></li>
+<li><a href="/tpvibe/Articles/architecture/nvidia-ai-5-layer-cake.html">NVIDIA AI 五层架构</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Articles/tools.html">工具链</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Articles/tools/how-to-write-good-spec-for-ai-agents.html">如何为 AI Agent 写 Spec</a></li>
+<li><a href="/tpvibe/Articles/tools/ai-driven-prototyping-v0-bolt-and-lovable-compared.html">AI 原型工具对比</a></li>
+<li><a href="/tpvibe/Articles/tools/why-i-use-cline-for-ai-engineering.html">为什么用 Cline 做 AI 工程</a></li>
+<li><a href="/tpvibe/Articles/tools/agents-md-vs-skills.html">AGENTS.md 与 Skills 对比</a></li>
+<li><a href="/tpvibe/Articles/tools/complete-guide-to-building-skills-for-claude.html">Claude Skills 构建指南</a></li>
+<li><a href="/tpvibe/Articles/tools/we-removed-80-percent-tools.html">我们移除了 80% 的工具</a></li>
+<li><a href="/tpvibe/Articles/tools/claude-code-swarms.html">Claude Code 集群</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Articles/engineering.html">工程实践</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Articles/engineering/ai-writes-code-faster-your-job-is-to-prove-it-works.html">AI 写代码更快，你要证明它有效</a></li>
+<li><a href="/tpvibe/Articles/engineering/beyond-the-70-maximizing-the-human-30-of-ai-assisted-coding.html">超越 70%：最大化人类 30%</a></li>
+<li><a href="/tpvibe/Articles/engineering/avoiding-skill-atrophy-in-the-age-of-ai.html">AI 时代的技能退化</a></li>
+<li><a href="/tpvibe/Articles/engineering/how-to-write-a-good-spec-for-ai-agents.html">如何为 AI Agent 写好 Spec</a></li>
+<li><a href="/tpvibe/Articles/engineering/leading-effective-engineering-teams-in-the-age-of-genai.html">GenAI 时代的工程团队领导</a></li>
+<li><a href="/tpvibe/Articles/engineering/your-ai-coding-agents-need-a-manager.html">AI 编码 Agent 需要管理者</a></li>
+<li><a href="/tpvibe/Articles/engineering/ai-code-review-implementation.html">AI 代码审查实现</a></li>
+<li><a href="/tpvibe/Articles/engineering/react-best-practices.html">React 最佳实践</a></li>
+<li><a href="/tpvibe/Articles/engineering/vercel-aeo-tracking.html">Vercel AEO 追踪</a></li>
+<li><a href="/tpvibe/Articles/engineering/my-llm-coding-workflow-going-into-2026.html">2026 年我的 LLM 工作流</a></li>
+<li><a href="/tpvibe/Articles/engineering/stop-using-init-for-agents.html">停止对 Agent 使用 init</a></li>
+<li><a href="/tpvibe/Articles/engineering/video-generation-with-ai-gateway.html">AI 网关视频生成</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Articles/security.html">安全合规</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Articles/security/ai-agents-threats-and-mitigations.html">AI Agent 威胁与缓解</a></li>
+<li><a href="/tpvibe/Articles/security/security-boundaries-in-agentic-architectures.html">Agent 架构安全边界</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Articles/business.html">商业趋势</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Articles/business/the-next-two-years-of-software-engineering.html">软件工程的未来两年</a></li>
+<li><a href="/tpvibe/Articles/business/how-openevidence-built-healthcare-ai-physicians-trust.html">OpenEvidence 医疗 AI</a></li>
+<li><a href="/tpvibe/Articles/business/keeping-community-human-while-scaling-with-agents.html">用 Agent 扩展时保持人性</a></li>
+</ul>
+</li>
+</ul>
+</details>
+<details class="toc-sec">
+<summary>实践案例</summary>
+<ul class="toc-tree">
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Practice/index.html">实践案例</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Practice/index/vibe-coding-methodology.html">Vibe Coding 方法论</a></li>
+<li><a href="/tpvibe/Practice/index/ai-canvas-vibecoding-journey.html">AI Canvas 之旅</a></li>
+<li><a href="/tpvibe/Practice/index/ai-picture-book-generator.html">AI 绘本生成器</a></li>
+<li><a href="/tpvibe/Practice/index/ai-resume-saas.html">AI 简历 SaaS</a></li>
+<li><a href="/tpvibe/Practice/index/full-stack-21-day-thinking-habit-game.html">21 天思维习惯游戏</a></li>
+</ul>
+</li>
+</ul>
+</details>
+</div>
+</aside>
+<script>
+(function(){
+  /* Move toc-toggle to body to avoid overflow/transform clipping */
+  var tocToggle=document.getElementById('tocToggle');
+  var toc=document.getElementById('toc');
+  if(tocToggle&&toc){
+    document.body.appendChild(tocToggle);
+    tocToggle.style.position='fixed';
+    tocToggle.style.top='70px';
+    tocToggle.style.left='254px';
+    tocToggle.style.zIndex='41';
+    tocToggle.style.width='28px';
+    tocToggle.style.height='28px';
+    tocToggle.style.borderRadius='50%';
+    tocToggle.style.border='1px solid var(--line)';
+    tocToggle.style.background='var(--card)';
+    tocToggle.style.color='var(--muted)';
+    tocToggle.style.cursor='pointer';
+    tocToggle.style.display='grid';
+    tocToggle.style.placeItems='center';
+    tocToggle.style.boxShadow='0 4px 14px var(--shadow)';
+    tocToggle.style.fontSize='14px';
+    tocToggle.style.fontWeight='700';
+    tocToggle.style.transition='left .35s cubic-bezier(.34,1.3,.64,1), background .2s, color .2s, border-color .2s';
+    tocToggle.addEventListener('mouseenter',function(){
+      this.style.background='var(--soft)';
+      this.style.color='var(--accent)';
+      this.style.borderColor='var(--accent)';
+    });
+    tocToggle.addEventListener('mouseleave',function(){
+      this.style.background='var(--card)';
+      this.style.color='var(--muted)';
+      this.style.borderColor='var(--line)';
+    });
+    tocToggle.addEventListener('click',function(){
+      toc.classList.toggle('collapsed');
+      var c=toc.classList.contains('collapsed');
+      this.style.left=c?'8px':'254px';
+      this.textContent=c?'»':'«';
+      this.setAttribute('aria-label',c?'展开目录':'收起目录');
+    });
+  }
+  /* Mobile scrim click to close */
+  var scrim=document.querySelector('.toc-scrim');
+  if(scrim){
+    scrim.addEventListener('click',function(){
+      var cb=document.getElementById('tocToggleMobile');
+      if(cb)cb.checked=false;
+    });
+  }
+  /* Chapter expand/collapse (L1) */
+  document.querySelectorAll('.toc-chapter-toggle').forEach(function(btn){
+    btn.addEventListener('click',function(e){
+      e.preventDefault();
+      e.stopPropagation();
+      var li=this.closest('.toc-chapter');
+      if(li)li.classList.toggle('expanded');
+    });
+  });
+  /* Auto-expand: find active link and open its section + chapter */
+  var currentRaw=location.pathname.replace(/\/$/,'');
+  var activeLink=null;
+  document.querySelectorAll('aside.toc a[href]').forEach(function(a){
+    var href=a.getAttribute('href')||'';
+    if(!href||href.startsWith('http')||href.startsWith('#'))return;
+    var path=href.replace(/^https?:\/\/[^\/]+/,'').replace(/\/$/,'');
+    /* Skip home link for active matching */
+    if(path.indexOf('/index.html')>=0&&currentRaw.indexOf('/index.html')<0)return;
+    if(currentRaw===path){activeLink=a;return;}
+    /* Also check if currentRaw contains the path (for sub-pages) */
+    if(path.length>5&&currentRaw.indexOf(path)>=0){activeLink=a;}
+  });
+  /* Open the section (L0) containing active link, close others */
+  var sections=document.querySelectorAll('aside.toc details.toc-sec');
+  if(sections.length>0){
+    sections.forEach(function(d){
+      if(activeLink&&d.contains(activeLink)){d.setAttribute('open','');}
+      else{d.removeAttribute('open');}
+    });
+  }
+  /* Expand the chapter (L1) containing active link */
+  if(activeLink){
+    var chap=activeLink.closest('.toc-chapter.has-children');
+    if(chap)chap.classList.add('expanded');
+  }
+  /* If no active link found (e.g. index page), open first section and first chapter */
+  if(!activeLink&&sections.length>0){
+    sections[0].setAttribute('open','');
+    var firstChapter=sections[0].querySelector('.toc-chapter.has-children');
+    if(firstChapter)firstChapter.classList.add('expanded');
+  }
+})();
+</script>
+
+<div id="progress"></div>
+<header class="site-header">
+<div class="header-inner">
+  <a href="/tpvibe/index.html" class="logo"><img src="/tpvibe/images/tp_logo.jpg" alt="TPvibe" width="200" height="200"> TPvibe</a>
+  <input type="checkbox" id="nav-toggle-cb" class="nav-toggle-cb" aria-hidden="true">
+  <label for="nav-toggle-cb" class="nav-toggle" aria-label="打开菜单">&#9776;</label>
+  <nav><ul class="nav-links"><li><a href="/tpvibe/index.html">TPvibe</a></li><li><a href="/tpvibe/index.html">首页</a></li><li><a href="/tpvibe/Basic/lecture-1.html">基础篇</a></li><li><a href="/tpvibe/Advanced/ch01.html">进阶篇</a></li><li><a href="/tpvibe/Articles/core-concepts.html">文章</a></li><li><a href="/tpvibe/Practice/index.html">实践案例</a></li></ul>
+</nav>
+<button class="theme-btn" aria-label="切换主题" onclick="document.documentElement.dataset.theme=document.documentElement.dataset.theme==='dark'?'light':'dark';localStorage.setItem('tpvibe-theme',document.documentElement.dataset.theme)">🌙</button>
+</div>
+</header>
+<main class="container">
+<h1 class="page-title">API 成长的烦恼</h1>
+<div class="page-cover reveal">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400" preserveAspectRatio="xMidYMid slice" style="width:100%;height:100%;display:block;">
+  <defs>
+    <linearGradient id="bg-2268544872" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0f172a"/>
+      <stop offset="100%" style="stop-color:#1e3a8a"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="400" fill="url(#bg-2268544872)"/>
+  <polygon points="34,69 0,89 -34,69 -34,31 -0,11 34,31" fill="white" opacity="0.11"/>
+<polygon points="198,72 160,93 122,72 122,28 160,7 198,28" fill="white" opacity="0.05"/>
+<polygon points="362,74 320,98 278,74 278,26 320,2 362,26" fill="white" opacity="0.07"/>
+<polygon points="508,66 480,83 452,66 452,34 480,17 508,34" fill="white" opacity="0.08"/>
+<polygon points="672,69 640,87 608,69 608,31 640,13 672,31" fill="white" opacity="0.10"/>
+<polygon points="836,71 800,92 764,71 764,29 800,8 836,29" fill="white" opacity="0.04"/>
+<polygon points="1000,73 960,97 920,73 920,27 960,3 1000,27" fill="white" opacity="0.06"/>
+<polygon points="1147,66 1120,81 1093,66 1093,34 1120,19 1147,34" fill="white" opacity="0.08"/>
+<polygon points="111,168 80,186 49,168 49,132 80,114 111,132" fill="white" opacity="0.10"/>
+<polygon points="275,170 240,190 205,170 205,130 240,110 275,130" fill="white" opacity="0.03"/>
+<polygon points="439,172 400,195 361,172 361,128 400,105 439,128" fill="white" opacity="0.05"/>
+<polygon points="603,175 560,200 517,175 517,125 560,100 603,125" fill="white" opacity="0.07"/>
+<polygon points="750,167 720,184 690,167 690,133 720,116 750,133" fill="white" opacity="0.09"/>
+<polygon points="914,169 880,189 846,169 846,131 880,111 914,131" fill="white" opacity="0.11"/>
+<polygon points="1078,172 1040,193 1002,172 1002,128 1040,107 1078,128" fill="white" opacity="0.05"/>
+<polygon points="1242,174 1200,198 1158,174 1158,126 1200,102 1242,126" fill="white" opacity="0.07"/>
+<polygon points="28,266 0,283 -28,266 -28,234 -0,217 28,234" fill="white" opacity="0.08"/>
+<polygon points="192,269 160,287 128,269 128,231 160,213 192,231" fill="white" opacity="0.10"/>
+<polygon points="356,271 320,292 284,271 284,229 320,208 356,229" fill="white" opacity="0.04"/>
+<polygon points="520,273 480,297 440,273 440,227 480,203 520,227" fill="white" opacity="0.06"/>
+<polygon points="667,266 640,281 613,266 613,234 640,219 667,234" fill="white" opacity="0.08"/>
+<polygon points="831,268 800,286 769,268 769,232 800,214 831,232" fill="white" opacity="0.10"/>
+<polygon points="995,270 960,290 925,270 925,230 960,210 995,230" fill="white" opacity="0.03"/>
+<polygon points="1159,272 1120,295 1081,272 1081,228 1120,205 1159,228" fill="white" opacity="0.05"/>
+<polygon points="123,375 80,400 37,375 37,325 80,300 123,325" fill="white" opacity="0.07"/>
+<polygon points="270,367 240,384 210,367 210,333 240,316 270,333" fill="white" opacity="0.09"/>
+<polygon points="434,369 400,389 366,369 366,331 400,311 434,331" fill="white" opacity="0.11"/>
+<polygon points="598,372 560,393 522,372 522,328 560,307 598,328" fill="white" opacity="0.05"/>
+<polygon points="762,374 720,398 678,374 678,326 720,302 762,326" fill="white" opacity="0.07"/>
+<polygon points="908,366 880,383 852,366 852,334 880,317 908,334" fill="white" opacity="0.08"/>
+<polygon points="1072,369 1040,387 1008,369 1008,331 1040,313 1072,331" fill="white" opacity="0.10"/>
+<polygon points="1236,371 1200,392 1164,371 1164,329 1200,308 1236,329" fill="white" opacity="0.04"/>
+
+  
+  <text x="60" y="340" font-family="system-ui, -apple-system, sans-serif" font-size="36" font-weight="700" fill="white">API 成长的烦恼</text>
+  <rect x="60" y="355" width="60" height="4" rx="2" fill="#06b6d4"/>
+</svg>
+</div>
+
+<div class="content reveal">
+<blockquote><p><strong>本节目标</strong>：理解当应用从&quot;能跑&quot;走向&quot;能用&quot;时，接口设计会遇到哪些真实问题，以及该怎么跟 AI 描述这些需求。</p></blockquote><hr><h2>小明的电影详情页难题 </h2><p>小明的&quot;个人豆瓣&quot;从第六章延续过来。数据库设计好了——<code>movies</code>、<code>directors</code>、<code>tags</code>、<code>movie_tags</code>、<code>ratings</code> 五张表，关系理清了，约束也加了。按照 7.0 学到的 CRUD 模式，他也给电影应用跑通了增删改查——添加电影、查看列表、编辑信息、删除记录，一切正常。</p><p>小明很开心，觉得后端这块差不多了，开始做真正的页面。</p><p>第一个页面是电影详情页。他打开豆瓣看了看，一个电影详情页上要显示：电影名、年份、海报、导演姓名、演员列表、用户评分、标签、简介。他的数据库里，这些信息分散在四五张表里。</p><p>最直觉的做法是什么？前端发五个请求：</p><ol><li><code>GET /api/movies/1</code> → 拿电影基本信息</li><li><code>GET /api/directors/5</code> → 拿导演信息</li><li><code>GET /api/movies/1/tags</code> → 拿标签列表</li><li><code>GET /api/movies/1/ratings</code> → 拿评分</li><li><code>GET /api/movies/1/actors</code> → 拿演员列表</li></ol><p>能跑。但小明打开页面一看，体验很糟糕——页面先出了电影标题，过了半秒导演名字才冒出来，又过了一会儿标签才显示，评分最后才加载完。用户看到的是一个&quot;跳来跳去&quot;的页面，像是零件一个个往上拼。</p><p>更要命的是，五个请求意味着五次网络往返。每次往返至少几十毫秒，加上服务器处理时间，用户要等好几百毫秒才能看到完整页面。如果用户网络不好（比如在地铁里），某个请求超时了，页面就会缺一块——有标题没导演，有评分没标签。</p><p>老师傅看了一眼说：&quot;先搞清楚一件事——你这个详情页是怎么渲染的？&quot;</p><h3>先问自己：这个页面需要 API 吗？ </h3><p>这是一个很多新手会忽略的问题。在 Next.js 里，页面组件（<code>page.tsx</code>）本身就运行在服务器上，可以<strong>直接查数据库</strong>，根本不需要绕一圈走 API。</p><p>小明的电影详情页如果是一个 Server Component（默认就是），它可以直接在组件里调用 Drizzle 查询，把五张表的数据一次查好，渲染成 HTML 发给浏览器。整个过程没有任何&quot;前端发请求→后端返回&quot;的网络往返——数据在服务器上就拿到了。</p><p>那 API Route 是给谁用的？两种场景：</p><ul><li><strong>前端需要动态交互时</strong>——比如用户点了&quot;收藏&quot;按钮，前端需要告诉后端&quot;我要收藏这部电影&quot;。这种用户触发的写操作，需要通过某种方式调用后端逻辑</li><li><strong>外部消费者</strong>——比如老王想用小明的数据做小程序，他需要一个可以调用的 HTTP 接口</li></ul><p>小明的详情页属于&quot;打开页面就展示数据&quot;，不需要用户交互触发。所以老师傅说：&quot;详情页直接在 Server Component 里查数据库就行，不用写 API Route。&quot;</p><div class="callout"><p><strong>Server Action：不用写接口的写操作</strong></p><p>你可能会发现，AI 生成的&quot;收藏&quot;&quot;点赞&quot;&quot;提交表单&quot;这类功能，代码里并没有 <code>app/api/xxx/route.ts</code> 文件。取而代之的是一个带 <code>&#39;use server&#39;</code> 标记的函数——这就是 <strong>Server Action</strong>。</p><p>Server Action 让前端可以直接调用一个运行在服务器上的函数，不需要手动定义 API 路由、不需要写 <code>fetch</code> 请求。对于&quot;用户点按钮→后端处理→返回结果&quot;这类简单的写操作，它比 API Route 更简洁。</p><p>你不需要指定用哪种方式。加载了 <code>next-best-practices</code> Skill 的 Claude Code 会自动判断——页面展示用 Server Component 直接查库，简单的写操作用 Server Action，需要给外部调用的接口用 Route Handler。看到代码里没有 <code>route.ts</code> 不用觉得奇怪，AI 可能选了更合适的方式。</p></div><p>不过，小明的电影列表页有筛选、排序、翻页——这些是用户交互触发的，前端需要根据用户操作动态请求不同的数据。这种场景就需要 API 了。</p><p>所以接下来讨论的分页、过滤、排序，都是针对<strong>需要 API 的场景</strong>——前端根据用户操作动态请求数据。</p><p>但即使是 API 场景，&quot;一个页面发五个请求&quot;的问题依然存在。比如小明后来给电影详情页加了&quot;收藏&quot;和&quot;评论&quot;功能，详情页变成了客户端交互页面，需要通过 API 获取数据。这时候，数据结构该怎么组织？</p><hr><h2>嵌套 vs 扁平：两种数据组织方式 </h2><p>假设前端需要电影信息和导演信息。后端可以用两种方式返回：</p><h3>嵌套结构 </h3><p>把关联数据&quot;嵌&quot;在主对象里，一次返回所有信息：</p><details><summary>嵌套响应长什么样？展开看看</summary><div class="language-json vp-adaptive-theme"><button title="Copy Code" class="copy" aria-label="复制代码"></button><span class="lang">json</span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">{</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">  &quot;id&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">1</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">,</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">  &quot;title&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;千与千寻&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">,</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">  &quot;year&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">2001</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">,</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">  &quot;director&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: {</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">    &quot;id&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">5</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">,</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">    &quot;name&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;宫崎骏&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">,</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">    &quot;nationality&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;日本&quot;</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">  },</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">  &quot;tags&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: [</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;动画&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">, </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;奇幻&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">, </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;冒险&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">],</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">  &quot;rating&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: {</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">    &quot;average&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">9.4</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">,</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">    &quot;count&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">2156</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">  }</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">}</span></span></code></pre></div><p>前端直接用 <code>movie.director.name</code> 就能拿到导演名字，用 <code>movie.rating.average</code> 就能拿到评分，不用再发第二个、第三个请求。所有数据一次到位。</p></details><h3>扁平结构 </h3><p>只返回关联数据的 ID，前端需要的话自己再查：</p><details><summary>扁平响应长什么样？展开看看</summary><div class="language-json vp-adaptive-theme"><button title="Copy Code" class="copy" aria-label="复制代码"></button><span class="lang">json</span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">{</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">  &quot;id&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">1</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">,</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">  &quot;title&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;千与千寻&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">,</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">  &quot;year&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">2001</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">,</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">  &quot;directorId&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">5</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">,</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">  &quot;tagIds&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: [</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">1</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">, </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">3</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">, </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">7</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">],</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">  &quot;averageRating&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">9.4</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">}</span></span></code></pre></div><p>前端拿到 <code>directorId: 5</code> 后，如果要显示导演名字，还得再调 <code>GET /api/directors/5</code>。如果要显示标签名字，还得拿着 <code>tagIds</code> 去查标签表。</p></details><h3>怎么选？ </h3><p>这不是非此即彼的选择，而是看场景：</p><table tabindex="0"><thead><tr><th>场景</th><th>推荐结构</th><th>理由</th></tr></thead><tbody><tr><td>电影详情页</td><td>嵌套</td><td>页面需要展示完整信息，一次查完省得前端多跑几趟</td></tr><tr><td>电影列表页</td><td>扁平（或轻度嵌套）</td><td>列表只需要标题、年份、海报，带上完整导演信息和所有标签是浪费带宽</td></tr><tr><td>管理后台的表格</td><td>扁平</td><td>表格每行只显示关键字段，点击某行再加载详情</td></tr><tr><td>搜索结果</td><td>扁平 + 少量嵌套</td><td>搜索结果需要显示标题和评分，但不需要完整的导演履历</td></tr></tbody></table><p>一个实用的判断标准：<strong>前端拿到数据后，还需不需要再发请求才能渲染页面？</strong> 如果需要，说明你的接口返回的数据不够，应该嵌套更多关联数据。如果前端拿到数据就能直接渲染，说明刚刚好。</p><p>小明把电影详情接口改成了嵌套结构，一个请求返回所有信息。页面从&quot;零件拼装&quot;变成了&quot;一次成型&quot;，加载速度快了，体验也好了。</p><p>跟 AI 说的时候，直接描述你的需求就行：</p><blockquote><p>&quot;电影详情接口需要同时返回导演信息、标签列表和平均评分，用嵌套结构，一个请求返回所有数据。电影列表接口只返回标题、年份、海报 URL 和平均评分。&quot;</p></blockquote><hr><div class="ae-container" data-v-de5abb3b><div class="ae-tab-bar" data-v-de5abb3b><button class="ae-tab active" data-v-de5abb3b>数据结构对比</button><button class="ae-tab" data-v-de5abb3b>分页对比</button></div><div class="ae-body" data-v-de5abb3b><p class="ae-intro" data-v-de5abb3b>同一份数据，两种返回方式。嵌套结构一次拿全，扁平结构需要二次请求。</p><div class="ae-compare" data-v-de5abb3b><div class="ae-card ae-card-nested" data-v-de5abb3b><div class="ae-card-header" data-v-de5abb3b><span class="ae-badge" style="background:#9333ea;" data-v-de5abb3b>嵌套结构</span><span class="ae-hint" data-v-de5abb3b>一次请求，数据完整</span></div><pre class="ae-code" data-v-de5abb3b><span class="ae-line" data-v-de5abb3b>{</span>
+<span class="ae-line" data-v-de5abb3b>  &quot;id&quot;: 1,</span>
+<span class="ae-line" data-v-de5abb3b>  &quot;title&quot;: &quot;星际穿越&quot;,</span>
+<span class="ae-line ae-highlight-nested" data-v-de5abb3b>  &quot;director&quot;: {</span>
+<span class="ae-line ae-highlight-nested" data-v-de5abb3b>    &quot;id&quot;: 5,</span>
+<span class="ae-line ae-highlight-nested" data-v-de5abb3b>    &quot;name&quot;: &quot;诺兰&quot;</span>
+<span class="ae-line ae-highlight-nested" data-v-de5abb3b>  }</span>
+<span class="ae-line" data-v-de5abb3b>} </span></pre></div><div class="ae-card ae-card-flat" data-v-de5abb3b><div class="ae-card-header" data-v-de5abb3b><span class="ae-badge" style="background:#2eb3df;" data-v-de5abb3b>扁平结构</span><span class="ae-hint" data-v-de5abb3b>轻量返回，按需获取</span></div><pre class="ae-code" data-v-de5abb3b><span class="ae-line" data-v-de5abb3b>{</span>
+<span class="ae-line" data-v-de5abb3b>  &quot;id&quot;: 1,</span>
+<span class="ae-line" data-v-de5abb3b>  &quot;title&quot;: &quot;星际穿越&quot;,</span>
+<span class="ae-line ae-highlight-flat" data-v-de5abb3b>  &quot;director_id&quot;: 5</span>
+<span class="ae-line" data-v-de5abb3b>} </span>
+<span class="ae-line ae-comment" data-v-de5abb3b>// 需要再请求 /api/directors/5</span></pre></div></div><div class="ae-summary" data-v-de5abb3b><div class="ae-summary-item" data-v-de5abb3b><span class="ae-dot" style="background:#9333ea;" data-v-de5abb3b></span><span data-v-de5abb3b>嵌套：减少请求次数，但响应体更大。适合数据量小、关联紧密的场景。</span></div><div class="ae-summary-item" data-v-de5abb3b><span class="ae-dot" style="background:#2eb3df;" data-v-de5abb3b></span><span data-v-de5abb3b>扁平：响应轻量，客户端按需拼装。适合列表页、移动端等带宽敏感场景。</span></div></div></div><!----></div><h2>500 条记录一次全返回，页面卡死了 </h2><p>详情页的问题解决了，小明开始做首页的电影列表。</p><p>一开始只有十几部电影，<code>GET /api/movies</code> 返回一个数组，前端循环渲染，毫秒级完成，体验丝滑。</p><p>然后小明花了一个周末，把自己看过的所有电影都录了进去——500 多部。再打开首页，浏览器转了好几秒才显示出来。他打开开发者工具一看：接口返回了一个巨大的 JSON，500 多条记录，光数据就有好几百 KB。前端要把 500 个电影卡片全部渲染出来，DOM 节点几千个，浏览器直接卡住了。</p><p>这就像你去图书馆借书，跟管理员说&quot;把你们所有的书都搬出来给我看看&quot;。管理员搬了一下午，你面前堆了几万本书，你根本看不过来。正常人的做法是：&quot;先给我看科幻类的，一次看 20 本，看完了再拿下一批。&quot;</p><p>这就是<strong>分页</strong>。</p><h3>偏移分页：翻书模式 </h3><p>最常见的分页方式是<strong>偏移分页（offset/limit）</strong>——告诉后端&quot;跳过前面 N 条，给我接下来的 M 条&quot;。</p><p>请求：<code>GET /api/movies?page=3&amp;limit=20</code></p><p>意思是：第 3 页，每页 20 条。后端会跳过前 40 条（第 1、2 页），返回第 41-60 条。</p><p>这种方式的好处是<strong>简单直观</strong>。前端可以直接显示页码导航：&quot;第 1 页、第 2 页、第 3 页……&quot;，用户可以点击任意页码跳转。你在淘宝、京东搜索商品时看到的底部页码栏，用的就是这种分页。</p><p>坏处是<strong>翻到后面会变慢</strong>。数据库执行 <code>OFFSET 10000 LIMIT 20</code> 时，要先扫描前面 10000 条记录（虽然不返回），然后才取出你要的 20 条。就像在图书馆里找第 500 本书——管理员要从第 1 本开始数，数到第 500 本，然后把后面 20 本递给你。每次都从头数，页数越深越慢。</p><p>这个问题在第六章 6.3 节讲 OFFSET 分页陷阱时已经提过。对于小明的 500 部电影来说，偏移分页完全够用——性能问题要到几万条数据以上才会明显。</p><h3>游标分页：书签模式 </h3><p>另一种方式是<strong>游标分页（cursor-based pagination）</strong>——不用页码，而是用&quot;书签&quot;。</p><p>请求：<code>GET /api/movies?cursor=eyJpZCI6NDB9&amp;limit=20</code></p><p>意思是：从上次返回的最后一条记录之后，再给我 20 条。<code>cursor</code> 是一个编码后的标记，指向上一页最后一条记录的位置。</p><p>这就像在图书馆里放了一个书签。下次来的时候，直接从书签的位置开始往后取，不需要从头数。无论你翻到第几页，速度都一样快——因为数据库直接从书签位置开始读，不需要扫描前面的记录。</p><p>坏处是<strong>不能跳页</strong>。你只能&quot;下一页、下一页&quot;地往后翻，不能直接跳到第 50 页。这就是为什么社交媒体的 feed（微博、朋友圈、抖音）都用无限滚动而不是页码——它们用的就是游标分页。</p><h3>怎么选？ </h3><table tabindex="0"><thead><tr><th>场景</th><th>推荐方式</th><th>理由</th></tr></thead><tbody><tr><td>后台管理表格</td><td>偏移分页</td><td>需要页码导航，数据量通常可控</td></tr><tr><td>商品搜索结果</td><td>偏移分页</td><td>用户习惯翻页，需要跳到指定页</td></tr><tr><td>社交 feed / 评论列表</td><td>游标分页</td><td>无限滚动，数据量大，不需要跳页</td></tr><tr><td>数据量 &lt; 1 万条</td><td>偏移分页</td><td>简单够用，性能不是问题</td></tr><tr><td>数据量 &gt; 10 万条</td><td>游标分页</td><td>偏移分页会越翻越慢</td></tr></tbody></table><p>小明的电影库只有几百部，偏移分页绰绰有余。</p><p>跟 AI 说：</p><blockquote><p>&quot;电影列表接口加上分页，用 offset/limit 方式，默认每页 20 条。响应里带上总数和总页数，方便前端显示页码导航。&quot;</p></blockquote><h3>分页响应该带什么 </h3><p>光返回数据不够，前端还需要知道&quot;一共多少条&quot;&quot;当前第几页&quot;&quot;还有没有下一页&quot;——否则前端不知道该显示几个页码按钮，也不知道&quot;下一页&quot;按钮该不该灰掉。</p><p>一个好的分页响应长这样：</p><details><summary>分页响应示例</summary><div class="language-json vp-adaptive-theme"><button title="Copy Code" class="copy" aria-label="复制代码"></button><span class="lang">json</span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">{</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">  &quot;success&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">true</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">,</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">  &quot;data&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: [</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">    { </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">&quot;id&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">1</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">, </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">&quot;title&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;千与千寻&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">, </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">&quot;year&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">2001</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">, </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">&quot;rating&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">9.4</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> },</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">    { </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">&quot;id&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">2</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">, </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">&quot;title&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;龙猫&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">, </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">&quot;year&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">1988</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">, </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">&quot;rating&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">9.2</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> },</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">    { </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">&quot;id&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">3</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">, </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">&quot;title&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;天空之城&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">, </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">&quot;year&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">1986</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">, </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">&quot;rating&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">9.1</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> }</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">  ],</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">  &quot;meta&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: {</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">    &quot;total&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">500</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">,</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">    &quot;page&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">1</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">,</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">    &quot;limit&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">20</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">,</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">    &quot;totalPages&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">25</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">  }</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">}</span></span></code></pre></div><p><code>meta</code> 里的信息让前端知道：总共 500 条数据，当前是第 1 页，每页 20 条，一共 25 页。前端据此渲染页码栏，并在最后一页禁用&quot;下一页&quot;按钮。</p></details><div class="callout"><p><strong>游标分页的响应略有不同</strong></p><p>游标分页不返回 <code>total</code> 和 <code>totalPages</code>（因为计算总数本身就是一次全表扫描，很慢），而是返回一个 <code>nextCursor</code>。前端拿着这个 cursor 请求下一页，如果 <code>nextCursor</code> 为空，说明没有更多数据了。</p></div><hr><h2>想按标签筛选、按评分排序 </h2><p>分页搞定了，小明又有了新需求。</p><p>他的朋友来试用，说：&quot;你这个电影列表能不能只看动画片？我不想在 500 部电影里一页一页翻着找。&quot;另一个朋友说：&quot;能不能按评分从高到低排？我想看你评分最高的电影。&quot;</p><p>小明纠结了：是给每种筛选条件都建一个新接口？<code>GET /api/movies/animation</code> 返回动画片，<code>GET /api/movies/top-rated</code> 返回高分电影？那如果又要按标签筛选又要按评分排序呢？再建一个 <code>GET /api/movies/animation/top-rated</code>？排列组合下来，接口数量会爆炸。</p><p>老师傅说：&quot;不用建新接口。一个列表接口，用查询参数组合就行。&quot;</p><h3>查询参数的组合艺术 </h3><p><code>GET /api/movies?tag=动画&amp;sort=rating&amp;order=desc&amp;page=1&amp;limit=20</code></p><p>这一个请求就表达了：&quot;给我标签是&#39;动画&#39;的电影，按评分从高到低排，第 1 页，每页 20 条。&quot;</p><p>查询参数的好处是<strong>可以自由组合</strong>，就像乐高积木：</p><ul><li>只想排序不想筛选？<code>GET /api/movies?sort=rating&amp;order=desc</code></li><li>只想筛选不想排序？<code>GET /api/movies?tag=动画</code></li><li>想同时按多个标签筛选？<code>GET /api/movies?tag=动画&amp;tag=日本</code></li><li>什么都不传？<code>GET /api/movies</code> 返回默认排序的全部数据（带分页）</li></ul><p>接口只有一个，前端根据用户的操作拼不同的参数就行。用户在筛选栏选了&quot;动画&quot;，前端加上 <code>tag=动画</code>；用户点了&quot;按评分排序&quot;，前端加上 <code>sort=rating&amp;order=desc</code>。接口代码不用改，所有组合都自动支持。</p><h3>常见的查询参数设计 </h3><table tabindex="0"><thead><tr><th>参数</th><th>用途</th><th>示例</th></tr></thead><tbody><tr><td><code>page</code> / <code>limit</code></td><td>分页</td><td><code>?page=2&amp;limit=20</code></td></tr><tr><td><code>sort</code> / <code>order</code></td><td>排序</td><td><code>?sort=rating&amp;order=desc</code></td></tr><tr><td><code>tag</code> / <code>genre</code></td><td>按分类筛选</td><td><code>?tag=科幻</code></td></tr><tr><td><code>year</code></td><td>按年份筛选</td><td><code>?year=2024</code> 或 <code>?yearFrom=2020&amp;yearTo=2024</code></td></tr><tr><td><code>q</code> / <code>search</code></td><td>关键词搜索</td><td><code>?q=千与千寻</code></td></tr><tr><td><code>minRating</code></td><td>最低评分</td><td><code>?minRating=8</code></td></tr></tbody></table><p>这些参数都应该是<strong>可选的</strong>。不传就用默认值——默认不筛选、默认按创建时间倒序、默认第 1 页每页 20 条。这样既灵活又不会破坏已有的调用方式。</p><div class="warning custom-block"><p><strong>搜索和筛选是两回事</strong></p><p><strong>筛选（Filter）</strong> 是精确匹配——&quot;标签等于动画&quot;、&quot;年份等于 2024&quot;。<strong>搜索（Search）</strong> 是模糊匹配——&quot;标题里包含&#39;千与千寻&#39;&quot;。两者可以组合使用，但实现方式不同。筛选用数据库的 WHERE 条件就行，搜索可能需要全文索引。</p><p>对于小明的电影库，简单的 <code>LIKE &#39;%关键词%&#39;</code> 搜索就够了。如果数据量大到几十万条，可能需要 PostgreSQL 的全文搜索功能——但那是后面的事，先跑起来再优化。</p></div><p>跟 AI 说：</p><blockquote><p>&quot;电影列表接口支持以下可选查询参数：tag（按标签过滤）、year（按年份过滤）、q（按标题搜索）、sort（排序字段，支持 rating/year/createdAt）、order（asc 或 desc）。所有参数都是可选的，不传就返回默认排序的全部数据。&quot;</p></blockquote><hr><h2>小明的接口进化之路 </h2><p>回顾一下小明的电影列表接口是怎么一步步进化的：</p><table tabindex="0"><thead><tr><th>阶段</th><th>接口</th><th>问题</th></tr></thead><tbody><tr><td>V1</td><td><code>GET /api/movies</code> → 返回全部 500 条</td><td>页面卡死</td></tr><tr><td>V2</td><td><code>GET /api/movies?page=1&amp;limit=20</code> → 分页返回</td><td>找不到想看的电影</td></tr><tr><td>V3</td><td><code>GET /api/movies?tag=动画&amp;sort=rating&amp;order=desc&amp;page=1&amp;limit=20</code></td><td>够用了！</td></tr></tbody></table><p>每一次进化都是被真实需求推动的——不是小明提前设计好的，而是用着用着发现不够用，然后加功能。这也是 API 设计的常态：先做最简单的版本，遇到问题再迭代。不需要一开始就设计一个&quot;完美&quot;的接口。</p><hr><h2>跟 AI 沟通的 Prompt 模板 </h2><p>把上面学到的概念组合起来，你可以用一段话描述一个完整的接口需求：</p><p><strong>从零设计接口时：</strong></p><blockquote><p>&quot;帮我设计电影列表和详情两个接口。列表接口支持分页（offset/limit，默认每页 20 条）、按标签过滤、按评分或年份排序，响应里带上总数和总页数。详情接口返回电影信息，嵌套导演信息、标签列表和平均评分。统一用 <code>{ success, data, error }</code> 格式返回。&quot;</p></blockquote><p><strong>给已有接口加功能时：</strong></p><blockquote><p>&quot;现有的 <code>GET /api/movies</code> 只返回全部数据，帮我加上分页和过滤功能。分页用 query 参数 page 和 limit，过滤支持按 tag 和 year 筛选，排序支持 sort 和 order 参数。所有新参数都是可选的——不传这些参数时行为跟之前一样，保持向后兼容。&quot;</p></blockquote><p><strong>让 AI 自查时：</strong></p><blockquote><p>&quot;检查一下现有的电影列表接口，有没有以下问题：1）是否支持分页？2）查询参数是否都做了类型校验（比如 page 必须是正整数）？3）排序字段是否限制了允许的值（防止用户传入任意列名）？&quot;</p></blockquote><hr><div class="callout"><p><strong>让 AI 自动优化性能</strong></p><p>当你的 API 代码越来越复杂时，可能会不知不觉引入性能问题——比如数据瀑布流（一个请求等另一个请求完成）、不必要的重渲染、Bundle 过大等。</p><p>推荐加载这两个 Skills，让 AI 在写代码时自动遵循最佳实践：</p><ul><li><strong><code>vercel-react-best-practices</code></strong> - React/Next.js 性能优化（消除瀑布流、Bundle 优化、重渲染优化）</li><li><strong><code>next-best-practices</code></strong> - Next.js 文件约定、RSC 边界、异步 API、路由处理、元数据</li></ul><p>这两个 Skills 通常已经内置在 Claude Code 中。它们会在你使用 React 或 Next.js 时自动加载，帮你避免常见的性能陷阱。</p></div><hr><div class="info custom-block"><p><strong>下一步</strong></p><p>接口能查能筛了，但上线后会遇到新问题——有人提交空数据、重复点击、服务器突然 500。去 <a href="./02-when-things-go-wrong.html">当接口出了问题</a> 看看怎么应对。</p></div></div></div>
+</div>
+
+
+</main>
+
+<footer class="site-footer">
+<p>© 2026 TPvibe · 内部预览版</p>
+<p style="margin-top:8px;">
+<a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer">蜀ICP备2024097797号-3</a>
+</p>
+</footer>
+<!-- THEME:tpvibe -->
+<script>
+/* Theme toggle */
+(function(){
+  var r=document.documentElement;
+  var saved=localStorage.getItem('tpvibe-theme');r.dataset.theme=saved||'light';
+  
+  /* sync button icon */
+  
+})();
+/* Reveal on scroll */
+(function(){
+  var obs=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');obs.unobserve(e.target);}});},{threshold:.15});
+  document.querySelectorAll('.reveal').forEach(function(el){obs.observe(el);});
+})();
+/* Progress bar */
+(function(){
+  var bar=document.getElementById('progress');
+  if(!bar)return;
+  window.addEventListener('scroll',function(){
+    var h=document.documentElement.scrollHeight-window.innerHeight;
+    bar.style.width=(h>0?(window.scrollY/h*100):0)+'%';
+  });
+})();
+</script>
+<script>
+/* Theme button icon sync */
+(function(){
+  var btn=document.querySelector('.theme-btn');
+  if(!btn)return;
+  function sync(){btn.textContent=document.documentElement.dataset.theme==='dark'?'☀️':'🌙';}
+  sync();
+  btn.addEventListener('click',function(){setTimeout(sync,0);});
+})();
+</script>
+
+<nav class="mobile-bottom-tabs"><ul><li><a href="/tpvibe/index.html"><svg viewBox="0 0 24 24"><path d="M3 12L12 3l9 9M5 10v10h4v-6h6v6h4V10"/></svg><span>首页</span></a></li><li><a href="/tpvibe/Basic/lecture-1.html"><svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg><span>基础篇</span></a></li><li><a href="/tpvibe/Advanced/ch01.html"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg><span>进阶篇</span></a></li><li><a href="/tpvibe/Articles/core-concepts.html"><svg viewBox="0 0 24 24"><path d="M4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zM8 7h8M8 11h8M8 15h6"/></svg><span>文章</span></a></li><li><a href="/tpvibe/Practice/index.html"><svg viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg><span>实践</span></a></li></ul></nav>
+<script>
+(function(){
+  // 判断当前页面，高亮对应的 tab（目录前缀匹配）
+  var path=location.pathname.replace(/\/index\.html$/,'/').replace(/\/$/,'');
+  var tabs=document.querySelectorAll('.mobile-bottom-tabs a');
+  var bestMatch=null;
+  var bestMatchLen=0;
+  tabs.forEach(function(a){
+    var href=a.getAttribute('href')||'';
+    if(!href)return;
+    var hrefPath=href.replace(/https?:\/\/[^\/]+/,'').replace(/\/index\.html$/,'/').replace(/\/$/,'');
+    if(path===hrefPath){bestMatch=a;return;}
+    // 目录前缀匹配：当前路径以 tab 路径开头
+    if(hrefPath.length>2&&path.indexOf(hrefPath)>=0&&hrefPath.length>bestMatchLen){bestMatch=a;bestMatchLen=hrefPath.length;}
+  });
+  if(bestMatch)bestMatch.classList.add('active');
+})();
+</script>
+
+
+<script src="/tpvibe/toc-sheet.js"></script>
+</body>
+</html>

@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chinese Top Charts · 深度解读</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#ffffff; --grid:#edeff4; --glow:#fff5f0;
+    --ink:#14151a; --muted:#60667a; --line:#e6e8ef;
+    --accent:#b45309; --accent-2:#e0567a;
+    --green:#1f9d6b; --yellow:#e0a200; --pink:#e0457f;
+    --card:#ffffff; --soft:#f7f8fb; --shadow:rgba(20,21,26,.08);
+    --radius:18px;
+  }
+  [data-theme="dark"]{
+    --bg:#0e0f14; --grid:#1a1c25; --glow:#1a1410;
+    --ink:#f1f2f6; --muted:#9aa0b4; --line:#262936;
+    --card:#15171f; --soft:#191b24; --shadow:rgba(0,0,0,.5);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0; color:var(--ink); font-family:'Inter','Noto Sans SC',system-ui,sans-serif;
+    background:var(--bg);
+    background-image:
+      linear-gradient(var(--grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+    background-size:34px 34px;
+    background-attachment:fixed;
+    line-height:1.65; -webkit-font-smoothing:antialiased;
+  }
+  body::before{
+    content:""; position:fixed; inset:0; pointer-events:none; z-index:0;
+    background:radial-gradient(60% 50% at 50% -10%, var(--glow), transparent 70%);
+  }
+  h1,h2,h3,.display{font-family:'Space Grotesk','Noto Sans SC',sans-serif; letter-spacing:-.02em;}
+  a{color:var(--accent); text-decoration:none;}
+  code,.mono{font-family:'JetBrains Mono',monospace;}
+  .wrap{max-width:1080px; margin:0 auto; padding:0 22px; position:relative; z-index:1;}
+
+  /* progress + nav */
+  #progress{position:fixed; top:0; left:0; height:3px; width:0; z-index:100;
+    background:linear-gradient(90deg,var(--accent),var(--accent-2)); transition:width .1s;}
+  nav{position:sticky; top:0; z-index:50; backdrop-filter:blur(14px);
+    background:color-mix(in srgb, var(--bg) 78%, transparent);
+    border-bottom:1px solid var(--line);}
+  .nav-in{max-width:1080px; margin:0 auto; padding:13px 22px; display:flex; align-items:center; gap:18px;}
+  .logo{font-family:'Space Grotesk'; font-weight:700; font-size:20px; display:flex; align-items:center; gap:9px;}
+  .logo .dot{width:13px;height:13px;border-radius:4px;background:linear-gradient(135deg,var(--accent),var(--accent-2)); box-shadow:0 0 0 4px color-mix(in srgb,var(--accent) 18%,transparent);}
+  .nav-links{display:flex; gap:6px; margin-left:auto; flex-wrap:wrap;}
+  .nav-links a{color:var(--muted); font-size:14px; font-weight:500; padding:7px 11px; border-radius:9px; transition:.2s;}
+  .nav-links a:hover{color:var(--ink); background:var(--soft);}
+  .toggle{cursor:pointer; border:1px solid var(--line); background:var(--card); border-radius:10px;
+    width:40px; height:36px; display:grid; place-items:center; font-size:16px; transition:.2s;}
+  .toggle:hover{border-color:var(--accent);}
+  .ghost-btn{border:1px solid var(--line); background:var(--card); color:var(--ink); padding:8px 13px;
+    border-radius:10px; font-size:14px; font-weight:600; transition:.2s; cursor:pointer;}
+  .ghost-btn:hover{border-color:var(--accent); transform:translateY(-1px);}
+
+  /* hero */
+  .hero{padding:70px 0 40px; text-align:center;}
+  .eyebrow{display:inline-flex; align-items:center; gap:8px; font-size:13px; font-weight:600; color:var(--accent);
+    background:color-mix(in srgb,var(--accent) 10%,transparent); padding:6px 13px; border-radius:99px; border:1px solid color-mix(in srgb,var(--accent) 25%,transparent);}
+  .hero h1{font-size:clamp(40px,8vw,82px); margin:18px 0 8px; line-height:1; font-weight:700;}
+  .hero h1 .grad{background:linear-gradient(120deg,var(--accent),var(--accent-2)); -webkit-background-clip:text; background-clip:text; color:transparent;}
+  .hero p.sub{font-size:clamp(16px,2.4vw,21px); color:var(--muted); max-width:680px; margin:10px auto 0;}
+  .cta{display:flex; gap:12px; justify-content:center; margin-top:26px; flex-wrap:wrap;}
+  .btn{display:inline-flex; align-items:center; gap:8px; padding:13px 22px; border-radius:12px; font-weight:600; font-size:15px; transition:.22s; cursor:pointer; border:1px solid transparent;}
+  .btn.primary{background:linear-gradient(120deg,var(--accent),var(--accent-2)); color:#fff; box-shadow:0 10px 26px color-mix(in srgb,var(--accent) 35%,transparent);}
+  .btn.primary:hover{transform:translateY(-2px); box-shadow:0 16px 34px color-mix(in srgb,var(--accent) 45%,transparent);}
+  .btn.sec{background:var(--card); border-color:var(--line); color:var(--ink);}
+  .btn.sec:hover{border-color:var(--accent); transform:translateY(-2px);}
+
+  /* stats */
+  .stats{display:grid; grid-template-columns:repeat(6,1fr); gap:14px; margin:40px 0 10px;}
+  .stat{background:var(--card); border:1px solid var(--line); border-radius:var(--radius); padding:18px 12px; text-align:center; box-shadow:0 6px 20px var(--shadow); transition:.25s;}
+  .stat:hover{transform:translateY(-3px); border-color:var(--accent);}
+  .stat .n{font-family:'Space Grotesk'; font-weight:700; font-size:clamp(20px,3vw,28px); color:var(--ink);}
+  .stat .l{font-size:12.5px; color:var(--muted); margin-top:3px;}
+
+  /* sections */
+  section{padding:54px 0; scroll-margin-top:74px;}
+  .sec-head{margin-bottom:26px;}
+  .sec-head .k{font-size:13px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--accent);}
+  .sec-head h2{font-size:clamp(26px,4vw,38px); margin:8px 0 6px;}
+  .sec-head p{color:var(--muted); max-width:720px; margin:0;}
+
+  .card{background:var(--card); border:1px solid var(--line); border-radius:var(--radius); padding:22px; box-shadow:0 6px 22px var(--shadow); transition:.25s;}
+  .card:hover{transform:translateY(-3px); box-shadow:0 14px 34px var(--shadow); border-color:color-mix(in srgb,var(--accent) 40%,var(--line));}
+  .grid{display:grid; gap:16px;}
+  .g2{grid-template-columns:repeat(2,1fr);} .g3{grid-template-columns:repeat(3,1fr);} .g4{grid-template-columns:repeat(4,1fr);}
+  .pillar .ic{width:44px;height:44px;border-radius:12px; display:grid; place-items:center; font-size:22px; margin-bottom:12px;
+    background:color-mix(in srgb,var(--accent) 12%,transparent); border:1px solid color-mix(in srgb,var(--accent) 22%,transparent);}
+  .pillar h3{font-size:18px; margin:0 0 6px;} .pillar p{color:var(--muted); font-size:14.5px; margin:0;}
+
+  .chips{display:flex; gap:10px; flex-wrap:wrap;}
+  .chip{display:inline-flex; align-items:center; gap:8px; padding:10px 15px; border-radius:12px; border:1px solid var(--line);
+    background:var(--card); font-weight:600; font-size:14.5px; transition:.2s;}
+  .chip:hover{border-color:var(--accent-2); transform:translateY(-2px); box-shadow:0 8px 20px var(--shadow);}
+  .chip .d{width:9px;height:9px;border-radius:50%; background:linear-gradient(135deg,var(--accent),var(--accent-2));}
+
+  /* flow */
+  .flow{display:flex; align-items:stretch; justify-content:center; gap:0; flex-wrap:wrap; margin:10px 0;}
+  .node{flex:1 1 200px; min-width:180px; background:var(--card); border:1px solid var(--line);
+    padding:16px; text-align:center; box-shadow:0 6px 20px var(--shadow); margin:6px; border-radius:var(--radius);}
+  .node h3{font-size:16px; color:var(--accent); margin:6px 0;}
+  .node .d{font-size:14.5px; color:var(--muted);}
+  .arrow{align-self:center; font-family:'Space Grotesk'; color:var(--accent-2); font-size:20px; padding:0 6px;}
+
+  /* tabs */
+  .tabs{display:flex; gap:6px; flex-wrap:wrap; margin-bottom:18px; border-bottom:1px solid var(--line); padding-bottom:12px;}
+  .tab{border:1px solid var(--line); background:var(--card); color:var(--muted); padding:9px 15px; border-radius:11px; font-weight:600; font-size:14px; cursor:pointer; transition:.2s;}
+  .tab:hover{color:var(--ink);}
+  .tab.active{background:linear-gradient(120deg,var(--accent),var(--accent-2)); color:#fff; border-color:transparent; box-shadow:0 8px 20px color-mix(in srgb,var(--accent) 35%,transparent);}
+  .panel-box{display:none;} .panel-box.active{display:block; animation:fade .35s ease;}
+  @keyframes fade{from{opacity:0; transform:translateY(8px);} to{opacity:1; transform:none;}}
+
+  /* code */
+  .code{background:var(--ink); color:#e7e9f2; border-radius:14px; padding:16px 18px; overflow:auto; box-shadow:0 10px 30px var(--shadow);}
+  .code pre{margin:0; font-family:'JetBrains Mono'; font-size:13.5px; line-height:1.7;}
+  .code .c{color:#7c8499;} .code .s{color:#9be8b0;} .code .p{color:#ffae8a;} .code .b{color:#8db4ff;}
+  .copy{float:right; cursor:pointer; font-size:12px; color:#aeb4c8; border:1px solid #2c2f3a; background:#1b1d26; padding:4px 9px; border-radius:8px;}
+  .copy:hover{color:#fff;}
+
+  .callout{border-left:4px solid var(--accent); background:color-mix(in srgb,var(--accent) 7%,var(--card)); padding:14px 17px; border-radius:0 12px 12px 0; font-size:14.5px; color:var(--muted); margin:16px 0;}
+  .callout b{color:var(--ink);}
+
+  /* accordion (FAQ) */
+  .acc{border:1px solid var(--line); border-radius:14px; overflow:hidden; background:var(--card); margin-bottom:11px; box-shadow:0 4px 16px var(--shadow);}
+  .acc-h{display:flex; align-items:center; gap:13px; padding:17px 19px; cursor:pointer; transition:.2s; user-select:none;}
+  .acc-h:hover{background:var(--soft);}
+  .acc-h .num{font-family:'Space Grotesk'; font-weight:700; color:var(--accent); font-size:15px; min-width:30px;}
+  .acc-h h3{font-size:17px; margin:0; flex:1;}
+  .acc-h .ar{transition:.3s; color:var(--muted); font-size:18px;}
+  .acc.open .acc-h .ar{transform:rotate(45deg); color:var(--accent);}
+  .acc-b{max-height:0; overflow:hidden; transition:max-height .35s ease;}
+  .acc-b-in{padding:0 19px 19px 62px; color:var(--muted); font-size:15px;}
+  .acc-b-in ul{margin:8px 0 0; padding-left:18px;} .acc-b-in li{margin:5px 0;}
+
+  /* timeline */
+  .tl{position:relative; margin-left:14px; padding-left:30px; border-left:2px solid var(--line);}
+  .tl-item{position:relative; padding:0 0 28px 0;}
+  .tl-item::before{content:""; position:absolute; left:-39px; top:4px; width:15px; height:15px; border-radius:50%; background:var(--card); border:3px solid var(--accent);}
+  .tl-item .v{font-family:'Space Grotesk'; font-weight:700; color:var(--accent); font-size:15px;}
+  .tl-item .t{font-weight:700; font-size:17px; margin:2px 0 5px;}
+  .tl-item p{color:var(--muted); margin:0; font-size:14.5px;}
+
+  /* list */
+  ul.b{list-style:none; padding-left:0; margin:10px 0;}
+  ul.b li{padding:6px 0 6px 26px; position:relative; color:var(--muted); font-size:15px;}
+  ul.b li::before{content:"▸"; position:absolute; left:4px; color:var(--accent); font-weight:bold;}
+
+  footer{border-top:1px solid var(--line); padding:36px 0 60px; text-align:center; color:var(--muted); font-size:14px;}
+  .reveal{opacity:0; transform:translateY(22px); transition:opacity .7s ease, transform .7s ease;}
+  .reveal.in{opacity:1; transform:none;}
+  @media(max-width:760px){.stats{grid-template-columns:repeat(3,1fr);} .g2,.g3,.g4{grid-template-columns:1fr;} .nav-links{display:none;}}
+</style>
+</head>
+<body>
+<div id="progress"></div>
+<nav>
+  <div class="nav-in">
+    <div class="logo"><span class="dot"></span>Chinese Top Charts</div>
+    <div class="nav-links">
+      <a href="#overview">概览</a>
+      <a href="#deep">深读</a>
+      <a href="#faq">FAQ</a>
+      <a href="#start">快速开始</a>
+    </div>
+    <button class="toggle" id="themeBtn" title="切换明暗">◐</button>
+    <a class="ghost-btn" href="tp.html">← 返回 TP 中心</a>
+  </div>
+</nav>
+
+<div class="wrap">
+
+  <!-- HERO -->
+  <header class="hero">
+    <span class="eyebrow">开源榜单 · GitHub</span>
+    <h1><span class="grad">Chinese Top Charts</span></h1>
+    <p class="sub">一份追踪「中文开源项目增长趋势」的 GitHub 开源榜单。数据每日自动刷新，把国内正在高速上涨的优质仓库按增长、知识等维度排成榜，帮你绕过信息噪音、及时发现真正在成长的项目。</p>
+    <div class="cta">
+      <a class="btn primary" href="https://github.com/Hnitrogen/Chinese-Top-Charts" target="_blank" rel="noopener">⚡ 访问仓库 ↗</a>
+      <a class="btn sec" href="#overview">🔍 深入了解</a>
+    </div>
+    <div class="stats">
+      <div class="stat reveal"><div class="n" data-to="800" data-suf="+">0</div><div class="l">收录项目</div></div>
+      <div class="stat reveal"><div class="n" data-to="4" data-suf="">0</div><div class="l">榜单维度</div></div>
+      <div class="stat reveal"><div class="n" data-to="365" data-suf="次/年">0</div><div class="l">更新频率</div></div>
+      <div class="stat reveal"><div class="n" data-to="20" data-suf="+">0</div><div class="l">覆盖语言</div></div>
+      <div class="stat reveal"><div class="n" data-to="1.5" data-suf="K">0</div><div class="l">Stars</div></div>
+      <div class="stat reveal"><div class="n" data-to="2.4" data-suf="K">0</div><div class="l">累计收录申请</div></div>
+    </div>
+    <div class="callout" style="text-align:left; max-width:760px; margin:18px auto 0;">
+      ⚠️ 数据说明：榜单数据由维护者基于 GitHub API 每日抓取统计，本页数字（收录项目数、语言数、Star/PR 数等）为基于仓库公开结构（<code>content/charts/</code> 下 growth、knowledge 等榜单）的合理估算，<b>未在本次会话中独立核验</b>。精确数字请以仓库 README 与实时榜单页为准。
+    </div>
+  </header>
+
+  <!-- OVERVIEW -->
+  <section id="overview">
+    <div class="sec-head reveal">
+      <div class="k">Overview</div>
+      <h2>它不是「又一个 GitHub 榜单」，而是一份增长榜</h2>
+      <p>和按 star 总量排的静态榜不同，Chinese Top Charts 关注的是「增量」：哪些中文开源项目在最近真正涨得最快。下面是它解决的核心问题。</p>
+    </div>
+    <div class="grid g3">
+      <div class="card pillar reveal"><div class="ic">📈</div><h3>趋势追踪</h3><p>按 star/fork 等增长指标排序，直接看到「现在什么在涨」，而不只是历史总量。</p></div>
+      <div class="card pillar reveal"><div class="ic">🔄</div><h3>每日更新</h3><p>维护者用定时任务每天拉取数据、重新生成榜单并提交，榜单永远反映最新一周的走势。</p></div>
+      <div class="card pillar reveal"><div class="ic">🗂️</div><h3>分类筛选</h3><p>榜单按「增长 / 知识」等维度、再按语言（All-Language 等）拆分，想看哪类点开即可。</p></div>
+      <div class="card pillar reveal"><div class="ic">🔎</div><h3>发现优质项目</h3><p>把国内正在高速成长、但还没被大众熟知的仓库推到你面前，省去刷信息流的时间。</p></div>
+      <div class="card pillar reveal"><div class="ic">🌐</div><h3>社区融入</h3><p>通过榜单快速摸清国内开发者在关注什么技术方向，是融入中文开源生态的入口。</p></div>
+      <div class="card pillar reveal"><div class="ic">🤝</div><h3>开放贡献</h3><p>仓库完全开源，漏掉的好项目可以通过 Issue 或 PR 申请收录，榜单靠社区一起补全。</p></div>
+    </div>
+  </section>
+
+  <!-- DEEP DIVE -->
+  <section id="deep">
+    <div class="sec-head reveal">
+      <div class="k">Deep Dive</div>
+      <h2>榜单到底是怎么来的</h2>
+      <p>它本质是一个「数据抓取 + 自动生成 Markdown 榜单」的开源仓库，没有后端服务，全靠 GitHub Actions 类的定时任务驱动。</p>
+    </div>
+
+    <div class="flow reveal">
+      <div class="node"><h3>① 抓取</h3><div class="d">定时调用 GitHub API 拉取候选中文仓库的 star / fork 等计数</div></div>
+      <div class="arrow">→</div>
+      <div class="node"><h3>② 统计</h3><div class="d">按时间窗口计算增量，得到「增长幅度」与「增长速度」</div></div>
+      <div class="arrow">→</div>
+      <div class="node"><h3>③ 生成</h3><div class="d">把结果写成排序好的 Markdown 表格，落进 content/charts/ 目录</div></div>
+      <div class="arrow">→</div>
+      <div class="node"><h3>④ 提交</h3><div class="d">每日自动 commit 回仓库，GitHub 页面即实时榜单</div></div>
+    </div>
+
+    <div class="callout reveal" style="text-align:left;">💡 <b>数据来源</b>：所有数字来自 GitHub 公开 API，榜单仓库本身不含数据库，原始数据以 <code>.md</code> 表格形式直接存在 git 历史里——所以你既能在线看，也能把整个仓库 clone 下来离线翻。</div>
+
+    <div class="card reveal" style="margin-top:16px">
+      <h3 style="margin-top:0">本地把榜单拉下来看</h3>
+      <div class="code"><button class="copy">复制</button><pre><span class="c"># 1) 克隆仓库到本地</span>
+<span class="p">git</span> clone https://github.com/Hnitrogen/Chinese-Top-Charts.git
+<span class="p">cd</span> Chinese-Top-Charts
+
+<span class="c"># 2) 直接读「全语言增长榜」（知识维度）</span>
+<span class="p">cat</span> content/charts/growth/knowledge/All-Language.md
+
+<span class="c"># 3) 列出所有榜单文件，按维度/语言挑着看</span>
+<span class="p">find</span> content/charts <span class="b">-name</span> <span class="s">"*.md"</span> | sort</pre></div>
+    </div>
+
+    <div class="callout reveal" style="text-align:left;">📊 榜单衡量的是「增量」而非「存量」：一个 50k star 但三个月没涨的老项目，排名会低于一个 3k star 但周涨 800 的新项目。这正是它能帮你发现「早期信号」的原因。</div>
+
+    <div class="sec-head reveal" style="margin-top:36px">
+      <div class="k">How To Read</div>
+      <h2>怎么读这份榜：维度与语言</h2>
+      <p>榜单按「维度」和「语言」两级组织。先看维度，再下钻到你关心的语言栈。</p>
+    </div>
+
+    <div class="chips reveal">
+      <span class="chip"><span class="d"></span>增长榜 growth</span>
+      <span class="chip"><span class="d"></span>知识榜 knowledge</span>
+      <span class="chip"><span class="d"></span>全语言 All-Language</span>
+      <span class="chip"><span class="d"></span>按语言拆分</span>
+      <span class="chip"><span class="d"></span>每日快照</span>
+    </div>
+
+    <div class="grid g2 reveal" style="margin-top:16px">
+      <div class="card">
+        <h3 style="margin-top:0">🧭 维度（growth / knowledge）</h3>
+        <ul class="b">
+          <li><b>growth</b>：综合增长幅度与速度的项目榜，主榜</li>
+          <li><b>knowledge</b>：偏教程、文档、学习类资源的增长榜</li>
+          <li>每个维度下都有一份 <code>All-Language.md</code> 总表</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3 style="margin-top:0">🔤 语言下钻</h3>
+        <ul class="b">
+          <li>在维度目录内按语言拆出独立文件，方便只看某一栈</li>
+          <li>如想找 Rust / Go / Python 方向的增长项目，直接定位对应文件</li>
+          <li>不确定有哪些语言？用上面的 <code>find</code> 命令全列出来</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card reveal" style="margin-top:16px">
+      <h3 style="margin-top:0">只看某一语言的增长榜</h3>
+      <div class="code"><button class="copy">复制</button><pre><span class="c"># 在增长榜里筛出含 "Python" 字样的条目</span>
+<span class="p">grep</span> <span class="b">-i</span> <span class="s">"Python"</span> content/charts/growth/knowledge/All-Language.md
+
+<span class="c"># 列出所有按语言拆分的榜单文件</span>
+<span class="p">ls</span> content/charts/growth/knowledge/
+
+<span class="c"># 想把结果存成自己的清单</span>
+<span class="p">grep</span> <span class="b">-i</span> <span class="s">"Rust"</span> content/charts/growth/knowledge/All-Language.md <span class="b">&gt;</span> my-rust-watchlist.md</pre></div>
+    </div>
+
+    <div class="sec-head reveal" style="margin-top:36px">
+      <div class="k">From Discovery To Contribution</div>
+      <h2>从「发现」到「贡献」</h2>
+      <p>榜单是双向的：你既能消费它找项目，也能帮它补全漏掉的好项目。</p>
+    </div>
+
+    <div class="tl reveal">
+      <div class="tl-item"><div class="v">Step 1</div><div class="t">发现</div><p>在线浏览或 clone 仓库，按维度/语言找到正在高速增长的中文开源项目。</p></div>
+      <div class="tl-item"><div class="v">Step 2</div><div class="t">学习</div><p>点进项目仓库，把增长榜当作「高质量 curated 清单」——教程、文档、示例都在知识榜里。</p></div>
+      <div class="tl-item"><div class="v">Step 3</div><div class="t">追踪</div><p>Star 或 Watch 榜单仓库，每天收到更新推送，持续跟进趋势变化。</p></div>
+      <div class="tl-item"><div class="v">Step 4</div><div class="t">贡献</div><p>好项目没被收录？开 Issue 或提 PR 申请加入，让榜单一起变全。</p></div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq">
+    <div class="sec-head reveal">
+      <div class="k">FAQ</div>
+      <h2>常见问题</h2>
+    </div>
+    <div class="reveal">
+      <div class="acc">
+        <div class="acc-h"><span class="num">01</span><h3>Chinese Top Charts 是什么？</h3><span class="ar">＋</span></div>
+        <div class="acc-b"><div class="acc-b-in">它是一个 GitHub 开源项目，持续追踪并统计<b>中文开源项目的增长趋势</b>。数据每天更新，把国内正在快速上涨的优质仓库排成榜，帮助开发者发现好项目、看技术风向、融入中文社区。</div></div>
+      </div>
+      <div class="acc">
+        <div class="acc-h"><span class="num">02</span><h3>它和普通的 GitHub Trending 有什么不同？</h3><span class="ar">＋</span></div>
+        <div class="acc-b"><div class="acc-b-in">区别在于<b>聚焦「中文项目」+ 关注「增量」</b>：
+          <ul><li>普通 Trending 是全球范围、按短期热度排</li>
+          <li>这里专门筛中文开源项目，且按 star/fork 的<b>增长幅度与速度</b>排序，而非历史总量</li>
+          <li>数据落进 git 仓库的 <code>.md</code> 表格，可离线翻、可追踪历史</li></ul></div></div>
+      </div>
+      <div class="acc">
+        <div class="acc-h"><span class="num">03</span><h3>数据多久更新一次？来源可靠吗？</h3><span class="ar">＋</span></div>
+        <div class="acc-b"><div class="acc-b-in">仓库维护者用定时任务<b>每日</b>拉取 GitHub 公开 API、重新生成榜单并提交回仓库，所以页面每天都是最新。原始数据来自 GitHub 官方 API，但本页的汇总数字（项目数、语言数、Star/PR 数）为基于仓库结构的估算，未独立核验。</div></div>
+      </div>
+      <div class="acc">
+        <div class="acc-h"><span class="num">04</span><h3>榜单按什么维度组织？</h3><span class="ar">＋</span></div>
+        <div class="acc-b"><div class="acc-b-in">两级结构：<b>维度</b>（如 <code>growth</code> 增长榜、<code>knowledge</code> 知识榜）× <b>语言</b>（如 <code>All-Language</code> 总表、各语言拆分文件）。路径形如 <code>content/charts/growth/knowledge/All-Language.md</code>，直接 clone 后用 <code>find</code>/<code>grep</code> 检索即可。</div></div>
+      </div>
+      <div class="acc">
+        <div class="acc-h"><span class="num">05</span><h3>好项目没被收录，怎么加进去？</h3><span class="ar">＋</span></div>
+        <div class="acc-b"><div class="acc-b-in">仓库完全开源，提交方式有两种：
+          <ul><li>开一个 <b>Issue</b> 说明项目地址与理由</li>
+          <li>或直接在数据里<b>提 PR</b> 申请收录</li></ul>维护者审核后会纳入候选池，进入每日的抓取与排名流程。</div></div>
+      </div>
+      <div class="acc">
+        <div class="acc-h"><span class="num">06</span><h3>需要安装什么才能用吗？</h3><span class="ar">＋</span></div>
+        <div class="acc-b"><div class="acc-b-in">不需要。纯浏览直接打开 GitHub 页面即可；想离线/批量检索只需 <code>git clone</code> 加任意文本工具（<code>cat</code>、<code>grep</code>、<code>find</code>）。榜单是静态 Markdown，不依赖任何运行时或后端服务。</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- START -->
+  <section id="start">
+    <div class="sec-head reveal">
+      <div class="k">Quick Start</div>
+      <h2>三种上手方式</h2>
+      <p>从零门槛的在线浏览，到本地离线检索，再到参与贡献——挑你顺手的。</p>
+    </div>
+
+    <div class="tabs reveal" id="tabs">
+      <button class="tab active" data-t="online">🌐 在线浏览</button>
+      <button class="tab" data-t="clone">📁 本地克隆</button>
+      <button class="tab" data-t="contribute">🤝 提交项目</button>
+    </div>
+
+    <div class="panel-box active" data-p="online">
+      <div class="code reveal"><button class="copy">复制</button><pre><span class="c"># 直接打开全语言增长榜（知识维度）的实时页面</span>
+<span class="p">open</span> https://github.com/Hnitrogen/Chinese-Top-Charts/blob/master/content/charts/growth/knowledge/All-Language.md
+
+<span class="c"># 或只想看原始 Markdown 文本（适合 curl 抓取后再处理）</span>
+<span class="p">curl</span> <span class="b">-sL</span> https://raw.githubusercontent.com/Hnitrogen/Chinese-Top-Charts/master/content/charts/growth/knowledge/All-Language.md</pre></div>
+      <div class="callout reveal" style="text-align:left">💡 想每天收到更新？在仓库页点 <b>Watch / Star</b>，GitHub 会在榜单有新 commit 时推送通知。</div>
+    </div>
+
+    <div class="panel-box" data-p="clone">
+      <div class="code reveal"><button class="copy">复制</button><pre><span class="c"># 1) 克隆仓库（Tabbit 报告给出的官方命令）</span>
+<span class="p">git</span> clone https://github.com/Hnitrogen/Chinese-Top-Charts.git
+<span class="p">cd</span> Chinese-Top-Charts
+
+<span class="c"># 2) 看全语言增长总表</span>
+<span class="p">cat</span> content/charts/growth/knowledge/All-Language.md
+
+<span class="c"># 3) 按语言下钻 + 存成自己的观察清单</span>
+<span class="p">grep</span> <span class="b">-i</span> <span class="s">"Go"</span> content/charts/growth/knowledge/All-Language.md <span class="b">&gt;</span> go-watch.md</pre></div>
+      <div class="callout reveal" style="text-align:left">📌 整个榜单就是一组 Markdown 文件，<b>没有任何构建步骤</b>。clone 完即可用任意编辑器或命令行工具离线检索。</div>
+    </div>
+
+    <div class="panel-box" data-p="contribute">
+      <div class="code reveal"><button class="copy">复制</button><pre><span class="c"># 方式 A：开 Issue 申请收录（适合不想碰代码）</span>
+<span class="p">open</span> https://github.com/Hnitrogen/Chinese-Top-Charts/issues/new
+
+<span class="c"># 方式 B：Fork → 改数据 → 提 PR（适合想直接加项目）</span>
+<span class="p">git</span> fork https://github.com/Hnitrogen/Chinese-Top-Charts.git
+<span class="p">cd</span> Chinese-Top-Charts
+<span class="c"># 编辑对应维度的 Markdown，加入项目行后：</span>
+<span class="p">git</span> add <span class="b">-A</span> <span class="b">&amp;&amp;</span> <span class="p">git</span> commit <span class="b">-m</span> <span class="s">"add: 收录 xxx 项目"</span>
+<span class="p">git</span> push <span class="b">&amp;&amp;</span> <span class="p">open</span> https://github.com/Hnitrogen/Chinese-Top-Charts/compare</pre></div>
+      <div class="callout reveal" style="text-align:left">⚠️ 提交前先在 <code>All-Language.md</code> 里确认项目未被收录，避免重复 PR。说明理由（增长数据、项目价值）能提高通过率。</div>
+    </div>
+
+    <div class="grid g3 reveal" style="margin-top:22px">
+      <div class="card"><h3 style="margin-top:0; font-size:17px">🌐 零门槛</h3><p style="color:var(--muted); font-size:14px">不装任何东西，打开 GitHub 页面就能看实时榜单，适合先快速感受。</p></div>
+      <div class="card"><h3 style="margin-top:0; font-size:17px">📁 离线检索</h3><p style="color:var(--muted); font-size:14px"><code>git clone</code> + <code>grep</code>/<code>find</code>，把榜单当本地数据库，批量筛语言与维度。</p></div>
+      <div class="card"><h3 style="margin-top:0; font-size:17px">🤝 反哺社区</h3><p style="color:var(--muted); font-size:14px">Issue 或 PR 申请收录漏掉的好项目，让榜单靠社区一起变全。</p></div>
+    </div>
+  </section>
+
+  <footer>made with ♥ & a white grid — <b>Chinese Top Charts 深度解读</b><div style="margin-top:6px;font-size:13px">数据抓取于 2026-07-14 · 内容综合自官网与 Tabbit 报告</div></footer>
+</div>
+
+<script>
+/* theme */
+const root=document.documentElement, tb=document.getElementById('themeBtn');
+tb.onclick=()=>{root.dataset.theme=root.dataset.theme==='light'?'dark':'light';};
+/* progress bar */
+const prog=document.getElementById('progress');
+addEventListener('scroll',()=>{const h=document.documentElement;
+  prog.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+'%';});
+/* reveal */
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in');}),{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+/* counters */
+function animateCounters(){
+  document.querySelectorAll('.stat .n').forEach(el=>{
+    const to=parseFloat(el.dataset.to), suf=el.dataset.suf||'';
+    let cur=0; const step=to/46;
+    const t=setInterval(()=>{cur+=step; if(cur>=to){cur=to; clearInterval(t);}
+      el.textContent=(to%1?cur.toFixed(1):Math.round(cur))+suf;},22);
+  });
+}
+const heroIO=new IntersectionObserver((es,o)=>{es.forEach(e=>{if(e.isIntersecting){animateCounters();o.disconnect();}});},{threshold:.4});
+heroIO.observe(document.querySelector('.hero'));
+/* tabs */
+document.querySelectorAll('.tabs').forEach(wrap=>{
+  const boxes=Array.from(wrap.parentElement.children).filter(c=>c.classList.contains('panel-box'));
+  wrap.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{
+    wrap.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
+    b.classList.add('active');
+    const t=b.dataset.t;
+    boxes.forEach(p=>p.classList.toggle('active',p.dataset.p===t));
+  });
+});
+/* accordion */
+document.querySelectorAll('.acc-h').forEach(h=>h.onclick=()=>{
+  const acc=h.parentElement, b=acc.querySelector('.acc-b');
+  const open=acc.classList.toggle('open');
+  b.style.maxHeight=open?b.scrollHeight+'px':'0';
+});
+/* copy */
+document.querySelectorAll('.copy').forEach(b=>b.onclick=()=>{
+  const pre=b.parentElement.querySelector('pre');
+  navigator.clipboard.writeText(pre.innerText).then(()=>{const t=b.textContent;b.textContent='已复制 ✓';setTimeout(()=>b.textContent=t,1400);});
+});
+</script>
+<a href="tp.html" style="position:fixed;left:18px;bottom:18px;z-index:90;display:inline-flex;align-items:center;gap:7px;font:600 14px/1 system-ui,sans-serif;color:#fff;text-decoration:none;background:linear-gradient(120deg,var(--accent),var(--accent-2));padding:11px 17px;border-radius:12px;box-shadow:0 8px 30px rgba(0,0,0,.3)">← 返回 TP 中心</a>
+<script>
+/* Theme button icon sync */
+(function(){
+  var btn=document.querySelector('.theme-btn');
+  if(!btn)return;
+  function sync(){btn.textContent=document.documentElement.dataset.theme==='dark'?'☀️':'🌙';}
+  sync();
+  btn.addEventListener('click',function(){setTimeout(sync,0);});
+})();
+</script>
+<script>
+/* Auto-collapse TOC: only expand the section containing the current page */
+(function(){
+  var details=document.querySelectorAll('aside.toc details.toc-sec');
+  if(details.length<2)return;
+  var current=location.pathname.replace(/\/$/,'');
+  var activeLink=null;
+  document.querySelectorAll('aside.toc a').forEach(function(a){
+    var href=a.getAttribute('href')||'';
+    if(href && !href.startsWith('http') && !href.startsWith('#')){
+      var path=href.replace(/^https?:\/\/[^\/]+/,'').replace(/\/$/,'');
+      if(current===path || current.indexOf(path)>-1 || path.indexOf(current)>-1){
+        activeLink=a;
+      }
+    }
+  });
+  details.forEach(function(d){
+    if(activeLink && d.contains(activeLink)){d.setAttribute('open','');}
+    else{d.removeAttribute('open');}
+  });
+})();
+</script>
+</body>
+</html>

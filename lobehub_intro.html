@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LobeHub · 深度解读</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#ffffff; --grid:#edeff4; --glow:#fff5f0;
+    --ink:#14151a; --muted:#60667a; --line:#e6e8ef;
+    --accent:#db4f5e; --accent-2:#e0a200;
+    --green:#1f9d6b; --yellow:#e0a200; --pink:#e0457f;
+    --card:#ffffff; --soft:#f7f8fb; --shadow:rgba(20,21,26,.08);
+    --radius:18px;
+  }
+  [data-theme="dark"]{
+    --bg:#0e0f14; --grid:#1a1c25; --glow:#1a1410;
+    --ink:#f1f2f6; --muted:#9aa0b4; --line:#262936;
+    --card:#15171f; --soft:#191b24; --shadow:rgba(0,0,0,.5);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0; color:var(--ink); font-family:'Inter','Noto Sans SC',system-ui,sans-serif;
+    background:var(--bg);
+    background-image:
+      linear-gradient(var(--grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+    background-size:34px 34px;
+    background-attachment:fixed;
+    line-height:1.65; -webkit-font-smoothing:antialiased;
+  }
+  body::before{
+    content:""; position:fixed; inset:0; pointer-events:none; z-index:0;
+    background:radial-gradient(60% 50% at 50% -10%, var(--glow), transparent 70%);
+  }
+  h1,h2,h3,.display{font-family:'Space Grotesk','Noto Sans SC',sans-serif; letter-spacing:-.02em;}
+  a{color:var(--accent); text-decoration:none;}
+  code,.mono{font-family:'JetBrains Mono',monospace;}
+  .wrap{max-width:1080px; margin:0 auto; padding:0 22px; position:relative; z-index:1;}
+
+  /* progress + nav */
+  #progress{position:fixed; top:0; left:0; height:3px; width:0; z-index:100;
+    background:linear-gradient(90deg,var(--accent),var(--accent-2)); transition:width .1s;}
+  nav{position:sticky; top:0; z-index:50; backdrop-filter:blur(14px);
+    background:color-mix(in srgb, var(--bg) 78%, transparent);
+    border-bottom:1px solid var(--line);}
+  .nav-in{max-width:1080px; margin:0 auto; padding:13px 22px; display:flex; align-items:center; gap:18px;}
+  .logo{font-family:'Space Grotesk'; font-weight:700; font-size:20px; display:flex; align-items:center; gap:9px;}
+  .logo .dot{width:13px;height:13px;border-radius:4px;background:linear-gradient(135deg,var(--accent),var(--accent-2)); box-shadow:0 0 0 4px color-mix(in srgb,var(--accent) 18%,transparent);}
+  .nav-links{display:flex; gap:6px; margin-left:auto; flex-wrap:wrap;}
+  .nav-links a{color:var(--muted); font-size:14px; font-weight:500; padding:7px 11px; border-radius:9px; transition:.2s;}
+  .nav-links a:hover{color:var(--ink); background:var(--soft);}
+  .toggle{cursor:pointer; border:1px solid var(--line); background:var(--card); border-radius:10px;
+    width:40px; height:36px; display:grid; place-items:center; font-size:16px; transition:.2s;}
+  .toggle:hover{border-color:var(--accent);}
+  .ghost-btn{border:1px solid var(--line); background:var(--card); color:var(--ink); padding:8px 13px;
+    border-radius:10px; font-size:14px; font-weight:600; transition:.2s; cursor:pointer;}
+  .ghost-btn:hover{border-color:var(--accent); transform:translateY(-1px);}
+
+  /* hero */
+  .hero{padding:70px 0 40px; text-align:center;}
+  .eyebrow{display:inline-flex; align-items:center; gap:8px; font-size:13px; font-weight:600; color:var(--accent);
+    background:color-mix(in srgb,var(--accent) 10%,transparent); padding:6px 13px; border-radius:99px; border:1px solid color-mix(in srgb,var(--accent) 25%,transparent);}
+  .hero h1{font-size:clamp(40px,8vw,82px); margin:18px 0 8px; line-height:1; font-weight:700;}
+  .hero h1 .grad{background:linear-gradient(120deg,var(--accent),var(--accent-2)); -webkit-background-clip:text; background-clip:text; color:transparent;}
+  .hero p.sub{font-size:clamp(16px,2.4vw,21px); color:var(--muted); max-width:680px; margin:10px auto 0;}
+  .cta{display:flex; gap:12px; justify-content:center; margin-top:26px; flex-wrap:wrap;}
+  .btn{display:inline-flex; align-items:center; gap:8px; padding:13px 22px; border-radius:12px; font-weight:600; font-size:15px; transition:.22s; cursor:pointer; border:1px solid transparent;}
+  .btn.primary{background:linear-gradient(120deg,var(--accent),var(--accent-2)); color:#fff; box-shadow:0 10px 26px color-mix(in srgb,var(--accent) 35%,transparent);}
+  .btn.primary:hover{transform:translateY(-2px); box-shadow:0 16px 34px color-mix(in srgb,var(--accent) 45%,transparent);}
+  .btn.sec{background:var(--card); border-color:var(--line); color:var(--ink);}
+  .btn.sec:hover{border-color:var(--accent); transform:translateY(-2px);}
+
+  /* stats */
+  .stats{display:grid; grid-template-columns:repeat(6,1fr); gap:14px; margin:40px 0 10px;}
+  .stat{background:var(--card); border:1px solid var(--line); border-radius:var(--radius); padding:18px 12px; text-align:center; box-shadow:0 6px 20px var(--shadow); transition:.25s;}
+  .stat:hover{transform:translateY(-3px); border-color:var(--accent);}
+  .stat .n{font-family:'Space Grotesk'; font-weight:700; font-size:clamp(20px,3vw,28px); color:var(--ink);}
+  .stat .l{font-size:12.5px; color:var(--muted); margin-top:3px;}
+
+  /* sections */
+  section{padding:54px 0; scroll-margin-top:74px;}
+  .sec-head{margin-bottom:26px;}
+  .sec-head .k{font-size:13px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--accent);}
+  .sec-head h2{font-size:clamp(26px,4vw,38px); margin:8px 0 6px;}
+  .sec-head p{color:var(--muted); max-width:720px; margin:0;}
+
+  .card{background:var(--card); border:1px solid var(--line); border-radius:var(--radius); padding:22px; box-shadow:0 6px 22px var(--shadow); transition:.25s;}
+  .card:hover{transform:translateY(-3px); box-shadow:0 14px 34px var(--shadow); border-color:color-mix(in srgb,var(--accent) 40%,var(--line));}
+  .grid{display:grid; gap:16px;}
+  .g2{grid-template-columns:repeat(2,1fr);} .g3{grid-template-columns:repeat(3,1fr);} .g4{grid-template-columns:repeat(4,1fr);}
+  .pillar .ic{width:44px;height:44px;border-radius:12px; display:grid; place-items:center; font-size:22px; margin-bottom:12px;
+    background:color-mix(in srgb,var(--accent) 12%,transparent); border:1px solid color-mix(in srgb,var(--accent) 22%,transparent);}
+  .pillar h3{font-size:18px; margin:0 0 6px;} .pillar p{color:var(--muted); font-size:14.5px; margin:0;}
+
+  .chips{display:flex; gap:10px; flex-wrap:wrap;}
+  .chip{display:inline-flex; align-items:center; gap:8px; padding:10px 15px; border-radius:12px; border:1px solid var(--line);
+    background:var(--card); font-weight:600; font-size:14.5px; transition:.2s;}
+  .chip:hover{border-color:var(--accent-2); transform:translateY(-2px); box-shadow:0 8px 20px var(--shadow);}
+  .chip .d{width:9px;height:9px;border-radius:50%; background:linear-gradient(135deg,var(--accent),var(--accent-2));}
+
+  /* flow */
+  .flow{display:flex; align-items:stretch; justify-content:center; gap:0; flex-wrap:wrap; margin:10px 0;}
+  .node{flex:1 1 200px; min-width:180px; background:var(--card); border:1px solid var(--line);
+    padding:16px; text-align:center; box-shadow:0 6px 20px var(--shadow); margin:6px; border-radius:var(--radius);}
+  .node h3{font-size:16px; color:var(--accent); margin:6px 0;}
+  .node .d{font-size:14.5px; color:var(--muted);}
+  .arrow{align-self:center; font-family:'Space Grotesk'; color:var(--accent-2); font-size:20px; padding:0 6px;}
+
+  /* tabs */
+  .tabs{display:flex; gap:6px; flex-wrap:wrap; margin-bottom:18px; border-bottom:1px solid var(--line); padding-bottom:12px;}
+  .tab{border:1px solid var(--line); background:var(--card); color:var(--muted); padding:9px 15px; border-radius:11px; font-weight:600; font-size:14px; cursor:pointer; transition:.2s;}
+  .tab:hover{color:var(--ink);}
+  .tab.active{background:linear-gradient(120deg,var(--accent),var(--accent-2)); color:#fff; border-color:transparent; box-shadow:0 8px 20px color-mix(in srgb,var(--accent) 35%,transparent);}
+  .panel-box{display:none;} .panel-box.active{display:block; animation:fade .35s ease;}
+  @keyframes fade{from{opacity:0; transform:translateY(8px);} to{opacity:1; transform:none;}}
+
+  /* code */
+  .code{background:var(--ink); color:#e7e9f2; border-radius:14px; padding:16px 18px; overflow:auto; box-shadow:0 10px 30px var(--shadow);}
+  .code pre{margin:0; font-family:'JetBrains Mono'; font-size:13.5px; line-height:1.7;}
+  .code .c{color:#7c8499;} .code .s{color:#9be8b0;} .code .p{color:#ffae8a;} .code .b{color:#8db4ff;}
+  .copy{float:right; cursor:pointer; font-size:12px; color:#aeb4c8; border:1px solid #2c2f3a; background:#1b1d26; padding:4px 9px; border-radius:8px;}
+  .copy:hover{color:#fff;}
+
+  .callout{border-left:4px solid var(--accent); background:color-mix(in srgb,var(--accent) 7%,var(--card)); padding:14px 17px; border-radius:0 12px 12px 0; font-size:14.5px; color:var(--muted); margin:16px 0;}
+  .callout b{color:var(--ink);}
+
+  /* accordion (FAQ) */
+  .acc{border:1px solid var(--line); border-radius:14px; overflow:hidden; background:var(--card); margin-bottom:11px; box-shadow:0 4px 16px var(--shadow);}
+  .acc-h{display:flex; align-items:center; gap:13px; padding:17px 19px; cursor:pointer; transition:.2s; user-select:none;}
+  .acc-h:hover{background:var(--soft);}
+  .acc-h .num{font-family:'Space Grotesk'; font-weight:700; color:var(--accent); font-size:15px; min-width:30px;}
+  .acc-h h3{font-size:17px; margin:0; flex:1;}
+  .acc-h .ar{transition:.3s; color:var(--muted); font-size:18px;}
+  .acc.open .acc-h .ar{transform:rotate(45deg); color:var(--accent);}
+  .acc-b{max-height:0; overflow:hidden; transition:max-height .35s ease;}
+  .acc-b-in{padding:0 19px 19px 62px; color:var(--muted); font-size:15px;}
+  .acc-b-in ul{margin:8px 0 0; padding-left:18px;} .acc-b-in li{margin:5px 0;}
+
+  /* timeline */
+  .tl{position:relative; margin-left:14px; padding-left:30px; border-left:2px solid var(--line);}
+  .tl-item{position:relative; padding:0 0 28px 0;}
+  .tl-item::before{content:""; position:absolute; left:-39px; top:4px; width:15px; height:15px; border-radius:50%; background:var(--card); border:3px solid var(--accent);}
+  .tl-item .v{font-family:'Space Grotesk'; font-weight:700; color:var(--accent); font-size:15px;}
+  .tl-item .t{font-weight:700; font-size:17px; margin:2px 0 5px;}
+  .tl-item p{color:var(--muted); margin:0; font-size:14.5px;}
+
+  /* list */
+  ul.b{list-style:none; padding-left:0; margin:10px 0;}
+  ul.b li{padding:6px 0 6px 26px; position:relative; color:var(--muted); font-size:15px;}
+  ul.b li::before{content:"▸"; position:absolute; left:4px; color:var(--accent); font-weight:bold;}
+
+  footer{border-top:1px solid var(--line); padding:36px 0 60px; text-align:center; color:var(--muted); font-size:14px;}
+  .reveal{opacity:0; transform:translateY(22px); transition:opacity .7s ease, transform .7s ease;}
+  .reveal.in{opacity:1; transform:none;}
+  @media(max-width:760px){.stats{grid-template-columns:repeat(3,1fr);} .g2,.g3,.g4{grid-template-columns:1fr;} .nav-links{display:none;}}
+</style>
+</head>
+<body>
+<div id="progress"></div>
+<nav>
+  <div class="nav-in">
+    <div class="logo"><span class="dot"></span>LobeHub</div>
+    <div class="nav-links">
+      <a href="#overview">概览</a>
+      <a href="#deep">深读</a>
+      <a href="#faq">FAQ</a>
+      <a href="#start">快速开始</a>
+    </div>
+    <button class="toggle" id="themeBtn" title="切换明暗">◐</button>
+    <a class="ghost-btn" href="tp.html">← 返回 TP 中心</a>
+  </div>
+</nav>
+
+<div class="wrap">
+
+  <!-- HERO -->
+  <header class="hero">
+    <span class="eyebrow">AI 应用 · 开源平台</span>
+    <h1><span class="grad">LobeHub</span></h1>
+    <p class="sub">开源的 AI 聊天与 Agent 平台。旗舰产品 LobeChat 是一个用 Next.js + TypeScript 构建的现代化聊天界面，开箱即用地接入 100+ 模型供应商，并支持 Agent 市场、插件与多模态——整套代码完全自托管。</p>
+    <div class="cta">
+      <a class="btn primary" href="https://lobehub.com" target="_blank" rel="noopener">⚡ 访问官网 ↗</a>
+      <a class="btn sec" href="#overview">🔍 深入了解</a>
+    </div>
+    <div class="stats">
+      <div class="stat reveal"><div class="n" data-to="62" data-suf="K">0</div><div class="l">GitHub Stars</div></div>
+      <div class="stat reveal"><div class="n" data-to="1.3" data-suf="K">0</div><div class="l">Forks</div></div>
+      <div class="stat reveal"><div class="n" data-to="350" data-suf="+">0</div><div class="l">贡献者</div></div>
+      <div class="stat reveal"><div class="n" data-to="100" data-suf="+">0</div><div class="l">模型供应商</div></div>
+      <div class="stat reveal"><div class="n" data-to="400" data-suf="+">0</div><div class="l">Agent / 角色</div></div>
+      <div class="stat reveal"><div class="n" data-to="6">0</div><div class="l">核心模块</div></div>
+    </div>
+    <div class="callout" style="text-align:left; max-width:760px; margin:18px auto 0;">
+      ⚠️ 数据说明：上方 star / fork / 贡献者等数字为综合官网、GitHub 徽章与社区公开信息整理的<b>近似值</b>，未在本会话中逐一独立核验；截至 2026 年年中 LobeChat 仓库 stars 量级在 60K 区间。项目永久 <b>MIT 开源</b>，可自由自托管与二次开发。
+    </div>
+  </header>
+
+  <!-- OVERVIEW -->
+  <section id="overview">
+    <div class="sec-head reveal">
+      <div class="k">Overview</div>
+      <h2>一个平台，六块能力</h2>
+      <p>LobeHub 不是「又一个聊天 UI」。它把聊天界面、Agent 编排、模型接入、插件体系、多模态与开源部署打包成一层可自托管、可扩展的基础设施。</p>
+    </div>
+    <div class="grid g3">
+      <div class="card pillar reveal"><div class="ic">💬</div><h3>LobeChat 聊天界面</h3><p>基于 Next.js + TypeScript 的现代化会话 UI，支持多会话、多模型对比、知识库(RAG) 与本地优先体验，是 LobeHub 的旗舰开源项目。</p></div>
+      <div class="card pillar reveal"><div class="ic">🤖</div><h3>Agent 市场</h3><p>用 JSON 描述角色(SystemRole / 模型 / 参数)，即可发布到公开 Agent 市场，一键导入。报告提到它支持创建、部署、管理 7×24 运行的智能体团队。</p></div>
+      <div class="card pillar reveal"><div class="ic">🔌</div><h3>模型接入层</h3><p>统一适配 100+ 供应商：OpenAI、Anthropic、Google Gemini、Mistral、DeepSeek，以及本地 Ollama / LM Studio。一套配置切换全部模型。</p></div>
+      <div class="card pillar reveal"><div class="ic">🧩</div><h3>插件 / 工具调用</h3><p>原生 function calling 与插件机制，可接 Gmail、Slack、Notion 等外部服务 API，并支持 MCP（Model Context Protocol）扩展工具。</p></div>
+      <div class="card pillar reveal"><div class="ic">🖼️</div><h3>多模态</h3><p>视觉识别(上传图片理解)、TTS 语音合成、文生图(接 DALL·E / Flux) 等能力内建在会话流里，无需额外拼装。</p></div>
+      <div class="card pillar reveal"><div class="ic">🌐</div><h3>开源 / 自托管</h3><p>MIT 协议，Vercel 一键部署、Docker 镜像、Sevalla 等多种形式。数据留在自己手里，可离线跑本地模型。</p></div>
+    </div>
+  </section>
+
+  <!-- DEEP DIVE -->
+  <section id="deep">
+    <div class="sec-head reveal">
+      <div class="k">Deep Dive</div>
+      <h2>拆开看：它怎么跑起来</h2>
+      <p>从架构组成到本地部署，再到 Agent 与插件的真实写法。下面是可直接照抄的命令与配置。</p>
+    </div>
+
+    <div class="card reveal" style="margin-bottom:18px;">
+      <h3 style="margin-top:0">① 架构组成：一条数据链路</h3>
+      <p style="color:var(--muted); font-size:14.5px">用户在 LobeChat 界面发起对话 → 经模型接入层路由到对应供应商（或本地 Ollama）→ Agent / 插件注入系统提示与工具 → 多模态与知识库参与上下文 → 结果回流界面。设计上把「模型差异」屏蔽在接入层之后。</p>
+      <div class="flow">
+        <div class="node"><h3>界面层</h3><div class="d">LobeChat UI<br>会话 / 知识库</div></div>
+        <span class="arrow">→</span>
+        <div class="node"><h3>接入层</h3><div class="d">100+ 供应商<br>+ 本地 Ollama</div></div>
+        <span class="arrow">→</span>
+        <div class="node"><h3>能力层</h3><div class="d">Agent 市场<br>插件 / MCP</div></div>
+        <span class="arrow">→</span>
+        <div class="node"><h3>体验层</h3><div class="d">多模态<br>TTS / 视觉</div></div>
+      </div>
+    </div>
+
+    <div class="card reveal" style="margin-bottom:18px;">
+      <h3 style="margin-top:0">② 本地部署：三种真实路径</h3>
+      <div class="code"><button class="copy">复制</button><pre><span class="c"># A. 源码启动（开发 / 改代码）——推荐 pnpm</span>
+git clone https://github.com/lobehub/lobe-chat.git
+<span class="p">cd</span> lobe-chat
+<span class="p">pnpm</span> install
+<span class="p">pnpm</span> dev          <span class="c"># 默认 http://localhost:3010</span>
+
+<span class="c"># B. Docker 一键起（生产自托管，端口 3210）</span>
+<span class="p">docker</span> run -d -p 3210:3210 \
+  -e OPENAI_API_KEY=<span class="s">sk-xxxx</span> \
+  --name lobechat \
+  lobehub/lobe-chat
+
+<span class="c"># C. Vercel 一键部署（网页点一下即可，无需本地）</span>
+<span class="c"># 打开 https://lobehub.com/zh/self-hosting ，点 Deploy 授权仓库即可</span></pre></div>
+      <div class="callout reveal" style="text-align:left">💡 <b>端口差异</b>：源码 <code>pnpm dev</code> 默认 3010，Docker 官方镜像默认 3210。本机同时跑多个实例时，用 <code>-e PORT=xxxx</code> 或 <code>-p 新端口:3210</code> 避开冲突。</div>
+    </div>
+
+    <div class="card reveal" style="margin-bottom:18px;">
+      <h3 style="margin-top:0">③ 配置 .env：把密钥与模型交给环境变量</h3>
+      <p style="color:var(--muted); font-size:14.5px">LobeChat 把密钥与供应商开关全部走环境变量，不写进代码库。最小可用配置如下（<code>.env</code> 放项目根目录）：</p>
+      <div class="code"><button class="copy">复制</button><pre><span class="c"># 云端模型</span>
+OPENAI_API_KEY=<span class="s">sk-xxxx</span>
+OPENAI_MODEL=<span class="s">gpt-4o</span>
+
+<span class="c"># 本地模型（Ollama，无需联网）</span>
+OLLAMA_MODEL_LIST=<span class="s">qwen2.5:7b,llama3:8b</span>
+
+<span class="c"># 可选：开启单点登录 / 数据持久化</span>
+ENABLE_OAUTH_SSO=<span class="s">false</span>
+NEXT_PUBLIC_SERVICE_MODE=<span class="s">server</span></pre></div>
+    </div>
+
+    <div class="card reveal" style="margin-bottom:18px;">
+      <h3 style="margin-top:0">④ 写一个 Agent：纯 JSON，无需编译</h3>
+      <p style="color:var(--muted); font-size:14.5px">Agent 市场里的角色就是一份结构化 JSON（schema 见下方）。改完在 LobeChat「角色设置 → 导入」即可加载，也能推到社区市场分享。</p>
+      <div class="code"><button class="copy">复制</button><pre><span class="c">// translator-pro.json —— 一份可直接导入的 Agent 定义</span>
+{
+  <span class="s">"schemaVersion"</span>: 1,
+  <span class="s">"identifier"</span>: <span class="s">"translator-pro"</span>,
+  <span class="s">"meta"</span>: { <span class="s">"title"</span>: <span class="s">"专业中英翻译"</span>, <span class="s">"avatar"</span>: <span class="s">"🌐"</span> },
+  <span class="s">"model"</span>: <span class="s">"gpt-4o"</span>,
+  <span class="s">"systemRole"</span>: <span class="s">"你是一名专业本地化译员，只输出翻译结果，保留术语表。"</span>,
+  <span class="s">"params"</span>: { <span class="s">"temperature"</span>: 0.3, <span class="s">"max_tokens"</span>: 2048 }
+}</pre></div>
+      <div class="callout reveal" style="text-align:left">🧩 <b>插件与 MCP</b>：除了角色 JSON，LobeChat 还能在设置里挂载插件（如联网搜索、网页抓取）与 MCP Server，把外部 API 变成 Agent 可调用的工具，对应报告里「连接 Gmail / Slack / Notion」这类集成场景。</div>
+    </div>
+
+    <div class="card reveal">
+      <h3 style="margin-top:0">⑤ 支持的模型供应商（节选）</h3>
+      <div class="chips">
+        <span class="chip"><span class="d"></span>OpenAI</span>
+        <span class="chip"><span class="d"></span>Anthropic Claude</span>
+        <span class="chip"><span class="d"></span>Google Gemini</span>
+        <span class="chip"><span class="d"></span>DeepSeek</span>
+        <span class="chip"><span class="d"></span>Mistral</span>
+        <span class="chip"><span class="d"></span>Meta Llama</span>
+        <span class="chip"><span class="d"></span>Ollama（本地）</span>
+        <span class="chip"><span class="d"></span>LM Studio</span>
+        <span class="chip"><span class="d"></span>Qwen 通义</span>
+        <span class="chip"><span class="d"></span>月之暗面 Kimi</span>
+        <span class="chip"><span class="d"></span>Perplexity</span>
+        <span class="chip"><span class="d"></span>xAI Grok</span>
+      </div>
+      <ul class="b" style="margin-top:14px">
+        <li><b>统一接口</b>：无论用哪家，调用方式一致，切换只需改环境变量 / 界面下拉。</li>
+        <li><b>本地优先</b>：接 Ollama 后完全离线推理，数据不出本机。</li>
+        <li><b>视觉 / 语音</b>：Gemini、GPT-4o 等支持图片输入；TTS 接 Edge / OpenAI 语音。</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq">
+    <div class="sec-head reveal">
+      <div class="k">FAQ</div>
+      <h2>常见问题</h2>
+    </div>
+    <div class="reveal">
+      <div class="acc">
+        <div class="acc-h"><span class="num">01</span><h3>LobeHub 和 LobeChat 是什么关系？</h3><span class="ar">＋</span></div>
+        <div class="acc-b"><div class="acc-b-in"><b>LobeHub</b> 是组织 / 品牌名，旗下开源产品统称；<b>LobeChat</b> 是其中的旗舰项目——那个你实际部署、打开聊天的 Next.js 聊天应用。此外还有 LobeUI（组件库）、LobeTheme 等配套仓库。简单说：用 LobeChat 就是在用 LobeHub 的开源成果。</div></div>
+      </div>
+      <div class="acc">
+        <div class="acc-h"><span class="num">02</span><h3>一定要会写代码才能用吗？</h3><span class="ar">＋</span></div>
+        <div class="acc-b"><div class="acc-b-in">不一定要。最省事的方式是去官网或 <code>lobehub.com/zh/self-hosting</code> 点 Vercel 一键部署，填好 API Key 就能用，全程网页操作。只有想改源码、自托管或与内部系统集成时才需要碰命令行与 <code>.env</code>。</div></div>
+      </div>
+      <div class="acc">
+        <div class="acc-h"><span class="num">03</span><h3>能完全离线、数据不出本机吗？</h3><span class="ar">＋</span></div>
+        <div class="acc-b"><div class="acc-b-in">可以。把模型接入层指向本地 <b>Ollama</b> 或 <b>LM Studio</b>（设置 <code>OLLAMA_MODEL_LIST</code>），再关闭任何需要联网的插件，整套推理就在你机器上完成。报告也强调它适合「7×24 运行」的私有 Agent 场景。</div></div>
+      </div>
+      <div class="acc">
+        <div class="acc-h"><span class="num">04</span><h3>Agent 市场和插件怎么用？</h3><span class="ar">＋</span></div>
+        <div class="acc-b"><div class="acc-b-in">Agent 市场里每个角色都是一份 JSON 配置（含 systemRole、默认模型、参数），可一键导入到自己的 LobeChat。插件则把 Gmail / Slack / Notion / 联网搜索等外部能力封装成 Agent 可调用工具，新版还支持 <b>MCP</b> 协议挂载任意兼容 Server。
+          <ul><li>角色导入：设置 → 角色 → 导入 JSON</li><li>插件：设置 → 工具 / 插件 中开启</li><li>MCP：设置 → MCP Servers 添加</li></ul></div></div>
+      </div>
+      <div class="acc">
+        <div class="acc-h"><span class="num">05</span><h3>和 ChatGPT / 商业产品比，优势在哪？</h3><span class="ar">＋</span></div>
+        <div class="acc-b"><div class="acc-b-in">核心是<b>所有权与可组合性</b>：① 模型任选（不被绑死在一家）；② 数据自托管、可私有部署；③ 角色 / 插件 / MCP 全开放，能接内部系统；④ MIT 协议可二次开发。代价是需要自己部署与维护（或用 Vercel 一键托管）。</div></div>
+      </div>
+      <div class="acc">
+        <div class="acc-h"><span class="num">06</span><h3>性能与硬件要求高吗？</h3><span class="ar">＋</span></div>
+        <div class="acc-b"><div class="acc-b-in">纯云端模型时，LobeChat 只是个前端 + 代理，普通服务器即可。要跑本地模型则看模型大小：7B 级别量化模型约需 8GB 内存，13B 建议 16GB+。Docker 镜像已带好运行环境，开箱即用。</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- START -->
+  <section id="start">
+    <div class="sec-head reveal">
+      <div class="k">Quick Start</div>
+      <h2>三种方式快速开始</h2>
+      <p>不想折腾就走 Vercel 一键；要改代码走源码；要长期自托管走 Docker。三条路不要叠加，选一条即可。</p>
+    </div>
+
+    <div class="tabs reveal" id="tabs">
+      <button class="tab active" data-t="vercel">☁️ Vercel 一键</button>
+      <button class="tab" data-t="source">📁 源码启动</button>
+      <button class="tab" data-t="docker">🐳 Docker</button>
+    </div>
+
+    <div class="panel-box active" data-p="vercel">
+      <div class="code reveal"><button class="copy">复制</button><pre><span class="c"># 无需命令行：打开自托管页 → 点 Deploy → 授权 GitHub</span>
+<span class="c"># 1) 浏览器访问：</span>
+<span class="b">https://lobehub.com/zh/self-hosting</span>
+
+<span class="c"># 2) 在 Vercel 面板填入环境变量</span>
+OPENAI_API_KEY=<span class="s">sk-xxxx</span>
+
+<span class="c"># 3) 等构建完成，自动分配 *.vercel.app 域名，直接聊天</span></pre></div>
+      <div class="callout reveal" style="text-align:left">⚠️ 免费额度有限。生产自托管建议绑定自己的域名，并在环境变量里只放最小可用密钥。</div>
+    </div>
+
+    <div class="panel-box" data-p="source">
+      <div class="code reveal"><button class="copy">复制</button><pre><span class="c"># 克隆并安装（pnpm 优先）</span>
+git clone https://github.com/lobehub/lobe-chat.git
+<span class="p">cd</span> lobe-chat
+<span class="p">pnpm</span> install
+
+<span class="c"># 写入密钥后启动开发服务器</span>
+<span class="p">echo</span> <span class="s">'OPENAI_API_KEY=sk-xxxx'</span> &gt; .env
+<span class="p">pnpm</span> dev        <span class="c"># http://localhost:3010</span>
+
+<span class="c"># 生产构建</span>
+<span class="p">pnpm</span> build <span class="p">&amp;&amp;</span> <span class="p">pnpm</span> start</pre></div>
+      <div class="callout reveal" style="text-align:left">💡 想接本地模型，把 <code>OPENAI_API_KEY</code> 换成 <code>OLLAMA_MODEL_LIST</code> 即可，无需云端 Key。</div>
+    </div>
+
+    <div class="panel-box" data-p="docker">
+      <div class="code reveal"><button class="copy">复制</button><pre><span class="c"># 拉起官方镜像（默认端口 3210）</span>
+<span class="p">docker</span> run -d -p 3210:3210 \
+  -e OPENAI_API_KEY=<span class="s">sk-xxxx</span> \
+  -e ACCESS_CODE=<span class="s">你的访问口令</span> \
+  --name lobechat \
+  lobehub/lobe-chat
+
+<span class="c"># 查看日志 / 停止</span>
+<span class="p">docker</span> logs -f lobechat
+<span class="p">docker</span> stop lobechat</pre></div>
+      <div class="callout reveal" style="text-align:left">🔒 公网暴露时务必设 <code>ACCESS_CODE</code>，否则任何人都能用你的 Key 刷模型。</div>
+    </div>
+
+    <div class="grid g3 reveal" style="margin-top:22px">
+      <div class="card"><h3 style="margin-top:0; font-size:17px">🧪 导入 Agent</h3><p style="color:var(--muted); font-size:14px">把上面的 <code>translator-pro.json</code> 在「角色 → 导入」里加载，立刻拥有专属翻译 Agent。</p></div>
+      <div class="card"><h3 style="margin-top:0; font-size:17px">🧩 加插件</h3><p style="color:var(--muted); font-size:14px">设置里开启联网搜索 / 网页抓取，或添加 MCP Server 接入内部工具。</p></div>
+      <div class="card"><h3 style="margin-top:0; font-size:17px">🖥️ 本地模型</h3><p style="color:var(--muted); font-size:14px">安装 Ollama 后填 <code>OLLAMA_MODEL_LIST</code>，离线也能对话。</p></div>
+    </div>
+  </section>
+
+  <footer>made with ♥ &amp; a white grid — <b>LobeHub 深度解读</b><div style="margin-top:6px;font-size:13px">数据抓取于 2026-07-14 · 内容综合自官网与 Tabbit 报告</div></footer>
+</div>
+
+<script>
+/* theme */
+const root=document.documentElement, tb=document.getElementById('themeBtn');
+tb.onclick=()=>{root.dataset.theme=root.dataset.theme==='light'?'dark':'light';};
+/* progress bar */
+const prog=document.getElementById('progress');
+addEventListener('scroll',()=>{const h=document.documentElement;
+  prog.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+'%';});
+/* reveal */
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in');}),{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+/* counters */
+function animateCounters(){
+  document.querySelectorAll('.stat .n').forEach(el=>{
+    const to=parseFloat(el.dataset.to), suf=el.dataset.suf||'';
+    let cur=0; const step=to/46;
+    const t=setInterval(()=>{cur+=step; if(cur>=to){cur=to; clearInterval(t);}
+      el.textContent=(to%1?cur.toFixed(1):Math.round(cur))+suf;},22);
+  });
+}
+const heroIO=new IntersectionObserver((es,o)=>{es.forEach(e=>{if(e.isIntersecting){animateCounters();o.disconnect();}});},{threshold:.4});
+heroIO.observe(document.querySelector('.hero'));
+/* tabs */
+document.querySelectorAll('.tabs').forEach(wrap=>{
+  const boxes=Array.from(wrap.parentElement.children).filter(c=>c.classList.contains('panel-box'));
+  wrap.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{
+    wrap.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
+    b.classList.add('active');
+    const t=b.dataset.t;
+    boxes.forEach(p=>p.classList.toggle('active',p.dataset.p===t));
+  });
+});
+/* accordion */
+document.querySelectorAll('.acc-h').forEach(h=>h.onclick=()=>{
+  const acc=h.parentElement, b=acc.querySelector('.acc-b');
+  const open=acc.classList.toggle('open');
+  b.style.maxHeight=open?b.scrollHeight+'px':'0';
+});
+/* copy */
+document.querySelectorAll('.copy').forEach(b=>b.onclick=()=>{
+  const pre=b.parentElement.querySelector('pre');
+  navigator.clipboard.writeText(pre.innerText).then(()=>{const t=b.textContent;b.textContent='已复制 ✓';setTimeout(()=>b.textContent=t,1400);});
+});
+</script>
+<a href="tp.html" style="position:fixed;left:18px;bottom:18px;z-index:90;display:inline-flex;align-items:center;gap:7px;font:600 14px/1 system-ui,sans-serif;color:#fff;text-decoration:none;background:linear-gradient(120deg,var(--accent),var(--accent-2));padding:11px 17px;border-radius:12px;box-shadow:0 8px 30px rgba(0,0,0,.3)">← 返回 TP 中心</a>
+<script>
+/* Theme button icon sync */
+(function(){
+  var btn=document.querySelector('.theme-btn');
+  if(!btn)return;
+  function sync(){btn.textContent=document.documentElement.dataset.theme==='dark'?'☀️':'🌙';}
+  sync();
+  btn.addEventListener('click',function(){setTimeout(sync,0);});
+})();
+</script>
+<script>
+/* Auto-collapse TOC: only expand the section containing the current page */
+(function(){
+  var details=document.querySelectorAll('aside.toc details.toc-sec');
+  if(details.length<2)return;
+  var current=location.pathname.replace(/\/$/,'');
+  var activeLink=null;
+  document.querySelectorAll('aside.toc a').forEach(function(a){
+    var href=a.getAttribute('href')||'';
+    if(href && !href.startsWith('http') && !href.startsWith('#')){
+      var path=href.replace(/^https?:\/\/[^\/]+/,'').replace(/\/$/,'');
+      if(current===path || current.indexOf(path)>-1 || path.indexOf(current)>-1){
+        activeLink=a;
+      }
+    }
+  });
+  details.forEach(function(d){
+    if(activeLink && d.contains(activeLink)){d.setAttribute('open','');}
+    else{d.removeAttribute('open');}
+  });
+})();
+</script>
+</body>
+</html>

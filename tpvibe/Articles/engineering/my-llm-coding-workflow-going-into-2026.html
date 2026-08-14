@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="geo.region" content="CN">
+<meta name="geo.placename" content="China">
+<meta name="geo.position" content="39.9042;116.4074">
+<meta name="ICBM" content="39.9042, 116.4074">
+<link rel="icon" href="/tpvibe/images/tp_logo.jpg" type="image/png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026 年我的 LLM 工作流 | TPvibe</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/tpvibe/style.css">
+<!-- SEO:tphub -->
+<meta name="description" content="2026 年我的 LLM 工作流 — TPvibe 中文 AI 学习与实战教程，从零基础到进阶，边学边做。">
+<link rel="canonical" href="https://tphub.tpgofighting.top/tpvibe/Articles/engineering/my-llm-coding-workflow-going-into-2026.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="TPvibe">
+<meta property="og:title" content="2026 年我的 LLM 工作流 | TPvibe">
+<meta property="og:description" content="2026 年我的 LLM 工作流 — TPvibe 中文 AI 学习与实战教程，从零基础到进阶，边学边做。">
+<meta property="og:url" content="https://tphub.tpgofighting.top/tpvibe/Articles/engineering/my-llm-coding-workflow-going-into-2026.html">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://tphub.tpgofighting.top/tpvibe/images/tp_logo.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="2026 年我的 LLM 工作流 | TPvibe">
+<meta name="twitter:description" content="2026 年我的 LLM 工作流 — TPvibe 中文 AI 学习与实战教程，从零基础到进阶，边学边做。">
+<meta name="twitter:image" content="https://tphub.tpgofighting.top/tpvibe/images/tp_logo.jpg">
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "name": "2026 年我的 LLM 工作流",
+  "url": "https://tphub.tpgofighting.top/tpvibe/Articles/engineering/my-llm-coding-workflow-going-into-2026.html",
+  "description": "TPvibe 中文 AI 学习与实战教程：从零基础到进阶，边学边做，附可运行示例与实战项目。",
+  "inLanguage": "zh-CN",
+  "isPartOf": {"@type": "WebSite", "name": "TPvibe", "url": "https://tphub.tpgofighting.top/tpvibe/"}
+}</script>
+<!-- GEO:v2 -->
+<!-- LOGOFIX:v2 -->
+</head>
+<body>
+<aside class="toc" id="toc">
+<button class="toc-toggle" id="tocToggle" aria-label="收起目录">«</button>
+<div class="toc-inner">
+<a class="toc-home" href="/tpvibe/index.html">TPvibe 首页</a>
+<details class="toc-sec">
+<summary>基础篇</summary>
+<ul class="toc-tree">
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Basic/lecture-1.html">00 序言</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Basic/lecture-1/0.1-start-here.html">开始之前</a></li>
+<li><a href="/tpvibe/Basic/lecture-1/0.2-what-you-will-build.html">你要做什么</a></li>
+<li><a href="/tpvibe/Basic/lecture-1/0.3-who-this-is-for.html">适合谁学</a></li>
+<li><a href="/tpvibe/Basic/lecture-1/0.4-how-to-learn.html">怎么学</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Basic/lecture-2.html">01 觉醒</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Basic/lecture-2/1.1-coder-to-commander.html">从程序员到指挥官</a></li>
+<li><a href="/tpvibe/Basic/lecture-2/1.2-breaking-myths.html">打破误区</a></li>
+<li><a href="/tpvibe/Basic/lecture-2/1.3-tools-guide.html">工具选择指南</a></li>
+<li><a href="/tpvibe/Basic/lecture-2/1.4-vibe-vs-spec.html">Vibe Coding vs 规格驱动</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Basic/lecture-3.html">02 心智</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Basic/lecture-3/2.1-thinking-upgrade.html">思维升级</a></li>
+<li><a href="/tpvibe/Basic/lecture-3/2.2-inversion-thinking.html">逆向思维</a></li><li><a href="/tpvibe/Basic/lecture-3/2.3-subtraction-thinking.html">减法思维</a></li>
+<li><a href="/tpvibe/Basic/lecture-3/2.4-story-thinking.html">故事思维</a></li>
+
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Basic/lecture-4.html">03 技法</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Basic/lecture-4/3.1-prompt-basics.html">提示词基础</a></li>
+<li><a href="/tpvibe/Basic/lecture-4/3.2-structured-frameworks.html">结构化框架</a></li>
+<li><a href="/tpvibe/Basic/lecture-4/3.3-advanced-techniques.html">进阶技巧</a></li>
+<li><a href="/tpvibe/Basic/lecture-4/3.4-first-prd.html">第一份 PRD</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Basic/lecture-5.html">04 从0到1</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Basic/lecture-5/4.1-before-start.html">搭建前准备</a></li>
+<li><a href="/tpvibe/Basic/lecture-5/4.2-build-page.html">搭建页面</a></li>
+<li><a href="/tpvibe/Basic/lecture-5/4.3-core-features.html">核心功能</a></li>
+<li><a href="/tpvibe/Basic/lecture-5/4.4-data-storage.html">数据存储</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Basic/appendix-a.html">05 进阶</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Basic/appendix-a/5.1-version-control.html">版本控制</a></li>
+<li><a href="/tpvibe/Basic/appendix-a/5.2-deployment.html">部署上线</a></li>
+<li><a href="/tpvibe/Basic/appendix-a/5.3-security.html">安全防护</a></li>
+<li><a href="/tpvibe/Basic/appendix-a/5.4-iteration.html">迭代优化</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Basic/appendix-b.html">06 上线</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Basic/appendix-b/6.1-preflight.html">发布前检查</a></li>
+<li><a href="/tpvibe/Basic/appendix-b/6.2-deploy.html">发布流程</a></li>
+<li><a href="/tpvibe/Basic/appendix-b/6.3-feedback.html">收集反馈</a></li>
+<li><a href="/tpvibe/Basic/appendix-b/6.4-wrap-up.html">总结回顾</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Basic/appendix-c.html">99 附录</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Basic/appendix-c/a-prompt-cheatsheet.html">提示词速查表</a></li>
+<li><a href="/tpvibe/Basic/appendix-c/b-errors-and-asking-ai.html">常见错误与求助</a></li>
+<li><a href="/tpvibe/Basic/appendix-c/c-ui-cheatsheet.html">UI 速查表</a></li>
+<li><a href="/tpvibe/Basic/appendix-c/d-git-minimal-card.html">Git 最小知识卡</a></li>
+<li><a href="/tpvibe/Basic/appendix-c/e-api-key-env-security.html">API Key 与环境安全</a></li>
+<li><a href="/tpvibe/Basic/appendix-c/f-vibe-coding-can-and-cannot.html">Vibe Coding 能做与不能做</a></li>
+<li><a href="/tpvibe/Basic/appendix-c/g-advanced-jump-map.html">进阶跳转地图</a></li>
+</ul>
+</li>
+<li class="toc-chapter">
+<a href="/tpvibe/Basic/conclusion.html">100 结语</a>
+</li>
+</ul>
+</details>
+<details class="toc-sec">
+<summary>进阶篇</summary>
+<ul class="toc-tree">
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch01.html">01 环境搭建</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch01/00-quick-start.html">快速上手</a></li>
+<li><a href="/tpvibe/Advanced/ch01/01-code-formats.html">代码格式与编辑器</a></li>
+<li><a href="/tpvibe/Advanced/ch01/02-tech-stack.html">技术栈选择</a></li>
+<li><a href="/tpvibe/Advanced/ch01/03-browser-server.html">浏览器与服务器</a></li>
+<li><a href="/tpvibe/Advanced/ch01/04-terminal-basics.html">终端基础操作</a></li>
+<li><a href="/tpvibe/Advanced/ch01/05-package-manager-and-config.html">包管理与配置文件</a></li>
+<li><a href="/tpvibe/Advanced/ch01/06-models-and-tools.html">AI 模型与工具选择</a></li>
+<li><a href="/tpvibe/Advanced/ch01/07-creating-project.html">创建你的第一个项目</a></li>
+<li><a href="/tpvibe/Advanced/ch01/08-localhost-and-ports.html">本地服务器与端口</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch02.html">02 开发工具与AI调优</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch02/01-ai-economics.html">AI 经济学</a></li>
+<li><a href="/tpvibe/Advanced/ch02/02-vibecoding-workflow.html">Vibe Coding 工作流</a></li>
+<li><a href="/tpvibe/Advanced/ch02/03-mcp-and-skills.html">MCP 与 Skills</a></li>
+<li><a href="/tpvibe/Advanced/ch02/04-project-config.html">项目配置</a></li>
+<li><a href="/tpvibe/Advanced/ch02/05-debugging-tips.html">调试技巧</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch03.html">03 产品验证</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch03/01-product-validation.html">产品验证</a></li>
+<li><a href="/tpvibe/Advanced/ch03/02-discuss-with-ai.html">与 AI 讨论</a></li>
+<li><a href="/tpvibe/Advanced/ch03/03-prd-template-guide.html">PRD 模板指南</a></li>
+<li><a href="/tpvibe/Advanced/ch03/04-coding-agents.html">编码代理</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch04.html">04 编程基础</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch04/00-build-basics.html">构建基础</a></li>
+<li><a href="/tpvibe/Advanced/ch04/01-tech-stack-decision.html">技术栈决策</a></li>
+<li><a href="/tpvibe/Advanced/ch04/03-programming-basics.html">编程基础</a></li>
+<li><a href="/tpvibe/Advanced/ch04/02-prd-and-tech-docs.html">PRD 与技术文档</a></li>
+<li><a href="/tpvibe/Advanced/ch04/04-api-and-http.html">API 与 HTTP</a></li>
+<li><a href="/tpvibe/Advanced/ch04/05-frontend-backend-separation.html">前后端分离</a></li>
+<li><a href="/tpvibe/Advanced/ch04/06-config-formats.html">配置格式</a></li>
+<li><a href="/tpvibe/Advanced/ch04/07-api-integration.html">API 集成</a></li>
+<li><a href="/tpvibe/Advanced/ch04/08-readme-structure.html">README 结构</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch05.html">05 好看好用的界面</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch05/03-animation-libraries.html">动画库</a></li>
+</ul>
+</li>
+<li class="toc-chapter">
+<a href="/tpvibe/Advanced/ch06.html">06 数据存哪里</a>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch07.html">07 连接前后端</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch07/00-crud-example.html">CRUD 示例</a></li>
+<li><a href="/tpvibe/Advanced/ch07/02-when-things-go-wrong.html">出错处理</a></li>
+<li><a href="/tpvibe/Advanced/ch07/03-api-as-product.html">API 即产品</a></li>
+<li><a href="/tpvibe/Advanced/ch07/01-api-growing-pains.html">API 成长烦恼</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch08.html">08 谁能访问数据</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch08/00-user-system-example.html">用户系统示例</a></li>
+<li><a href="/tpvibe/Advanced/ch08/01-env-and-secrets.html">环境变量与密钥</a></li>
+<li><a href="/tpvibe/Advanced/ch08/03-route-protection.html">路由保护</a></li>
+<li><a href="/tpvibe/Advanced/ch08/04-security-checklist.html">安全清单</a></li>
+<li><a href="/tpvibe/Advanced/ch08/05-advanced-security.html">高级安全</a></li>
+<li><a href="/tpvibe/Advanced/ch08/02-auth-methods.html">认证方式</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch09.html">09 功能测试</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch09/01-testing-strategy.html">测试策略</a></li>
+<li><a href="/tpvibe/Advanced/ch09/02-api-and-e2e-testing.html">API 与 E2E 测试</a></li>
+<li><a href="/tpvibe/Advanced/ch09/03-automation-workflow.html">自动化工作流</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch10.html">10 公网访问</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch10/01-network-layers.html">网络分层</a></li>
+<li><a href="/tpvibe/Advanced/ch10/02-tunneling.html">隧道穿透</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch11.html">11 协作开发</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch11/01-why-git.html">为什么用 Git</a></li>
+<li><a href="/tpvibe/Advanced/ch11/02-remote-and-collaboration.html">远程与协作</a></li>
+<li><a href="/tpvibe/Advanced/ch11/03-branch-and-workflow.html">分支与工作流</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch12.html">12 无服务器部署</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch12/01-deploy-edgeone.html">EdgeOne 部署</a></li>
+<li><a href="/tpvibe/Advanced/ch12/02-deploy-vercel-platforms.html">Vercel 等平台部署</a></li>
+<li><a href="/tpvibe/Advanced/ch12/03-cicd-automation.html">CI/CD 自动化</a></li>
+<li><a href="/tpvibe/Advanced/ch12/04-operations-cost.html">运维成本</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch13.html">13 域名解析</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch13/01-domain-setup.html">域名设置</a></li>
+<li><a href="/tpvibe/Advanced/ch13/02-compliance-access.html">合规接入</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch14.html">14 部署到服务器</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch14/01-vps-selection.html">VPS 选择</a></li>
+<li><a href="/tpvibe/Advanced/ch14/02-vps-setup.html">VPS 配置</a></li>
+<li><a href="/tpvibe/Advanced/ch14/03-1-docker-apps.html">Docker 应用</a></li>
+<li><a href="/tpvibe/Advanced/ch14/03-2-deploy-nextjs.html">部署 Next.js</a></li>
+<li><a href="/tpvibe/Advanced/ch14/03-4-deploy-fullstack.html">部署全栈应用</a></li>
+<li><a href="/tpvibe/Advanced/ch14/05-cool-apps.html">酷应用</a></li>
+<li><a href="/tpvibe/Advanced/ch14/03-3-deploy-static.html">部署静态站点</a></li>
+<li><a href="/tpvibe/Advanced/ch14/04-domain-ssl.html">域名与 SSL</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch15.html">15 SEO与统计</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch15/01-opengraph-sharing.html">OpenGraph 分享</a></li>
+<li><a href="/tpvibe/Advanced/ch15/02-seo-guide.html">SEO 指南</a></li>
+<li><a href="/tpvibe/Advanced/ch15/03-umami.html">Umami 统计</a></li>
+<li><a href="/tpvibe/Advanced/ch15/04-legal.html">法律合规</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch16.html">16 反馈与迭代</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch16/01-facing-real-users.html">面向真实用户</a></li>
+<li><a href="/tpvibe/Advanced/ch16/02-feedback-prioritization.html">反馈优先级</a></li>
+<li><a href="/tpvibe/Advanced/ch16/03-understanding-users.html">理解用户</a></li>
+<li><a href="/tpvibe/Advanced/ch16/04-iteration-and-growth.html">迭代与增长</a></li>
+</ul>
+</li>
+<li class="toc-chapter">
+<a href="/tpvibe/Advanced/next-level.html">进阶实战</a>
+</li>
+</ul>
+</details>
+<details class="toc-sec">
+<summary>文章</summary>
+<ul class="toc-tree">
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Articles/core-concepts.html">核心概念</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Articles/core-concepts/what-are-ai-agents-why-do-they-matter.html">AI Agent 是什么</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Articles/architecture.html">技术架构</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Articles/architecture/how-claude-code-works.html">Claude Code 如何工作</a></li>
+<li><a href="/tpvibe/Articles/architecture/mcp-what-it-is-and-why-it-matters.html">MCP 是什么及为何重要</a></li>
+<li><a href="/tpvibe/Articles/architecture/build-agents-with-filesystems-and-bash.html">用文件系统和 Bash 构建 Agent</a></li>
+<li><a href="/tpvibe/Articles/architecture/testing-bash-vs-sql.html">Bash vs SQL 测试</a></li>
+<li><a href="/tpvibe/Articles/architecture/multi-agent-systems-ai-native-engineering.html">多 Agent 系统与 AI 原生工程</a></li>
+<li><a href="/tpvibe/Articles/architecture/self-improving-coding-agents.html">自我改进的编码 Agent</a></li>
+<li><a href="/tpvibe/Articles/architecture/nvidia-ai-5-layer-cake.html">NVIDIA AI 五层架构</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Articles/tools.html">工具链</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Articles/tools/how-to-write-good-spec-for-ai-agents.html">如何为 AI Agent 写 Spec</a></li>
+<li><a href="/tpvibe/Articles/tools/ai-driven-prototyping-v0-bolt-and-lovable-compared.html">AI 原型工具对比</a></li>
+<li><a href="/tpvibe/Articles/tools/why-i-use-cline-for-ai-engineering.html">为什么用 Cline 做 AI 工程</a></li>
+<li><a href="/tpvibe/Articles/tools/agents-md-vs-skills.html">AGENTS.md 与 Skills 对比</a></li>
+<li><a href="/tpvibe/Articles/tools/complete-guide-to-building-skills-for-claude.html">Claude Skills 构建指南</a></li>
+<li><a href="/tpvibe/Articles/tools/we-removed-80-percent-tools.html">我们移除了 80% 的工具</a></li>
+<li><a href="/tpvibe/Articles/tools/claude-code-swarms.html">Claude Code 集群</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Articles/engineering.html">工程实践</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Articles/engineering/ai-writes-code-faster-your-job-is-to-prove-it-works.html">AI 写代码更快，你要证明它有效</a></li>
+<li><a href="/tpvibe/Articles/engineering/beyond-the-70-maximizing-the-human-30-of-ai-assisted-coding.html">超越 70%：最大化人类 30%</a></li>
+<li><a href="/tpvibe/Articles/engineering/avoiding-skill-atrophy-in-the-age-of-ai.html">AI 时代的技能退化</a></li>
+<li><a href="/tpvibe/Articles/engineering/how-to-write-a-good-spec-for-ai-agents.html">如何为 AI Agent 写好 Spec</a></li>
+<li><a href="/tpvibe/Articles/engineering/leading-effective-engineering-teams-in-the-age-of-genai.html">GenAI 时代的工程团队领导</a></li>
+<li><a href="/tpvibe/Articles/engineering/your-ai-coding-agents-need-a-manager.html">AI 编码 Agent 需要管理者</a></li>
+<li><a href="/tpvibe/Articles/engineering/ai-code-review-implementation.html">AI 代码审查实现</a></li>
+<li><a href="/tpvibe/Articles/engineering/react-best-practices.html">React 最佳实践</a></li>
+<li><a href="/tpvibe/Articles/engineering/vercel-aeo-tracking.html">Vercel AEO 追踪</a></li>
+<li><a href="/tpvibe/Articles/engineering/my-llm-coding-workflow-going-into-2026.html" class="active">2026 年我的 LLM 工作流</a></li>
+<li><a href="/tpvibe/Articles/engineering/stop-using-init-for-agents.html">停止对 Agent 使用 init</a></li>
+<li><a href="/tpvibe/Articles/engineering/video-generation-with-ai-gateway.html">AI 网关视频生成</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Articles/security.html">安全合规</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Articles/security/ai-agents-threats-and-mitigations.html">AI Agent 威胁与缓解</a></li>
+<li><a href="/tpvibe/Articles/security/security-boundaries-in-agentic-architectures.html">Agent 架构安全边界</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Articles/business.html">商业趋势</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Articles/business/the-next-two-years-of-software-engineering.html">软件工程的未来两年</a></li>
+<li><a href="/tpvibe/Articles/business/how-openevidence-built-healthcare-ai-physicians-trust.html">OpenEvidence 医疗 AI</a></li>
+<li><a href="/tpvibe/Articles/business/keeping-community-human-while-scaling-with-agents.html">用 Agent 扩展时保持人性</a></li>
+</ul>
+</li>
+</ul>
+</details>
+<details class="toc-sec">
+<summary>实践案例</summary>
+<ul class="toc-tree">
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Practice/index.html">实践案例</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Practice/index/vibe-coding-methodology.html">Vibe Coding 方法论</a></li>
+<li><a href="/tpvibe/Practice/index/ai-canvas-vibecoding-journey.html">AI Canvas 之旅</a></li>
+<li><a href="/tpvibe/Practice/index/ai-picture-book-generator.html">AI 绘本生成器</a></li>
+<li><a href="/tpvibe/Practice/index/ai-resume-saas.html">AI 简历 SaaS</a></li>
+<li><a href="/tpvibe/Practice/index/full-stack-21-day-thinking-habit-game.html">21 天思维习惯游戏</a></li>
+</ul>
+</li>
+</ul>
+</details>
+</div>
+</aside>
+<script>
+(function(){
+  /* Move toc-toggle to body to avoid overflow/transform clipping */
+  var tocToggle=document.getElementById('tocToggle');
+  var toc=document.getElementById('toc');
+  if(tocToggle&&toc){
+    document.body.appendChild(tocToggle);
+    tocToggle.style.position='fixed';
+    tocToggle.style.top='70px';
+    tocToggle.style.left='254px';
+    tocToggle.style.zIndex='41';
+    tocToggle.style.width='28px';
+    tocToggle.style.height='28px';
+    tocToggle.style.borderRadius='50%';
+    tocToggle.style.border='1px solid var(--line)';
+    tocToggle.style.background='var(--card)';
+    tocToggle.style.color='var(--muted)';
+    tocToggle.style.cursor='pointer';
+    tocToggle.style.display='grid';
+    tocToggle.style.placeItems='center';
+    tocToggle.style.boxShadow='0 4px 14px var(--shadow)';
+    tocToggle.style.fontSize='14px';
+    tocToggle.style.fontWeight='700';
+    tocToggle.style.transition='left .35s cubic-bezier(.34,1.3,.64,1), background .2s, color .2s, border-color .2s';
+    tocToggle.addEventListener('mouseenter',function(){
+      this.style.background='var(--soft)';
+      this.style.color='var(--accent)';
+      this.style.borderColor='var(--accent)';
+    });
+    tocToggle.addEventListener('mouseleave',function(){
+      this.style.background='var(--card)';
+      this.style.color='var(--muted)';
+      this.style.borderColor='var(--line)';
+    });
+    tocToggle.addEventListener('click',function(){
+      toc.classList.toggle('collapsed');
+      var c=toc.classList.contains('collapsed');
+      this.style.left=c?'8px':'254px';
+      this.textContent=c?'»':'«';
+      this.setAttribute('aria-label',c?'展开目录':'收起目录');
+    });
+  }
+  /* Mobile scrim click to close */
+  var scrim=document.querySelector('.toc-scrim');
+  if(scrim){
+    scrim.addEventListener('click',function(){
+      var cb=document.getElementById('tocToggleMobile');
+      if(cb)cb.checked=false;
+    });
+  }
+  /* Chapter expand/collapse (L1) */
+  document.querySelectorAll('.toc-chapter-toggle').forEach(function(btn){
+    btn.addEventListener('click',function(e){
+      e.preventDefault();
+      e.stopPropagation();
+      var li=this.closest('.toc-chapter');
+      if(li)li.classList.toggle('expanded');
+    });
+  });
+  /* Auto-expand: find active link and open its section + chapter */
+  var currentRaw=location.pathname.replace(/\/$/,'');
+  var activeLink=null;
+  document.querySelectorAll('aside.toc a[href]').forEach(function(a){
+    var href=a.getAttribute('href')||'';
+    if(!href||href.startsWith('http')||href.startsWith('#'))return;
+    var path=href.replace(/^https?:\/\/[^\/]+/,'').replace(/\/$/,'');
+    /* Skip home link for active matching */
+    if(path.indexOf('/index.html')>=0&&currentRaw.indexOf('/index.html')<0)return;
+    if(currentRaw===path){activeLink=a;return;}
+    /* Also check if currentRaw contains the path (for sub-pages) */
+    if(path.length>5&&currentRaw.indexOf(path)>=0){activeLink=a;}
+  });
+  /* Open the section (L0) containing active link, close others */
+  var sections=document.querySelectorAll('aside.toc details.toc-sec');
+  if(sections.length>0){
+    sections.forEach(function(d){
+      if(activeLink&&d.contains(activeLink)){d.setAttribute('open','');}
+      else{d.removeAttribute('open');}
+    });
+  }
+  /* Expand the chapter (L1) containing active link */
+  if(activeLink){
+    var chap=activeLink.closest('.toc-chapter.has-children');
+    if(chap)chap.classList.add('expanded');
+  }
+  /* If no active link found (e.g. index page), open first section and first chapter */
+  if(!activeLink&&sections.length>0){
+    sections[0].setAttribute('open','');
+    var firstChapter=sections[0].querySelector('.toc-chapter.has-children');
+    if(firstChapter)firstChapter.classList.add('expanded');
+  }
+})();
+</script>
+
+<div id="progress"></div>
+<header class="site-header">
+<div class="header-inner">
+  <a href="/tpvibe/index.html" class="logo"><img src="/tpvibe/images/tp_logo.jpg" alt="TPvibe" width="200" height="200"> TPvibe</a>
+  <input type="checkbox" id="nav-toggle-cb" class="nav-toggle-cb" aria-hidden="true">
+  <label for="nav-toggle-cb" class="nav-toggle" aria-label="打开菜单">&#9776;</label>
+  <nav><ul class="nav-links"><li><a href="/tpvibe/index.html">TPvibe</a></li><li><a href="/tpvibe/index.html">首页</a></li><li><a href="/tpvibe/Basic/lecture-1.html">基础篇</a></li><li><a href="/tpvibe/Advanced/ch01.html">进阶篇</a></li><li><a href="/tpvibe/Articles/core-concepts.html">文章</a></li><li><a href="/tpvibe/Practice/index.html">实践案例</a></li></ul>
+</nav>
+<button class="theme-btn" aria-label="切换主题" onclick="document.documentElement.dataset.theme=document.documentElement.dataset.theme==='dark'?'light':'dark';localStorage.setItem('tpvibe-theme',document.documentElement.dataset.theme)">🌙</button>
+</div>
+</header>
+<main class="container">
+<h1 class="page-title">2026 年我的 LLM 工作流</h1>
+<div class="page-cover reveal">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400" preserveAspectRatio="xMidYMid slice" style="width:100%;height:100%;display:block;">
+  <defs>
+    <linearGradient id="bg-2855825783" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f97316"/>
+      <stop offset="100%" style="stop-color:#dc2626"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="400" fill="url(#bg-2855825783)"/>
+  <polygon points="690,327 646,415 734,415" fill="white" opacity="0.11" transform="rotate(354 690 371)"/>
+<polygon points="1126,54 1064,178 1188,178" fill="white" opacity="0.15" transform="rotate(125 1126 116)"/>
+<polygon points="362,231 332,292 393,292" fill="white" opacity="0.09" transform="rotate(256 362 262)"/>
+<polygon points="799,-41 750,56 847,56" fill="white" opacity="0.12" transform="rotate(27 799 7)"/>
+<polygon points="35,86 -32,219 101,219" fill="white" opacity="0.06" transform="rotate(158 35 153)"/>
+<polygon points="471,263 436,333 506,333" fill="white" opacity="0.09" transform="rotate(289 471 298)"/>
+<polygon points="907,-10 854,96 960,96" fill="white" opacity="0.13" transform="rotate(60 907 43)"/>
+<polygon points="143,118 72,260 215,260" fill="white" opacity="0.07" transform="rotate(191 143 189)"/>
+<polygon points="580,295 540,374 619,374" fill="white" opacity="0.10" transform="rotate(321 580 334)"/>
+<polygon points="1016,22 958,137 1073,137" fill="white" opacity="0.14" transform="rotate(92 1016 80)"/>
+<polygon points="252,149 176,301 328,301" fill="white" opacity="0.08" transform="rotate(223 252 225)"/>
+<polygon points="688,327 644,414 732,414" fill="white" opacity="0.11" transform="rotate(354 688 370)"/>
+<polygon points="1125,54 1062,178 1187,178" fill="white" opacity="0.15" transform="rotate(125 1125 116)"/>
+<polygon points="361,231 331,292 391,292" fill="white" opacity="0.09" transform="rotate(256 361 261)"/>
+<polygon points="797,-42 749,55 845,55" fill="white" opacity="0.12" transform="rotate(27 797 7)"/>
+
+  
+    <text x="60" y="180" font-family="Space Grotesk, sans-serif" font-size="140" font-weight="900" fill="white" opacity="0.15">2026</text>
+    
+  <text x="60" y="340" font-family="system-ui, -apple-system, sans-serif" font-size="36" font-weight="700" fill="white">2026 年我的 LLM 工作流</text>
+  <rect x="60" y="355" width="60" height="4" rx="2" fill="#fbbf24"/>
+</svg>
+</div>
+
+<div class="content reveal">
+<p><strong>作者：Addy Osmani</strong></p><p><strong>原文：<a href="https://addyosmani.com/blog/ai-coding-workflow/" target="_blank" rel="noreferrer">查看原文</a></strong></p><blockquote><h2>摘要 </h2><p>AI 编码助手在 2025 年已经成了改变游戏规则的工具，但想真正把它们用好，仍然需要方法、结构和判断。下面是我在规划、编码和协作中的工作流程。</p></blockquote><hr><p><strong>AI 编码助手在 2025 年已经成了真正改变游戏规则的工具，但想把它们用好，依然需要方法和结构。</strong> 这些工具显著提升了 LLM 在真实开发场景里的实用性，也让越来越多开发者——包括我自己——把它们纳入了日常工作流。</p><p>比如在 Anthropic，工程师对 Claude Code 的使用已经非常深入，以至于<a href="https://newsletter.pragmaticengineer.com/p/software-engineering-with-llms-in-2025#:~:text=,%E2%80%9D" target="_blank" rel="noreferrer">相关报道</a>提到：<strong>约 90% 的 Claude Code 代码，已经是由 Claude Code 自己产出的。</strong> 但这并不意味着 LLM 编程是“按一下按钮就自动完成”的魔法。它依然需要新的工作方法，<a href="https://addyo.substack.com/p/critical-thinking-during-the-age" target="_blank" rel="noreferrer">批判性思维</a>也依然关键。经过一年多的项目实践，我逐渐形成了一套和很多有经验开发者相近的工作流：把 LLM 当作一个强大的结对编程搭档——它需要明确的方向、充分的上下文，以及持续的人工把关。</p><p>这篇文章里，我会分享自己在迈向 2026 年时如何和 AI 一起规划、编码、协作，也会顺手总结我从实践和社区讨论里提炼出的技巧与最佳实践。它更接近一种有纪律的 <strong>“AI 辅助工程”</strong>：积极利用 AI，同时对最终产出的软件保持完整责任感。</p><p>如果你对我的工作流程更感兴趣，可以参阅&quot;AI原生软件工程师&quot;，否则让我们直接深入我学到的一些经验教训。</p><h2><strong>从清晰的计划开始（先写规格说明，再写代码）</strong> </h2><p><strong>不要只给 LLM 一个愿望清单——先定义问题，再规划解法。</strong></p><p>一个常见错误，是用一句模糊提示就直接让模型开始写代码。在我的工作流里，第一步通常是<strong>先和 AI 一起把规格说明聊清楚</strong>，梳理需求，再列出分步计划，之后才真正开始写代码。做新项目时，我会先描述想法，再要求 LLM 反过来不断提问，直到需求、边界条件和关键约束都被说透。最后，我们把这些内容整理成一份完整的 <code>spec.md</code>，里面会包括需求、架构决策、数据模型，甚至测试策略。这份规格说明，就是后续开发的地基。</p><p>接着，我会把规格说明交给推理能力更强的模型，让它<strong>生成项目计划</strong>，把实现拆成逻辑清晰的小任务或里程碑。某种程度上说，AI 在这里扮演的是“迷你设计文档协作者”的角色。我会反复迭代这份计划——自己改，也让 AI 挑错、补漏——直到它足够连贯、足够完整。<strong>只有到了这一步</strong>，我才会进入编码阶段。前期这点投入看起来像是在放慢速度，但回报通常很大。正如 Les Orchard <a href="https://blog.lmorchard.com/2025/06/07/semi-automatic-coding/#:~:text=Accidental%20waterfall%20" target="_blank" rel="noreferrer">所说</a>，这有点像在 <strong>“15 分钟里走完一遍瀑布流程”</strong>：用一个快速、结构化的规划阶段，换来后续更顺畅的实现。</p><p>一旦规格说明和计划都清楚了，后面的代码生成才真正有了锚点：你和 LLM 都知道“要做什么”以及“为什么这么做”。简单说，<strong>先规划</strong>的意义，就是先把共识建立起来，避免把时间浪费在错误方向上。这一步很多人容易跳过，但对有经验的 LLM 使用者来说，扎实的规格说明和计划，已经是整个工作流的基石。</p><h2><strong>将工作分解为小的、迭代的块</strong> </h2><p><strong>范围管理至关重要——给 LLM 可管理的任务，而不是一股脑把整个代码库都扔过去。</strong></p><p>我学到的一个关键教训，是不要指望 AI 一次吐出一个庞大而完整的答案。更好的做法，是把项目拆成一轮一轮的小任务，<a href="https://blog.fsck.com/2025/10/05/how-im-using-coding-agents-in-september-2025/#:~:text=please%20write%20out%20this%20plan%2C,in%20full%20detail%2C%20into%20docs%2Fplans" target="_blank" rel="noreferrer">逐个</a>推进。这本来就是好的软件工程实践，而在 AI 参与之后，只会变得更重要。LLM 在任务足够聚焦时表现最好：一次实现一个函数、修一个 bug、补一个功能。比如完成规划后，我会继续提示：<em>“好，我们先实现计划里的第 1 步。”</em> 写完、测完，再进入第 2 步。每一块都要小到 AI 能吃透上下文，你自己也能清楚审查它产出的代码。</p><p>这种方法可以防止模型偏离轨道。如果你一次要求太多，它很可能会感到困惑或产生一个**&quot;混乱的烂摊子&quot;<strong>，难以解开。开发者<a href="https://albertofortin.com/writing/coding-with-ai#:~:text=No%20consistency%2C%20no%20overarching%20plan,the%20other%209%20were%20doing" target="_blank" rel="noreferrer">报告</a>说，当他们试图让LLM生成应用的大量代码时，最终得到的是不一致和重复——&quot;就像10个开发者在没有相互交流的情况下工作&quot;，有人说。我感受过那种痛苦；解决方法是</strong>停下来，后退，将问题分解为更小的部分**。每次迭代，我们都会继承已构建内容的上下文，并逐步添加到其中。这也很好地契合了**测试驱动开发（TDD）**方法——我们可以在进行过程中为每个部分编写或生成测试（稍后会详细介绍测试）。</p><p>一些Coding Agents 工具现在明确支持这种分块工作流程。例如，我经常生成一个结构化的**&quot;提示计划&quot;<strong>文件，其中包含每个任务的一系列提示，以便像Cursor这样的工具可以逐个执行它们。关键点是</strong>避免巨大的跳跃**。通过小循环迭代，我们大大降低了灾难性错误的可能性，并且可以快速纠正方向。LLM擅长快速、有限的任务——利用这一优势。</p><h2><strong>提供广泛的上下文和指导</strong> </h2><p><strong>LLM的好坏取决于你提供的上下文——<em>向它们展示</em>相关的代码、文档和约束。</strong></p><p>在处理代码库时，我确保<strong>向AI提供它需要的所有信息</strong>以表现良好。这包括它应该修改或引用的代码、项目的技术约束，以及任何已知的陷阱或首选方法。现代工具在这方面有所帮助：例如，Anthropic的Claude可以在&quot;项目&quot;模式下将整个GitHub仓库导入其上下文，而像Cursor或Copilot这样的IDE助手会自动将打开的文件包含在提示中。但我经常更进一步——我会使用像<a href="https://context7.com/" target="_blank" rel="noreferrer">Context7</a>这样的MCP，或者如果我怀疑模型没有它们，我会手动将代码库或API文档的重要部分复制到对话中。</p><p>LLM专家用户强调这个&quot;上下文打包&quot;步骤。例如，在编码之前进行**&quot;大脑转储&quot;**，包括模型应该知道的所有内容：高级目标和不变量、良好解决方案的示例，以及关于要避免的方法的警告。如果我要求AI实现一个棘手的解决方案，我可能会告诉它哪些简单的解决方案太慢，或者提供来自其他地方的参考实现。如果我使用的是小众库或全新的API，我会粘贴官方文档或README，这样AI就不会盲目飞行。所有这些前期上下文都会显著提高其输出质量，因为模型不是在猜测——它面前有事实和约束。</p><p>现在有一些实用工具可以自动化上下文打包。我尝试过像<a href="https://gitingest.com/" target="_blank" rel="noreferrer"><strong>gitingest</strong></a>或<a href="https://github.com/abinthomasonline/repo2txt" target="_blank" rel="noreferrer"><strong>repo2txt</strong></a>这样的工具，它们本质上**&quot;将代码库的相关部分转储到文本文件中供LLM阅读&quot;<strong>。在处理大型项目时，这些工具可以成为救星——你生成一个包含关键源文件的output.txt包，让模型摄取它。原则是</strong>：不要让AI在部分信息上操作**。如果bug修复需要理解四个不同的模块，就向它展示这四个模块。是的，我们必须注意token限制，但当前的前沿模型有相当大的上下文窗口（数万个token）。明智地使用它们。我经常有选择地只包含与手头任务相关的代码部分，并明确告诉AI如果某些内容超出范围，<em>不要</em>关注什么（以节省token）。</p><p>我认为<a href="https://github.com/anthropics/skills" target="_blank" rel="noreferrer"><strong>Claude Skills</strong></a>很有潜力，因为它们将过去脆弱的重复提示转变为<strong>持久且可重用的东西</strong>，通过将指令、脚本和领域特定专业知识打包成模块化能力，工具可以在请求匹配Skill时自动应用。这意味着你可以获得比通用提示更可靠和上下文感知的结果，并且你从一次性交互转向以一致的方式编码可重复程序和团队知识的工作流程。存在许多社区策划的<a href="https://www.x-cmd.com/skill/" target="_blank" rel="noreferrer">Skills集合</a>，但我最喜欢的例子之一是<a href="https://x.com/trq212/status/1989061937590837678" target="_blank" rel="noreferrer">frontend-design</a> skill，它可以&quot;终结&quot;LLM生成UI中普遍存在的紫色设计美学。在更多工具正式支持Skills之前，存在<a href="https://github.com/intellectronica/skillz" target="_blank" rel="noreferrer">变通方法</a>。</p><p>最后**，在提示中用注释和规则引导AI**。我可能会在代码片段前加上：&quot;这是X的当前实现。我们需要扩展它以执行Y，但要小心不要破坏Z。&quot;这些小提示大有帮助。LLM是<strong>字面主义者</strong>——它们会遵循指令，所以给它们详细的、上下文化的指令。通过主动提供上下文和指导，我们最大限度地减少幻觉和偏离基础的建议，并获得符合我们项目需求的代码。</p><h2><strong>选择正确的模型（并在需要时使用多个）</strong> </h2><p><strong>并非所有编码LLM都是平等的——有意识地选择你的工具，不要害怕中途切换模型</strong>。</p><p>在2025年，我们被各种强大的以代码为重点的LLM宠坏了。我工作流程的一部分是<strong>选择最适合每个任务的模型或服务</strong>。有时，甚至可以并行尝试两个或更多LLM，以交叉检查它们如何以不同方式处理同一问题。</p><p>每个模型都有自己的&quot;个性&quot;。关键是**：如果一个模型卡住或给出平庸的输出，尝试另一个。** 我实际上会将同一个提示从一个聊天复制到另一个服务，看看它是否能更好地处理。这种&quot;<a href="https://blog.lmorchard.com/2025/06/07/semi-automatic-coding/#:~:text=I%20bounced%20between%20Claude%20Sonnet,Each%20had%20its%20own%20personality" target="_blank" rel="noreferrer">模型音乐椅</a>&quot;可以在你遇到模型盲点时拯救你。</p><p>此外，确保你使用的是<em>最佳版本</em>。如果可以，使用最新的&quot;专业&quot;层级模型——因为质量很重要。是的，这通常意味着付费访问，但生产力的提升可以证明其合理性。最终，选择与你**&quot;氛围&quot;契合**的AI结对编程伙伴。我知道有些人更喜欢某个模型，仅仅因为他们喜欢其响应的<em>感觉</em>。这是有效的——当你本质上与AI进行持续对话时，用户体验和语气会产生影响。</p><p>就我个人而言，我现在倾向于使用Gemini进行大量编码工作，因为交互感觉更自然，它通常在第一次尝试时就能理解我的请求。但如果需要，我会毫不犹豫地切换到另一个模型；有时第二个意见有助于解决方案的出现。总之：<strong>使用最适合工作的工具，并记住你有一整套AI可供使用</strong>。</p><h2><strong>在整个生命周期中利用AI编码</strong> </h2><p><strong>通过在SDLC中使用特定于编码的AI帮助来增强你的工作流程</strong>。</p><p>在命令行里，也出现了一批新的 Coding Agents。<strong>Claude Code、OpenAI 的 Codex CLI</strong>和<strong>Google 的 Gemini CLI</strong>都属于这类 CLI 工具：你可以直接在项目目录中与它们对话，它们能读文件、跑测试，甚至完成多步骤修复。我也用过 Google 的 <strong>Jules</strong> 和 GitHub 的 <strong>Copilot Agent</strong>——它们属于<strong>异步 Coding Agents</strong>，会把仓库克隆到云端 VM 里，在后台处理任务（写测试、修 bug、然后给你开 PR）。第一次看到这种工作方式时确实会有点恍惚：你下达一个像“重构支付模块以实现 X”这样的指令，过一会儿就会收到一个带代码变更和通过测试结果的拉取请求。我们确实已经走到了这样一个阶段。你可以在<a href="https://addyo.substack.com/p/conductors-to-orchestrators-the-future" target="_blank" rel="noreferrer">从指挥者到编排者</a>中阅读更多相关内容。</p><p>也就是说**，这些工具并非万无一失，你必须了解它们的局限性**。它们加速了编码的机械部分——生成样板代码、应用重复更改、自动运行测试——但它们仍然极大地受益于你的指导。例如，当我使用像Claude或Copilot这样的代理来实现某些东西时，我经常向它提供早期步骤的计划或待办事项列表，以便它知道确切的任务序列。如果代理支持，我会在告诉它执行之前将我的spec.md或plan.md加载到上下文中。这使它保持在正轨上。</p><p><strong>我们还没有到可以把整个功能完全托付给 AI 并期待完美结果的阶段。</strong> 所以我一直以“强监督”的方式使用这些工具：让它们生成甚至执行代码，但我会盯住关键节点，一旦方向不对就及时介入。也有像 <strong>Conductor</strong> 这样的编排工具，可以让你在不同任务上并行运行多个智能体，本质上是在扩展 AI 的并行产能——有些工程师会同时跑 3 到 4 个会话。我也试过这种“大规模并行”方式；它确实能很快推进大量工作，但同时监控多个 AI 线程的认知负担也非常高。对大多数情况来说，我还是更偏向一次只用一个主智能体，必要时再加一个辅助智能体做审查。</p><p>只要记住这些是电动工具——你仍然控制扳机并引导结果。</p><h2><strong>保持人类参与——验证、测试和审查一切</strong> </h2><p><strong>AI会愉快地生成看似合理的代码，但<em>你</em>对质量负责——始终彻底审查和测试。</strong> 我的一个基本原则是永远不要盲目信任LLM的输出。正如Simon Willison恰当地<a href="https://simonwillison.net/2025/Mar/11/using-llms-for-code/#:~:text=Instead%2C%20use%20them%20to%20augment,on%20tedious%20tasks%20without%20complaint" target="_blank" rel="noreferrer">所说</a>，将LLM结对编程伙伴视为**&quot;过度自信且容易犯错&quot;<strong>。它以完全的信念编写代码——包括bug或无意义的内容——除非你发现问题，否则不会告诉你有什么问题。所以我将每个AI生成的代码片段视为来自初级开发者：我通读代码，运行它，并根据需要进行测试</strong>。你绝对必须测试它写的东西**——运行那些单元测试，或手动执行功能，以确保它做了它声称的事情。在<a href="https://addyo.substack.com/p/vibe-coding-is-not-an-excuse-for" target="_blank" rel="noreferrer">vibe编码不是低质量工作的借口</a>中阅读更多相关内容。</p><p>事实上，我将测试融入工作流程本身。我早期的规划阶段通常包括为每个步骤生成测试列表或测试计划。如果我使用像Claude Code这样的工具，我会指示它在实现任务后运行测试套件，并让它在出现任何失败时进行调试。这种紧密的反馈循环（编写代码→运行测试→修复）是AI擅长的<em>只要测试存在</em>。毫不奇怪，那些从 Coding Agents 中获得最大收益的人往往是那些具有强大测试实践的人。像Claude这样的代理可以在良好的测试套件作为安全网的情况下&quot;飞速&quot;完成项目。没有测试，代理可能会轻率地假设一切都很好（&quot;当然，一切都好！&quot;），而实际上它破坏了几件事。所以，<strong>投资于测试</strong>——它放大了AI的有用性和对结果的信心。</p><p>即使超越自动化测试**，也要进行代码审查——手动和AI辅助的**。我经常暂停并逐行审查到目前为止生成的代码。有时我会启动第二个AI会话（或不同的模型）并要求<em>它</em>批评或审查第一个产生的代码。例如，我可能让Claude编写代码，然后问Gemini，&quot;你能审查这个函数是否有任何错误或改进吗？&quot;这可以捕获细微的问题。关键是<em>不要</em>仅仅因为AI编写了代码就跳过审查。如果有的话，AI编写的代码需要<strong>额外的审查</strong>，因为它有时可能表面上令人信服，同时隐藏着人类可能不会立即注意到的缺陷。</p><p>我还使用<a href="https://github.com/chromeDevTools/chrome-devtools-mcp/" target="_blank" rel="noreferrer">Chrome DevTools MCP</a>（由我上一个团队构建）进行<strong>调试和质量循环</strong>，以弥合静态代码分析和实时浏览器执行之间的差距。它&quot;给你的代理眼睛&quot;。它让我授予我的AI工具直接访问权限，以查看浏览器可以看到的内容，检查DOM，获取丰富的性能跟踪、控制台日志或网络跟踪。这种集成消除了手动上下文切换的摩擦，允许直接通过LLM进行自动化UI测试。这意味着可以根据实际运行时数据以高精度诊断和修复bug。</p><p>跳过人类监督的可怕后果已有记录。一位在赶工项目中严重依赖AI生成的开发者<a href="https://albertofortin.com/writing/coding-with-ai#:~:text=No%20consistency%2C%20no%20overarching%20plan,the%20other%209%20were%20doing" target="_blank" rel="noreferrer">描述</a>结果是一个不一致的烂摊子——重复的逻辑、不匹配的方法名称、没有连贯的架构。他意识到自己一直在&quot;构建、构建、构建&quot;，而没有退后一步真正看到AI编织在一起的东西。修复是一次痛苦的重构，并发誓再也不让事情失控到那种程度。我把这一点铭记于心**。无论我使用多少AI，我仍然是负责任的工程师**。</p><p>在实际操作中，这意味着我只在理解代码后才合并或发布代码。如果AI生成了一些复杂的东西，我会要求它添加注释来解释它，或者我会用更简单的术语重写它。如果某些东西感觉不对，我会深入研究——就像我对引发危险信号的人类同事贡献的代码所做的那样。</p><p>这一切都关乎心态**：LLM是助手，而不是自主可靠的编码者**。我是高级开发者；LLM在那里加速我，而不是取代我的判断。保持这种立场不仅会产生更好的代码，还会保护你作为开发者的成长。（我听到一些人担心过度依赖AI可能会削弱他们的技能——我认为只要你保持参与，积极审查和理解一切，你仍然在磨练你的直觉，只是速度更快。）简而言之**：保持警觉，经常测试，始终审查。** 归根结底，这仍然是你的代码库。</p><h2><strong>经常提交并使用版本控制作为安全网。永远不要提交你无法解释的代码</strong>。 </h2><p><strong>频繁提交是你的保存点——它们让你撤销AI的失误并理解更改</strong>。</p><p>当与可以快速生成大量代码的AI一起工作时，事情很容易偏离轨道。我通过采用超细粒度的版本控制习惯来缓解这一点。我提交得早且频繁，甚至比我在正常手工编码中更频繁。在每个小任务或每次成功的自动编辑之后，我会用清晰的消息进行git提交。这样，如果AI的下一个建议引入了bug或混乱的更改，我有一个最近的检查点可以恢复（或从中挑选），而不会丢失数小时的工作。一位实践者将其比作将提交视为**&quot;游戏中的保存点&quot;**——如果LLM会话出错，你总是可以回滚到最后一个稳定的提交。我发现这个建议非常有用。当你知道如果需要可以用git reset撤销它时，尝试大胆的AI重构会减少很多压力。</p><p>适当的版本控制也有助于与AI协作。由于我不能依赖AI记住它所做的一切（上下文窗口限制等），git历史成为一个有价值的日志。我经常扫描我最近的提交，向AI（或我自己）简要介绍发生了什么变化。事实上，如果你提供，LLM本身可以利用你的提交历史——我已经将git diff或提交日志粘贴到提示中，以便AI知道哪些代码是新的或之前的状态是什么。有趣的是，LLM在解析diff和使用像git bisect这样的工具来找到引入bug的位置方面<em>真的</em>很擅长。它们有无限的耐心来遍历提交历史，这可以增强你的调试。但这只有在你首先有一个整洁的提交历史时才有效。</p><p>另一个好处是：信息清晰的小提交，本身就在记录开发过程，这对后续代码审查（无论是 AI 还是人工）都很有帮助。如果智能体一次性做了五处改动，结果某个地方坏了，那么把这些改动拆成独立提交，就更容易定位到底是哪一步出了问题。要是所有内容都塞进一个标题叫“AI 更改”的超大提交里，排查起来就会很痛苦。所以我会强迫自己遵守一个简单节奏：<em>完成任务，运行测试，提交。</em> 这也和前面“把工作拆小”的原则天然一致——每个小块最终都应该落成自己的提交或 PR。</p><p>最后，不要害怕<strong>使用分支或工作树</strong>来隔离AI实验。我采用的一个高级工作流程（受Jesse Vincent等人的启发）是为新功能或子项目启动一个新的git工作树。这让我可以在同一个仓库上并行运行多个AI编码会话而不会相互干扰，我可以稍后合并更改。这有点像在自己的沙盒分支中进行每个AI任务。如果一个实验失败，我扔掉那个工作树，主分支中什么也不会丢失。如果成功，我将其合并进来。当我让AI实现功能A，同时我（或另一个AI）同时处理功能B时，这种方法至关重要。版本控制使这种协调成为可能。简而言之**：经常提交，用分支组织你的工作，并拥抱git**作为控制机制，使AI生成的更改可管理且可逆。</p><h2><strong>通过规则和示例自定义AI的行为</strong> </h2><p><strong>通过提供风格指南、示例，甚至&quot;规则文件&quot;来引导你的AI助手——一点前期调整会产生更好的输出</strong>。</p><p>我学到的一件事是，你不必接受AI的默认风格或方法——你可以通过给它指导方针来大力影响它。例如，我有一个<strong>CLAUDE.md</strong>文件，我会定期更新，其中包含Claude（Anthropic的模型）要遵循的流程规则和偏好（类似地，在使用Gemini CLI时有一个GEMINI.md）。这包括诸如&quot;以我们项目的风格编写代码，遵循我们的lint规则，不要使用某些函数，更喜欢函数式风格而不是OOP&quot;等内容。当我开始一个会话时，我将这个文件提供给Claude以使其与我们的约定保持一致。正如Jesse Vincent <a href="https://blog.fsck.com/2025/10/05/how-im-using-coding-agents-in-september-2025/#:~:text=I%27m%20still%20primarily%20using%20Claude,Code" target="_blank" rel="noreferrer">指出</a>的那样，这种方法效果惊人——它减少了AI偏离脚本或引入我们不想要的模式的趋势。</p><p>即使没有花哨的规则文件，你也可以<strong>通过自定义指令或系统提示设置基调</strong>。GitHub Copilot和Cursor都引入了功能，让你<a href="https://benjamincongdon.me/blog/2025/02/02/How-I-Use-AI-Early-2025/#:~:text=stuck,my%20company%E2%80%99s%20%2F%20team%E2%80%99s%20codebase" target="_blank" rel="noreferrer">全局</a>配置AI对你项目的行为。我利用了这一点，写了一小段关于我们编码风格的段落，例如&quot;使用4个空格缩进，避免在React中使用箭头函数，更喜欢描述性变量名，代码应该通过ESLint。&quot;有了这些指令，AI的建议更加贴近人类队友可能编写的内容。Ben Congdon <a href="https://benjamincongdon.me/blog/2025/02/02/How-I-Use-AI-Early-2025/#:~:text=roughly%20on%20par,get%20past%20a%20logical%20impasse" target="_blank" rel="noreferrer">提到</a>他对很少有人使用<strong>Copilot的自定义指令</strong>感到震惊，考虑到它们是多么有效——他可以通过预先提供一些示例和偏好来引导AI输出与他团队的习惯用法相匹配的代码。我赞同这一点：花时间教AI你的期望。</p><p>另一个强大的技术是提供你想要的输出格式或方法的<strong>内联示例</strong>。如果我想让AI以非常特定的方式编写函数，我可能首先向它展示代码库中已有的类似函数：&quot;这是我们如何实现X的，对Y使用类似的方法。&quot;如果我想要某种注释风格，我可能会自己写一个注释，并要求AI以该风格继续。本质上，用要遵循的模式<em>启动</em>模型。LLM擅长模仿——向它们展示一两个示例，它们会以那种方式继续。</p><p>社区还提出了创造性的&quot;规则集&quot;来驯服LLM行为。你可能听说过<a href="https://harper.blog/2025/04/17/an-llm-codegen-heros-journey/#:~:text=repository,it%20in%20a%20few%20steps" target="_blank" rel="noreferrer">&quot;Big Daddy&quot;规则</a>或在提示中添加&quot;无幻觉/无欺骗&quot;条款。这些基本上是提醒AI要真实，不要过度编造不存在的代码的技巧。例如，我有时会在提示前加上：&quot;如果你对某事不确定或缺少代码库上下文，请要求澄清而不是编造答案。&quot;这减少了幻觉。我使用的另一个规则是：&quot;在修复bug时，始终在注释中简要解释你的推理。&quot;这样，当AI生成修复时，它还会留下一个注释，如&quot;// 修复：将X更改为Y以防止Z（根据规格说明）。&quot;这对以后的审查非常有用。</p><p>总之，<strong>不要把 AI 当成黑盒——要主动调教它的工作方式。</strong> 通过配置系统指令、共享项目文档、写下明确规则，你可以让 AI 的输出更贴近项目约束和团队习惯。这样做的回报很高：生成结果更稳定，后续调整更少，也更容易和现有代码库自然衔接。</p><h2><strong>拥抱测试和自动化作为力量倍增器</strong> </h2><p><strong>使用你的CI/CD、linter和代码审查机器人——AI在自动捕获错误的环境中工作得最好</strong>。</p><p>这是保持参与和提供上下文的推论：一个运转良好的开发管道增强了AI的生产力。我确保任何我使用大量AI编码的仓库都有一个健壮的<strong>持续集成设置</strong>。这意味着自动化测试在每次提交或PR上运行，代码风格检查（如ESLint、Prettier等）被强制执行，理想情况下，任何新分支都有一个可用的暂存部署。为什么？因为我可以让AI触发这些并评估结果。例如，如果AI通过像Jules或GitHub Copilot Agent这样的工具打开拉取请求，我们的CI将运行测试并报告失败。我可以将这些失败日志反馈给AI：&quot;集成测试失败，出现XYZ，让我们调试这个。&quot;它将bug修复变成了一个具有快速反馈的协作循环，AI处理得相当好（它们会建议修复，我们再次运行CI，并迭代）。</p><p>自动化代码质量检查（linter、类型检查器）也引导AI。我实际上有时会在提示中包含linter输出。如果AI编写的代码没有通过我们的linter，我会将linter错误复制到聊天中并说&quot;请解决这些问题。&quot;模型然后确切地知道该做什么。这就像有一个严格的老师在监督AI的肩膀。根据我的经验，一旦AI意识到工具的输出（如失败的测试或lint警告），它会非常努力地纠正它——毕竟，它&quot;想要&quot;产生正确的答案。这与提供上下文有关：给AI在环境中其行动的结果（测试失败等），它会从中学习。</p><p>AI Coding Agents 现在越来越多地整合自动化钩子。一些代理会拒绝说代码任务&quot;完成&quot;，直到所有测试通过，这正是你想要的勤奋。代码审查机器人（AI 或其他）充当另一个过滤器——我将它们的反馈视为改进的额外提示。例如，如果 CodeRabbit或另一个审查者评论&quot;这个函数正在做X，这不理想&quot;，我会问AI，&quot;你能根据这个反馈重构吗？&quot;</p><p>通过将AI与自动化相结合，你开始获得一个良性循环。AI编写代码，自动化工具捕获问题，AI修复它们，依此类推，你监督高级方向。感觉就像有一个极快的初级开发者，其工作立即由一个不知疲倦的QA工程师检查。但请记住，<em>你</em>设置了那个环境。如果你的项目缺乏测试或任何自动化检查，AI的工作可能会在很久以后才出现细微的bug或质量差的问题。</p><p>所以在进入2026年时，我的目标之一是加强围绕AI代码贡献的质量门：更多测试、更多监控，甚至可能是AI对AI的代码审查。这可能听起来矛盾（AI审查AI），但我见过它捕获一个模型遗漏的东西。底线：<strong>AI友好的工作流程是具有强大自动化的工作流程——使用这些工具来保持AI的诚实</strong>。</p><h2><strong>持续学习和适应（AI放大你的技能）</strong> </h2><p><strong>将每个AI编码会话视为学习机会——你知道的越多，AI就越能帮助你，创造一个良性循环</strong>。</p><p>用 LLM 做开发，最让我兴奋的一点，是我自己也在这个过程中学得更快。AI 不是替代我原本该懂的东西，反而不断把我带到原本未必会主动尝试的新语言、新框架和新技术上。</p><p>这套逻辑其实很普遍：如果你本来就有扎实的软件工程基础，AI 往往会把你的生产力成倍放大；如果基础不稳，它放大的也可能只是混乱。很多有经验的开发者都观察到，LLM 会“奖励已有的最佳实践”——比如写清晰的规格说明、补齐测试、认真做代码审查；AI 一旦加入，这些好习惯只会更重要。就我的经验来看，AI 让我更多站在高抽象层工作：我把精力放在设计、接口和架构上，把一些样板实现交给模型。但前提仍然是：这些高层能力你得先有。Simon Willison 提过一个很准的观察：几乎所有让人成为<strong>高级工程师</strong>的能力——设计系统、管理复杂性、判断什么该自动化、什么该手写——现在也正是和 AI 协作时最值钱的能力。所以对我来说，AI 反而逼着我把工程基本功练得更扎实：规划更严格，架构意识更强，因为我其实是在“管理”一个速度极快、但仍需要引导的编码搭档。</p><p>如果你担心 AI 会让人变钝，我的看法恰好相反：前提是你用得对。审查 AI 写出来的代码，会逼你接触新的写法和解法；调试 AI 引入的问题，也会反过来加深你对语言和业务域的理解。我经常让 AI 解释它为什么这么写、为什么这么修，这有点像你不断追问候选人“请解释一下你的代码思路”，而我经常能从这些回答里学到东西。我也会把 AI 当作研究助手：如果我不确定某个库或某种做法，就让它列选项、比权衡。某种意义上，这像是有个随叫随到的百科型导师。所有这些，都会把我推成一个知识面更广、判断力更强的程序员。</p><p>更大的结论是：<strong>AI 工具放大的，其实是你的专业能力。</strong> 到了 2026 年，我并不担心它们“抢走工作”；更让我兴奋的是，它们把我从大量苦活里解放出来，让我能把时间投入到软件工程里更有创造性、也更复杂的部分。当然，我也很清楚：如果一个人没有扎实基础，AI 也可能制造出一种放大版的邓宁—克鲁格幻觉——你会觉得自己好像做出了很厉害的东西，直到系统真的开始出问题。所以我的建议是：继续打磨你的手艺，同时用 AI 去加速这个过程。也要有意识地保留一部分“不靠 AI 写代码”的练习，让基本功保持锋利。最终，开发者 + AI 的组合，远强于两者单独作战；但这个组合里，“开发者”那一端必须站得住。</p><h2><strong>结论</strong> </h2><p>我已经完全接受 AI 进入我的开发工作流，但前提是：它必须处在一个经过认真设计、由人主导的框架里。我的方法，本质上更接近 <strong>“AI 增强的软件工程”</strong>，而不是“AI 全自动替代的软件工程”。</p><p>我最大的体会是：<strong>当你把经典的软件工程纪律带进 AI 协作，结果反而会最好。</strong> 那些我们花很多年才养成的习惯——先设计再编码、补测试、用好版本控制、坚持工程标准——不但没有过时，反而在 AI 开始写掉你一大半代码时变得更重要了。</p><p>我对接下来的事情很兴奋。工具还在持续进化，我的工作流也一定会继续调整。未来也许会有更高自治度的 AI 系统接手更多繁重实现，而我们把更多精力放在设计、判断和集成上；也可能会出现全新的调试与代码探索范式。无论如何，我都打算继续<em>深度参与</em>——引导 AI、向它学习，并以负责任的方式放大自己的生产力。</p><p>对我来说的底线是：<strong>AI编码助手是令人难以置信的力量倍增器，但人类工程师仍然是节目的导演</strong>。</p><p><em>我很高兴地分享我与O&#39;Reilly发布了一本新的<a href="https://beyond.addy.ie/" target="_blank" rel="noreferrer">AI辅助工程书籍</a>。如果感兴趣，书籍网站上有许多免费提示。</em></p></div></div>
+</div>
+
+
+</main>
+
+<footer class="site-footer">
+<p>© 2026 TPvibe · 内部预览版</p>
+<p style="margin-top:8px;">
+<a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer">蜀ICP备2024097797号-3</a>
+</p>
+</footer>
+<!-- THEME:tpvibe -->
+<script>
+/* Theme toggle */
+(function(){
+  var r=document.documentElement;
+  var saved=localStorage.getItem('tpvibe-theme');r.dataset.theme=saved||'light';
+  
+  /* sync button icon */
+  
+})();
+/* Reveal on scroll */
+(function(){
+  var obs=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');obs.unobserve(e.target);}});},{threshold:.15});
+  document.querySelectorAll('.reveal').forEach(function(el){obs.observe(el);});
+})();
+/* Progress bar */
+(function(){
+  var bar=document.getElementById('progress');
+  if(!bar)return;
+  window.addEventListener('scroll',function(){
+    var h=document.documentElement.scrollHeight-window.innerHeight;
+    bar.style.width=(h>0?(window.scrollY/h*100):0)+'%';
+  });
+})();
+</script>
+<script>
+/* Theme button icon sync */
+(function(){
+  var btn=document.querySelector('.theme-btn');
+  if(!btn)return;
+  function sync(){btn.textContent=document.documentElement.dataset.theme==='dark'?'☀️':'🌙';}
+  sync();
+  btn.addEventListener('click',function(){setTimeout(sync,0);});
+})();
+</script>
+
+<nav class="mobile-bottom-tabs"><ul><li><a href="/tpvibe/index.html"><svg viewBox="0 0 24 24"><path d="M3 12L12 3l9 9M5 10v10h4v-6h6v6h4V10"/></svg><span>首页</span></a></li><li><a href="/tpvibe/Basic/lecture-1.html"><svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg><span>基础篇</span></a></li><li><a href="/tpvibe/Advanced/ch01.html"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg><span>进阶篇</span></a></li><li><a href="/tpvibe/Articles/core-concepts.html"><svg viewBox="0 0 24 24"><path d="M4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zM8 7h8M8 11h8M8 15h6"/></svg><span>文章</span></a></li><li><a href="/tpvibe/Practice/index.html"><svg viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg><span>实践</span></a></li></ul></nav>
+<script>
+(function(){
+  // 判断当前页面，高亮对应的 tab（目录前缀匹配）
+  var path=location.pathname.replace(/\/index\.html$/,'/').replace(/\/$/,'');
+  var tabs=document.querySelectorAll('.mobile-bottom-tabs a');
+  var bestMatch=null;
+  var bestMatchLen=0;
+  tabs.forEach(function(a){
+    var href=a.getAttribute('href')||'';
+    if(!href)return;
+    var hrefPath=href.replace(/https?:\/\/[^\/]+/,'').replace(/\/index\.html$/,'/').replace(/\/$/,'');
+    if(path===hrefPath){bestMatch=a;return;}
+    // 目录前缀匹配：当前路径以 tab 路径开头
+    if(hrefPath.length>2&&path.indexOf(hrefPath)>=0&&hrefPath.length>bestMatchLen){bestMatch=a;bestMatchLen=hrefPath.length;}
+  });
+  if(bestMatch)bestMatch.classList.add('active');
+})();
+</script>
+
+
+<script src="/tpvibe/toc-sheet.js"></script>
+</body>
+</html>

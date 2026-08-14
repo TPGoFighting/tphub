@@ -1,0 +1,887 @@
+/* Chapter 01 learning labs: static-first styling with optional JS enhancement. */
+:root {
+  --ch01-lab-ink: #e8eefc;
+  --ch01-lab-muted: #9ba8c4;
+  --ch01-lab-surface: #111827;
+  --ch01-lab-surface-raised: #182238;
+  --ch01-lab-line: rgba(171, 197, 255, .2);
+  --ch01-lab-blue: #74a7ff;
+  --ch01-lab-cyan: #5eead4;
+  --ch01-lab-gold: #f8c66c;
+  --ch01-lab-danger: #fb7185;
+}
+
+.custom-block:has(.interactive-demo),
+.custom-block:has(.nvm-demo),
+.custom-block:has(.terminal-pro),
+.custom-block:has(.package-list),
+.custom-block:has(.install-simulator),
+.custom-block:has(.pnpm-install),
+.custom-block:has(.fs-tree),
+.custom-block:has(.network-ports) {
+  border: 1px solid rgba(116, 167, 255, .22);
+  border-radius: 16px;
+  background: linear-gradient(135deg, rgba(116, 167, 255, .08), rgba(94, 234, 212, .035));
+  box-shadow: 0 18px 48px rgba(3, 8, 22, .16);
+}
+
+.custom-block:has(.interactive-demo) > summary,
+.custom-block:has(.nvm-demo) > summary,
+.custom-block:has(.terminal-pro) > summary,
+.custom-block:has(.package-list) > summary,
+.custom-block:has(.install-simulator) > summary,
+.custom-block:has(.pnpm-install) > summary,
+.custom-block:has(.fs-tree) > summary,
+.custom-block:has(.network-ports) > summary {
+  padding: 14px 18px;
+  color: var(--ch01-lab-ink);
+  font-weight: 700;
+  letter-spacing: .01em;
+}
+
+/* The chapter keeps its normal light reading surface around the dark lab. */
+:root[data-theme="light"] .custom-block:has(.interactive-demo) > summary,
+:root[data-theme="light"] .custom-block:has(.nvm-demo) > summary,
+:root[data-theme="light"] .custom-block:has(.terminal-pro) > summary,
+:root[data-theme="light"] .custom-block:has(.package-list) > summary,
+:root[data-theme="light"] .custom-block:has(.install-simulator) > summary,
+:root[data-theme="light"] .custom-block:has(.pnpm-install) > summary,
+:root[data-theme="light"] .custom-block:has(.fs-tree) > summary,
+:root[data-theme="light"] .custom-block:has(.network-ports) > summary {
+  color: #273654;
+}
+
+.custom-block:has(.interactive-demo)[open] > summary,
+.custom-block:has(.nvm-demo)[open] > summary,
+.custom-block:has(.terminal-pro)[open] > summary,
+.custom-block:has(.package-list)[open] > summary,
+.custom-block:has(.install-simulator)[open] > summary,
+.custom-block:has(.pnpm-install)[open] > summary,
+.custom-block:has(.fs-tree)[open] > summary,
+.custom-block:has(.network-ports)[open] > summary {
+  border-bottom: 1px solid var(--ch01-lab-line);
+}
+
+.interactive-demo,
+.nvm-demo,
+.terminal-pro,
+.package-list,
+.install-simulator,
+.pnpm-install,
+.fs-tree,
+.network-ports {
+  position: relative;
+  isolation: isolate;
+  margin: 16px 0;
+  color: var(--ch01-lab-ink);
+  border: 1px solid var(--ch01-lab-line);
+  border-radius: 14px;
+  background: radial-gradient(circle at 100% 0, rgba(116, 167, 255, .16), transparent 38%), var(--ch01-lab-surface);
+  box-shadow: 0 20px 36px rgba(2, 6, 23, .22);
+  overflow: hidden;
+}
+
+.interactive-demo::before,
+.nvm-demo::before,
+.terminal-pro::before,
+.package-list::before,
+.install-simulator::before,
+.pnpm-install::before,
+.fs-tree::before,
+.network-ports::before {
+  content: "Learning Lab";
+  display: block;
+  padding: 9px 14px;
+  color: #bfd0f9;
+  border-bottom: 1px solid var(--ch01-lab-line);
+  background: rgba(8, 15, 32, .72);
+  font: 700 11px/1 "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+.tab-bar,
+.package-tabs,
+.version-tabs,
+.port-tabs {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  padding: 14px 14px 0;
+}
+
+.interactive-demo button,
+.nvm-demo button,
+.terminal-pro button,
+.package-list button,
+.install-simulator button,
+.pnpm-install button,
+.fs-tree button,
+.network-ports button {
+  min-height: 36px;
+  padding: 8px 12px;
+  color: var(--ch01-lab-ink);
+  border: 1px solid rgba(171, 197, 255, .28);
+  border-radius: 9px;
+  background: rgba(255, 255, 255, .075);
+  font: 600 14px/1.2 inherit;
+  cursor: pointer;
+  transition: transform .18s ease, border-color .18s ease, background .18s ease, box-shadow .18s ease;
+}
+
+.interactive-demo button:hover,
+.interactive-demo button:focus-visible,
+.nvm-demo button:hover,
+.nvm-demo button:focus-visible,
+.terminal-pro button:hover,
+.terminal-pro button:focus-visible,
+.package-list button:hover,
+.package-list button:focus-visible,
+.install-simulator button:hover,
+.install-simulator button:focus-visible,
+.pnpm-install button:hover,
+.pnpm-install button:focus-visible,
+.fs-tree button:hover,
+.fs-tree button:focus-visible,
+.network-ports button:hover,
+.network-ports button:focus-visible {
+  outline: none;
+  border-color: var(--ch01-lab-blue);
+  background: rgba(116, 167, 255, .16);
+  box-shadow: 0 0 0 3px rgba(116, 167, 255, .16);
+  transform: translateY(-1px);
+}
+
+.interactive-demo .tab-button.active,
+.interactive-demo .tab-button[aria-selected="true"],
+.package-list .active,
+.nvm-demo .active,
+.network-ports .active {
+  color: #07111f;
+  border-color: transparent;
+  background: linear-gradient(120deg, var(--ch01-lab-cyan), #8ab7ff);
+  box-shadow: 0 8px 18px rgba(94, 234, 212, .18);
+}
+
+.interactive-demo .panel {
+  display: grid;
+  gap: 16px;
+  min-height: 260px;
+  padding: 24px;
+}
+
+.lab-kicker {
+  margin: 0;
+  color: var(--ch01-lab-muted);
+  font-size: 13px;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+
+.counter-display,
+.timer-display,
+.conversion-card {
+  display: grid;
+  place-items: center;
+  min-height: 124px;
+  border: 1px solid rgba(116, 167, 255, .24);
+  border-radius: 14px;
+  background: linear-gradient(135deg, rgba(116, 167, 255, .14), rgba(94, 234, 212, .06));
+}
+
+.counter-value,
+.timer-value {
+  color: #f9fbff;
+  font: 700 clamp(48px, 9vw, 80px)/.95 "Space Grotesk", Inter, sans-serif;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -.07em;
+  text-shadow: 0 8px 28px rgba(116, 167, 255, .38);
+}
+
+.counter-value.is-changing,
+.timer-value.is-ticking {
+  animation: ch01-lab-pop .28s ease-out;
+}
+
+.counter-label,
+.timer-label {
+  color: var(--ch01-lab-muted);
+  font-size: 14px;
+}
+
+.counter-controls,
+.timer-controls,
+.quick-set,
+.lab-input-row,
+.conversion-grid {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.counter-controls button {
+  flex: 1 1 90px;
+}
+
+.quick-set input,
+.lab-input-row input,
+.terminal-input,
+.nvm-demo input {
+  min-width: min(100%, 180px);
+  min-height: 40px;
+  padding: 9px 12px;
+  color: var(--ch01-lab-ink);
+  border: 1px solid rgba(171, 197, 255, .3);
+  border-radius: 9px;
+  background: rgba(4, 10, 24, .64);
+  font: 500 14px/1.2 "JetBrains Mono", ui-monospace, monospace;
+}
+
+.quick-set input:focus,
+.lab-input-row input:focus,
+.terminal-input:focus,
+.nvm-demo input:focus {
+  outline: none;
+  border-color: var(--ch01-lab-cyan);
+  box-shadow: 0 0 0 3px rgba(94, 234, 212, .13);
+}
+
+.history-section,
+.lab-history {
+  border-top: 1px solid var(--ch01-lab-line);
+  padding-top: 14px;
+}
+
+.history-header,
+.lab-history h4 {
+  margin: 0 0 8px;
+  color: var(--ch01-lab-muted);
+  font-size: 13px;
+}
+
+.history-list,
+.lab-history ul {
+  display: grid;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  color: #c9d7f4;
+  font: 13px/1.45 "JetBrains Mono", ui-monospace, monospace;
+}
+
+.history-list:empty::after,
+.lab-history ul:empty::after {
+  content: "等待第一次操作…";
+  color: var(--ch01-lab-muted);
+}
+
+.shortcuts {
+  color: var(--ch01-lab-muted);
+  font-size: 12px;
+}
+
+.shortcut {
+  display: inline-block;
+  padding: 2px 5px;
+  margin-inline: 2px;
+  border: 1px solid rgba(171, 197, 255, .23);
+  border-radius: 5px;
+  background: rgba(255, 255, 255, .06);
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+}
+
+.conversion-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.conversion-grid div {
+  padding: 13px;
+  border: 1px solid rgba(171, 197, 255, .17);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, .045);
+}
+
+.conversion-grid span {
+  display: block;
+  color: var(--ch01-lab-muted);
+  font-size: 12px;
+}
+
+.conversion-grid strong {
+  display: block;
+  margin-top: 5px;
+  color: var(--ch01-lab-cyan);
+  overflow-wrap: anywhere;
+  font: 700 16px/1.25 "JetBrains Mono", ui-monospace, monospace;
+}
+
+.nvm-demo > :not(.version-tabs),
+.terminal-pro > :not(.terminal-header),
+.package-list > :not(.package-tabs),
+.install-simulator > *,
+.pnpm-install > *,
+.fs-tree > *,
+.network-ports > :not(.port-tabs) {
+  margin-inline: 18px;
+}
+
+.nvm-demo .version-list,
+.package-list .package-grid,
+.network-ports .port-list {
+  display: grid;
+  gap: 10px;
+  padding: 16px 0;
+}
+
+.nvm-demo code,
+.terminal-pro code,
+.fs-tree code,
+.network-ports code {
+  color: var(--ch01-lab-cyan);
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+}
+
+/* The source demos omit width/height on their SVGs; browsers then use 300×150. */
+.nvm-demo .nvm-icon,
+.terminal-pro .terminal-icon,
+.pnpm-install .pnpm-icon,
+.fs-tree .tree-icon,
+.network-ports .ports-icon {
+  display: inline-block;
+  flex: 0 0 20px;
+  width: 20px;
+  height: 20px;
+  vertical-align: -.22em;
+}
+
+.nvm-demo .action-btn svg,
+.terminal-pro .action-btn svg,
+.install-simulator .action-btn svg,
+.pnpm-install .action-btn svg,
+.fs-tree .action-btn svg,
+.network-ports .action-btn svg {
+  display: block;
+  width: 16px;
+  height: 16px;
+}
+
+.nvm-demo .nvm-title,
+.terminal-pro .terminal-title,
+.install-simulator .window-title,
+.pnpm-install .window-title,
+.fs-tree .tree-title,
+.network-ports .ports-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.terminal-pro {
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+}
+
+.terminal-pro .terminal-output,
+.terminal-pro .output,
+.terminal-pro pre {
+  min-height: 152px;
+  max-height: 320px;
+  margin: 16px 18px 0;
+  padding: 14px;
+  overflow: auto;
+  color: #c9f7df;
+  border: 1px solid rgba(94, 234, 212, .16);
+  border-radius: 10px;
+  background: #07131a;
+  font: 13px/1.6 "JetBrains Mono", ui-monospace, monospace;
+  white-space: pre-wrap;
+}
+
+.terminal-pro .terminal-input,
+.terminal-pro input {
+  width: calc(100% - 36px);
+  margin: 14px 18px 18px;
+}
+
+.install-simulator .progress-bar,
+.install-simulator .progress-track,
+.pnpm-install .progress-bar,
+.pnpm-install .progress-track {
+  height: 8px;
+  margin-block: 16px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(171, 197, 255, .14);
+}
+
+.install-simulator .progress-fill,
+.pnpm-install .progress-fill {
+  width: var(--ch01-progress, 0%);
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--ch01-lab-cyan), var(--ch01-lab-blue));
+  transition: width .35s ease;
+}
+
+.fs-tree ul,
+.fs-tree .tree {
+  display: grid;
+  gap: 7px;
+  padding: 16px 0 18px 20px;
+  list-style: none;
+  font: 14px/1.45 "JetBrains Mono", ui-monospace, monospace;
+}
+
+.network-ports .port-item,
+.network-ports .port-card {
+  padding: 13px;
+  border: 1px solid rgba(171, 197, 255, .18);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, .045);
+}
+
+/* Rebuilt interactive labs: shared structure avoids the broken exported Vue layouts. */
+.nvm-demo > .lab-shell,
+.terminal-pro > .lab-shell,
+.package-list > .lab-shell,
+.pnpm-install > .lab-shell,
+.fs-tree > .lab-shell,
+.network-ports > .lab-shell {
+  display: grid;
+  gap: 16px;
+  margin: 0;
+  padding: 20px;
+}
+
+.lab-heading h4,
+.lab-heading p {
+  margin: 0;
+}
+
+.lab-heading h4 {
+  margin-top: 5px;
+  color: #f8fbff;
+  font-size: clamp(18px, 3vw, 22px);
+}
+
+.lab-heading > p:last-child,
+.lab-result-count,
+.lab-notice,
+.lab-progress-meta span {
+  color: var(--ch01-lab-muted);
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.lab-stat-row,
+.lab-progress-meta,
+.lab-inline-actions,
+.lab-command-row {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.lab-stat-row {
+  justify-content: space-between;
+  padding: 14px;
+  border: 1px solid rgba(116, 167, 255, .22);
+  border-radius: 12px;
+  background: linear-gradient(120deg, rgba(116, 167, 255, .12), rgba(94, 234, 212, .04));
+}
+
+.lab-stat-row span,
+.lab-version small,
+.lab-step small,
+.lab-tree-node small,
+.lab-tree-leaf small {
+  display: block;
+  color: var(--ch01-lab-muted);
+  font-size: 12px;
+}
+
+.lab-current-version {
+  display: block;
+  margin-top: 2px;
+  color: var(--ch01-lab-cyan);
+  font: 700 20px/1.2 "JetBrains Mono", ui-monospace, monospace;
+}
+
+.lab-badge {
+  padding: 5px 8px;
+  color: #0a1b19;
+  border-radius: 999px;
+  background: var(--ch01-lab-cyan);
+  font: 700 11px/1 "JetBrains Mono", ui-monospace, monospace;
+}
+
+.lab-version-grid,
+.lab-filter-row,
+.lab-port-grid {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+}
+
+.lab-version,
+.lab-port-card {
+  display: grid;
+  gap: 5px;
+  text-align: left;
+}
+
+.lab-version span,
+.lab-port-card code {
+  color: #f8fbff;
+  font: 700 14px/1.2 "JetBrains Mono", ui-monospace, monospace;
+}
+
+.lab-version-add {
+  border-style: dashed !important;
+}
+
+.lab-command-output {
+  min-height: 104px;
+  max-height: 236px;
+  margin: 0;
+  padding: 14px;
+  overflow: auto;
+  color: #c9f7df;
+  border: 1px solid rgba(94, 234, 212, .17);
+  border-radius: 11px;
+  background: #07131a;
+  font: 13px/1.65 "JetBrains Mono", ui-monospace, monospace;
+  white-space: pre-wrap;
+}
+
+.lab-command-row {
+  padding: 10px;
+  border: 1px solid rgba(171, 197, 255, .2);
+  border-radius: 11px;
+  background: rgba(4, 10, 24, .42);
+}
+
+.lab-command-row > span {
+  color: var(--ch01-lab-cyan);
+  font: 600 13px/1.2 "JetBrains Mono", ui-monospace, monospace;
+}
+
+.lab-command-row input {
+  flex: 1 1 230px;
+  min-width: 0;
+  margin: 0;
+}
+
+.lab-quiet-button {
+  color: var(--ch01-lab-muted) !important;
+  background: transparent !important;
+}
+
+.lab-filter-row {
+  grid-template-columns: repeat(auto-fit, minmax(94px, 1fr));
+}
+
+.lab-filter {
+  min-height: 34px !important;
+  padding: 7px 9px !important;
+  color: var(--ch01-lab-muted) !important;
+  font-size: 13px !important;
+}
+
+.lab-package-grid {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+}
+
+.lab-package-card {
+  padding: 14px;
+  border: 1px solid rgba(171, 197, 255, .17);
+  border-radius: 11px;
+  background: rgba(255, 255, 255, .045);
+}
+
+.lab-package-card > div {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.lab-package-card code {
+  color: var(--ch01-lab-cyan);
+  font: 700 14px/1.2 "JetBrains Mono", ui-monospace, monospace;
+}
+
+.lab-package-card span {
+  padding: 3px 6px;
+  color: #bfd0f9;
+  border-radius: 999px;
+  background: rgba(116, 167, 255, .14);
+  font-size: 11px;
+}
+
+.lab-package-card p {
+  margin: 9px 0 0;
+  color: var(--ch01-lab-muted);
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+.lab-progress-meta {
+  justify-content: space-between;
+}
+
+.lab-progress-meta strong {
+  color: var(--ch01-lab-cyan);
+  font: 700 28px/1 "JetBrains Mono", ui-monospace, monospace;
+}
+
+.lab-progress {
+  height: 10px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(171, 197, 255, .14);
+}
+
+.lab-progress-fill {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--ch01-lab-cyan), var(--ch01-lab-blue));
+  transition: width .28s ease;
+}
+
+.lab-step-list,
+.lab-tree,
+.lab-tree ul {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.lab-step-list {
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+}
+
+.lab-step {
+  display: flex;
+  gap: 9px;
+  align-items: center;
+  padding: 10px;
+  border: 1px solid rgba(171, 197, 255, .16);
+  border-radius: 10px;
+  color: var(--ch01-lab-muted);
+}
+
+.lab-step > span {
+  display: grid;
+  width: 24px;
+  height: 24px;
+  place-items: center;
+  color: #bfd0f9;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  font-size: 12px;
+}
+
+.lab-step strong {
+  display: block;
+  color: inherit;
+  font-size: 13px;
+}
+
+.lab-step.is-active,
+.lab-step.is-complete {
+  color: var(--ch01-lab-cyan);
+  border-color: rgba(94, 234, 212, .35);
+  background: rgba(94, 234, 212, .06);
+}
+
+.lab-tree {
+  padding: 2px 0;
+  font: 13px/1.4 "JetBrains Mono", ui-monospace, monospace;
+}
+
+.lab-tree ul {
+  margin: 7px 0 0 22px;
+}
+
+.lab-tree-node,
+.lab-tree-leaf {
+  display: grid;
+  grid-template-columns: 18px minmax(110px, max-content) 1fr;
+  gap: 7px;
+  width: 100%;
+  min-height: 0 !important;
+  padding: 7px 8px !important;
+  text-align: left;
+}
+
+.lab-tree-node strong,
+.lab-tree-leaf code {
+  color: #e8eefc;
+  font: inherit;
+}
+
+.lab-tree-leaf {
+  align-items: center;
+  padding-left: 16px !important;
+  color: #bfd0f9;
+  border-left: 1px solid rgba(171, 197, 255, .16);
+}
+
+.lab-browser-preview {
+  display: grid;
+  gap: 10px;
+  padding: 16px;
+  border: 1px solid rgba(116, 167, 255, .22);
+  border-radius: 12px;
+  background: linear-gradient(135deg, rgba(116, 167, 255, .11), rgba(94, 234, 212, .04));
+}
+
+.lab-browser-dots { color: #f8c66c; font-size: 11px; letter-spacing: 3px; }
+
+/* Override the chapter's light inline-code chip inside dark interactive surfaces. */
+.lab-browser-preview code,
+.lab-port-card code {
+  display: block !important;
+  padding: 0 !important;
+  border: 0 !important;
+  background: transparent !important;
+  color: #f8fbff !important;
+  font: 600 14px/1.3 "JetBrains Mono", ui-monospace, monospace;
+}
+
+.lab-port-card { color: var(--ch01-lab-ink) !important; }
+.lab-connection-state { color: var(--ch01-lab-muted); font-size: 13px; }
+.lab-connection-state.is-connected { color: var(--ch01-lab-cyan); }
+
+.lab-port-card span { color: #b9c7e3 !important; font-size: 12px; }
+
+/* The terminal diagnostic exercise appears on the detailed terminal lesson. */
+.custom-block:has(.terminal-troubleshoot) {
+  border: 1px solid rgba(116, 167, 255, .22);
+  border-radius: 16px;
+  background: linear-gradient(135deg, rgba(116, 167, 255, .08), rgba(94, 234, 212, .035));
+}
+
+.custom-block:has(.terminal-troubleshoot) > summary {
+  padding: 14px 18px;
+  color: var(--ch01-lab-ink);
+  font-weight: 700;
+}
+
+:root[data-theme="light"] .custom-block:has(.terminal-troubleshoot) > summary { color: #273654; }
+
+.terminal-troubleshoot {
+  margin: 16px 0;
+  overflow: hidden;
+  color: var(--ch01-lab-ink);
+  border: 1px solid var(--ch01-lab-line);
+  border-radius: 14px;
+  background: radial-gradient(circle at 100% 0, rgba(116, 167, 255, .16), transparent 38%), var(--ch01-lab-surface);
+  box-shadow: 0 20px 36px rgba(2, 6, 23, .22);
+}
+
+.terminal-troubleshoot::before {
+  content: "Learning Lab";
+  display: block;
+  padding: 9px 14px;
+  color: #bfd0f9;
+  border-bottom: 1px solid var(--ch01-lab-line);
+  background: rgba(8, 15, 32, .72);
+  font: 700 11px/1 "JetBrains Mono", ui-monospace, monospace;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+.terminal-troubleshoot > .lab-shell { display: grid; gap: 16px; margin: 0; padding: 20px; }
+
+.terminal-troubleshoot button {
+  min-height: 36px;
+  padding: 8px 12px;
+  color: var(--ch01-lab-ink);
+  border: 1px solid rgba(171, 197, 255, .28);
+  border-radius: 9px;
+  background: rgba(255, 255, 255, .075);
+  font: 600 14px/1.2 inherit;
+  cursor: pointer;
+}
+
+.terminal-troubleshoot button:hover,
+.terminal-troubleshoot button:focus-visible { outline: none; border-color: var(--ch01-lab-blue); background: rgba(116, 167, 255, .16); box-shadow: 0 0 0 3px rgba(116, 167, 255, .16); }
+
+.lab-troubleshoot-steps { display: grid; gap: 8px; grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.lab-troubleshoot-step { display: grid; gap: 5px; place-items: center; text-align: center; }
+.lab-troubleshoot-step span { color: var(--ch01-lab-cyan); font-size: 17px; }
+.lab-troubleshoot-step strong { font-size: 12px; }
+.lab-troubleshoot-step.active { border-color: transparent; color: #07111f; background: linear-gradient(120deg, var(--ch01-lab-cyan), #8ab7ff); }
+.lab-troubleshoot-step.active span { color: #07111f; }
+.lab-troubleshoot-step.is-complete { border-color: rgba(94, 234, 212, .46); }
+.lab-troubleshoot-current { padding: 14px; border: 1px solid rgba(116, 167, 255, .2); border-radius: 12px; background: rgba(255, 255, 255, .045); }
+.lab-troubleshoot-current h4,.lab-troubleshoot-current p { margin: 0; }
+.lab-troubleshoot-current h4 { margin-top: 4px; color: #f8fbff; font-size: 17px; }
+.lab-troubleshoot-current > p:not(.lab-kicker) { margin-top: 6px; color: var(--ch01-lab-muted); font-size: 13px; line-height: 1.55; }
+.lab-command-hint { color: var(--ch01-lab-cyan) !important; font-family: "JetBrains Mono", ui-monospace, monospace; }
+.terminal-troubleshoot .lab-command-row input { flex: 1 1 190px; min-width: 0; min-height: 40px; margin: 0; padding: 9px 12px; color: var(--ch01-lab-ink); border: 1px solid rgba(171, 197, 255, .3); border-radius: 9px; background: rgba(4, 10, 24, .64); font: 500 14px/1.2 "JetBrains Mono", ui-monospace, monospace; }
+
+@media (max-width: 640px) {
+  .terminal-troubleshoot > .lab-shell { padding: 16px; }
+  .lab-troubleshoot-steps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 640px) {
+  .nvm-demo > .lab-shell,
+  .terminal-pro > .lab-shell,
+  .package-list > .lab-shell,
+  .pnpm-install > .lab-shell,
+  .fs-tree > .lab-shell,
+  .network-ports > .lab-shell { padding: 16px; }
+  .lab-command-row > span { flex-basis: 100%; }
+  .lab-tree-node,
+  .lab-tree-leaf { grid-template-columns: 18px 1fr; }
+  .lab-tree-node small,
+  .lab-tree-leaf small { grid-column: 2; }
+}
+
+@keyframes ch01-lab-pop {
+  0% { transform: scale(.93); opacity: .55; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+@media (max-width: 640px) {
+  .interactive-demo .panel { padding: 16px; }
+  .tab-bar { padding: 12px 12px 0; }
+  .tab-bar .tab-button { flex: 1 1 100%; text-align: left; }
+  .counter-controls button { flex-basis: calc(50% - 5px); }
+  .conversion-grid { grid-template-columns: 1fr; }
+  .nvm-demo > :not(.version-tabs),
+  .terminal-pro > :not(.terminal-header),
+  .package-list > :not(.package-tabs),
+  .install-simulator > *,
+  .pnpm-install > *,
+  .fs-tree > *,
+  .network-ports > :not(.port-tabs) { margin-inline: 12px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .interactive-demo *,
+  .nvm-demo *,
+  .terminal-pro *,
+  .package-list *,
+  .install-simulator *,
+  .pnpm-install *,
+  .fs-tree *,
+  .network-ports * {
+    scroll-behavior: auto !important;
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+  }
+}

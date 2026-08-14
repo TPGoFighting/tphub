@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="geo.region" content="CN">
+<meta name="geo.placename" content="China">
+<meta name="geo.position" content="39.9042;116.4074">
+<meta name="ICBM" content="39.9042, 116.4074">
+<link rel="icon" href="/tpvibe/images/tp_logo.jpg" type="image/png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vibe Coding 工作流 | TPvibe</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/tpvibe/style.css">
+<!-- SEO:tphub -->
+<meta name="description" content="Vibe Coding 工作流 — TPvibe 中文 AI 学习与实战教程，从零基础到进阶，边学边做。">
+<link rel="canonical" href="https://tphub.tpgofighting.top/tpvibe/Advanced/ch02/02-vibecoding-workflow.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="TPvibe">
+<meta property="og:title" content="Vibe Coding 工作流 | TPvibe">
+<meta property="og:description" content="Vibe Coding 工作流 — TPvibe 中文 AI 学习与实战教程，从零基础到进阶，边学边做。">
+<meta property="og:url" content="https://tphub.tpgofighting.top/tpvibe/Advanced/ch02/02-vibecoding-workflow.html">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://tphub.tpgofighting.top/tpvibe/images/tp_logo.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Vibe Coding 工作流 | TPvibe">
+<meta name="twitter:description" content="Vibe Coding 工作流 — TPvibe 中文 AI 学习与实战教程，从零基础到进阶，边学边做。">
+<meta name="twitter:image" content="https://tphub.tpgofighting.top/tpvibe/images/tp_logo.jpg">
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "name": "Vibe Coding 工作流 | TPvibe",
+  "url": "https://tphub.tpgofighting.top/tpvibe/Advanced/ch02/02-vibecoding-workflow.html",
+  "description": "TPvibe 中文 AI 学习与实战教程：从零基础到进阶，边学边做，附可运行示例与实战项目。",
+  "inLanguage": "zh-CN",
+  "isPartOf": {"@type": "WebSite", "name": "TPvibe", "url": "https://tphub.tpgofighting.top/tpvibe/"}
+}</script>
+<!-- GEO:v2 -->
+<!-- LOGOFIX:v2 -->
+</head>
+<body>
+<aside class="toc" id="toc">
+<button class="toc-toggle" id="tocToggle" aria-label="收起目录">«</button>
+<div class="toc-inner">
+<a class="toc-home" href="/tpvibe/index.html">TPvibe 首页</a>
+<details class="toc-sec">
+<summary>基础篇</summary>
+<ul class="toc-tree">
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Basic/lecture-1.html">00 序言</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Basic/lecture-1/0.1-start-here.html">开始之前</a></li>
+<li><a href="/tpvibe/Basic/lecture-1/0.2-what-you-will-build.html">你要做什么</a></li>
+<li><a href="/tpvibe/Basic/lecture-1/0.3-who-this-is-for.html">适合谁学</a></li>
+<li><a href="/tpvibe/Basic/lecture-1/0.4-how-to-learn.html">怎么学</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Basic/lecture-2.html">01 觉醒</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Basic/lecture-2/1.1-coder-to-commander.html">从程序员到指挥官</a></li>
+<li><a href="/tpvibe/Basic/lecture-2/1.2-breaking-myths.html">打破误区</a></li>
+<li><a href="/tpvibe/Basic/lecture-2/1.3-tools-guide.html">工具选择指南</a></li>
+<li><a href="/tpvibe/Basic/lecture-2/1.4-vibe-vs-spec.html">Vibe Coding vs 规格驱动</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Basic/lecture-3.html">02 心智</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Basic/lecture-3/2.1-thinking-upgrade.html">思维升级</a></li>
+<li><a href="/tpvibe/Basic/lecture-3/2.2-inversion-thinking.html">逆向思维</a></li><li><a href="/tpvibe/Basic/lecture-3/2.3-subtraction-thinking.html">减法思维</a></li>
+<li><a href="/tpvibe/Basic/lecture-3/2.4-story-thinking.html">故事思维</a></li>
+
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Basic/lecture-4.html">03 技法</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Basic/lecture-4/3.1-prompt-basics.html">提示词基础</a></li>
+<li><a href="/tpvibe/Basic/lecture-4/3.2-structured-frameworks.html">结构化框架</a></li>
+<li><a href="/tpvibe/Basic/lecture-4/3.3-advanced-techniques.html">进阶技巧</a></li>
+<li><a href="/tpvibe/Basic/lecture-4/3.4-first-prd.html">第一份 PRD</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Basic/lecture-5.html">04 从0到1</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Basic/lecture-5/4.1-before-start.html">搭建前准备</a></li>
+<li><a href="/tpvibe/Basic/lecture-5/4.2-build-page.html">搭建页面</a></li>
+<li><a href="/tpvibe/Basic/lecture-5/4.3-core-features.html">核心功能</a></li>
+<li><a href="/tpvibe/Basic/lecture-5/4.4-data-storage.html">数据存储</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Basic/appendix-a.html">05 进阶</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Basic/appendix-a/5.1-version-control.html">版本控制</a></li>
+<li><a href="/tpvibe/Basic/appendix-a/5.2-deployment.html">部署上线</a></li>
+<li><a href="/tpvibe/Basic/appendix-a/5.3-security.html">安全防护</a></li>
+<li><a href="/tpvibe/Basic/appendix-a/5.4-iteration.html">迭代优化</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Basic/appendix-b.html">06 上线</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Basic/appendix-b/6.1-preflight.html">发布前检查</a></li>
+<li><a href="/tpvibe/Basic/appendix-b/6.2-deploy.html">发布流程</a></li>
+<li><a href="/tpvibe/Basic/appendix-b/6.3-feedback.html">收集反馈</a></li>
+<li><a href="/tpvibe/Basic/appendix-b/6.4-wrap-up.html">总结回顾</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Basic/appendix-c.html">99 附录</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Basic/appendix-c/a-prompt-cheatsheet.html">提示词速查表</a></li>
+<li><a href="/tpvibe/Basic/appendix-c/b-errors-and-asking-ai.html">常见错误与求助</a></li>
+<li><a href="/tpvibe/Basic/appendix-c/c-ui-cheatsheet.html">UI 速查表</a></li>
+<li><a href="/tpvibe/Basic/appendix-c/d-git-minimal-card.html">Git 最小知识卡</a></li>
+<li><a href="/tpvibe/Basic/appendix-c/e-api-key-env-security.html">API Key 与环境安全</a></li>
+<li><a href="/tpvibe/Basic/appendix-c/f-vibe-coding-can-and-cannot.html">Vibe Coding 能做与不能做</a></li>
+<li><a href="/tpvibe/Basic/appendix-c/g-advanced-jump-map.html">进阶跳转地图</a></li>
+</ul>
+</li>
+<li class="toc-chapter">
+<a href="/tpvibe/Basic/conclusion.html">100 结语</a>
+</li>
+</ul>
+</details>
+<details class="toc-sec">
+<summary>进阶篇</summary>
+<ul class="toc-tree">
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch01.html">01 环境搭建</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch01/00-quick-start.html">快速上手</a></li>
+<li><a href="/tpvibe/Advanced/ch01/01-code-formats.html">代码格式与编辑器</a></li>
+<li><a href="/tpvibe/Advanced/ch01/02-tech-stack.html">技术栈选择</a></li>
+<li><a href="/tpvibe/Advanced/ch01/03-browser-server.html">浏览器与服务器</a></li>
+<li><a href="/tpvibe/Advanced/ch01/04-terminal-basics.html">终端基础操作</a></li>
+<li><a href="/tpvibe/Advanced/ch01/05-package-manager-and-config.html">包管理与配置文件</a></li>
+<li><a href="/tpvibe/Advanced/ch01/06-models-and-tools.html">AI 模型与工具选择</a></li>
+<li><a href="/tpvibe/Advanced/ch01/07-creating-project.html">创建你的第一个项目</a></li>
+<li><a href="/tpvibe/Advanced/ch01/08-localhost-and-ports.html">本地服务器与端口</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch02.html">02 开发工具与AI调优</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch02/01-ai-economics.html">AI 经济学</a></li>
+<li><a href="/tpvibe/Advanced/ch02/02-vibecoding-workflow.html" class="active">Vibe Coding 工作流</a></li>
+<li><a href="/tpvibe/Advanced/ch02/03-mcp-and-skills.html">MCP 与 Skills</a></li>
+<li><a href="/tpvibe/Advanced/ch02/04-project-config.html">项目配置</a></li>
+<li><a href="/tpvibe/Advanced/ch02/05-debugging-tips.html">调试技巧</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch03.html">03 产品验证</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch03/01-product-validation.html">产品验证</a></li>
+<li><a href="/tpvibe/Advanced/ch03/02-discuss-with-ai.html">与 AI 讨论</a></li>
+<li><a href="/tpvibe/Advanced/ch03/03-prd-template-guide.html">PRD 模板指南</a></li>
+<li><a href="/tpvibe/Advanced/ch03/04-coding-agents.html">编码代理</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch04.html">04 编程基础</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch04/00-build-basics.html">构建基础</a></li>
+<li><a href="/tpvibe/Advanced/ch04/01-tech-stack-decision.html">技术栈决策</a></li>
+<li><a href="/tpvibe/Advanced/ch04/03-programming-basics.html">编程基础</a></li>
+<li><a href="/tpvibe/Advanced/ch04/02-prd-and-tech-docs.html">PRD 与技术文档</a></li>
+<li><a href="/tpvibe/Advanced/ch04/04-api-and-http.html">API 与 HTTP</a></li>
+<li><a href="/tpvibe/Advanced/ch04/05-frontend-backend-separation.html">前后端分离</a></li>
+<li><a href="/tpvibe/Advanced/ch04/06-config-formats.html">配置格式</a></li>
+<li><a href="/tpvibe/Advanced/ch04/07-api-integration.html">API 集成</a></li>
+<li><a href="/tpvibe/Advanced/ch04/08-readme-structure.html">README 结构</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch05.html">05 好看好用的界面</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch05/03-animation-libraries.html">动画库</a></li>
+</ul>
+</li>
+<li class="toc-chapter">
+<a href="/tpvibe/Advanced/ch06.html">06 数据存哪里</a>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch07.html">07 连接前后端</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch07/00-crud-example.html">CRUD 示例</a></li>
+<li><a href="/tpvibe/Advanced/ch07/02-when-things-go-wrong.html">出错处理</a></li>
+<li><a href="/tpvibe/Advanced/ch07/03-api-as-product.html">API 即产品</a></li>
+<li><a href="/tpvibe/Advanced/ch07/01-api-growing-pains.html">API 成长烦恼</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch08.html">08 谁能访问数据</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch08/00-user-system-example.html">用户系统示例</a></li>
+<li><a href="/tpvibe/Advanced/ch08/01-env-and-secrets.html">环境变量与密钥</a></li>
+<li><a href="/tpvibe/Advanced/ch08/03-route-protection.html">路由保护</a></li>
+<li><a href="/tpvibe/Advanced/ch08/04-security-checklist.html">安全清单</a></li>
+<li><a href="/tpvibe/Advanced/ch08/05-advanced-security.html">高级安全</a></li>
+<li><a href="/tpvibe/Advanced/ch08/02-auth-methods.html">认证方式</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch09.html">09 功能测试</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch09/01-testing-strategy.html">测试策略</a></li>
+<li><a href="/tpvibe/Advanced/ch09/02-api-and-e2e-testing.html">API 与 E2E 测试</a></li>
+<li><a href="/tpvibe/Advanced/ch09/03-automation-workflow.html">自动化工作流</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch10.html">10 公网访问</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch10/01-network-layers.html">网络分层</a></li>
+<li><a href="/tpvibe/Advanced/ch10/02-tunneling.html">隧道穿透</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch11.html">11 协作开发</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch11/01-why-git.html">为什么用 Git</a></li>
+<li><a href="/tpvibe/Advanced/ch11/02-remote-and-collaboration.html">远程与协作</a></li>
+<li><a href="/tpvibe/Advanced/ch11/03-branch-and-workflow.html">分支与工作流</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch12.html">12 无服务器部署</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch12/01-deploy-edgeone.html">EdgeOne 部署</a></li>
+<li><a href="/tpvibe/Advanced/ch12/02-deploy-vercel-platforms.html">Vercel 等平台部署</a></li>
+<li><a href="/tpvibe/Advanced/ch12/03-cicd-automation.html">CI/CD 自动化</a></li>
+<li><a href="/tpvibe/Advanced/ch12/04-operations-cost.html">运维成本</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch13.html">13 域名解析</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch13/01-domain-setup.html">域名设置</a></li>
+<li><a href="/tpvibe/Advanced/ch13/02-compliance-access.html">合规接入</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch14.html">14 部署到服务器</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch14/01-vps-selection.html">VPS 选择</a></li>
+<li><a href="/tpvibe/Advanced/ch14/02-vps-setup.html">VPS 配置</a></li>
+<li><a href="/tpvibe/Advanced/ch14/03-1-docker-apps.html">Docker 应用</a></li>
+<li><a href="/tpvibe/Advanced/ch14/03-2-deploy-nextjs.html">部署 Next.js</a></li>
+<li><a href="/tpvibe/Advanced/ch14/03-4-deploy-fullstack.html">部署全栈应用</a></li>
+<li><a href="/tpvibe/Advanced/ch14/05-cool-apps.html">酷应用</a></li>
+<li><a href="/tpvibe/Advanced/ch14/03-3-deploy-static.html">部署静态站点</a></li>
+<li><a href="/tpvibe/Advanced/ch14/04-domain-ssl.html">域名与 SSL</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch15.html">15 SEO与统计</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch15/01-opengraph-sharing.html">OpenGraph 分享</a></li>
+<li><a href="/tpvibe/Advanced/ch15/02-seo-guide.html">SEO 指南</a></li>
+<li><a href="/tpvibe/Advanced/ch15/03-umami.html">Umami 统计</a></li>
+<li><a href="/tpvibe/Advanced/ch15/04-legal.html">法律合规</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch16.html">16 反馈与迭代</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch16/01-facing-real-users.html">面向真实用户</a></li>
+<li><a href="/tpvibe/Advanced/ch16/02-feedback-prioritization.html">反馈优先级</a></li>
+<li><a href="/tpvibe/Advanced/ch16/03-understanding-users.html">理解用户</a></li>
+<li><a href="/tpvibe/Advanced/ch16/04-iteration-and-growth.html">迭代与增长</a></li>
+</ul>
+</li>
+<li class="toc-chapter">
+<a href="/tpvibe/Advanced/next-level.html">进阶实战</a>
+</li>
+</ul>
+</details>
+<details class="toc-sec">
+<summary>文章</summary>
+<ul class="toc-tree">
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Articles/core-concepts.html">核心概念</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Articles/core-concepts/what-are-ai-agents-why-do-they-matter.html">AI Agent 是什么</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Articles/architecture.html">技术架构</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Articles/architecture/how-claude-code-works.html">Claude Code 如何工作</a></li>
+<li><a href="/tpvibe/Articles/architecture/mcp-what-it-is-and-why-it-matters.html">MCP 是什么及为何重要</a></li>
+<li><a href="/tpvibe/Articles/architecture/build-agents-with-filesystems-and-bash.html">用文件系统和 Bash 构建 Agent</a></li>
+<li><a href="/tpvibe/Articles/architecture/testing-bash-vs-sql.html">Bash vs SQL 测试</a></li>
+<li><a href="/tpvibe/Articles/architecture/multi-agent-systems-ai-native-engineering.html">多 Agent 系统与 AI 原生工程</a></li>
+<li><a href="/tpvibe/Articles/architecture/self-improving-coding-agents.html">自我改进的编码 Agent</a></li>
+<li><a href="/tpvibe/Articles/architecture/nvidia-ai-5-layer-cake.html">NVIDIA AI 五层架构</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Articles/tools.html">工具链</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Articles/tools/how-to-write-good-spec-for-ai-agents.html">如何为 AI Agent 写 Spec</a></li>
+<li><a href="/tpvibe/Articles/tools/ai-driven-prototyping-v0-bolt-and-lovable-compared.html">AI 原型工具对比</a></li>
+<li><a href="/tpvibe/Articles/tools/why-i-use-cline-for-ai-engineering.html">为什么用 Cline 做 AI 工程</a></li>
+<li><a href="/tpvibe/Articles/tools/agents-md-vs-skills.html">AGENTS.md 与 Skills 对比</a></li>
+<li><a href="/tpvibe/Articles/tools/complete-guide-to-building-skills-for-claude.html">Claude Skills 构建指南</a></li>
+<li><a href="/tpvibe/Articles/tools/we-removed-80-percent-tools.html">我们移除了 80% 的工具</a></li>
+<li><a href="/tpvibe/Articles/tools/claude-code-swarms.html">Claude Code 集群</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Articles/engineering.html">工程实践</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Articles/engineering/ai-writes-code-faster-your-job-is-to-prove-it-works.html">AI 写代码更快，你要证明它有效</a></li>
+<li><a href="/tpvibe/Articles/engineering/beyond-the-70-maximizing-the-human-30-of-ai-assisted-coding.html">超越 70%：最大化人类 30%</a></li>
+<li><a href="/tpvibe/Articles/engineering/avoiding-skill-atrophy-in-the-age-of-ai.html">AI 时代的技能退化</a></li>
+<li><a href="/tpvibe/Articles/engineering/how-to-write-a-good-spec-for-ai-agents.html">如何为 AI Agent 写好 Spec</a></li>
+<li><a href="/tpvibe/Articles/engineering/leading-effective-engineering-teams-in-the-age-of-genai.html">GenAI 时代的工程团队领导</a></li>
+<li><a href="/tpvibe/Articles/engineering/your-ai-coding-agents-need-a-manager.html">AI 编码 Agent 需要管理者</a></li>
+<li><a href="/tpvibe/Articles/engineering/ai-code-review-implementation.html">AI 代码审查实现</a></li>
+<li><a href="/tpvibe/Articles/engineering/react-best-practices.html">React 最佳实践</a></li>
+<li><a href="/tpvibe/Articles/engineering/vercel-aeo-tracking.html">Vercel AEO 追踪</a></li>
+<li><a href="/tpvibe/Articles/engineering/my-llm-coding-workflow-going-into-2026.html">2026 年我的 LLM 工作流</a></li>
+<li><a href="/tpvibe/Articles/engineering/stop-using-init-for-agents.html">停止对 Agent 使用 init</a></li>
+<li><a href="/tpvibe/Articles/engineering/video-generation-with-ai-gateway.html">AI 网关视频生成</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Articles/security.html">安全合规</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Articles/security/ai-agents-threats-and-mitigations.html">AI Agent 威胁与缓解</a></li>
+<li><a href="/tpvibe/Articles/security/security-boundaries-in-agentic-architectures.html">Agent 架构安全边界</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Articles/business.html">商业趋势</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Articles/business/the-next-two-years-of-software-engineering.html">软件工程的未来两年</a></li>
+<li><a href="/tpvibe/Articles/business/how-openevidence-built-healthcare-ai-physicians-trust.html">OpenEvidence 医疗 AI</a></li>
+<li><a href="/tpvibe/Articles/business/keeping-community-human-while-scaling-with-agents.html">用 Agent 扩展时保持人性</a></li>
+</ul>
+</li>
+</ul>
+</details>
+<details class="toc-sec">
+<summary>实践案例</summary>
+<ul class="toc-tree">
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Practice/index.html">实践案例</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Practice/index/vibe-coding-methodology.html">Vibe Coding 方法论</a></li>
+<li><a href="/tpvibe/Practice/index/ai-canvas-vibecoding-journey.html">AI Canvas 之旅</a></li>
+<li><a href="/tpvibe/Practice/index/ai-picture-book-generator.html">AI 绘本生成器</a></li>
+<li><a href="/tpvibe/Practice/index/ai-resume-saas.html">AI 简历 SaaS</a></li>
+<li><a href="/tpvibe/Practice/index/full-stack-21-day-thinking-habit-game.html">21 天思维习惯游戏</a></li>
+</ul>
+</li>
+</ul>
+</details>
+</div>
+</aside>
+<script>
+(function(){
+  /* Move toc-toggle to body to avoid overflow/transform clipping */
+  var tocToggle=document.getElementById('tocToggle');
+  var toc=document.getElementById('toc');
+  if(tocToggle&&toc){
+    document.body.appendChild(tocToggle);
+    tocToggle.style.position='fixed';
+    tocToggle.style.top='70px';
+    tocToggle.style.left='254px';
+    tocToggle.style.zIndex='41';
+    tocToggle.style.width='28px';
+    tocToggle.style.height='28px';
+    tocToggle.style.borderRadius='50%';
+    tocToggle.style.border='1px solid var(--line)';
+    tocToggle.style.background='var(--card)';
+    tocToggle.style.color='var(--muted)';
+    tocToggle.style.cursor='pointer';
+    tocToggle.style.display='grid';
+    tocToggle.style.placeItems='center';
+    tocToggle.style.boxShadow='0 4px 14px var(--shadow)';
+    tocToggle.style.fontSize='14px';
+    tocToggle.style.fontWeight='700';
+    tocToggle.style.transition='left .35s cubic-bezier(.34,1.3,.64,1), background .2s, color .2s, border-color .2s';
+    tocToggle.addEventListener('mouseenter',function(){
+      this.style.background='var(--soft)';
+      this.style.color='var(--accent)';
+      this.style.borderColor='var(--accent)';
+    });
+    tocToggle.addEventListener('mouseleave',function(){
+      this.style.background='var(--card)';
+      this.style.color='var(--muted)';
+      this.style.borderColor='var(--line)';
+    });
+    tocToggle.addEventListener('click',function(){
+      toc.classList.toggle('collapsed');
+      var c=toc.classList.contains('collapsed');
+      this.style.left=c?'8px':'254px';
+      this.textContent=c?'»':'«';
+      this.setAttribute('aria-label',c?'展开目录':'收起目录');
+    });
+  }
+  /* Mobile scrim click to close */
+  var scrim=document.querySelector('.toc-scrim');
+  if(scrim){
+    scrim.addEventListener('click',function(){
+      var cb=document.getElementById('tocToggleMobile');
+      if(cb)cb.checked=false;
+    });
+  }
+  /* Chapter expand/collapse (L1) */
+  document.querySelectorAll('.toc-chapter-toggle').forEach(function(btn){
+    btn.addEventListener('click',function(e){
+      e.preventDefault();
+      e.stopPropagation();
+      var li=this.closest('.toc-chapter');
+      if(li)li.classList.toggle('expanded');
+    });
+  });
+  /* Auto-expand: find active link and open its section + chapter */
+  var currentRaw=location.pathname.replace(/\/$/,'');
+  var activeLink=null;
+  document.querySelectorAll('aside.toc a[href]').forEach(function(a){
+    var href=a.getAttribute('href')||'';
+    if(!href||href.startsWith('http')||href.startsWith('#'))return;
+    var path=href.replace(/^https?:\/\/[^\/]+/,'').replace(/\/$/,'');
+    /* Skip home link for active matching */
+    if(path.indexOf('/index.html')>=0&&currentRaw.indexOf('/index.html')<0)return;
+    if(currentRaw===path){activeLink=a;return;}
+    /* Also check if currentRaw contains the path (for sub-pages) */
+    if(path.length>5&&currentRaw.indexOf(path)>=0){activeLink=a;}
+  });
+  /* Open the section (L0) containing active link, close others */
+  var sections=document.querySelectorAll('aside.toc details.toc-sec');
+  if(sections.length>0){
+    sections.forEach(function(d){
+      if(activeLink&&d.contains(activeLink)){d.setAttribute('open','');}
+      else{d.removeAttribute('open');}
+    });
+  }
+  /* Expand the chapter (L1) containing active link */
+  if(activeLink){
+    var chap=activeLink.closest('.toc-chapter.has-children');
+    if(chap)chap.classList.add('expanded');
+  }
+  /* If no active link found (e.g. index page), open first section and first chapter */
+  if(!activeLink&&sections.length>0){
+    sections[0].setAttribute('open','');
+    var firstChapter=sections[0].querySelector('.toc-chapter.has-children');
+    if(firstChapter)firstChapter.classList.add('expanded');
+  }
+})();
+</script>
+
+<div id="progress"></div>
+<header class="site-header">
+<div class="header-inner">
+  <a href="/tpvibe/index.html" class="logo"><img src="/tpvibe/images/tp_logo.jpg" alt="TPvibe" width="200" height="200"> TPvibe</a>
+  <input type="checkbox" id="nav-toggle-cb" class="nav-toggle-cb" aria-hidden="true">
+  <label for="nav-toggle-cb" class="nav-toggle" aria-label="打开菜单">&#9776;</label>
+  <nav><ul class="nav-links"><li><a href="/tpvibe/index.html">TPvibe</a></li><li><a href="/tpvibe/index.html">首页</a></li><li><a href="/tpvibe/Basic/lecture-1.html">基础篇</a></li><li><a href="/tpvibe/Advanced/ch01.html">进阶篇</a></li><li><a href="/tpvibe/Articles/core-concepts.html">文章</a></li><li><a href="/tpvibe/Practice/index.html">实践案例</a></li></ul>
+</nav>
+<button class="theme-btn" aria-label="切换主题" onclick="document.documentElement.dataset.theme=document.documentElement.dataset.theme==='dark'?'light':'dark';localStorage.setItem('tpvibe-theme',document.documentElement.dataset.theme)">🌙</button>
+</div>
+</header>
+<main class="container">
+<h1 class="page-title">Vibe Coding 工作流</h1>
+<div class="page-cover reveal">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400" preserveAspectRatio="xMidYMid slice" style="width:100%;height:100%;display:block;">
+  <defs>
+    <linearGradient id="bg-634489961" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0f172a"/>
+      <stop offset="100%" style="stop-color:#1e3a8a"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="400" fill="url(#bg-634489961)"/>
+  <polygon points="39,72 0,95 -39,72 -39,28 -0,5 39,28" fill="white" opacity="0.07"/>
+<polygon points="191,68 160,86 129,68 129,32 160,14 191,32" fill="white" opacity="0.04"/>
+<polygon points="360,73 320,96 280,73 280,27 320,4 360,27" fill="white" opacity="0.08"/>
+<polygon points="512,69 480,87 448,69 448,31 480,13 512,31" fill="white" opacity="0.04"/>
+<polygon points="681,74 640,98 599,74 599,26 640,2 681,26" fill="white" opacity="0.08"/>
+<polygon points="833,69 800,89 767,69 767,31 800,11 833,31" fill="white" opacity="0.05"/>
+<polygon points="1003,75 960,99 917,75 917,25 960,1 1003,25" fill="white" opacity="0.09"/>
+<polygon points="1155,70 1120,90 1085,70 1085,30 1120,10 1155,30" fill="white" opacity="0.05"/>
+<polygon points="107,165 80,181 53,165 53,135 80,119 107,135" fill="white" opacity="0.10"/>
+<polygon points="276,171 240,191 204,171 204,129 240,109 276,129" fill="white" opacity="0.06"/>
+<polygon points="428,166 400,182 372,166 372,134 400,118 428,134" fill="white" opacity="0.10"/>
+<polygon points="597,171 560,193 523,171 523,129 560,107 597,129" fill="white" opacity="0.07"/>
+<polygon points="749,167 720,184 691,167 691,133 720,116 749,133" fill="white" opacity="0.11"/>
+<polygon points="918,172 880,194 842,172 842,128 880,106 918,128" fill="white" opacity="0.07"/>
+<polygon points="1070,168 1040,185 1010,168 1010,132 1040,115 1070,132" fill="white" opacity="0.03"/>
+<polygon points="1240,173 1200,196 1160,173 1160,127 1200,104 1240,127" fill="white" opacity="0.08"/>
+<polygon points="32,268 0,286 -32,268 -32,232 -0,214 32,232" fill="white" opacity="0.04"/>
+<polygon points="201,274 160,297 119,274 119,226 160,203 201,226" fill="white" opacity="0.08"/>
+<polygon points="353,269 320,288 287,269 287,231 320,212 353,231" fill="white" opacity="0.05"/>
+<polygon points="522,274 480,299 438,274 438,226 480,201 522,226" fill="white" opacity="0.09"/>
+<polygon points="674,270 640,289 606,270 606,230 640,211 674,230" fill="white" opacity="0.05"/>
+<polygon points="826,265 800,280 774,265 774,235 800,220 826,235" fill="white" opacity="0.09"/>
+<polygon points="995,270 960,291 925,270 925,230 960,209 995,230" fill="white" opacity="0.06"/>
+<polygon points="1147,266 1120,281 1093,266 1093,234 1120,219 1147,234" fill="white" opacity="0.10"/>
+<polygon points="117,371 80,392 43,371 43,329 80,308 117,329" fill="white" opacity="0.06"/>
+<polygon points="268,366 240,383 212,366 212,334 240,317 268,334" fill="white" opacity="0.11"/>
+<polygon points="438,372 400,394 362,372 362,328 400,306 438,328" fill="white" opacity="0.07"/>
+<polygon points="590,367 560,384 530,367 530,333 560,316 590,333" fill="white" opacity="0.03"/>
+<polygon points="759,373 720,395 681,373 681,327 720,305 759,327" fill="white" opacity="0.07"/>
+<polygon points="911,368 880,386 849,368 849,332 880,314 911,332" fill="white" opacity="0.04"/>
+<polygon points="1080,373 1040,397 1000,373 1000,327 1040,303 1080,327" fill="white" opacity="0.08"/>
+<polygon points="1232,369 1200,387 1168,369 1168,331 1200,313 1232,331" fill="white" opacity="0.04"/>
+
+  
+  <text x="60" y="340" font-family="system-ui, -apple-system, sans-serif" font-size="36" font-weight="700" fill="white">VibeCoding 工作流</text>
+  <rect x="60" y="355" width="60" height="4" rx="2" fill="#06b6d4"/>
+</svg>
+</div>
+
+<div class="content reveal">
+<blockquote><p><strong>阅读完本节后，你将会收获：</strong></p><ul><li>掌握 VibeCoding 标准五步工作流：探索 → 规划 → 执行 → 验证 → 提交</li><li>理解 Agent Native 开发思维，学会从&quot;怎么做&quot;转向&quot;做什么&quot;的产品导向思维</li><li>学会编写高质量提示词：直接描述任务、提供上下文、给出具体约束</li><li>掌握权限模式、斜杠命令、检查点功能等 Claude Code 核心交互方式</li><li>了解多 Agent 并行协作机制，学会利用 AI 自动化能力提升开发效率</li></ul></blockquote><blockquote><p>序言中提到的&quot;Workflow（工具流）&quot;是 Vibecoding 的核心，以及 VibeCoding 的标准开发流程。</p></blockquote><h2>前置知识 </h2><div class="callout"><p><strong>什么是 Claude Code</strong></p><p>Claude Code 是一个 AI 命令行工具，能直接读取项目文件、执行命令、自动修改代码和完成任务。</p></div><div class="callout"><p><strong>什么是 工作流</strong></p><p>工作流（Workflow）是完成任务的标准化流程。AI 开发的工作流包含探索、规划、编码、提交等环节。</p></div><div class="callout"><p><strong>什么是 提示词</strong></p><p>提示词（Prompt）是发送给 AI 的文本指令，描述你希望 AI 完成的任务。<strong>好的提示词是工作流的一部分</strong>。</p></div><details class="details custom-block"><summary>点击查看 Agent Native 开发思维</summary><p><strong>Agent Native</strong> = 以 AI Agent 为中心的开发思维</p><p>传统开发中，AI 是辅助工具（Copilot）；Agent Native 中，AI 是自主执行者（Autopilot）。</p><h4>传统思维 vs Agent Native </h4><table tabindex="0"><thead><tr><th>维度</th><th>传统 AI 辅助开发</th><th>Agent Native 开发</th></tr></thead><tbody><tr><td><strong>核心角色</strong></td><td>人写代码，AI 帮忙</td><td>AI 为主，代码是 AI 的实现细节</td></tr><tr><td><strong>工作方式</strong></td><td>AI 是 Copilot</td><td>AI 是 Autopilot</td></tr><tr><td><strong>交互模式</strong></td><td>人写 Prompt 指挥 AI</td><td>AI 主动提问、规划、执行</td></tr><tr><td><strong>输出形态</strong></td><td>AI 生成代码片段，人来整合</td><td>AI 自主完成完整任务</td></tr><tr><td><strong>你的关注点</strong></td><td>怎么写代码</td><td>写什么产品</td></tr></tbody></table><h3>VibeCoding 的核心哲学：你是导演，AI 是演员 </h3><p>VibeCoding 的核心不是&quot;让 AI 替你写代码&quot;，而是&quot;你驾驭 AI 写代码&quot;。这个区别至关重要。如果你把 AI 当成替代品，你会逐渐失去对产品的控制权，最终做出的东西可能技术上完美，但产品上平庸。真正强大的用法是&quot;一放一收&quot;：放，是让 AI 在海量技术方案中自由探索，生成多种实现路径，帮你看到你原本看不到的可能性；收，是你在关键节点选定方向、拍板决策、承担责任。</p><p>你的作品价值不在于代码量有多大、技术栈有多新，而在于它体现了你选定的产品方向、你做出的架构判断、你愿意为此承担的责任。AI 可以帮你写出一万行代码，但只有你能决定这一万行代码应该解决什么问题。这就是为什么 PRD 如此重要——PRD 就是你对 AI 的&quot;控制权&quot;。没有 PRD，AI 是脱缰的野马，可能跑得很快但方向不对；有了 PRD，AI 是听话的执行者，它的每一步都在你的掌控之中。</p><h3>AI 与人的分工：预测与判断 </h3><p>在 VibeCoding 工作流中，理解 AI 和人的分工至关重要。AI 负责的是&quot;预测&quot;——它会基于海量的训练数据，生成多种代码方案、提供架构建议、推荐技术选型。这些方案通常是概率最高的、最符合最佳实践的选择。但 AI 不知道你的业务场景、不了解你的用户需求、也无法为产品方向负责。</p><p>这就是你的价值所在。你负责的是&quot;判断&quot;——在 AI 给出的多个方案中选择最适合的那个，基于你对业务的理解决定是否接受某段代码，基于你对用户需求的洞察决定产品往哪个方向走。这不是因为 AI 能力不足，而是因为分工本就如此：AI 擅长基于数据做预测，你擅长基于理解做判断。</p><p>权限模式（Default/Plan/Accept Edits）本质上就是在调节&quot;预测与判断的脱钩程度&quot;。Default 模式下，AI 的只读探索自动执行，但修改代码时需要你判断；Plan 模式下，AI 只能探索和分析，所有判断都由你做；Accept Edits 模式下，AI 可以自主运行命令和测试，但修改代码时仍需你判断。选择哪种模式，取决于你对当前任务的熟悉程度和风险承受能力。</p><h4>Agent Native 的三大原则 </h4><p><strong>1. 意图驱动</strong></p><p>告诉 AI 目标，让它自己决定实现方式：</p><div class="language-bash vp-adaptive-theme"><button title="Copy Code" class="copy" aria-label="复制代码"></button><span class="lang">bash</span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">❌</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> 传统思维：</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">&quot;帮我写一个函数，接收数组参数，用 for 循环遍历，</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">遇到大于 10 的就 push 到新数组里...&quot;</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">✅</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> Agent</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> Native：</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">&quot;过滤数组中大于 10 的元素，返回新数组&quot;</span></span></code></pre></div><p><strong>2. 异步协作</strong></p><p>AI 可以在你睡觉时工作：</p><div class="language-bash vp-adaptive-theme"><button title="Copy Code" class="copy" aria-label="复制代码"></button><span class="lang">bash</span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"># 你设定目标，AI 自主执行</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">&quot;实现用户评论功能，包括：</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">1. 数据库 schema（Comment 模型）</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">2. CRUD API</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">3. 前端评论表单</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">4. 评论列表展示</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">完成后告诉我，我先去忙别的。&quot;</span></span></code></pre></div><p><strong>3. 信任但验证</strong></p><p>不要逐行检查 AI 的代码，而是：</p><p><strong>验证方式</strong>：</p><ul><li>功能测试：跑一下看看能不能用</li><li>类型检查：<code>tsc</code> 有没有报错</li><li>代码审查：只看关键逻辑，不看实现细节</li></ul><h4>从开发者到编排者 </h4><p>Agent Native 时代，你的角色转变：</p><table tabindex="0"><thead><tr><th>传统开发者</th><th>Agent Native 编排者</th></tr></thead><tbody><tr><td>手写代码</td><td>描述需求</td></tr><tr><td>逐个修复</td><td>反馈问题</td></tr><tr><td>关注语法</td><td>关注产品</td></tr><tr><td>是工匠</td><td>是指挥官</td></tr></tbody></table><p><strong>记住</strong>：代码是实现细节，产品才是目的。Agent Native 让你从&quot;怎么做&quot;中解放出来，专注于&quot;做什么&quot;。</p></details><h2>核心概念 </h2><h3>Vibecoding 的核心理念 </h3><div class="language- vp-adaptive-theme"><button title="Copy Code" class="copy" aria-label="复制代码"></button><span class="lang"></span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span>Vibecoding = Prompt（提示词） + Workflow（工具流）</span></span></code></pre></div><p><strong>Prompt 告诉 AI 做什么</strong><strong>Workflow 决定怎么做</strong></p><h3>提示词的核心原则 </h3><p>AI 是一个强大的编程助手，它理解技术术语、熟悉各种框架、能快速分析代码。</p><p><strong>沟通的关键是：直接、具体、有上下文。</strong></p><p>❌ <strong>绕弯子</strong>：</p><div class="language- vp-adaptive-theme"><button title="Copy Code" class="copy" aria-label="复制代码"></button><span class="lang"></span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span>&quot;你是一位资深的全栈工程师，精通各种技术栈...&quot;</span></span></code></pre></div><p>→ AI 不需要角色扮演，它知道自己能做什么</p><p>✅ <strong>直接说事</strong>：</p><div class="language- vp-adaptive-theme"><button title="Copy Code" class="copy" aria-label="复制代码"></button><span class="lang"></span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span>&quot;检测这个 React 组件的类型安全问题&quot;</span></span></code></pre></div><p>→ 一句话讲清楚要做什么</p><p>❌ <strong>模糊描述</strong>：</p><div class="language- vp-adaptive-theme"><button title="Copy Code" class="copy" aria-label="复制代码"></button><span class="lang"></span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span>&quot;帮我优化一下代码&quot;</span></span></code></pre></div><p>→ AI 不知道优化什么方向</p><p>✅ <strong>具体需求</strong>：</p><div class="language- vp-adaptive-theme"><button title="Copy Code" class="copy" aria-label="复制代码"></button><span class="lang"></span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span>&quot;优化登录页面的加载性能：</span></span>
+<span class="line"><span>1. 添加图片懒加载</span></span>
+<span class="line"><span>2. 延迟加载非关键资源</span></span>
+<span class="line"><span>3. 使用 Next.js 的动态导入&quot;</span></span></code></pre></div><p>→ 明确优化目标和实现方式</p><h2>提示词原则 </h2><h3>好提示词的特征 </h3><h3>提示词对比：欠佳 vs 推荐 </h3><table tabindex="0"><thead><tr><th>类型</th><th>欠佳</th><th>推荐</th></tr></thead><tbody><tr><td><strong>角色扮演</strong></td><td>&quot;你是一位拥有 20 年经验的全栈工程师，精通 React、Vue、Angular、Node.js、Python...&quot;</td><td>直接说任务：&quot;实现用户登录功能&quot;</td></tr><tr><td><strong>模糊指令</strong></td><td>&quot;帮我优化一下代码&quot;</td><td>&quot;优化登录页面的加载性能：添加图片懒加载、延迟加载非关键资源&quot;</td></tr><tr><td><strong>无边界限制</strong></td><td>&quot;写一个完整的电商系统&quot;</td><td>&quot;实现用户评论功能，包括：评论表单、列表展示、数据持久化&quot;</td></tr><tr><td><strong>强行要求</strong></td><td>&quot;你必须给出正确答案，不能说不知道&quot;</td><td>&quot;如果不确定，请明确说&#39;我不确定&#39;，而不是编造答案&quot;</td></tr><tr><td><strong>具体任务</strong></td><td>&quot;帮我写一个登录功能&quot;</td><td>&quot;实现用户登录功能：用户名+密码登录，使用 Next.js 16 App Router，Drizzle ORM + PostgreSQL，包含表单验证和错误处理&quot;</td></tr><tr><td><strong>提供上下文</strong></td><td>&quot;修复这个 Bug&quot;</td><td>&quot;修复 Bug：文件 app/login/page.tsx，问题：用户登录后没有跳转到首页，预期：跳转到 /dashboard&quot;</td></tr><tr><td><strong>指令要具体</strong></td><td>&quot;添加测试&quot;</td><td>&quot;为 app/login/page.tsx 编写测试用例，框架：Playwright，覆盖场景：密码错误、账号不存在、网络错误&quot;</td></tr></tbody></table><p><strong>核心原则</strong>：</p><ul><li>不要让 AI 猜 → 提供明确上下文</li><li>不要含糊其辞 → 给出具体要求</li><li>不要强行编造 → 给 AI 一个&quot;不确定&quot;的出口</li></ul><h3>让 AI 反复提问 </h3><div class="language- vp-adaptive-theme"><button title="Copy Code" class="copy" aria-label="复制代码"></button><span class="lang"></span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span>&quot;我要开发一个任务管理应用。</span></span>
+<span class="line"><span>请反复问我问题，直到你完全理解我的需求。</span></span>
+<span class="line"><span>不要猜测，直接问。&quot;</span></span></code></pre></div><h3>提示词模板 </h3><h4>代码生成模板 </h4><div class="language- vp-adaptive-theme"><button title="Copy Code" class="copy" aria-label="复制代码"></button><span class="lang"></span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span>&quot;实现 [功能名称]</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>技术栈：</span></span>
+<span class="line"><span>- Next.js [版本]</span></span>
+<span class="line"><span>- TypeScript</span></span>
+<span class="line"><span>- Drizzle ORM</span></span>
+<span class="line"><span>- [其他技术]</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>需求：</span></span>
+<span class="line"><span>1. [具体需求1]</span></span>
+<span class="line"><span>2. [具体需求2]</span></span>
+<span class="line"><span>3. [具体需求3]</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>注意事项：</span></span>
+<span class="line"><span>- 遵循项目现有代码风格</span></span>
+<span class="line"><span>- 不要引入新依赖，除非必要</span></span>
+<span class="line"><span>- 包含错误处理&quot;</span></span></code></pre></div><h4>Bug 修复模板 </h4><div class="language- vp-adaptive-theme"><button title="Copy Code" class="copy" aria-label="复制代码"></button><span class="lang"></span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span>&quot;修复 Bug</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>文件路径: [完整路径]</span></span>
+<span class="line"><span>错误信息:</span></span>
+<span class="line"><span>[完整报错日志]</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>当前代码:</span></span>
+<span class="line"><span>[相关代码片段]</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>期望行为: [描述]</span></span>
+<span class="line"><span>实际行为: [描述]</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>请分析原因并提供修复方案&quot;</span></span></code></pre></div><h2>标准工作流 </h2><h3>AI 的自动化能力 </h3><p>在开始工作流之前，记住：<strong>AI 能自动处理很多任务</strong>。</p><div class="info custom-block"><p><strong>Claude Code vs 其他 AI 工具</strong></p><p><strong>关键区别</strong>：</p><table tabindex="0"><thead><tr><th>特性</th><th>Claude Code</th><th>Cursor/Windsurf</th><th>ChatGPT 网页版</th></tr></thead><tbody><tr><td><strong>项目上下文</strong></td><td>✅ 自动读取整个项目</td><td>✅ 自动读取</td><td>❌ 手动粘贴</td></tr><tr><td><strong>命令执行</strong></td><td>✅ 直接运行 bash</td><td>✅ 集成终端</td><td>❌ 复制到终端</td></tr><tr><td><strong>文件修改</strong></td><td>✅ 自动编辑多个文件</td><td>✅ 多文件编辑</td><td>⚠️ 逐个复制</td></tr><tr><td><strong>版本控制</strong></td><td>✅ 自动提交</td><td>✅ Git 集成</td><td>❌ 手动操作</td></tr><tr><td><strong>工作流</strong></td><td>✅ 标准化流程</td><td>⚠️ 需要手动</td><td>❌ 随意对话</td></tr></tbody></table><p><strong>为什么 Claude Code 更适合 Vibecoding</strong>：</p><ol><li>CLI 原生：命令行是开发者的原生环境</li><li>自动化程度高：减少手动操作</li><li>标准化流程：探索 → 规划 → 实现 → 验证 → 提交</li><li>完整上下文：理解整个项目结构</li></ol></div><p><strong>AI 的自动化能力</strong>：</p><ul><li>✅ 自动探索项目结构（你不需要告诉它看哪些文件）</li><li>✅ 自动选择合适的工具（Read、Edit、Bash）</li><li>✅ 自动处理错误（失败会重试或换方案）</li><li>✅ 自动生成提交信息（根据修改内容）</li><li>✅ 自动识别依赖关系（知道修改会影响哪些文件）</li></ul><p><strong>你需要做的</strong>：</p><ul><li>清楚描述任务目标</li><li>提供必要的上下文</li><li>验证结果并反馈</li></ul><p><strong>不需要做</strong>：</p><ul><li>❌ 指定具体步骤（&quot;先读文件A，再读文件B&quot;）</li><li>❌ 告诉它用哪个工具（&quot;用 Read 工具读取&quot;）</li><li>❌ 手动组合命令（&quot;运行 git add 然后 git commit&quot;）</li><li>❌ 手动处理错误（&quot;如果失败就重试&quot;）</li></ul><h3>权限模式 </h3><div class="callout"><p><strong>场景：为什么需要切换模式</strong></p><p>你正在调试一个功能，每次运行测试都要点&quot;确认&quot;，一分钟内点了 5 次。效率很低。</p><p>你试着按 <strong>Shift+Tab</strong> 切换到 <strong>Accept Edits 模式</strong>，测试命令自动执行，只有修改代码时才询问。瞬间清净了。</p><p>这就是<strong>权限模式</strong>的作用：在不同场景下，平衡效率和安全。</p></div><h4>三种权限模式 </h4><table tabindex="0"><thead><tr><th>模式</th><th>快捷键</th><th>特点</th><th>何时使用</th></tr></thead><tbody><tr><td><strong>Default</strong></td><td>Shift+Tab</td><td>读自动，写询问</td><td>日常开发（推荐）</td></tr><tr><td><strong>Plan</strong></td><td>Shift+Tab</td><td>只读不写</td><td>想先了解代码，怕误改</td></tr><tr><td><strong>Accept Edits</strong></td><td>Shift+Tab</td><td>写需确认，其他自动</td><td>频繁测试/运行命令</td></tr></tbody></table><p><strong>快速决策</strong>：</p><ul><li>不确定时 → Default</li><li>只想看代码 → Plan</li><li>频繁跑命令 → Accept Edits</li></ul><p><strong>试试交互模拟，感受不同模式的区别：</strong></p><div class="pms-root" data-v-cfb9b6ff><div class="pms-modes" data-v-cfb9b6ff><!--[--><button class="active pms-mode-btn" style="border-color:#007aff;background:#007aff0f;" data-v-cfb9b6ff><span class="pms-mode-label" data-v-cfb9b6ff>Default</span><span class="pms-mode-desc" data-v-cfb9b6ff>读自动，写询问</span></button><button class="pms-mode-btn" style="" data-v-cfb9b6ff><span class="pms-mode-label" data-v-cfb9b6ff>Plan</span><span class="pms-mode-desc" data-v-cfb9b6ff>只读不写</span></button><button class="pms-mode-btn" style="" data-v-cfb9b6ff><span class="pms-mode-label" data-v-cfb9b6ff>Accept Edits</span><span class="pms-mode-desc" data-v-cfb9b6ff>写需确认，其他自动</span></button><!--]--></div><div class="pms-panel" data-v-cfb9b6ff><div class="pms-panel-header" data-v-cfb9b6ff><span class="pms-mode-indicator" style="background:#007aff;" data-v-cfb9b6ff></span><span class="pms-panel-title" data-v-cfb9b6ff>Default 模式</span><span class="pms-panel-hint" data-v-cfb9b6ff>点击操作查看结果</span></div><div class="pms-ops" data-v-cfb9b6ff><!--[--><button class="auto pms-op" data-v-cfb9b6ff><span class="pms-op-icon" data-v-cfb9b6ff>📖</span><span class="pms-op-name" data-v-cfb9b6ff>读取文件</span><span class="pms-op-hint" data-v-cfb9b6ff>✅</span></button><button class="confirm pms-op" data-v-cfb9b6ff><span class="pms-op-icon" data-v-cfb9b6ff>✏️</span><span class="pms-op-name" data-v-cfb9b6ff>编辑文件</span><span class="pms-op-hint" data-v-cfb9b6ff>⚠️</span></button><button class="confirm pms-op" data-v-cfb9b6ff><span class="pms-op-icon" data-v-cfb9b6ff>⚡</span><span class="pms-op-name" data-v-cfb9b6ff>运行命令</span><span class="pms-op-hint" data-v-cfb9b6ff>⚠️</span></button><button class="confirm pms-op" data-v-cfb9b6ff><span class="pms-op-icon" data-v-cfb9b6ff>🚀</span><span class="pms-op-name" data-v-cfb9b6ff>Git Push</span><span class="pms-op-hint" data-v-cfb9b6ff>⚠️</span></button><button class="confirm pms-op" data-v-cfb9b6ff><span class="pms-op-icon" data-v-cfb9b6ff>🗑️</span><span class="pms-op-name" data-v-cfb9b6ff>删除文件</span><span class="pms-op-hint" data-v-cfb9b6ff>⚠️</span></button><!--]--></div></div><div class="pms-tip" data-v-cfb9b6ff><span class="pms-tip-icon" data-v-cfb9b6ff>💡</span><span data-v-cfb9b6ff>不确定用哪个？选 <strong data-v-cfb9b6ff>Default</strong> 就对了 —— 安全又不影响效率。</span></div></div><h4>Default 模式（推荐） </h4><p>只读操作（读取文件、搜索代码、查看状态、列出文件）自动批准，修改操作（编辑文件、删除文件、运行命令、网络请求、Git push）需要确认。</p><p><strong>权限弹窗选项</strong>：</p><ul><li><strong>Yes</strong>：同意本次操作</li><li><strong>Yes, don&#39;t ask again for this tool</strong>：同意本次，且后续同类操作不再询问</li><li><strong>No, and tell AI what to do differently</strong>：拒绝并告诉 AI 换个方式</li></ul><h4>Plan 模式（代码审查） </h4><p>仅允许只读操作，所有修改操作都会被阻止。</p><p><strong>适用场景</strong>：</p><ul><li>代码审查</li><li>了解代码库结构</li><li>探索性分析</li></ul><div class="callout"><p><strong>Plan 模式深度解析</strong></p><p>Plan 模式不只是&quot;只读&quot;——它是 Claude Code 内置的<strong>结构化规划流程</strong>，让 AI 在动手之前先充分理解代码库。</p><p><strong>内部机制</strong>：</p><p>当你切换到 Plan 模式时，Claude Code 会：</p><ol><li><strong>限制为只读工具</strong>——只能读取文件、搜索代码、浏览目录，不能编辑或执行命令</li><li><strong>深度探索代码库</strong>——自动遍历相关文件，理解架构和依赖关系</li><li><strong>输出结构化方案</strong>——包含修改哪些文件、每个文件改什么、执行顺序</li></ol><p><strong>何时使用 Plan 模式</strong>：</p><table tabindex="0"><thead><tr><th>场景</th><th>是否推荐</th><th>原因</th></tr></thead><tbody><tr><td>新功能涉及 3+ 文件</td><td>✅ 强烈推荐</td><td>避免改到一半发现遗漏</td></tr><tr><td>大规模重构</td><td>✅ 强烈推荐</td><td>需要全局视角</td></tr><tr><td>不熟悉的代码库</td><td>✅ 推荐</td><td>先理解再动手</td></tr><tr><td>架构决策（选型）</td><td>✅ 推荐</td><td>需要对比分析</td></tr><tr><td>单文件 bug 修复</td><td>❌ 不需要</td><td>直接修就行</td></tr><tr><td>简单文案修改</td><td>❌ 不需要</td><td>过度流程化</td></tr></tbody></table><p><strong>实战示例</strong>：认证模块从 Session 迁移到 JWT</p><div class="language- vp-adaptive-theme"><button title="Copy Code" class="copy" aria-label="复制代码"></button><span class="lang"></span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span># 先切换到 Plan 模式（Shift+Tab 切换）</span></span>
+<span class="line"><span>&quot;帮我把用户认证从 express-session 迁移到 JWT&quot;</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span># AI 会自动：</span></span>
+<span class="line"><span># 1. 读取当前 auth 相关文件</span></span>
+<span class="line"><span># 2. 分析 session 的使用位置</span></span>
+<span class="line"><span># 3. 输出迁移方案（哪些文件要改、改什么、顺序）</span></span>
+<span class="line"><span># 4. 等你确认后，切回正常模式执行</span></span></code></pre></div><p><strong>Plan 模式 vs 口头说&quot;先规划&quot;</strong>：</p><p>口头说&quot;先帮我规划一下&quot;也能让 AI 输出方案，但 Plan 模式有本质区别：</p><ul><li><strong>工具级别的限制</strong>：Plan 模式下 AI 只能使用只读工具，确保规划阶段专注于分析</li><li><strong>结构化审批</strong>：方案输出后由你审批确认，再切回正常模式执行</li><li><strong>探索更充分</strong>：因为不能写，AI 会把更多 token 花在理解代码上</li></ul></div><p>编辑操作需要确认，其他操作自动批准。</p><div class="language-bash vp-adaptive-theme"><button title="Copy Code" class="copy" aria-label="复制代码"></button><span class="lang">bash</span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"># 示例行为</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">&quot;读取配置文件&quot;</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">&quot;运行测试&quot;</span></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"># AI 直接执行（非编辑操作）</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">&quot;修改函数签名&quot;</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">&quot;删除这个文件&quot;</span></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"># AI 会询问（编辑操作需确认）</span></span></code></pre></div><p><strong>适用场景</strong>：</p><ul><li>需要频繁运行命令/测试</li><li>对文件修改要谨慎</li><li>高度信任的自动化工作流</li></ul><h4>模式切换 </h4><h1>快捷键 </h1><p>Shift+Tab # 在三种模式间循环切换</p><h3>常用交互命令 </h3><p>在 Claude Code 中，以 <code>/</code> 开头的命令称为斜杠命令，用于快速执行特定操作：</p><table tabindex="0"><thead><tr><th>命令</th><th>功能</th><th>使用场景</th></tr></thead><tbody><tr><td><strong>/clear</strong></td><td>清空对话上下文</td><td>开始新任务时</td></tr><tr><td><strong>/model</strong></td><td>切换 AI 模型</td><td>需要更强能力时切换到 Opus</td></tr><tr><td><strong>/status</strong></td><td>查看使用额度和计费</td><td>检查剩余额度</td></tr><tr><td><strong>/config</strong></td><td>打开配置界面</td><td>修改设置</td></tr><tr><td><strong>/resume</strong></td><td>恢复最近的会话</td><td>重启后继续之前的工作</td></tr><tr><td><strong>/rewind</strong></td><td>恢复到上一个检查点</td><td>代码改错需要回退</td></tr><tr><td><strong>/agents</strong></td><td>管理 Agent</td><td>创建/查看自定义 Agent</td></tr><tr><td><strong>/init</strong></td><td>生成 CLAUDE.md 模板</td><td>新项目快速配置</td></tr><tr><td><strong>/compact</strong></td><td>压缩对话上下文</td><td>上下文太多时精简</td></tr><tr><td><strong>/export</strong></td><td>导出对话记录</td><td>分享或保存对话</td></tr><tr><td><strong>/statusline</strong></td><td>自定义状态栏显示</td><td>隐藏/显示状态信息</td></tr><tr><td><strong>/vim</strong></td><td>启用 Vim 键绑定</td><td>熟悉 Vim 的用户</td></tr></tbody></table><p><strong>常用场景</strong>：</p><div class="language-bash vp-adaptive-theme"><button title="Copy Code" class="copy" aria-label="复制代码"></button><span class="lang">bash</span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"># 开新任务时清空上下文</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">/clear</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"># 查看剩余额度</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">/status</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"># 切换到更强模型</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">/model</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> opus</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"># 恢复到之前的状态</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">/rewind</span></span></code></pre></div><h3>CLI 命令与启动选项 </h3><details class="details custom-block"><summary>基本命令（必读）</summary><table tabindex="0"><thead><tr><th>命令</th><th>描述</th><th>示例</th></tr></thead><tbody><tr><td><strong>claude</strong></td><td>启动交互式 REPL</td><td><code>claude</code></td></tr><tr><td><strong>claude &quot;query&quot;</strong></td><td>使用初始提示启动 REPL</td><td><code>claude &quot;解释这个项目&quot;</code></td></tr><tr><td><strong>claude -p &quot;query&quot;</strong></td><td>查询后退出（无头模式）</td><td><code>claude -p &quot;检查代码类型错误&quot;</code></td></tr><tr><td><strong>claude -c</strong></td><td>继续上一次对话</td><td><code>claude -c</code></td></tr><tr><td><strong>claude -r &quot;id&quot;</strong></td><td>恢复指定会话</td><td><code>claude -r &quot;abc123&quot;</code></td></tr><tr><td><strong>claude --continue</strong></td><td>加载最近的对话</td><td><code>claude --continue</code></td></tr><tr><td><strong>claude --resume</strong></td><td>显示会话选择器</td><td><code>claude --resume</code></td></tr></tbody></table></details><details class="details custom-block"><summary>常用启动选项</summary><table tabindex="0"><thead><tr><th>选项</th><th>功能</th><th>示例</th></tr></thead><tbody><tr><td><strong>-p &quot;query&quot;</strong></td><td>执行查询后退出</td><td><code>claude -p &quot;运行测试&quot;</code></td></tr><tr><td><strong>--model</strong></td><td>指定模型</td><td><code>claude --model opus</code></td></tr><tr><td><strong>--permission-mode</strong></td><td>设置权限模式</td><td><code>claude --permission-mode plan</code></td></tr><tr><td><strong>--add-dir</strong></td><td>添加工作目录</td><td><code>claude --add-dir ../shared</code></td></tr></tbody></table></details><details class="details custom-block"><summary>快捷键与输入控制（必读）</summary><table tabindex="0"><thead><tr><th>快捷键</th><th>功能</th><th>上下文</th></tr></thead><tbody><tr><td><strong>Ctrl+C</strong></td><td>取消当前输入或生成</td><td>标准中断</td></tr><tr><td><strong>Ctrl+D</strong></td><td>退出会话</td><td>EOF 信号</td></tr><tr><td><strong>Ctrl+L</strong></td><td>清除终端屏幕</td><td>保留对话历史</td></tr><tr><td><strong>Ctrl+R</strong></td><td>反向搜索命令历史</td><td>搜索以前的命令</td></tr><tr><td><strong>Esc+Esc</strong></td><td>回退代码/对话</td><td>恢复到之前状态</td></tr><tr><td><strong>Tab</strong></td><td>切换扩展思考</td><td>开启/关闭思考模式</td></tr><tr><td><strong>Shift+Tab</strong></td><td>切换权限模式</td><td>循环切换权限模式</td></tr></tbody></table><p><strong>多行输入方法</strong>：</p><table tabindex="0"><thead><tr><th>快捷键</th><th>上下文</th></tr></thead><tbody><tr><td><strong>\ + Enter</strong></td><td>适用于所有终端</td></tr><tr><td><strong>Option+Enter</strong> (macOS)</td><td>macOS 默认设置</td></tr><tr><td><strong>Shift+Enter</strong></td><td>配置后可用</td></tr></tbody></table><p><strong>快速命令前缀</strong>：</p><table tabindex="0"><thead><tr><th>前缀</th><th>功能</th><th>示例</th></tr></thead><tbody><tr><td><strong>#</strong></td><td>内存快捷方式，添加到 CLAUDE.md</td><td><code># 添加项目上下文</code></td></tr><tr><td><strong>/</strong></td><td>斜杠命令</td><td><code>/clear</code></td></tr><tr><td><strong>!</strong></td><td>Bash 模式，直接运行命令</td><td><code>! npm test</code></td></tr><tr><td><strong>@</strong></td><td>文件路径引用</td><td><code>@src/app/page.tsx</code></td></tr></tbody></table></details><details class="details custom-block"><summary>进阶：高级 CLI 标志</summary><p><strong>完整 CLI 标志列表</strong>：</p><table tabindex="0"><thead><tr><th>标志</th><th>描述</th><th>示例</th></tr></thead><tbody><tr><td><code>--add-dir</code></td><td>添加额外工作目录</td><td><code>claude --add-dir ../apps</code></td></tr><tr><td><code>--agents</code></td><td>JSON 格式定义 Agent</td><td><code>claude --agents &#39;{...}&#39;</code></td></tr><tr><td><code>--allowedTools</code></td><td>允许的工具列表</td><td><code>claude --allowedTools &quot;Read,Bash&quot;</code></td></tr><tr><td><code>--disallowedTools</code></td><td>禁止的工具列表</td><td><code>claude --disallowedTools &quot;Edit&quot;</code></td></tr><tr><td><code>--system-prompt</code></td><td>替换整个系统提示</td><td><code>claude --system-prompt &quot;...&quot;</code></td></tr><tr><td><code>--system-prompt-file</code></td><td>从文件加载系统提示</td><td><code>claude -p --system-prompt-file ./prompt.txt</code></td></tr><tr><td><code>--append-system-prompt</code></td><td>附加到默认提示</td><td><code>claude --append-system-prompt &quot;...&quot;</code></td></tr><tr><td><code>--output-format</code></td><td>输出格式（text/json/stream-json）</td><td><code>claude -p --output-format json</code></td></tr><tr><td><code>--input-format</code></td><td>输入格式（text/stream-json）</td><td><code>claude -p --input-format stream-json</code></td></tr><tr><td><code>--verbose</code></td><td>启用详细日志</td><td><code>claude --verbose</code></td></tr><tr><td><code>--max-turns</code></td><td>限制轮数</td><td><code>claude -p --max-turns 3</code></td></tr><tr><td><code>--dangerously-skip-permissions</code></td><td>跳过权限提示</td><td><code>claude --dangerously-skip-permissions</code></td></tr></tbody></table><p><strong>系统提示标志区别</strong>：</p><table tabindex="0"><thead><tr><th>标志</th><th>行为</th><th>模式</th><th>用例</th></tr></thead><tbody><tr><td><code>--system-prompt</code></td><td><strong>替换</strong>整个默认提示</td><td>交互 + 打印</td><td>完全控制行为</td></tr><tr><td><code>--system-prompt-file</code></td><td><strong>替换</strong>为文件内容</td><td>仅打印</td><td>从文件加载</td></tr><tr><td><code>--append-system-prompt</code></td><td><strong>附加</strong>到默认提示</td><td>交互 + 打印</td><td>添加特定指令</td></tr></tbody></table></details><details class="details custom-block"><summary>进阶：Vim 模式</summary><p>使用 <code>/vim</code> 启用或通过 <code>/config</code> 永久配置。</p><p><strong>模式切换</strong>：</p><table tabindex="0"><thead><tr><th>命令</th><th>操作</th><th>来自模式</th></tr></thead><tbody><tr><td><code>Esc</code></td><td>进入 NORMAL 模式</td><td>INSERT</td></tr><tr><td><code>i</code></td><td>在光标前插入</td><td>NORMAL</td></tr><tr><td><code>a</code></td><td>在光标后插入</td><td>NORMAL</td></tr><tr><td><code>o</code></td><td>在下方打开行</td><td>NORMAL</td></tr></tbody></table><p><strong>导航（NORMAL 模式）</strong>：</p><table tabindex="0"><thead><tr><th>命令</th><th>操作</th></tr></thead><tbody><tr><td><code>h/j/k/l</code></td><td>左/下/上/右移动</td></tr><tr><td><code>w</code></td><td>下一个单词</td></tr><tr><td><code>b</code></td><td>上一个单词</td></tr><tr><td><code>0/$</code></td><td>行首/行尾</td></tr><tr><td><code>gg/G</code></td><td>输入开始/结束</td></tr></tbody></table></details><details class="details custom-block"><summary>进阶：后台 Bash 命令</summary><p><strong>后台运行的工作原理</strong>：</p><ul><li>异步运行命令，立即返回任务 ID</li><li>输出被缓冲，可用 BashOutput 工具检索</li><li>Claude Code 退出时自动清理</li></ul><p><strong>常见后台命令</strong>：</p><ul><li>构建工具（webpack, vite, make）</li><li>包管理器（npm, yarn, pnpm）</li><li>测试运行器（jest, pytest）</li><li>开发服务器</li></ul><p><strong>按 Ctrl+B</strong> 将常规 Bash 调用移到后台。</p><p><strong>Bash 模式（! 前缀）</strong>：</p><div class="language-bash vp-adaptive-theme"><button title="Copy Code" class="copy" aria-label="复制代码"></button><span class="lang">bash</span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">!</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;"> npm</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> test</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">!</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;"> git</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> status</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">!</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;"> ls</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;"> -la</span></span></code></pre></div><ul><li>将命令和输出添加到对话上下文</li><li>显示实时进度</li><li>支持 Ctrl+B 后台运行</li></ul></details><details class="details custom-block"><summary>进阶：Agent 配置格式</summary><p><strong><code>--agents</code> 标志接受 JSON</strong>（通常不需要手动使用，<code>/agents</code> 命令会自动处理）：</p><div class="language-bash vp-adaptive-theme"><button title="Copy Code" class="copy" aria-label="复制代码"></button><span class="lang">bash</span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">claude</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;"> --agents</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> &#39;{</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">  &quot;code-reviewer&quot;: {</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">    &quot;description&quot;: &quot;Expert code reviewer&quot;,</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">    &quot;prompt&quot;: &quot;You are a senior code reviewer&quot;,</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">    &quot;tools&quot;: [&quot;Read&quot;, &quot;Grep&quot;, &quot;Glob&quot;, &quot;Bash&quot;],</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">    &quot;model&quot;: &quot;sonnet&quot;</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">  }</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">}&#39;</span></span></code></pre></div><p><strong>必需字段</strong>：</p><ul><li><code>description</code>：何时调用（自然语言）</li><li><code>prompt</code>：系统提示</li></ul><p><strong>可选字段</strong>：</p><ul><li><code>tools</code>：可用工具数组</li><li><code>model</code>：模型别名（sonnet/opus/haiku）</li></ul></details><h3>五步工作流 </h3><div class="callout"><p><strong>工作流是建议而非强制</strong></p><p>VibeCoding 五步工作流是一个<strong>推荐的实践模式</strong>，适合大多数开发场景。但你可以根据实际情况灵活调整：</p><ul><li>✅ <strong>推荐遵循</strong>：复杂功能、不熟悉的项目、团队协作</li><li>🔄 <strong>可以简化</strong>：简单修改、熟悉的项目、个人开发</li><li>⚡ <strong>可以跳过</strong>：微小改动、明显的问题修复</li></ul><p><strong>核心原则</strong>：理解每步的目的后，根据实际情况灵活应用，而非机械执行。</p></div><p><strong>交互式工作流演示 —— 点击每步查看详情：</strong></p><div class="ws-root" data-v-a1d1c78e><div class="ws-stepper" data-v-a1d1c78e><!--[--><div class="active ws-step" data-v-a1d1c78e><span class="ws-step-icon" data-v-a1d1c78e>🔍</span><span class="ws-step-title" data-v-a1d1c78e>探索</span><div class="ws-step-line" data-v-a1d1c78e></div></div><div class="ws-step" data-v-a1d1c78e><span class="ws-step-icon" data-v-a1d1c78e>📋</span><span class="ws-step-title" data-v-a1d1c78e>规划</span><div class="ws-step-line" data-v-a1d1c78e></div></div><div class="ws-step" data-v-a1d1c78e><span class="ws-step-icon" data-v-a1d1c78e>⚡</span><span class="ws-step-title" data-v-a1d1c78e>执行</span><div class="ws-step-line" data-v-a1d1c78e></div></div><div class="ws-step" data-v-a1d1c78e><span class="ws-step-icon" data-v-a1d1c78e>✅</span><span class="ws-step-title" data-v-a1d1c78e>验证</span><div class="ws-step-line" data-v-a1d1c78e></div></div><div class="ws-step" data-v-a1d1c78e><span class="ws-step-icon" data-v-a1d1c78e>📦</span><span class="ws-step-title" data-v-a1d1c78e>提交</span><!----></div><!--]--></div><div class="ws-content" data-v-a1d1c78e><div class="ws-content-header" data-v-a1d1c78e><span class="ws-content-num" data-v-a1d1c78e>1/5</span><h3>🔍 探索</h3></div><div class="ws-cards" data-v-a1d1c78e><div class="ws-card" data-v-a1d1c78e><div class="ws-card-label" data-v-a1d1c78e>🎯 目的</div><div class="ws-card-text" data-v-a1d1c78e>了解项目结构，避免重复造轮子</div></div><div class="ws-card" data-v-a1d1c78e><div class="ws-card-label" data-v-a1d1c78e>💬 示例提示词</div><code class="ws-card-code" data-v-a1d1c78e>请先阅读项目结构，了解现有的组件和工具函数</code></div><div class="ws-card" data-v-a1d1c78e><div class="ws-card-label" data-v-a1d1c78e>🤖 AI 自动行为</div><div class="ws-card-text" data-v-a1d1c78e>扫描目录、读取关键文件、理解代码风格</div></div><div class="ws-card ws-card-warn" data-v-a1d1c78e><div class="ws-card-label" data-v-a1d1c78e>⚠️ 常见错误</div><div class="ws-card-text" data-v-a1d1c78e>跳过探索直接写代码，导致和现有代码风格不一致</div></div></div></div><div class="ws-controls" data-v-a1d1c78e><button class="ws-btn" disabled data-v-a1d1c78e>← 上一步</button><button class="ws-btn ws-btn-play" data-v-a1d1c78e>▶ 自动播放</button><button class="ws-btn" data-v-a1d1c78e>下一步 →</button></div></div><h4>1. 探索项目结构 </h4><p>先了解项目现状，能在 prompt 中给出更精准的上下文——比如&quot;项目已有 Comment 表，请复用&quot;、&quot;代码风格参考 src/modules/posts&quot;。上下文越明确，AI 的输出越贴合你的项目。</p><p><strong>先探索，再动手</strong>：</p><div class="language-bash vp-adaptive-theme"><button title="Copy Code" class="copy" aria-label="复制代码"></button><span class="lang">bash</span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">&quot;探索这个项目的结构，告诉我:</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">1. 使用的技术栈</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">2. 文件组织方式</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">3. 现有的功能模块</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">4. 配置文件的作用&quot;</span></span></code></pre></div><p><strong>你会得到</strong>：</p><div class="language- vp-adaptive-theme"><button title="Copy Code" class="copy" aria-label="复制代码"></button><span class="lang"></span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span>项目使用 Next.js 16 + TypeScript + Drizzle</span></span>
+<span class="line"><span>- app/: 页面和 API</span></span>
+<span class="line"><span>- components/: 可复用组件</span></span>
+<span class="line"><span>- src/db/: 数据库模型（已有 User 表，可关联）</span></span></code></pre></div><p><strong>关键信息</strong>：已有 User 表 → 直接关联，省去建表 + 10 分钟。</p><h4>2. 规划实现步骤 </h4><p><strong>目的</strong>: 先想清楚再动手，减少返工</p><div class="language-bash vp-adaptive-theme"><button title="Copy Code" class="copy" aria-label="复制代码"></button><span class="lang">bash</span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">&quot;我要添加用户评论功能。</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">请规划实现步骤，包括:</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">1. 需要创建哪些文件</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">2. 需要修改哪些现有文件</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">3. 数据库 schema 变更</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">4. 实现顺序&quot;</span></span></code></pre></div><p><strong>输出示例</strong>:</p><div class="language- vp-adaptive-theme"><button title="Copy Code" class="copy" aria-label="复制代码"></button><span class="lang"></span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span>步骤:</span></span>
+<span class="line"><span>1. 更新 Drizzle schema (添加 Comment 模型)</span></span>
+<span class="line"><span>2. 运行 npx drizzle-kit push</span></span>
+<span class="line"><span>3. 创建 API route (app/api/comments/route.ts)</span></span>
+<span class="line"><span>4. 创建评论组件 (components/CommentForm.tsx)</span></span>
+<span class="line"><span>5. 集成到详情页</span></span></code></pre></div><h4>3. 编写代码 </h4><p><strong>目的</strong>：按计划实现功能</p><p><strong>AI 的自动拆分能力</strong>：</p><p>复杂任务会被自动拆解：</p><div class="language-bash vp-adaptive-theme"><button title="Copy Code" class="copy" aria-label="复制代码"></button><span class="lang">bash</span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"># 你只需要说</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">&quot;实现用户评论功能&quot;</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"># AI 会自动拆分为：</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">1.</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> 更新</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> Drizzle</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> schema</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">2.</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> 运行数据库迁移</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">3.</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> 创建</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> API</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> 端点</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">4.</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> 编写前端组件</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">5.</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> 集成到页面</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">6.</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> 测试验证</span></span></code></pre></div><p>你不需要手动指定每个步骤，AI 会：</p><ul><li>识别任务依赖关系</li><li>确定执行顺序</li><li>并行处理独立部分</li><li>验证每个步骤的结果</li></ul><p><strong>当然，你也可以分步执行</strong>：</p><div class="language-bash vp-adaptive-theme"><button title="Copy Code" class="copy" aria-label="复制代码"></button><span class="lang">bash</span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">&quot;按照步骤 1，更新 Drizzle schema&quot;</span></span></code></pre></div><div class="language-bash vp-adaptive-theme"><button title="Copy Code" class="copy" aria-label="复制代码"></button><span class="lang">bash</span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">&quot;按照步骤 2，生成并运行迁移&quot;</span></span></code></pre></div><div class="language-bash vp-adaptive-theme"><button title="Copy Code" class="copy" aria-label="复制代码"></button><span class="lang">bash</span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">&quot;按照步骤 3，创建评论 API&quot;</span></span></code></pre></div><h4>4. 测试验证 </h4><p><strong>目的</strong>：确保功能正常</p><div class="language-bash vp-adaptive-theme"><button title="Copy Code" class="copy" aria-label="复制代码"></button><span class="lang">bash</span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">&quot;测试评论功能:</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">1. 验证 API 能正常创建评论</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">2. 验证评论能正确显示</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">3. 验证错误处理&quot;</span></span></code></pre></div><h4>5. 提交代码 </h4><p><strong>场景：AI 改崩了代码，想回退</strong></p><p>AI 为了修一个 Bug，改了 10 个文件，结果功能全乱了。你想回退，但发现没有存档点。</p><p><strong>解决方案</strong>：让 AI <strong>自动提交代码</strong>。</p><p><strong>配置方法</strong>：在 CLAUDE.md 中添加：</p><blockquote><p>&quot;每当你完成一个独立功能的开发，或修复完一个 Bug 并验证通过后，请自动运行 git commit 提交代码，并生成一句简洁的中文 commit message。&quot;</p></blockquote><p><strong>效果</strong>：</p><ul><li>AI 写完登录功能 → 自动 <code>git commit -m &quot;feat: 实现登录&quot;</code></li><li>AI 写完首页 → 自动 <code>git commit -m &quot;feat: 添加首页&quot;</code></li><li>AI 搞崩了代码 → <code>git log</code> 找到上一个版本，<code>git reset</code> 回退</li></ul><p><strong>自动提交 vs 检查点</strong>：</p><table tabindex="0"><thead><tr><th>方式</th><th>能回滚什么</th><th>不能回滚什么</th><th>适用场景</th></tr></thead><tbody><tr><td>检查点</td><td>AI 写入的文件</td><td>终端命令产生的变更</td><td>快速回退</td></tr><tr><td>Git 提交</td><td>所有已跟踪文件</td><td>未跟踪文件</td><td>重要里程碑</td></tr></tbody></table><p><strong>建议</strong>：两者都用。检查点用于快速试错，Git 提交用于重要节点。</p><h4>6. 检查点功能 </h4><p><strong>场景：代码改崩了，想回滚</strong></p><p>你让 AI 重构代码，结果功能全乱了。按 <code>Esc+Esc</code>，选择之前的检查点，代码恢复。松了口气。</p><p><strong>但注意检查点的局限</strong>：</p><p>你用 <code>/rewind</code> 回滚到早期版本，然后 <code>ls</code> 一看——</p><ul><li><code>index.html</code> 恢复了 ✓</li><li><code>node_modules/</code> 还在（AI 删不了）</li><li>数据库表也还在（AI 动不了）</li></ul><p><strong>原因</strong>：检查点只回滚 AI <strong>写入的文件</strong>，终端命令（<code>npm install</code>、<code>mkdir</code>）产生的变更无法回滚。</p><p><strong>正确姿势</strong>：</p><ul><li>小改动 → 检查点快速回滚</li><li>大改动 → <code>git commit</code> 后再让 AI 动手</li></ul><p><strong>使用方法</strong>： 按 <code>Esc+Esc</code> 或 <code>/rewind</code>，选择：</p><ul><li>仅对话：回退消息，保留代码</li><li>仅代码：恢复文件，保留对话</li><li>两者都恢复</li></ul><details class="details custom-block"><summary>进阶：检查点工作原理</summary><p><strong>自动跟踪</strong>：</p><ul><li>每个用户提示创建新检查点</li><li>检查点在会话间持久存在</li><li>30 天后自动清理（可配置）</li></ul><p><strong>限制</strong>：</p><ul><li>Bash 命令更改（rm、mv、cp）无法回退</li><li>外部编辑无法回退</li><li>检查点用于快速恢复，Git 用于永久历史</li></ul></details><h2>理解 Agent </h2><h3>什么是 Agent </h3><p><strong>Agent</strong> = AI 本身</p><p>AI 本身就是一个 <strong>Agent</strong>，它的工作是：</p><ul><li>理解你的意图和需求</li><li>做决策（用什么工具、先做什么后做什么）</li><li>协调各种工具完成任务</li></ul><p>可以把 Agent 理解为一个<strong>任务执行器</strong>：</p><ul><li>接收你的指令（提示词）</li><li>调用各种工具完成任务</li><li>返回执行结果</li></ul><p><strong>与普通 AI 对话的区别</strong>：</p><table tabindex="0"><thead><tr><th>普通 AI 对话</th><th>Agent</th></tr></thead><tbody><tr><td>只能聊天</td><td>能调用工具</td></tr><tr><td>被动回答</td><td>主动决策</td></tr><tr><td>单轮交互</td><td>持续执行</td></tr></tbody></table><h3>什么是自定义 Agent </h3><p><strong>自定义 Agent</strong> = 你创建的专门 Agent</p><p>自定义 Agent 是主 Agent 可以调用的&quot;专门助手&quot;。每个自定义 Agent：</p><ul><li>有特定的用途和专业领域</li><li>有独立的上下文窗口（不污染主对话）</li><li>有自定义的系统提示（专门训练）</li><li>可以限制工具访问权限</li></ul><p><strong>使用自定义 Agent 的优势</strong>：</p><table tabindex="0"><thead><tr><th>优势</th><th>说明</th></tr></thead><tbody><tr><td><strong>上下文保留</strong></td><td>主对话保持简洁，自定义 Agent 独立处理复杂任务</td></tr><tr><td><strong>专业分工</strong></td><td>针对特定任务优化（如代码审查、调试）</td></tr><tr><td><strong>并行处理</strong></td><td>多个 Agent 可同时工作，提高效率</td></tr><tr><td><strong>灵活权限</strong></td><td>可限制 Agent 只能用特定工具，提高安全性</td></tr></tbody></table><p><strong>Agent 类型</strong>：</p><table tabindex="0"><thead><tr><th>类型</th><th>说明</th><th>示例</th></tr></thead><tbody><tr><td><strong>官方内置</strong></td><td>系统自带，自动调用</td><td>Plan（计划模式专用）</td></tr><tr><td><strong>用户自定义</strong></td><td>你创建的专门 Agent</td><td>code-reviewer、debugger</td></tr><tr><td><strong>通用 Agent</strong></td><td>Task 工具调用的通用 Agent</td><td>general-purpose、Explore</td></tr></tbody></table><div class="callout"><p><strong>官方内置 Agent：Plan</strong></p><p><strong>Plan Agent</strong> 是 Claude Code 自带的专门 Agent，专门用于<strong>计划模式</strong>：</p><ul><li><strong>模型</strong>：使用 Sonnet 进行更强大的分析</li><li><strong>工具</strong>：Read、Glob、Grep、Bash（代码库探索）</li><li><strong>目的</strong>：搜索文件、分析代码结构、收集上下文</li><li><strong>自动调用</strong>：在计划模式中研究代码库时自动使用</li></ul><p><strong>工作原理</strong>：</p><div class="language- vp-adaptive-theme"><button title="Copy Code" class="copy" aria-label="复制代码"></button><span class="lang"></span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span>你：[在计划模式] 帮我重构认证模块</span></span>
+<span class="line"><span>我：让我先研究一下你的认证实现...</span></span>
+<span class="line"><span>[内部调用 Plan Agent 探索认证相关文件]</span></span>
+<span class="line"><span>[Plan Agent 搜索代码库并返回发现]</span></span>
+<span class="line"><span>我：基于研究，这是我的建议方案...</span></span></code></pre></div></div><h3>创建自定义 Agent </h3><p>使用 <code>/agents</code> 命令创建你自己的自定义 Agent。</p><p><strong>第0步：在 Claude 内输入 <code>/agents</code> 回车</strong></p><hr><p><strong>第一步：选择创建方式 (Creation Method)</strong></p><p>这里决定了 Agent 的&quot;大脑&quot;（系统提示词）是如何生成的。</p><table tabindex="0"><thead><tr><th>选项</th><th>含义</th><th>适用场景</th></tr></thead><tbody><tr><td><strong>Generate with Claude</strong></td><td>让 Claude 帮你生成</td><td>90% 的情况推荐。用自然语言描述需求，Claude 自动转化为专业 Prompt</td></tr><tr><td><strong>Manual configuration</strong></td><td>手动配置</td><td>高级用户。已有写好的 Prompt，或需要精确控制每个字符</td></tr></tbody></table><div class="callout"><p><strong>快捷方式：直接对话修改</strong></p><p>创建 Agent 后，你可以直接在对话中用 <code>@agent名字</code> 来修改或者使用它：</p><div class="language-bash vp-adaptive-theme"><button title="Copy Code" class="copy" aria-label="复制代码"></button><span class="lang">bash</span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"># 直接告诉 AI 你的需求</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">&quot;@code-reviewer 以后检查代码时，特别关注安全性问题&quot;</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">@翻译agent</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> 把这段翻译成英文，但保持技术术语不变</span></span></code></pre></div><p>AI 会自动更新 Agent 的配置，无需手动编辑配置文件。</p></div><hr><details class="details custom-block"><summary>完整流程（第二步至最后一步）</summary><p><strong>第二步：选择底层模型 (Select Model)</strong></p><p>这里决定了 Agent 运行时的&quot;智商&quot;、速度和成本。</p><table tabindex="0"><thead><tr><th>选项</th><th>说明</th></tr></thead><tbody><tr><td><strong>Sonnet</strong></td><td>平衡性能和速度</td></tr><tr><td><strong>Opus</strong></td><td>最强能力，成本较高</td></tr><tr><td><strong>Haiku</strong></td><td>最快速度，简单任务</td></tr><tr><td><strong>Inherit from parent</strong></td><td>继承父级模型，跟随主对话切换</td></tr></tbody></table><hr><p><strong>第三步：选择工具权限 (Select Tools)</strong></p><p>这里决定了 Agent <strong>能干什么</strong>（安全管控的关键）。</p><table tabindex="0"><thead><tr><th>选项</th><th>权限</th><th>适用场景</th></tr></thead><tbody><tr><td><strong>All tools</strong></td><td>全权授权</td><td>需要完整能力的 Agent</td></tr><tr><td><strong>Read-only tools</strong></td><td>只读权限</td><td>代码审查、文档分析</td></tr><tr><td><strong>Edit tools</strong></td><td>编辑权限</td><td>修改代码、创建文件</td></tr><tr><td><strong>Execution tools</strong></td><td>执行权限</td><td>运行终端命令（风险最高）</td></tr><tr><td><strong>MCP tools</strong></td><td>外部工具</td><td>调用 MCP 服务器连接的服务</td></tr></tbody></table><hr><p><strong>第四步：选择存储位置 (Choose Location)</strong></p><p>这里决定了 Agent <strong>在哪里</strong>可以被看见和使用。</p><table tabindex="0"><thead><tr><th>选项</th><th>含义</th><th>适用场景</th></tr></thead><tbody><tr><td><strong>Project (.claude/agents/)</strong></td><td>项目级私有</td><td>专门为当前项目服务的 Agent</td></tr><tr><td><strong>Personal (~/.claude/agents/)</strong></td><td>用户级全局</td><td>通用工具（翻译、发邮件等），随处可用</td></tr></tbody></table><hr><p><strong>第五步：选择背景颜色 (Choose background color)</strong></p><p>纯视觉设置，用于在终端里区分不同的 Agent。建议按功能分类：</p><ul><li><strong>红色</strong>：危险操作（删除文件）</li><li><strong>蓝色</strong>：辅助查询</li><li><strong>粉色/紫色</strong>：创意写作</li></ul><hr><p><strong>最后一步：确认并保存 (Confirm and save)</strong></p><table tabindex="0"><thead><tr><th>按键</th><th>操作</th></tr></thead><tbody><tr><td><code>s</code> 或 <code>Enter</code></td><td>保存并创建</td></tr><tr><td><code>e</code></td><td>保存后立刻进入编辑器（微调 Prompt）</td></tr><tr><td><code>Esc</code></td><td>放弃创建</td></tr></tbody></table></details><h2>多 Agent 并行协作 </h2><div class="callout"><p><strong>什么是多 Agent 协作</strong></p><p>Claude Code 会<strong>自动启用多 Agent</strong>来并行处理独立任务，每个 Agent 有独立的上下文窗口，专注完成特定工作。</p><p><strong>两种方式</strong>：</p><ol><li><strong>自动并行</strong>：我识别到独立任务，自动创建通用 Agent 并行处理</li><li><strong>专门协作</strong>：调用你创建的自定义 Agent（如 code-reviewer）</li></ol></div><h3>自动启用 </h3><p>Claude Code 根据任务描述<strong>主动委派任务</strong>，使用 <strong>Task 工具</strong>创建通用 Agent 并行处理：</p><ul><li>任务描述中的关键词：<strong>&quot;并行&quot;、&quot;同时&quot;、&quot;多 Agent&quot;</strong></li><li>自定义 Agent 配置中的 <code>description</code> 字段</li><li>当前上下文和可用工具</li></ul><div class="callout"><p><strong>Task 工具</strong></p><p>当 Claude Code 识别到独立任务时，会自动使用 <strong>Task 工具</strong>创建通用 Agent 来并行处理。</p><p><strong>通用 Agent vs 自定义 Agent</strong>：</p><table tabindex="0"><thead><tr><th>类型</th><th>调用方式</th><th>用途</th></tr></thead><tbody><tr><td><strong>通用 Agent</strong></td><td>Task 工具自动创建</td><td>通用任务（探索、搜索、读取文件）</td></tr><tr><td><strong>自定义 Agent</strong></td><td><code>/agents</code> 命令创建</td><td>特定领域（代码审查、调试、测试）</td></tr></tbody></table><p><strong>特点</strong>：</p><ul><li>处理大量文件读取和搜索时更高效</li><li>多个通用 Agent 可以并行工作，加快速度</li><li>不需要预先配置，Claude 自动创建</li></ul></div><h3>多个并行 Agent </h3><table tabindex="0"><thead><tr><th>关键词</th><th>效果</th></tr></thead><tbody><tr><td><strong>&quot;并行&quot;</strong></td><td>同时执行多个独立任务</td></tr><tr><td><strong>&quot;同时&quot;</strong></td><td>多个 Agent 一起工作</td></tr><tr><td><strong>&quot;多 Agent&quot;</strong></td><td>明确使用多个 Agent 协作</td></tr></tbody></table><div class="info custom-block"><p><strong>并行能力说明</strong></p><p><strong>Claude 的并行能力</strong>：</p><p>在单个响应中，Claude 可以并行调用<strong>多个独立工具或子代理</strong>（具体数量取决于任务复杂度和上下文窗口剩余空间）。</p><p>这意味着如果你有多个独立的任务（比如同时读取多个文件、执行多个独立的搜索等），Claude 可以在一条消息里一次性发出所有请求，大大提高效率。</p><p><strong>举例 1</strong>：并行调研多个技术文档</p><div class="language- vp-adaptive-theme"><button title="Copy Code" class="copy" aria-label="复制代码"></button><span class="lang"></span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span>任务：了解 Prisma、Drizzle、Supabase 三种数据持久化方案</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>串行方式：</span></span>
+<span class="line"><span>读 Prisma 文档 → 等待 → 读 Drizzle 文档 → 等待 → 读 Supabase 文档 → 等待 → 总结对比</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>并行方式：</span></span>
+<span class="line"><span>1 个消息 → 同时发起 3 个文档调研请求 → 收集所有信息 → 生成对比报告</span></span></code></pre></div><p><strong>举例 2</strong>：并行编写多个相关组件</p><div class="language- vp-adaptive-theme"><button title="Copy Code" class="copy" aria-label="复制代码"></button><span class="lang"></span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span>任务：开发用户设置页面的多个功能模块</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>串行方式：</span></span>
+<span class="line"><span>写头像上传 → 等待 → 写密码修改 → 等待 → 写通知偏好 → 等待 → 集成测试</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>并行方式：</span></span>
+<span class="line"><span>1 个消息 → 同时启动 3 个 Agent 分别编写 3 个模块 → 收集所有代码 → 统一集成测试</span></span></code></pre></div><p><strong>最佳实践</strong>：</p><ul><li>确保任务之间没有依赖关系</li><li>在提示词中使用&quot;同时&quot;、&quot;并行&quot;等关键词</li><li>让 Claude 自动识别哪些任务可以并行</li></ul></div><h3>使用示例 </h3><div class="language-bash vp-adaptive-theme"><button title="Copy Code" class="copy" aria-label="复制代码"></button><span class="lang">bash</span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"># 自动并行 - AI 自动识别独立任务</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">&quot;同时做这三件事：</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">1. 编写后端 API（用户认证）</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">2. 编写前端 UI（登录表单）</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">3. 编写数据库 schema（User 表）&quot;</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"># 明确使用多 Agent</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">&quot;使用多 Agent 并行开发任务模块：</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">- Agent 1 做 CRUD API</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">- Agent 2 做任务列表和表单</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">- Agent 3 做 Task 数据模型&quot;</span></span></code></pre></div><div class="callout"><p><strong>Agent 团队与多视角分析</strong></p><p>除了简单的并行任务，Claude Code 还支持更高级的 <strong>Agent 团队模式</strong>和<strong>多视角分析模式</strong>。</p><p><strong>Agent 团队模式</strong></p><p>让不同专业的 Agent 协作完成复杂任务，每个 Agent 专注自己的领域：</p><p><strong>简单并行 vs Agent 团队</strong>：</p><table tabindex="0"><thead><tr><th>维度</th><th>简单并行</th><th>Agent 团队</th></tr></thead><tbody><tr><td>任务关系</td><td>完全独立</td><td>有协作关系</td></tr><tr><td>典型场景</td><td>同时读 5 个文件</td><td>架构师+前端+安全联合评审</td></tr><tr><td>结果处理</td><td>各自返回</td><td>汇总整合</td></tr><tr><td>提示词</td><td>&quot;同时做 A、B、C&quot;</td><td>&quot;从 X、Y、Z 角度分析&quot;</td></tr></tbody></table><p><strong>多视角分析模式</strong></p><p>对同一段代码或决策，从多个专业角度同时分析：</p><div class="language- vp-adaptive-theme"><button title="Copy Code" class="copy" aria-label="复制代码"></button><span class="lang"></span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span>&quot;从以下角度分析这个 API 设计：</span></span>
+<span class="line"><span>1. 安全性：是否有注入风险、认证漏洞</span></span>
+<span class="line"><span>2. 性能：N+1 查询、缓存策略</span></span>
+<span class="line"><span>3. 可维护性：命名规范、职责划分</span></span>
+<span class="line"><span>4. 向后兼容：API 版本策略&quot;</span></span></code></pre></div><p><strong>适用场景</strong>：</p><table tabindex="0"><thead><tr><th>场景</th><th>推荐视角组合</th></tr></thead><tbody><tr><td>代码审查</td><td>安全 + 性能 + 可读性</td></tr><tr><td>技术选型</td><td>成本 + 生态 + 学习曲线 + 扩展性</td></tr><tr><td>重构决策</td><td>风险 + 收益 + 工作量 + 影响范围</td></tr><tr><td>Bug 排查</td><td>复现路径 + 根因 + 影响面 + 修复方案</td></tr></tbody></table><p><strong>自定义 Agent 配置</strong></p><p>你可以在项目中创建专属 Agent，让 Claude Code 在特定场景自动调用：</p><div class="language-bash vp-adaptive-theme"><button title="Copy Code" class="copy" aria-label="复制代码"></button><span class="lang">bash</span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"># 创建自定义 Agent（放在 .claude/agents/ 目录）</span></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"># 例如：security-reviewer.md</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">---</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">name:</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> security-reviewer</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">description:</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> 安全审查专家</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">model:</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> sonnet</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">tools:</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> [read, </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">grep,</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> glob]</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">---</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">你是一个安全审查专家。检查代码中的：</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">-</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> SQL</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> 注入</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">-</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> XSS</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> 漏洞</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">-</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> 硬编码密钥</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">-</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> 不安全的依赖</span></span></code></pre></div><p>然后在对话中通过 Task 工具调用这些 Agent，实现团队化协作。</p></div><p><strong>两个选项</strong>：</p><ul><li><code>--continue</code>：自动继续最近的对话</li><li><code>--resume</code>：显示对话选择器</li></ul><p><strong>使用示例</strong>：</p><div class="language-bash vp-adaptive-theme"><button title="Copy Code" class="copy" aria-label="复制代码"></button><span class="lang">bash</span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"># 继续最近的对话</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">claude</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;"> --continue</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"># 使用特定提示继续</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">claude</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;"> --continue</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;"> -p</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> &quot;显示我们的进度&quot;</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"># 显示对话选择器</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">claude</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;"> --resume</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"># 非交互模式继续</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">claude</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;"> --continue</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;"> -p</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> &quot;再次运行测试&quot;</span></span></code></pre></div><p><strong>工作原理</strong>：</p><ol><li>对话自动保存在本地</li><li>恢复时加载完整消息历史</li><li>工具状态和结果被保留</li><li>上下文完整恢复</li></ol><p>:::</p><details class="details custom-block"><summary>进阶：并行会话与 Git Worktrees</summary><p><strong>使用场景</strong>：同时处理多个任务，完全隔离代码</p><p><strong>创建 worktree</strong>：</p><div class="language-bash vp-adaptive-theme"><button title="Copy Code" class="copy" aria-label="复制代码"></button><span class="lang">bash</span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"># 使用新分支创建</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">git</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> worktree</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> add</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> ../project-feature-a</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;"> -b</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> feature-a</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"># 使用现有分支创建</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">git</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> worktree</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> add</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> ../project-bugfix</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> bugfix-123</span></span></code></pre></div><p><strong>在每个 worktree 中运行 AI</strong>：</p><div class="language-bash vp-adaptive-theme"><button title="Copy Code" class="copy" aria-label="复制代码"></button><span class="lang">bash</span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">cd</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> ../project-feature-a</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">claude</span></span></code></pre></div><p><strong>管理 worktrees</strong>：</p><div class="language-bash vp-adaptive-theme"><button title="Copy Code" class="copy" aria-label="复制代码"></button><span class="lang">bash</span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"># 列出所有 worktrees</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">git</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> worktree</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> list</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"># 删除 worktree</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">git</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> worktree</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> remove</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> ../project-feature-a</span></span></code></pre></div><p><strong>优势</strong>：</p><ul><li>每个工作目录完全隔离</li><li>更改不会相互影响</li><li>共享相同的 Git 历史</li></ul></details><details class="details custom-block"><summary>进阶：Unix 风格实用程序用法</summary><p><strong>添加到验证流程</strong>：</p><div class="language-json vp-adaptive-theme"><button title="Copy Code" class="copy" aria-label="复制代码"></button><span class="lang">json</span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;">// package.json</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">{</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">  &quot;scripts&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: {</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">    &quot;lint:claude&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;claude -p &#39;你是 linter。检查 vs main 的更改，报告拼写错误。每行一个文件名和行号，第二行描述问题。不返回其他文本。&#39;&quot;</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">  }</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">}</span></span></code></pre></div><p><strong>管道输入输出</strong>：</p><div class="language-bash vp-adaptive-theme"><button title="Copy Code" class="copy" aria-label="复制代码"></button><span class="lang">bash</span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"># 管道数据</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">cat</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> build-error.txt</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> |</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;"> claude</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;"> -p</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> &#39;简明解释构建错误的根本原因&#39;</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> &gt;</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> output.txt</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"># 控制输出格式</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">cat</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> data.txt</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> |</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;"> claude</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;"> -p</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> &#39;总结数据&#39;</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;"> --output-format</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> text</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> &gt;</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> summary.txt</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">cat</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> code.py</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> |</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;"> claude</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;"> -p</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> &#39;分析代码 bug&#39;</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;"> --output-format</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> json</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> &gt;</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> analysis.json</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">cat</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> log.txt</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> |</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;"> claude</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;"> -p</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> &#39;解析日志错误&#39;</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;"> --output-format</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> stream-json</span></span></code></pre></div><p><strong>输出格式</strong>：</p><ul><li><code>text</code>：纯文本响应（默认）</li><li><code>json</code>：完整对话日志的 JSON 数组</li><li><code>stream-json</code>：实时 JSON 对象流</li></ul></details><h3>人在环路 </h3><p>AI 能够自主完成很多任务，但以下场景<strong>建议保持人工审查</strong>：</p><table tabindex="0"><thead><tr><th>场景</th><th>原因</th><th>建议做法</th></tr></thead><tbody><tr><td><strong>生产环境部署</strong></td><td>影响所有用户</td><td>AI 生成方案，人工审核后执行</td></tr><tr><td><strong>数据库结构变更</strong></td><td>难以回滚，影响数据</td><td>先 review schema，再执行迁移</td></tr><tr><td><strong>安全相关代码</strong></td><td>漏洞后果严重</td><td>代码审查必不可少</td></tr><tr><td><strong>支付/财务逻辑</strong></td><td>涉及资金安全</td><td>测试+双人验证</td></tr><tr><td><strong>性能关键路径</strong></td><td>影响用户体验</td><td>性能测试+基准对比</td></tr><tr><td><strong>API 兼容性变更</strong></td><td>影响第三方集成</td><td>版本管理+通知机制</td></tr></tbody></table><div class="warning custom-block"><p><strong>小白提示</strong></p><p>如果你是编程新手，遇到上述场景<strong>不确定如何处理</strong>：</p><ol><li><p><strong>不要独自承担风险</strong></p><ul><li>在测试环境先验证</li><li>让 AI 解释风险点和注意事项</li><li>在技术社区寻求帮助</li></ul></li><li><p><strong>渐进式信任</strong></p><ul><li>从简单任务开始让 AI 自主完成</li><li>复杂/高风险任务逐步增加人类审查</li><li>建立 checklist 确保关键点都被检查</li></ul></li><li><p><strong>寻找帮助的途径</strong></p><ul><li>技术社区（Stack Overflow、GitHub Issues）</li><li>让 AI 解释风险点：&quot;这样做有什么风险？&quot;</li><li>付费咨询有经验的开发者</li></ul></li></ol></div><details class="details custom-block"><summary>需要人工审查的信号</summary><p><strong>AI 建议时保持警惕</strong>：</p><ul><li>AI 说&quot;可能破坏XXX&quot;</li><li>AI 建议删除大量代码</li><li>AI 修改核心配置文件</li><li>AI 建议重构核心模块</li></ul><p><strong>操作建议</strong>：</p><ol><li>要求 AI 解释改动原因</li><li>检查受影响的文件列表</li><li>考虑先在分支测试</li><li>必要时寻求第二意见</li></ol></details><h2>Hooks 自动化 </h2><div class="callout"><p><strong>什么是 Hooks</strong></p><p><strong>Hooks</strong> = 在特定事件时自动执行的 Shell 命令</p><p>当 Claude Code 触发某些事件（如工具调用、用户提交提示）时，可以自动执行你注册的脚本命令。</p><p><strong>常见用途</strong>：</p><ul><li>代码写完后自动格式化（运行 prettier/eslint）</li><li>AI 要删除重要文件时先拦截确认</li><li>提交代码前自动运行测试</li></ul></div><div class="warning custom-block"><p><strong>安全提示</strong></p><p>Hooks 会以你的用户权限执行 Shell 命令，<strong>配置前请理解它在做什么</strong>。</p><p><strong>新手建议</strong>：</p><ul><li>🟢 从简单场景开始（如自动格式化）</li><li>🟡 复杂场景寻求有经验的人帮助</li><li>🔴 只使用可信来源的 Hooks</li></ul></div><h3>使用 Hooks </h3><p><strong>运行 <code>/hooks</code> 打开交互式配置界面</strong>，这是最推荐的创建方式。</p><p><strong>配置流程</strong>：</p><ol><li><p>选择 Hook 事件类型：</p><ul><li><code>PreToolUse</code> - 工具调用前</li><li><code>PostToolUse</code> - 工具调用后</li><li><code>PostToolUseFailure</code> - 工具执行失败后</li><li><code>Notification</code> - 发送通知时</li><li><code>UserPromptSubmit</code> - 用户提交提示时（推荐）</li></ul></li><li><p>配置 Hook 行为：</p><ul><li>选择触发条件（matcher）</li><li>编写执行的 Shell 命令</li><li>设置超时时间（默认 60 秒）</li></ul></li><li><p>保存并生效</p></li></ol><div class="info custom-block"><p><strong>重要说明</strong></p><ul><li><strong>每个事件可注册多个 Hooks</strong>，并行执行</li><li><strong><code>/hooks</code> 目录外的修改需要重启</strong>才能生效</li><li><strong>超时时间</strong>：60 秒</li><li><strong>权限</strong>：以你的完整用户权限执行</li></ul></div><h3>常用场景 </h3><table tabindex="0"><thead><tr><th>场景</th><th>事件</th><th>触发时机</th><th>执行命令</th></tr></thead><tbody><tr><td>自动格式化</td><td>PostToolUse</td><td>Write/Edit 后</td><td><code>prettier --write $FILE</code></td></tr><tr><td>保护敏感文件</td><td>PreToolUse</td><td>要修改 .env 时</td><td>拦截并警告</td></tr><tr><td>运行测试</td><td>UserPromptSubmit</td><td>提交包含&quot;测试&quot;的提示时</td><td><code>npm test</code></td></tr><tr><td>添加上下文</td><td>UserPromptSubmit</td><td>每次提交提示前</td><td>自动加载项目信息</td></tr></tbody></table><details class="details custom-block"><summary>进阶：配置文件说明</summary><p><strong>注意</strong>：以下内容仅供参考，<strong>一般不需要手动编辑配置文件</strong>。</p><p>配置位置（优先级从高到低）：</p><ul><li><code>.claude/settings.local.json</code> - 本地项目设置（不提交）</li><li><code>.claude/settings.json</code> - 项目设置</li><li><code>~/.claude/settings.json</code> - 用户全局设置</li></ul><p><strong>常用事件对照</strong>：</p><table tabindex="0"><thead><tr><th>事件</th><th>触发时机</th><th>典型用途</th></tr></thead><tbody><tr><td><code>PreToolUse</code></td><td>工具调用前</td><td>验证、修改输入、权限控制</td></tr><tr><td><code>PostToolUse</code></td><td>工具调用后</td><td>格式化、通知、验证结果</td></tr><tr><td><code>PostToolUseFailure</code></td><td>工具执行失败后</td><td>错误处理、回滚操作</td></tr><tr><td><code>Notification</code></td><td>发送通知时</td><td>自定义通知渠道、记录日志</td></tr><tr><td><code>UserPromptSubmit</code></td><td>用户提交提示时</td><td>验证提示、添加上下文</td></tr><tr><td><code>Stop</code></td><td>主代理完成响应时</td><td>最终检查、清理、记录统计</td></tr></tbody></table></details><details class="details custom-block"><summary>实用示例</summary><h4>自动格式化 </h4><div class="language-json vp-adaptive-theme"><button title="Copy Code" class="copy" aria-label="复制代码"></button><span class="lang">json</span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">{</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">  &quot;hooks&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: {</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">    &quot;PostToolUse&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: [</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">      {</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">        &quot;matcher&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;Write|Edit&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">,</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">        &quot;hooks&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: [{</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">          &quot;type&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;command&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">,</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">          &quot;command&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">\&quot;</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">$CLAUDE_PROJECT_DIR</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">\&quot;</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">/.claude/hooks/format-code.sh&quot;</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">        }]</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">      }</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">    ]</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">  }</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">}</span></span></code></pre></div><p>除了执行命令（<code>type: &quot;command&quot;</code>），还可以用 LLM 做智能决策（<code>type: &quot;prompt&quot;</code>）。</p><p><strong>适用场景</strong>：需要理解内容后再决定是否放行。</p><h4>敏感文件保护 </h4><div class="language-python vp-adaptive-theme"><button title="Copy Code" class="copy" aria-label="复制代码"></button><span class="lang">python</span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;">#!/usr/bin/env python3</span></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"># .claude/hooks/protect-files.py</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">import</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> json, sys</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">data </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> json.load(sys.stdin)</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">path </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> data.get(</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&#39;tool_input&#39;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">, {}).get(</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&#39;file_path&#39;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">, </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&#39;&#39;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"># 阻止写入敏感文件</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">if</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;"> any</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(p </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">in</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> path </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">for</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> p </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">in</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> [</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&#39;.env&#39;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">, </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&#39;.key&#39;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">, </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&#39;.pem&#39;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">]):</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">    print</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;受保护：不允许写入敏感文件&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">, </span><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70;">file</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">sys.stderr)</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">    sys.exit(</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">2</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">)</span></span></code></pre></div></details><details class="details custom-block"><summary>进阶：Hook 输入输出格式</summary><p><strong>输入</strong>（通过 stdin 接收 JSON）：</p><div class="language-json vp-adaptive-theme"><button title="Copy Code" class="copy" aria-label="复制代码"></button><span class="lang">json</span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">{</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">  &quot;session_id&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;会话ID&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">,</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">  &quot;cwd&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;当前工作目录&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">,</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">  &quot;hook_event_name&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;事件名称&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">,</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">  &quot;tool_name&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;工具名称&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">,</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">  &quot;tool_input&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: {</span><span style="--shiki-light:#B31D28;--shiki-light-font-style:italic;--shiki-dark:#FDAEB7;--shiki-dark-font-style:italic;">...</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">}</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">}</span></span></code></pre></div><p><strong>输出方式</strong>：</p><ul><li>退出代码：0=成功，2=阻止操作</li><li>JSON 输出：可返回 decision、reason 等字段</li></ul></details><h2>安全注意事项 </h2><div class="warning custom-block"><p><strong>安全注意事项</strong></p><p><strong>不要把敏感信息发送给 AI</strong>：</p><ul><li>❌ API 密钥、密码</li><li>❌ 生产数据库连接字符串</li><li>❌ 用户隐私数据</li></ul><p><strong>使用环境变量</strong>：</p><div class="language-bash vp-adaptive-theme"><button title="Copy Code" class="copy" aria-label="复制代码"></button><span class="lang">bash</span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"># .env 文件（不要提交到 Git）</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">DATABASE_URL</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;postgresql://...&quot;</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">OPENAI_API_KEY</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;sk-...&quot;</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"># .gitignore</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">.env</span></span></code></pre></div><p><strong>不要让 AI 修改敏感配置文件</strong>：</p><ul><li>项目根目录的 .env</li><li>SSH 密钥</li><li>生产环境配置</li></ul></div><h2>核心理念 </h2><p><strong>Workflow 让 AI 开发可预测、可复现</strong>。</p><p><strong>记住工作流五步曲</strong>：探索 → 规划 → 执行 → 验证 → 提交（根据情况灵活应用）</p><div class="callout"><p><strong>灵活应用</strong></p><ul><li><strong>复杂任务</strong>：严格遵循五步，减少返工</li><li><strong>简单修改</strong>：可以跳过探索，直接执行</li><li><strong>紧急修复</strong>：最小化流程，快速解决</li></ul><p>关键是有意识地思考每一步是否需要，而不是机械执行。</p></div><h2>提示词自检清单 </h2><p>发送提示词前检查：</p><ul class="contains-task-list"><li class="task-list-item enabled"><input class="task-list-item-checkbox" type="checkbox"> 任务描述清晰具体</li><li class="task-list-item enabled"><input class="task-list-item-checkbox" type="checkbox"> 提供了必要的上下文</li><li class="task-list-item enabled"><input class="task-list-item-checkbox" type="checkbox"> 明确了输出格式</li><li class="task-list-item enabled"><input class="task-list-item-checkbox" type="checkbox"> 给了 AI&quot;不确定&quot;的出口</li><li class="task-list-item enabled"><input class="task-list-item-checkbox" type="checkbox"> 包含了必要的约束条件</li><li class="task-list-item enabled"><input class="task-list-item-checkbox" type="checkbox"> 避免了冗长的角色设定</li><li class="task-list-item enabled"><input class="task-list-item-checkbox" type="checkbox"> 没有包含敏感信息（API Key、密码等）</li></ul><h2>常见问题 </h2><h3>Q1: 提示词越长越好吗？ </h3><p><strong>A</strong>: 不是。</p><p>提示词的质量在于<strong>精确</strong>，不在于长度。</p><p><strong>简洁但具体的提示词</strong> &gt; <strong>冗长但模糊的提示词</strong></p><h3>Q2: AI 还是会编造答案怎么办？ </h3><p><strong>A</strong>: 加强约束：</p><div class="language- vp-adaptive-theme"><button title="Copy Code" class="copy" aria-label="复制代码"></button><span class="lang"></span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span>&quot;只使用项目已有的依赖。</span></span>
+<span class="line"><span>如果需要新功能，先告诉我。</span></span>
+<span class="line"><span>不要编造不存在的 API。&quot;</span></span></code></pre></div><h3>Q3: 为什么不直接让 AI 写代码？ </h3><p><strong>A</strong>: 直接写容易返工。</p><p>探索 → 规划 → 编写，这个流程能让你：</p><ul><li>避免重复造轮子</li><li>发现潜在问题</li><li>保持代码风格一致</li></ul><h3>Q4: 工作流会不会太慢？ </h3><p><strong>A</strong>: 不会。</p><p>看似多了步骤，实际上减少了返工时间。整体效率更高。</p><p><strong>对比</strong>：</p><ul><li>直接写：10 分钟，返工 30 分钟</li><li>按流程：15 分钟，一次通过</li></ul><h3>Q5: 什么时候该停止对话？ </h3><p><strong>A</strong>: 信号：</p><ul><li>连续 3 轮没有进展</li><li>AI 开始重复相同的建议</li><li>问题需要更多信息（如查看生产环境日志）</li></ul><p><strong>策略</strong>：切换模型或换思路</p><h2>相关内容 </h2><ul><li>详见：2.3 MCP、插件与 Skills</li><li>详见：2.4 项目规则配置</li><li>前置：2.1 AI 编程的经济学</li><li>后续：2.5 高效调试心法</li></ul></div></div>
+</div>
+
+
+</main>
+
+<footer class="site-footer">
+<p>© 2026 TPvibe · 内部预览版</p>
+<p style="margin-top:8px;">
+<a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer">蜀ICP备2024097797号-3</a>
+</p>
+</footer>
+<!-- THEME:tpvibe -->
+<script>
+/* Theme toggle */
+(function(){
+  var r=document.documentElement;
+  var saved=localStorage.getItem('tpvibe-theme');r.dataset.theme=saved||'light';
+  
+  /* sync button icon */
+  
+})();
+/* Reveal on scroll */
+(function(){
+  var obs=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');obs.unobserve(e.target);}});},{threshold:.15});
+  document.querySelectorAll('.reveal').forEach(function(el){obs.observe(el);});
+})();
+/* Progress bar */
+(function(){
+  var bar=document.getElementById('progress');
+  if(!bar)return;
+  window.addEventListener('scroll',function(){
+    var h=document.documentElement.scrollHeight-window.innerHeight;
+    bar.style.width=(h>0?(window.scrollY/h*100):0)+'%';
+  });
+})();
+</script>
+<script>
+/* Theme button icon sync */
+(function(){
+  var btn=document.querySelector('.theme-btn');
+  if(!btn)return;
+  function sync(){btn.textContent=document.documentElement.dataset.theme==='dark'?'☀️':'🌙';}
+  sync();
+  btn.addEventListener('click',function(){setTimeout(sync,0);});
+})();
+</script>
+
+<nav class="mobile-bottom-tabs"><ul><li><a href="/tpvibe/index.html"><svg viewBox="0 0 24 24"><path d="M3 12L12 3l9 9M5 10v10h4v-6h6v6h4V10"/></svg><span>首页</span></a></li><li><a href="/tpvibe/Basic/lecture-1.html"><svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg><span>基础篇</span></a></li><li><a href="/tpvibe/Advanced/ch01.html"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg><span>进阶篇</span></a></li><li><a href="/tpvibe/Articles/core-concepts.html"><svg viewBox="0 0 24 24"><path d="M4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zM8 7h8M8 11h8M8 15h6"/></svg><span>文章</span></a></li><li><a href="/tpvibe/Practice/index.html"><svg viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg><span>实践</span></a></li></ul></nav>
+<script>
+(function(){
+  // 判断当前页面，高亮对应的 tab（目录前缀匹配）
+  var path=location.pathname.replace(/\/index\.html$/,'/').replace(/\/$/,'');
+  var tabs=document.querySelectorAll('.mobile-bottom-tabs a');
+  var bestMatch=null;
+  var bestMatchLen=0;
+  tabs.forEach(function(a){
+    var href=a.getAttribute('href')||'';
+    if(!href)return;
+    var hrefPath=href.replace(/https?:\/\/[^\/]+/,'').replace(/\/index\.html$/,'/').replace(/\/$/,'');
+    if(path===hrefPath){bestMatch=a;return;}
+    // 目录前缀匹配：当前路径以 tab 路径开头
+    if(hrefPath.length>2&&path.indexOf(hrefPath)>=0&&hrefPath.length>bestMatchLen){bestMatch=a;bestMatchLen=hrefPath.length;}
+  });
+  if(bestMatch)bestMatch.classList.add('active');
+})();
+</script>
+
+
+<script src="/tpvibe/toc-sheet.js"></script>
+</body>
+</html>

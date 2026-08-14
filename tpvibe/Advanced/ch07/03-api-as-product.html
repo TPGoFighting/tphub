@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="geo.region" content="CN">
+<meta name="geo.placename" content="China">
+<meta name="geo.position" content="39.9042;116.4074">
+<meta name="ICBM" content="39.9042, 116.4074">
+<link rel="icon" href="/tpvibe/images/tp_logo.jpg" type="image/png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>把 API 当产品 | TPvibe</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/tpvibe/style.css">
+<!-- SEO:tphub -->
+<meta name="description" content="把 API 当产品 — TPvibe 中文 AI 学习与实战教程，从零基础到进阶，边学边做。">
+<link rel="canonical" href="https://tphub.tpgofighting.top/tpvibe/Advanced/ch07/03-api-as-product.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="TPvibe">
+<meta property="og:title" content="把 API 当产品 | TPvibe">
+<meta property="og:description" content="把 API 当产品 — TPvibe 中文 AI 学习与实战教程，从零基础到进阶，边学边做。">
+<meta property="og:url" content="https://tphub.tpgofighting.top/tpvibe/Advanced/ch07/03-api-as-product.html">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://tphub.tpgofighting.top/tpvibe/images/tp_logo.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="把 API 当产品 | TPvibe">
+<meta name="twitter:description" content="把 API 当产品 — TPvibe 中文 AI 学习与实战教程，从零基础到进阶，边学边做。">
+<meta name="twitter:image" content="https://tphub.tpgofighting.top/tpvibe/images/tp_logo.jpg">
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "name": "把 API 当产品 | TPvibe",
+  "url": "https://tphub.tpgofighting.top/tpvibe/Advanced/ch07/03-api-as-product.html",
+  "description": "TPvibe 中文 AI 学习与实战教程：从零基础到进阶，边学边做，附可运行示例与实战项目。",
+  "inLanguage": "zh-CN",
+  "isPartOf": {"@type": "WebSite", "name": "TPvibe", "url": "https://tphub.tpgofighting.top/tpvibe/"}
+}</script>
+<!-- GEO:v2 -->
+<!-- LOGOFIX:v2 -->
+</head>
+<body>
+<aside class="toc" id="toc">
+<button class="toc-toggle" id="tocToggle" aria-label="收起目录">«</button>
+<div class="toc-inner">
+<a class="toc-home" href="/tpvibe/index.html">TPvibe 首页</a>
+<details class="toc-sec">
+<summary>基础篇</summary>
+<ul class="toc-tree">
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Basic/lecture-1.html">00 序言</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Basic/lecture-1/0.1-start-here.html">开始之前</a></li>
+<li><a href="/tpvibe/Basic/lecture-1/0.2-what-you-will-build.html">你要做什么</a></li>
+<li><a href="/tpvibe/Basic/lecture-1/0.3-who-this-is-for.html">适合谁学</a></li>
+<li><a href="/tpvibe/Basic/lecture-1/0.4-how-to-learn.html">怎么学</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Basic/lecture-2.html">01 觉醒</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Basic/lecture-2/1.1-coder-to-commander.html">从程序员到指挥官</a></li>
+<li><a href="/tpvibe/Basic/lecture-2/1.2-breaking-myths.html">打破误区</a></li>
+<li><a href="/tpvibe/Basic/lecture-2/1.3-tools-guide.html">工具选择指南</a></li>
+<li><a href="/tpvibe/Basic/lecture-2/1.4-vibe-vs-spec.html">Vibe Coding vs 规格驱动</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Basic/lecture-3.html">02 心智</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Basic/lecture-3/2.1-thinking-upgrade.html">思维升级</a></li>
+<li><a href="/tpvibe/Basic/lecture-3/2.2-inversion-thinking.html">逆向思维</a></li><li><a href="/tpvibe/Basic/lecture-3/2.3-subtraction-thinking.html">减法思维</a></li>
+<li><a href="/tpvibe/Basic/lecture-3/2.4-story-thinking.html">故事思维</a></li>
+
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Basic/lecture-4.html">03 技法</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Basic/lecture-4/3.1-prompt-basics.html">提示词基础</a></li>
+<li><a href="/tpvibe/Basic/lecture-4/3.2-structured-frameworks.html">结构化框架</a></li>
+<li><a href="/tpvibe/Basic/lecture-4/3.3-advanced-techniques.html">进阶技巧</a></li>
+<li><a href="/tpvibe/Basic/lecture-4/3.4-first-prd.html">第一份 PRD</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Basic/lecture-5.html">04 从0到1</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Basic/lecture-5/4.1-before-start.html">搭建前准备</a></li>
+<li><a href="/tpvibe/Basic/lecture-5/4.2-build-page.html">搭建页面</a></li>
+<li><a href="/tpvibe/Basic/lecture-5/4.3-core-features.html">核心功能</a></li>
+<li><a href="/tpvibe/Basic/lecture-5/4.4-data-storage.html">数据存储</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Basic/appendix-a.html">05 进阶</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Basic/appendix-a/5.1-version-control.html">版本控制</a></li>
+<li><a href="/tpvibe/Basic/appendix-a/5.2-deployment.html">部署上线</a></li>
+<li><a href="/tpvibe/Basic/appendix-a/5.3-security.html">安全防护</a></li>
+<li><a href="/tpvibe/Basic/appendix-a/5.4-iteration.html">迭代优化</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Basic/appendix-b.html">06 上线</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Basic/appendix-b/6.1-preflight.html">发布前检查</a></li>
+<li><a href="/tpvibe/Basic/appendix-b/6.2-deploy.html">发布流程</a></li>
+<li><a href="/tpvibe/Basic/appendix-b/6.3-feedback.html">收集反馈</a></li>
+<li><a href="/tpvibe/Basic/appendix-b/6.4-wrap-up.html">总结回顾</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Basic/appendix-c.html">99 附录</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Basic/appendix-c/a-prompt-cheatsheet.html">提示词速查表</a></li>
+<li><a href="/tpvibe/Basic/appendix-c/b-errors-and-asking-ai.html">常见错误与求助</a></li>
+<li><a href="/tpvibe/Basic/appendix-c/c-ui-cheatsheet.html">UI 速查表</a></li>
+<li><a href="/tpvibe/Basic/appendix-c/d-git-minimal-card.html">Git 最小知识卡</a></li>
+<li><a href="/tpvibe/Basic/appendix-c/e-api-key-env-security.html">API Key 与环境安全</a></li>
+<li><a href="/tpvibe/Basic/appendix-c/f-vibe-coding-can-and-cannot.html">Vibe Coding 能做与不能做</a></li>
+<li><a href="/tpvibe/Basic/appendix-c/g-advanced-jump-map.html">进阶跳转地图</a></li>
+</ul>
+</li>
+<li class="toc-chapter">
+<a href="/tpvibe/Basic/conclusion.html">100 结语</a>
+</li>
+</ul>
+</details>
+<details class="toc-sec">
+<summary>进阶篇</summary>
+<ul class="toc-tree">
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch01.html">01 环境搭建</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch01/00-quick-start.html">快速上手</a></li>
+<li><a href="/tpvibe/Advanced/ch01/01-code-formats.html">代码格式与编辑器</a></li>
+<li><a href="/tpvibe/Advanced/ch01/02-tech-stack.html">技术栈选择</a></li>
+<li><a href="/tpvibe/Advanced/ch01/03-browser-server.html">浏览器与服务器</a></li>
+<li><a href="/tpvibe/Advanced/ch01/04-terminal-basics.html">终端基础操作</a></li>
+<li><a href="/tpvibe/Advanced/ch01/05-package-manager-and-config.html">包管理与配置文件</a></li>
+<li><a href="/tpvibe/Advanced/ch01/06-models-and-tools.html">AI 模型与工具选择</a></li>
+<li><a href="/tpvibe/Advanced/ch01/07-creating-project.html">创建你的第一个项目</a></li>
+<li><a href="/tpvibe/Advanced/ch01/08-localhost-and-ports.html">本地服务器与端口</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch02.html">02 开发工具与AI调优</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch02/01-ai-economics.html">AI 经济学</a></li>
+<li><a href="/tpvibe/Advanced/ch02/02-vibecoding-workflow.html">Vibe Coding 工作流</a></li>
+<li><a href="/tpvibe/Advanced/ch02/03-mcp-and-skills.html">MCP 与 Skills</a></li>
+<li><a href="/tpvibe/Advanced/ch02/04-project-config.html">项目配置</a></li>
+<li><a href="/tpvibe/Advanced/ch02/05-debugging-tips.html">调试技巧</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch03.html">03 产品验证</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch03/01-product-validation.html">产品验证</a></li>
+<li><a href="/tpvibe/Advanced/ch03/02-discuss-with-ai.html">与 AI 讨论</a></li>
+<li><a href="/tpvibe/Advanced/ch03/03-prd-template-guide.html">PRD 模板指南</a></li>
+<li><a href="/tpvibe/Advanced/ch03/04-coding-agents.html">编码代理</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch04.html">04 编程基础</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch04/00-build-basics.html">构建基础</a></li>
+<li><a href="/tpvibe/Advanced/ch04/01-tech-stack-decision.html">技术栈决策</a></li>
+<li><a href="/tpvibe/Advanced/ch04/03-programming-basics.html">编程基础</a></li>
+<li><a href="/tpvibe/Advanced/ch04/02-prd-and-tech-docs.html">PRD 与技术文档</a></li>
+<li><a href="/tpvibe/Advanced/ch04/04-api-and-http.html">API 与 HTTP</a></li>
+<li><a href="/tpvibe/Advanced/ch04/05-frontend-backend-separation.html">前后端分离</a></li>
+<li><a href="/tpvibe/Advanced/ch04/06-config-formats.html">配置格式</a></li>
+<li><a href="/tpvibe/Advanced/ch04/07-api-integration.html">API 集成</a></li>
+<li><a href="/tpvibe/Advanced/ch04/08-readme-structure.html">README 结构</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch05.html">05 好看好用的界面</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch05/03-animation-libraries.html">动画库</a></li>
+</ul>
+</li>
+<li class="toc-chapter">
+<a href="/tpvibe/Advanced/ch06.html">06 数据存哪里</a>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch07.html">07 连接前后端</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch07/00-crud-example.html">CRUD 示例</a></li>
+<li><a href="/tpvibe/Advanced/ch07/02-when-things-go-wrong.html">出错处理</a></li>
+<li><a href="/tpvibe/Advanced/ch07/03-api-as-product.html" class="active">API 即产品</a></li>
+<li><a href="/tpvibe/Advanced/ch07/01-api-growing-pains.html">API 成长烦恼</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch08.html">08 谁能访问数据</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch08/00-user-system-example.html">用户系统示例</a></li>
+<li><a href="/tpvibe/Advanced/ch08/01-env-and-secrets.html">环境变量与密钥</a></li>
+<li><a href="/tpvibe/Advanced/ch08/03-route-protection.html">路由保护</a></li>
+<li><a href="/tpvibe/Advanced/ch08/04-security-checklist.html">安全清单</a></li>
+<li><a href="/tpvibe/Advanced/ch08/05-advanced-security.html">高级安全</a></li>
+<li><a href="/tpvibe/Advanced/ch08/02-auth-methods.html">认证方式</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch09.html">09 功能测试</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch09/01-testing-strategy.html">测试策略</a></li>
+<li><a href="/tpvibe/Advanced/ch09/02-api-and-e2e-testing.html">API 与 E2E 测试</a></li>
+<li><a href="/tpvibe/Advanced/ch09/03-automation-workflow.html">自动化工作流</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch10.html">10 公网访问</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch10/01-network-layers.html">网络分层</a></li>
+<li><a href="/tpvibe/Advanced/ch10/02-tunneling.html">隧道穿透</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch11.html">11 协作开发</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch11/01-why-git.html">为什么用 Git</a></li>
+<li><a href="/tpvibe/Advanced/ch11/02-remote-and-collaboration.html">远程与协作</a></li>
+<li><a href="/tpvibe/Advanced/ch11/03-branch-and-workflow.html">分支与工作流</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch12.html">12 无服务器部署</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch12/01-deploy-edgeone.html">EdgeOne 部署</a></li>
+<li><a href="/tpvibe/Advanced/ch12/02-deploy-vercel-platforms.html">Vercel 等平台部署</a></li>
+<li><a href="/tpvibe/Advanced/ch12/03-cicd-automation.html">CI/CD 自动化</a></li>
+<li><a href="/tpvibe/Advanced/ch12/04-operations-cost.html">运维成本</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch13.html">13 域名解析</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch13/01-domain-setup.html">域名设置</a></li>
+<li><a href="/tpvibe/Advanced/ch13/02-compliance-access.html">合规接入</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch14.html">14 部署到服务器</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch14/01-vps-selection.html">VPS 选择</a></li>
+<li><a href="/tpvibe/Advanced/ch14/02-vps-setup.html">VPS 配置</a></li>
+<li><a href="/tpvibe/Advanced/ch14/03-1-docker-apps.html">Docker 应用</a></li>
+<li><a href="/tpvibe/Advanced/ch14/03-2-deploy-nextjs.html">部署 Next.js</a></li>
+<li><a href="/tpvibe/Advanced/ch14/03-4-deploy-fullstack.html">部署全栈应用</a></li>
+<li><a href="/tpvibe/Advanced/ch14/05-cool-apps.html">酷应用</a></li>
+<li><a href="/tpvibe/Advanced/ch14/03-3-deploy-static.html">部署静态站点</a></li>
+<li><a href="/tpvibe/Advanced/ch14/04-domain-ssl.html">域名与 SSL</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch15.html">15 SEO与统计</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch15/01-opengraph-sharing.html">OpenGraph 分享</a></li>
+<li><a href="/tpvibe/Advanced/ch15/02-seo-guide.html">SEO 指南</a></li>
+<li><a href="/tpvibe/Advanced/ch15/03-umami.html">Umami 统计</a></li>
+<li><a href="/tpvibe/Advanced/ch15/04-legal.html">法律合规</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch16.html">16 反馈与迭代</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch16/01-facing-real-users.html">面向真实用户</a></li>
+<li><a href="/tpvibe/Advanced/ch16/02-feedback-prioritization.html">反馈优先级</a></li>
+<li><a href="/tpvibe/Advanced/ch16/03-understanding-users.html">理解用户</a></li>
+<li><a href="/tpvibe/Advanced/ch16/04-iteration-and-growth.html">迭代与增长</a></li>
+</ul>
+</li>
+<li class="toc-chapter">
+<a href="/tpvibe/Advanced/next-level.html">进阶实战</a>
+</li>
+</ul>
+</details>
+<details class="toc-sec">
+<summary>文章</summary>
+<ul class="toc-tree">
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Articles/core-concepts.html">核心概念</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Articles/core-concepts/what-are-ai-agents-why-do-they-matter.html">AI Agent 是什么</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Articles/architecture.html">技术架构</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Articles/architecture/how-claude-code-works.html">Claude Code 如何工作</a></li>
+<li><a href="/tpvibe/Articles/architecture/mcp-what-it-is-and-why-it-matters.html">MCP 是什么及为何重要</a></li>
+<li><a href="/tpvibe/Articles/architecture/build-agents-with-filesystems-and-bash.html">用文件系统和 Bash 构建 Agent</a></li>
+<li><a href="/tpvibe/Articles/architecture/testing-bash-vs-sql.html">Bash vs SQL 测试</a></li>
+<li><a href="/tpvibe/Articles/architecture/multi-agent-systems-ai-native-engineering.html">多 Agent 系统与 AI 原生工程</a></li>
+<li><a href="/tpvibe/Articles/architecture/self-improving-coding-agents.html">自我改进的编码 Agent</a></li>
+<li><a href="/tpvibe/Articles/architecture/nvidia-ai-5-layer-cake.html">NVIDIA AI 五层架构</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Articles/tools.html">工具链</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Articles/tools/how-to-write-good-spec-for-ai-agents.html">如何为 AI Agent 写 Spec</a></li>
+<li><a href="/tpvibe/Articles/tools/ai-driven-prototyping-v0-bolt-and-lovable-compared.html">AI 原型工具对比</a></li>
+<li><a href="/tpvibe/Articles/tools/why-i-use-cline-for-ai-engineering.html">为什么用 Cline 做 AI 工程</a></li>
+<li><a href="/tpvibe/Articles/tools/agents-md-vs-skills.html">AGENTS.md 与 Skills 对比</a></li>
+<li><a href="/tpvibe/Articles/tools/complete-guide-to-building-skills-for-claude.html">Claude Skills 构建指南</a></li>
+<li><a href="/tpvibe/Articles/tools/we-removed-80-percent-tools.html">我们移除了 80% 的工具</a></li>
+<li><a href="/tpvibe/Articles/tools/claude-code-swarms.html">Claude Code 集群</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Articles/engineering.html">工程实践</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Articles/engineering/ai-writes-code-faster-your-job-is-to-prove-it-works.html">AI 写代码更快，你要证明它有效</a></li>
+<li><a href="/tpvibe/Articles/engineering/beyond-the-70-maximizing-the-human-30-of-ai-assisted-coding.html">超越 70%：最大化人类 30%</a></li>
+<li><a href="/tpvibe/Articles/engineering/avoiding-skill-atrophy-in-the-age-of-ai.html">AI 时代的技能退化</a></li>
+<li><a href="/tpvibe/Articles/engineering/how-to-write-a-good-spec-for-ai-agents.html">如何为 AI Agent 写好 Spec</a></li>
+<li><a href="/tpvibe/Articles/engineering/leading-effective-engineering-teams-in-the-age-of-genai.html">GenAI 时代的工程团队领导</a></li>
+<li><a href="/tpvibe/Articles/engineering/your-ai-coding-agents-need-a-manager.html">AI 编码 Agent 需要管理者</a></li>
+<li><a href="/tpvibe/Articles/engineering/ai-code-review-implementation.html">AI 代码审查实现</a></li>
+<li><a href="/tpvibe/Articles/engineering/react-best-practices.html">React 最佳实践</a></li>
+<li><a href="/tpvibe/Articles/engineering/vercel-aeo-tracking.html">Vercel AEO 追踪</a></li>
+<li><a href="/tpvibe/Articles/engineering/my-llm-coding-workflow-going-into-2026.html">2026 年我的 LLM 工作流</a></li>
+<li><a href="/tpvibe/Articles/engineering/stop-using-init-for-agents.html">停止对 Agent 使用 init</a></li>
+<li><a href="/tpvibe/Articles/engineering/video-generation-with-ai-gateway.html">AI 网关视频生成</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Articles/security.html">安全合规</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Articles/security/ai-agents-threats-and-mitigations.html">AI Agent 威胁与缓解</a></li>
+<li><a href="/tpvibe/Articles/security/security-boundaries-in-agentic-architectures.html">Agent 架构安全边界</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Articles/business.html">商业趋势</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Articles/business/the-next-two-years-of-software-engineering.html">软件工程的未来两年</a></li>
+<li><a href="/tpvibe/Articles/business/how-openevidence-built-healthcare-ai-physicians-trust.html">OpenEvidence 医疗 AI</a></li>
+<li><a href="/tpvibe/Articles/business/keeping-community-human-while-scaling-with-agents.html">用 Agent 扩展时保持人性</a></li>
+</ul>
+</li>
+</ul>
+</details>
+<details class="toc-sec">
+<summary>实践案例</summary>
+<ul class="toc-tree">
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Practice/index.html">实践案例</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Practice/index/vibe-coding-methodology.html">Vibe Coding 方法论</a></li>
+<li><a href="/tpvibe/Practice/index/ai-canvas-vibecoding-journey.html">AI Canvas 之旅</a></li>
+<li><a href="/tpvibe/Practice/index/ai-picture-book-generator.html">AI 绘本生成器</a></li>
+<li><a href="/tpvibe/Practice/index/ai-resume-saas.html">AI 简历 SaaS</a></li>
+<li><a href="/tpvibe/Practice/index/full-stack-21-day-thinking-habit-game.html">21 天思维习惯游戏</a></li>
+</ul>
+</li>
+</ul>
+</details>
+</div>
+</aside>
+<script>
+(function(){
+  /* Move toc-toggle to body to avoid overflow/transform clipping */
+  var tocToggle=document.getElementById('tocToggle');
+  var toc=document.getElementById('toc');
+  if(tocToggle&&toc){
+    document.body.appendChild(tocToggle);
+    tocToggle.style.position='fixed';
+    tocToggle.style.top='70px';
+    tocToggle.style.left='254px';
+    tocToggle.style.zIndex='41';
+    tocToggle.style.width='28px';
+    tocToggle.style.height='28px';
+    tocToggle.style.borderRadius='50%';
+    tocToggle.style.border='1px solid var(--line)';
+    tocToggle.style.background='var(--card)';
+    tocToggle.style.color='var(--muted)';
+    tocToggle.style.cursor='pointer';
+    tocToggle.style.display='grid';
+    tocToggle.style.placeItems='center';
+    tocToggle.style.boxShadow='0 4px 14px var(--shadow)';
+    tocToggle.style.fontSize='14px';
+    tocToggle.style.fontWeight='700';
+    tocToggle.style.transition='left .35s cubic-bezier(.34,1.3,.64,1), background .2s, color .2s, border-color .2s';
+    tocToggle.addEventListener('mouseenter',function(){
+      this.style.background='var(--soft)';
+      this.style.color='var(--accent)';
+      this.style.borderColor='var(--accent)';
+    });
+    tocToggle.addEventListener('mouseleave',function(){
+      this.style.background='var(--card)';
+      this.style.color='var(--muted)';
+      this.style.borderColor='var(--line)';
+    });
+    tocToggle.addEventListener('click',function(){
+      toc.classList.toggle('collapsed');
+      var c=toc.classList.contains('collapsed');
+      this.style.left=c?'8px':'254px';
+      this.textContent=c?'»':'«';
+      this.setAttribute('aria-label',c?'展开目录':'收起目录');
+    });
+  }
+  /* Mobile scrim click to close */
+  var scrim=document.querySelector('.toc-scrim');
+  if(scrim){
+    scrim.addEventListener('click',function(){
+      var cb=document.getElementById('tocToggleMobile');
+      if(cb)cb.checked=false;
+    });
+  }
+  /* Chapter expand/collapse (L1) */
+  document.querySelectorAll('.toc-chapter-toggle').forEach(function(btn){
+    btn.addEventListener('click',function(e){
+      e.preventDefault();
+      e.stopPropagation();
+      var li=this.closest('.toc-chapter');
+      if(li)li.classList.toggle('expanded');
+    });
+  });
+  /* Auto-expand: find active link and open its section + chapter */
+  var currentRaw=location.pathname.replace(/\/$/,'');
+  var activeLink=null;
+  document.querySelectorAll('aside.toc a[href]').forEach(function(a){
+    var href=a.getAttribute('href')||'';
+    if(!href||href.startsWith('http')||href.startsWith('#'))return;
+    var path=href.replace(/^https?:\/\/[^\/]+/,'').replace(/\/$/,'');
+    /* Skip home link for active matching */
+    if(path.indexOf('/index.html')>=0&&currentRaw.indexOf('/index.html')<0)return;
+    if(currentRaw===path){activeLink=a;return;}
+    /* Also check if currentRaw contains the path (for sub-pages) */
+    if(path.length>5&&currentRaw.indexOf(path)>=0){activeLink=a;}
+  });
+  /* Open the section (L0) containing active link, close others */
+  var sections=document.querySelectorAll('aside.toc details.toc-sec');
+  if(sections.length>0){
+    sections.forEach(function(d){
+      if(activeLink&&d.contains(activeLink)){d.setAttribute('open','');}
+      else{d.removeAttribute('open');}
+    });
+  }
+  /* Expand the chapter (L1) containing active link */
+  if(activeLink){
+    var chap=activeLink.closest('.toc-chapter.has-children');
+    if(chap)chap.classList.add('expanded');
+  }
+  /* If no active link found (e.g. index page), open first section and first chapter */
+  if(!activeLink&&sections.length>0){
+    sections[0].setAttribute('open','');
+    var firstChapter=sections[0].querySelector('.toc-chapter.has-children');
+    if(firstChapter)firstChapter.classList.add('expanded');
+  }
+})();
+</script>
+
+<div id="progress"></div>
+<header class="site-header">
+<div class="header-inner">
+  <a href="/tpvibe/index.html" class="logo"><img src="/tpvibe/images/tp_logo.jpg" alt="TPvibe" width="200" height="200"> TPvibe</a>
+  <input type="checkbox" id="nav-toggle-cb" class="nav-toggle-cb" aria-hidden="true">
+  <label for="nav-toggle-cb" class="nav-toggle" aria-label="打开菜单">&#9776;</label>
+  <nav><ul class="nav-links"><li><a href="/tpvibe/index.html">TPvibe</a></li><li><a href="/tpvibe/index.html">首页</a></li><li><a href="/tpvibe/Basic/lecture-1.html">基础篇</a></li><li><a href="/tpvibe/Advanced/ch01.html">进阶篇</a></li><li><a href="/tpvibe/Articles/core-concepts.html">文章</a></li><li><a href="/tpvibe/Practice/index.html">实践案例</a></li></ul>
+</nav>
+<button class="theme-btn" aria-label="切换主题" onclick="document.documentElement.dataset.theme=document.documentElement.dataset.theme==='dark'?'light':'dark';localStorage.setItem('tpvibe-theme',document.documentElement.dataset.theme)">🌙</button>
+</div>
+</header>
+<main class="container">
+<h1 class="page-title">把 API 当产品</h1>
+<div class="page-cover reveal">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400" preserveAspectRatio="xMidYMid slice" style="width:100%;height:100%;display:block;">
+  <defs>
+    <linearGradient id="bg-4280297787" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0f172a"/>
+      <stop offset="100%" style="stop-color:#1e3a8a"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="400" fill="url(#bg-4280297787)"/>
+  <polygon points="30,67 0,84 -30,67 -30,33 -0,16 30,33" fill="white" opacity="0.03"/>
+<polygon points="190,67 160,84 130,67 130,33 160,16 190,33" fill="white" opacity="0.03"/>
+<polygon points="349,67 320,84 291,67 291,33 320,16 349,33" fill="white" opacity="0.03"/>
+<polygon points="509,67 480,84 451,67 451,33 480,16 509,33" fill="white" opacity="0.03"/>
+<polygon points="669,67 640,84 611,67 611,33 640,16 669,33" fill="white" opacity="0.03"/>
+<polygon points="829,67 800,84 771,67 771,33 800,16 829,33" fill="white" opacity="0.03"/>
+<polygon points="989,67 960,84 931,67 931,33 960,16 989,33" fill="white" opacity="0.11"/>
+<polygon points="1149,67 1120,84 1091,67 1091,33 1120,16 1149,33" fill="white" opacity="0.11"/>
+<polygon points="109,167 80,184 51,167 51,133 80,116 109,133" fill="white" opacity="0.11"/>
+<polygon points="269,167 240,183 211,167 211,133 240,117 269,133" fill="white" opacity="0.11"/>
+<polygon points="429,167 400,183 371,167 371,133 400,117 429,133" fill="white" opacity="0.11"/>
+<polygon points="589,167 560,183 531,167 531,133 560,117 589,133" fill="white" opacity="0.11"/>
+<polygon points="749,167 720,183 691,167 691,133 720,117 749,133" fill="white" opacity="0.11"/>
+<polygon points="909,167 880,183 851,167 851,133 880,117 909,133" fill="white" opacity="0.11"/>
+<polygon points="1069,167 1040,183 1011,167 1011,133 1040,117 1069,133" fill="white" opacity="0.11"/>
+<polygon points="1229,167 1200,183 1171,167 1171,133 1200,117 1229,133" fill="white" opacity="0.11"/>
+<polygon points="29,266 0,283 -29,266 -29,234 -0,217 29,234" fill="white" opacity="0.11"/>
+<polygon points="188,266 160,283 132,266 132,234 160,217 188,234" fill="white" opacity="0.11"/>
+<polygon points="348,266 320,283 292,266 292,234 320,217 348,234" fill="white" opacity="0.11"/>
+<polygon points="508,266 480,283 452,266 452,234 480,217 508,234" fill="white" opacity="0.11"/>
+<polygon points="668,266 640,283 612,266 612,234 640,217 668,234" fill="white" opacity="0.11"/>
+<polygon points="828,266 800,283 772,266 772,234 800,217 828,234" fill="white" opacity="0.11"/>
+<polygon points="988,266 960,283 932,266 932,234 960,217 988,234" fill="white" opacity="0.11"/>
+<polygon points="1148,266 1120,282 1092,266 1092,234 1120,218 1148,234" fill="white" opacity="0.10"/>
+<polygon points="108,366 80,382 52,366 52,334 80,318 108,334" fill="white" opacity="0.10"/>
+<polygon points="268,366 240,382 212,366 212,334 240,318 268,334" fill="white" opacity="0.10"/>
+<polygon points="428,366 400,382 372,366 372,334 400,318 428,334" fill="white" opacity="0.10"/>
+<polygon points="588,366 560,382 532,366 532,334 560,318 588,334" fill="white" opacity="0.10"/>
+<polygon points="748,366 720,382 692,366 692,334 720,318 748,334" fill="white" opacity="0.10"/>
+<polygon points="908,366 880,382 852,366 852,334 880,318 908,334" fill="white" opacity="0.10"/>
+<polygon points="1068,366 1040,382 1012,366 1012,334 1040,318 1068,334" fill="white" opacity="0.10"/>
+<polygon points="1228,366 1200,382 1172,366 1172,334 1200,318 1228,334" fill="white" opacity="0.10"/>
+
+  
+  <text x="60" y="340" font-family="system-ui, -apple-system, sans-serif" font-size="36" font-weight="700" fill="white">把 API 当产品</text>
+  <rect x="60" y="355" width="60" height="4" rx="2" fill="#06b6d4"/>
+</svg>
+</div>
+
+<div class="content reveal">
+<blockquote><p><strong>本节目标</strong>：当接口越来越多、使用者越来越多时，了解怎么让接口从&quot;能用&quot;变成&quot;好用&quot;——文档、版本管理、批量操作、文件上传、实时更新。</p></blockquote><hr><h2>小明的新烦恼 </h2><p>小明的&quot;个人豆瓣&quot;已经稳定运行了一个月。参数校验加了，错误处理统一了，连接池也配好了。他开始加新功能——收藏夹、分享链接、用户评论。</p><p>每加一个功能就多几个接口。收藏夹：添加收藏、取消收藏、获取收藏列表。评论：发评论、删评论、获取评论列表、点赞评论。分享：生成分享链接、获取分享统计。</p><p>小明数了数，已经有三十多个接口了。</p><p>然后他遇到了三个让他头疼的问题。</p><hr><h2>自己都记不清有哪些接口了 </h2><p>每次写前端代码，小明都要打开后端文件夹，一个个翻 <code>route.ts</code> 文件，确认&quot;这个接口叫什么、要传什么参数、返回什么格式&quot;。有时候他记错了参数名——把 <code>movieId</code> 写成了 <code>movie_id</code>，调了半天才发现是拼写问题。</p><p>更尴尬的是，他的朋友老王想基于他的电影数据做一个&quot;年度观影报告&quot;小程序。老王问：&quot;你的 API 文档在哪？我需要知道有哪些接口、怎么调用。&quot;</p><p>小明愣住了——他没有文档。他只能打开微信，一个接口一个接口地告诉老王：&quot;电影列表是 GET /api/movies，支持 page、limit、tag、sort 这些参数……&quot;发了二十多条消息，老王说：&quot;你就不能给我一个文档链接吗？&quot;</p><h3>让 AI 生成接口文档 </h3><p>你不需要手写文档。业界有一个标准格式叫 <strong>OpenAPI</strong>（以前叫 Swagger），专门用来描述 API 接口——每个接口的 URL、HTTP 方法、请求参数、响应格式、错误码，全部用结构化的方式定义。</p><p>生成 OpenAPI 文档后，可以用 <strong>Swagger UI</strong> 渲染成一个可交互的网页。这个网页不只是&quot;看&quot;——你可以直接在页面上填参数、点&quot;发送&quot;，实时测试每个接口。就像一个内置的 Postman。</p><p>这对你自己也有好处：不用再翻代码确认接口细节了，打开文档页面一目了然。</p><p>跟 AI 说：</p><blockquote><p>&quot;帮我根据现有的所有 API Route 生成 OpenAPI 3.0 文档。然后加一个 <code>/api-docs</code> 页面用 Swagger UI 展示，开发环境可以直接在页面上测试接口。&quot;</p></blockquote><div class="callout"><p><strong>文档和代码保持同步</strong></p><p>最怕的是文档写好了，但后来改了接口忘了更新文档。解决方式是让文档从代码自动生成——每次接口代码变了，文档自动更新。跟 AI 说&quot;用 next-swagger-doc 或类似工具，从 route.ts 文件自动生成 OpenAPI 文档&quot;，它会帮你配好自动化流程。</p></div><hr><h2>改了一个字段名，前端好几个页面崩了 </h2><p>小明觉得电影接口返回的 <code>score</code> 字段名不够好，想改成 <code>rating</code>。他让 AI 把后端的 <code>score</code> 全部替换成 <code>rating</code>，改完一跑——首页崩了、搜索页崩了、收藏页崩了。因为这三个页面的前端代码都在用 <code>movie.score</code> 取值，后端突然改成了 <code>rating</code>，前端找不到 <code>score</code> 字段，直接报 <code>undefined</code>。</p><p>&quot;不就改了个字段名吗，怎么炸了这么多地方？&quot;小明很郁闷。</p><p>老师傅说：&quot;接口一旦有人在用，改它就像改公共设施。你把路灯换了个位置，所有记住老位置的人晚上都会撞墙。&quot;</p><h3>向后兼容：改接口的安全姿势 </h3><p><strong>向后兼容</strong>的意思是：你改了接口，但老的调用方式还能正常工作。新功能加上了，旧功能不受影响。</p><p>几个实用原则：</p><p><strong>加字段没事，删字段要小心。</strong> 接口响应里新增一个 <code>rating</code> 字段，不会影响任何人——前端代码里没用到这个字段，它就静静地待在 JSON 里，不碍事。但删除 <code>score</code> 字段，所有用 <code>movie.score</code> 的地方都会崩。</p><p><strong>过渡期两个都保留。</strong> 想把 <code>score</code> 改成 <code>rating</code>？正确的做法是：</p><ol><li>先在响应里<strong>同时返回</strong> <code>score</code> 和 <code>rating</code>（值一样）</li><li>通知所有使用者（包括你自己的前端）：&quot;以后请用 <code>rating</code>，<code>score</code> 会在下个版本移除&quot;</li><li>等所有调用方都改完了，再删掉 <code>score</code></li></ol><p>这个过程叫<strong>废弃（Deprecation）</strong>。不是直接删，而是先标记为&quot;即将废弃&quot;，给使用者留出迁移时间。</p><p><strong>大改动用版本号。</strong> 如果接口要做不兼容的大改（比如整个响应结构都变了），可以用 URL 版本号：</p><ul><li><code>/api/v1/movies</code> —— 旧版接口，保持不变</li><li><code>/api/v2/movies</code> —— 新版接口，新的数据结构</li></ul><p>老用户继续用 v1，新功能用 v2。等所有人都迁移到 v2 后，再下线 v1。</p><div class="warning custom-block"><p><strong>个人项目需要版本管理吗？</strong></p><p>如果只有你自己的前端在调接口，版本管理可以简化——前后端一起改就行。但如果有其他人在用你的 API（比如老王的小程序），或者你的应用有移动端（App 更新比网页慢，老版本 App 可能还在调旧接口），版本管理就很有必要了。</p><p>即使是个人项目，养成&quot;加字段不删字段&quot;的习惯也没坏处——它能避免很多&quot;改了后端忘了改前端&quot;的低级错误。</p></div><p>跟 AI 说：</p><blockquote><p>&quot;我要把电影接口的 score 字段改名为 rating。帮我做一个向后兼容的过渡：响应里同时返回 score 和 rating（值相同），并在响应头里加一个 Deprecation 标记。等我确认所有前端页面都改用 rating 后，再告诉我可以安全删除 score。&quot;</p></blockquote><hr><h2>一次删 50 条 vs 调 50 次删除接口 </h2><p>小明想做一个&quot;批量删除&quot;功能——用户在列表页勾选多部电影，点&quot;删除选中&quot;，一次性删掉。</p><p>最直觉的做法是前端循环调用：</p><div class="language- vp-adaptive-theme"><button title="Copy Code" class="copy" aria-label="复制代码"></button><span class="lang"></span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span>for (const id of selectedIds) {</span></span>
+<span class="line"><span>  await fetch(`/api/movies/${id}`, { method: &#39;DELETE&#39; })</span></span>
+<span class="line"><span>}</span></span></code></pre></div><p>50 部电影，50 个 DELETE 请求。能跑，但有三个问题：</p><p><strong>慢。</strong> 50 个请求意味着 50 次网络往返。即使每次只要 50ms，加起来也要 2.5 秒。用户点了&quot;删除&quot;后要等好几秒才能看到结果。</p><p><strong>不一致。</strong> 删到第 30 个时网络断了，前 30 个删了，后 20 个没删。数据处于一个&quot;半完成&quot;的尴尬状态——用户以为全删了，实际上还剩 20 个。</p><p><strong>浪费资源。</strong> 50 个请求占用 50 次数据库连接（虽然很短），在高并发时会加剧连接池的压力。</p><h3>批量操作接口 </h3><p>更好的做法是提供一个<strong>批量操作接口</strong>：</p><p><code>DELETE /api/movies/batch</code></p><p>请求 body 里带上要删除的 ID 列表：<code>{ &quot;ids&quot;: [1, 3, 5, 7, 9, ...] }</code></p><p>后端在<strong>一个数据库事务</strong>里完成所有删除——要么全删成功，要么全部回滚，不会出现&quot;删了一半&quot;的情况。而且只有一次网络往返，速度快得多。</p><p>同样的思路适用于批量更新（比如&quot;把选中的电影全部标记为已看&quot;）和批量创建（比如&quot;从 CSV 导入 100 部电影&quot;）。</p><p><strong>判断标准：当你发现前端在循环调用同一个接口时，就该考虑是不是需要一个批量版本。</strong></p><p>跟 AI 说：</p><blockquote><p>&quot;帮我加一个批量删除电影的接口 <code>DELETE /api/movies/batch</code>，接收 ID 数组（最多 100 个），在一个数据库事务里完成删除。如果任何一条删除失败（比如 ID 不存在），全部回滚并返回错误信息。&quot;</p></blockquote><div class="warning custom-block"><p><strong>批量接口要限制数量</strong></p><p>不要让用户一次删 10 万条——这会导致事务太大、锁表时间太长、甚至内存溢出。给批量接口加一个上限（比如一次最多 100 条），超过了让前端分批调用。</p></div><hr><h2>用户想上传电影海报 </h2><p>小明想让用户给电影配一张海报图片。但他发现一个问题：之前所有接口都是收发 JSON 数据，图片是二进制文件，JSON 里放不下。</p><h3>multipart/form-data：传文件的方式 </h3><p>之前所有请求的 <code>Content-Type</code> 都是 <code>application/json</code>——请求体是一段 JSON 文本。但文件（图片、视频、PDF）是二进制数据，不能直接塞进 JSON 里。</p><p><strong>multipart/form-data</strong> 是 HTTP 协议里专门用来传文件的格式。它可以在一个请求里同时传文本字段和二进制文件——比如电影标题（文本）和海报图片（文件）一起提交。</p><p>你不需要理解 multipart 的底层编码格式。只需要知道整个流程：</p><ol><li><strong>前端</strong>：用 <code>&lt;input type=&quot;file&quot;&gt;</code> 让用户选文件，然后用 <code>FormData</code> 对象把文件和其他字段打包，用 <code>fetch</code> 发送</li><li><strong>后端</strong>：从请求里取出文件，做校验（大小、格式），存到某个地方，把文件的<strong>相对路径</strong>存到数据库</li><li><strong>前端</strong>：拼上域名前缀，用完整 URL 显示图片</li></ol><p>为什么存相对路径而不是完整 URL？因为域名可能会变——开发时是 <code>localhost:3000</code>，上线后是 <code>yourdomain.com</code>，迁移云存储后又变成 <code>cos.ap-shanghai.myqcloud.com</code>。如果数据库里存的是完整 URL，每次换域名都要批量更新数据库。存相对路径（比如 <code>/uploads/poster-abc123.jpg</code>），前端根据当前环境拼上域名前缀就行，数据库不用动。</p><p>当然，如果你的云存储域名已经稳定（比如绑了自定义域名），存完整 URL 也没问题——少一步拼接，用起来更直接。</p><h3>文件存在哪？ </h3><p>文件存储有两种选择：</p><p><strong>本地存储</strong>——存到服务器的文件系统里，比如 <code>public/uploads/</code> 目录。简单直接，开发阶段用这个就行。但上线后有问题：服务器磁盘空间有限，而且如果你用了 Serverless 部署（比如 Vercel），根本没有持久化的文件系统——每次部署文件都会丢失。</p><p><strong>云存储</strong>——存到专门的文件存储服务，比如腾讯云 COS、Cloudflare R2、AWS S3、阿里云 OSS。文件存在云端，通过 URL 访问，不占用服务器资源。上线后应该用这个。</p><p>跟 AI 说（开发阶段）：</p><blockquote><p>&quot;帮我加一个上传电影海报的功能。前端用文件选择器，后端接收图片后存到 public/uploads 目录，把图片路径存到 movies 表的 posterUrl 字段。限制文件大小 5MB 以内，只允许 jpg/png/webp 格式。上传前在前端预览图片。&quot;</p></blockquote><p>跟 AI 说（上线前）：</p><blockquote><p>&quot;把文件上传从本地存储改成 Cloudflare R2（或你选的云存储服务）。上传后返回文件的公开访问 URL。&quot;</p></blockquote><div class="warning custom-block"><p><strong>文件上传的安全注意事项</strong></p><ul><li><strong>限制文件大小</strong>：不限制的话，有人上传一个 1GB 的文件就能把你的服务器内存撑爆</li><li><strong>限制文件类型</strong>：只允许你需要的格式（图片就只允许 jpg/png/webp），不要接受 .exe、.sh 等可执行文件</li><li><strong>不要用用户提供的文件名</strong>：用户可能上传一个叫 <code>../../../etc/passwd</code> 的文件来搞路径穿越攻击。后端应该自己生成文件名（比如用 UUID）</li></ul></div><div class="callout"><p><strong>统一上传入口，底层随时能换</strong></p><p>不管你现在用本地存储还是云存储，跟 AI 说：&quot;把文件上传逻辑封装成一个统一的函数，开发阶段存本地，上线时只改这个函数的实现就能切换到云存储。&quot;这样前端代码和业务逻辑完全不用动，只换存储层。</p><p>这就像家里的插座——不管你插的是台灯还是电扇，插座的接口是一样的。上传接口对前端来说永远是&quot;传文件、拿 URL&quot;，至于文件最终存在本地硬盘还是腾讯云 COS，前端不需要知道。</p></div><hr><h2>什么时候需要实时更新 </h2><p>小明加了评论功能。用户 A 发了一条评论，用户 B 要刷新页面才能看到。小明想做成&quot;不用刷新就能看到新评论&quot;的效果——就像微信聊天一样，消息实时出现。</p><p>实时更新有三种方案，复杂度递增：</p><div class="rc-container" data-v-65b494e5><div class="rc-header" data-v-65b494e5>实时通信方式对比</div><div class="rc-columns" data-v-65b494e5><!--[--><div class="rc-col" style="--mc:#D4952C;" data-v-65b494e5><div class="rc-col-title" style="color:#D4952C;" data-v-65b494e5>轮询</div><div class="rc-col-label" data-v-65b494e5>每隔几秒问一次</div><div class="rc-anim" data-v-65b494e5><div class="rc-endpoints" data-v-65b494e5><div class="rc-endpoint" data-v-65b494e5>Client</div><div class="rc-endpoint" data-v-65b494e5>Server</div></div><div class="rc-track" data-v-65b494e5><div class="rc-rail" data-v-65b494e5></div><!--[--><div class="rc-arrow rc-arrow-right" data-v-65b494e5><span class="rc-arrow-text" data-v-65b494e5>有新数据吗？</span></div><div class="rc-arrow rc-arrow-left" data-v-65b494e5><span class="rc-arrow-text" data-v-65b494e5>没有</span></div><div class="rc-arrow rc-arrow-right" data-v-65b494e5><span class="rc-arrow-text" data-v-65b494e5>有新数据吗？</span></div><div class="rc-arrow rc-arrow-left" data-v-65b494e5><span class="rc-arrow-text" data-v-65b494e5>没有</span></div><div class="rc-arrow rc-arrow-right" data-v-65b494e5><span class="rc-arrow-text" data-v-65b494e5>有新数据吗？</span></div><div class="rc-arrow rc-arrow-left" data-v-65b494e5><span class="rc-arrow-text" data-v-65b494e5>有！这是数据</span></div><!--]--></div></div><div class="rc-meta" data-v-65b494e5><div class="rc-meta-row" data-v-65b494e5><span class="rc-meta-label" data-v-65b494e5>复杂度</span><span class="rc-stars" data-v-65b494e5><!--[--><span class="rc-star filled" data-v-65b494e5>★</span><span class="rc-star" data-v-65b494e5>★</span><span class="rc-star" data-v-65b494e5>★</span><!--]--></span></div><div class="rc-meta-row" data-v-65b494e5><span class="rc-meta-label" data-v-65b494e5>适用场景</span><span class="rc-meta-val" data-v-65b494e5>简单状态检查、低频更新</span></div></div><button class="rc-play-btn" style="background:#D4952C;" data-v-65b494e5>播放</button></div><div class="rc-col" style="--mc:#15a051;" data-v-65b494e5><div class="rc-col-title" style="color:#15a051;" data-v-65b494e5>SSE</div><div class="rc-col-label" data-v-65b494e5>服务器主动推送</div><div class="rc-anim" data-v-65b494e5><div class="rc-endpoints" data-v-65b494e5><div class="rc-endpoint" data-v-65b494e5>Client</div><div class="rc-endpoint" data-v-65b494e5>Server</div></div><div class="rc-track" data-v-65b494e5><div class="rc-rail" data-v-65b494e5></div><!--[--><div class="rc-arrow rc-arrow-right" data-v-65b494e5><span class="rc-arrow-text" data-v-65b494e5>建立连接</span></div><div class="rc-arrow rc-arrow-left" data-v-65b494e5><span class="rc-arrow-text" data-v-65b494e5>连接已建立</span></div><div class="rc-arrow rc-arrow-left" data-v-65b494e5><span class="rc-arrow-text" data-v-65b494e5>推送: 新消息</span></div><div class="rc-arrow rc-arrow-left" data-v-65b494e5><span class="rc-arrow-text" data-v-65b494e5>推送: 价格更新</span></div><div class="rc-arrow rc-arrow-left" data-v-65b494e5><span class="rc-arrow-text" data-v-65b494e5>推送: 状态变更</span></div><!--]--></div></div><div class="rc-meta" data-v-65b494e5><div class="rc-meta-row" data-v-65b494e5><span class="rc-meta-label" data-v-65b494e5>复杂度</span><span class="rc-stars" data-v-65b494e5><!--[--><span class="rc-star filled" data-v-65b494e5>★</span><span class="rc-star filled" data-v-65b494e5>★</span><span class="rc-star" data-v-65b494e5>★</span><!--]--></span></div><div class="rc-meta-row" data-v-65b494e5><span class="rc-meta-label" data-v-65b494e5>适用场景</span><span class="rc-meta-val" data-v-65b494e5>实时通知、股票行情、日志流</span></div></div><button class="rc-play-btn" style="background:#15a051;" data-v-65b494e5>播放</button></div><div class="rc-col" style="--mc:#9333ea;" data-v-65b494e5><div class="rc-col-title" style="color:#9333ea;" data-v-65b494e5>WebSocket</div><div class="rc-col-label" data-v-65b494e5>双向实时通信</div><div class="rc-anim" data-v-65b494e5><div class="rc-endpoints" data-v-65b494e5><div class="rc-endpoint" data-v-65b494e5>Client</div><div class="rc-endpoint" data-v-65b494e5>Server</div></div><div class="rc-track" data-v-65b494e5><div class="rc-rail" data-v-65b494e5></div><!--[--><div class="rc-arrow rc-arrow-right" data-v-65b494e5><span class="rc-arrow-text" data-v-65b494e5>握手升级</span></div><div class="rc-arrow rc-arrow-left" data-v-65b494e5><span class="rc-arrow-text" data-v-65b494e5>连接已建立</span></div><div class="rc-arrow rc-arrow-right" data-v-65b494e5><span class="rc-arrow-text" data-v-65b494e5>发送消息</span></div><div class="rc-arrow rc-arrow-left" data-v-65b494e5><span class="rc-arrow-text" data-v-65b494e5>收到回复</span></div><div class="rc-arrow rc-arrow-right" data-v-65b494e5><span class="rc-arrow-text" data-v-65b494e5>发送操作</span></div><div class="rc-arrow rc-arrow-left" data-v-65b494e5><span class="rc-arrow-text" data-v-65b494e5>广播更新</span></div><!--]--></div></div><div class="rc-meta" data-v-65b494e5><div class="rc-meta-row" data-v-65b494e5><span class="rc-meta-label" data-v-65b494e5>复杂度</span><span class="rc-stars" data-v-65b494e5><!--[--><span class="rc-star filled" data-v-65b494e5>★</span><span class="rc-star filled" data-v-65b494e5>★</span><span class="rc-star filled" data-v-65b494e5>★</span><!--]--></span></div><div class="rc-meta-row" data-v-65b494e5><span class="rc-meta-label" data-v-65b494e5>适用场景</span><span class="rc-meta-val" data-v-65b494e5>聊天、协同编辑、游戏</span></div></div><button class="rc-play-btn" style="background:#9333ea;" data-v-65b494e5>播放</button></div><!--]--></div></div><h3>轮询（Polling） </h3><p>最简单的方案：前端每隔几秒自动请求一次接口，看有没有新数据。</p><div class="language- vp-adaptive-theme"><button title="Copy Code" class="copy" aria-label="复制代码"></button><span class="lang"></span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span>每 10 秒：GET /api/movies/1/comments?since=上次请求的时间戳</span></span></code></pre></div><p>好处是<strong>实现极其简单</strong>——就是一个 <code>setInterval</code> 加一个 <code>fetch</code>，不需要任何额外的基础设施。</p><p>坏处是<strong>浪费资源</strong>。大部分请求返回的都是&quot;没有新数据&quot;。如果有 1000 个用户同时在线，每 10 秒就是 100 个请求/秒，其中 99% 是无用的。</p><p>但对于小明的电影评论来说，轮询完全够用——评论不是高频操作，每 10-30 秒查一次新评论，用户体验完全可以接受。</p><h3>SSE（Server-Sent Events） </h3><p>服务器主动推送数据给前端。前端建立一个长连接，服务器有新数据时主动推过来，不需要前端反复请求。</p><p><strong>单向的</strong>：只有服务器能推，前端不能通过这个通道发消息。适合&quot;通知推送&quot;&quot;新评论提醒&quot;&quot;订单状态更新&quot;这类场景——服务器有新消息就推给你，你不需要回复。</p><p>好处是<strong>实时性好、资源消耗低</strong>——只有真正有新数据时才传输，没有无用请求。而且基于 HTTP，不需要额外的协议支持，部署简单。</p><h3>WebSocket </h3><p>前端和服务器之间建立一个<strong>持久的双向通道</strong>，双方都能随时发消息。</p><p>适合<strong>需要频繁双向通信</strong>的场景——在线聊天、协同编辑（多人同时编辑一个文档）、实时游戏。这些场景里，不只是服务器要推数据给前端，前端也要频繁发数据给服务器。</p><p>坏处是<strong>复杂度高</strong>——需要处理连接断开重连、心跳检测、消息顺序保证等问题。部署也更复杂，需要支持 WebSocket 的服务器。</p><h3>怎么选？ </h3><table tabindex="0"><thead><tr><th>场景</th><th>推荐方案</th><th>理由</th></tr></thead><tbody><tr><td>评论列表、通知提醒</td><td>轮询或 SSE</td><td>更新频率低，单向推送就够</td></tr><tr><td>数据看板（每分钟更新）</td><td>轮询</td><td>更新频率低，轮询最简单</td></tr><tr><td>订单状态实时更新</td><td>SSE</td><td>服务器推送，不需要前端回复</td></tr><tr><td>在线聊天</td><td>WebSocket</td><td>需要双向实时通信</td></tr><tr><td>协同编辑</td><td>WebSocket</td><td>需要双向实时通信 + 冲突处理</td></tr><tr><td>实时游戏</td><td>WebSocket</td><td>需要极低延迟的双向通信</td></tr></tbody></table><p>一个简单的判断标准：<strong>如果只需要服务器推数据给前端，用 SSE。如果前端也需要频繁发数据给服务器，用 WebSocket。如果更新频率低（几秒到几分钟一次），轮询最省事。</strong></p><p>小明的评论功能，轮询就够了：</p><blockquote><p>&quot;评论列表需要自动刷新，每 15 秒检查一次有没有新评论。用 SWR 的 refreshInterval 实现自动轮询，不需要手写 setInterval。只返回上次请求之后新增的评论。不需要 WebSocket。&quot;</p></blockquote><div class="callout"><p><strong>为什么用 SWR 或 TanStack Query 而不是手写轮询</strong></p><p>你跟 AI 说&quot;做一个自动刷新的评论列表&quot;，加载了 <code>vercel-react-best-practices</code> Skill 的 Claude Code 大概率会用 <strong>SWR</strong> 或 <strong>TanStack Query</strong>（以前叫 React Query）这类数据请求库。两者都自带请求去重（同一个页面多个组件用同一份数据，只发一次请求）、自动缓存、组件卸载时自动清理、失败自动重试。比手写 <code>setInterval + fetch</code> 省心得多，也不容易出&quot;页面切走了但请求还在发&quot;的 bug。</p><p>SWR 更轻量，API 更简洁，Vercel 团队维护。TanStack Query 功能更丰富，支持更复杂的缓存策略、乐观更新、无限滚动等场景。对于小明的评论轮询，两个都绰绰有余。你不需要了解它们的用法，AI 会根据项目情况选一个合适的——看到它们出现在代码里不用觉得奇怪。</p></div><hr><h2>API 即产品 </h2><p>回顾这一节讲的所有内容，有一个共同的思维转变：<strong>接口不只是&quot;后端的事&quot;，它是前端（和其他消费者）的&quot;产品&quot;</strong>。</p><p>好的接口像好的产品一样：</p><ul><li><strong>有文档</strong>——使用者知道怎么用，不需要翻代码或问人</li><li><strong>向后兼容</strong>——升级不会坑老用户，改动有过渡期</li><li><strong>批量操作</strong>——效率高，不让使用者做重复劳动</li><li><strong>错误信息清晰</strong>——出问题知道是谁的问题、怎么修</li><li><strong>支持多种数据格式</strong>——不只是 JSON，还能处理文件上传</li><li><strong>按需实时</strong>——该实时的实时，不该实时的别浪费资源</li></ul><p>你不需要一开始就做到完美。先跑通 CRUD（7.0），遇到数据量和需求增长的问题就加分页和过滤（7.1），上线后遇到脏数据和错误就加校验和错误处理（7.2），接口多了就加文档和版本管理（7.3）——这就是从&quot;能跑&quot;到&quot;好用&quot;的完整路径。</p><p>每一步都是被真实问题推动的，不是提前过度设计的。这也是 Vibe Coding 的核心理念：<strong>先让它跑起来，再让它跑得好。</strong></p><hr><div class="callout"><p><strong>本节核心要点</strong></p><ul><li><strong>接口文档</strong>：用 OpenAPI/Swagger 自动生成，自己查方便，别人用也有据可查</li><li><strong>向后兼容</strong>：加字段没事，删字段要过渡；大改动用版本号</li><li><strong>批量操作</strong>：循环调接口 → 改成批量接口，用事务保证一致性</li><li><strong>文件上传</strong>：开发用本地存储，上线用云存储；注意限制大小和类型</li><li><strong>实时更新</strong>：轮询最简单，SSE 适合单向推送，WebSocket 适合双向通信</li></ul></div><hr><div class="info custom-block"><p><strong>下一步</strong></p><p>API 搭好了，但现在谁都能调你的接口——没有登录、没有权限控制。去 <a href="/tpvibe/Advanced/ch08.html">第八章：谁能访问我的数据</a> 学习认证和安全。</p></div></div></div>
+</div>
+
+
+</main>
+
+<footer class="site-footer">
+<p>© 2026 TPvibe · 内部预览版</p>
+<p style="margin-top:8px;">
+<a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer">蜀ICP备2024097797号-3</a>
+</p>
+</footer>
+<!-- THEME:tpvibe -->
+<script>
+/* Theme toggle */
+(function(){
+  var r=document.documentElement;
+  var saved=localStorage.getItem('tpvibe-theme');r.dataset.theme=saved||'light';
+  
+  /* sync button icon */
+  
+})();
+/* Reveal on scroll */
+(function(){
+  var obs=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');obs.unobserve(e.target);}});},{threshold:.15});
+  document.querySelectorAll('.reveal').forEach(function(el){obs.observe(el);});
+})();
+/* Progress bar */
+(function(){
+  var bar=document.getElementById('progress');
+  if(!bar)return;
+  window.addEventListener('scroll',function(){
+    var h=document.documentElement.scrollHeight-window.innerHeight;
+    bar.style.width=(h>0?(window.scrollY/h*100):0)+'%';
+  });
+})();
+</script>
+<script>
+/* Theme button icon sync */
+(function(){
+  var btn=document.querySelector('.theme-btn');
+  if(!btn)return;
+  function sync(){btn.textContent=document.documentElement.dataset.theme==='dark'?'☀️':'🌙';}
+  sync();
+  btn.addEventListener('click',function(){setTimeout(sync,0);});
+})();
+</script>
+
+<nav class="mobile-bottom-tabs"><ul><li><a href="/tpvibe/index.html"><svg viewBox="0 0 24 24"><path d="M3 12L12 3l9 9M5 10v10h4v-6h6v6h4V10"/></svg><span>首页</span></a></li><li><a href="/tpvibe/Basic/lecture-1.html"><svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg><span>基础篇</span></a></li><li><a href="/tpvibe/Advanced/ch01.html"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg><span>进阶篇</span></a></li><li><a href="/tpvibe/Articles/core-concepts.html"><svg viewBox="0 0 24 24"><path d="M4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zM8 7h8M8 11h8M8 15h6"/></svg><span>文章</span></a></li><li><a href="/tpvibe/Practice/index.html"><svg viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg><span>实践</span></a></li></ul></nav>
+<script>
+(function(){
+  // 判断当前页面，高亮对应的 tab（目录前缀匹配）
+  var path=location.pathname.replace(/\/index\.html$/,'/').replace(/\/$/,'');
+  var tabs=document.querySelectorAll('.mobile-bottom-tabs a');
+  var bestMatch=null;
+  var bestMatchLen=0;
+  tabs.forEach(function(a){
+    var href=a.getAttribute('href')||'';
+    if(!href)return;
+    var hrefPath=href.replace(/https?:\/\/[^\/]+/,'').replace(/\/index\.html$/,'/').replace(/\/$/,'');
+    if(path===hrefPath){bestMatch=a;return;}
+    // 目录前缀匹配：当前路径以 tab 路径开头
+    if(hrefPath.length>2&&path.indexOf(hrefPath)>=0&&hrefPath.length>bestMatchLen){bestMatch=a;bestMatchLen=hrefPath.length;}
+  });
+  if(bestMatch)bestMatch.classList.add('active');
+})();
+</script>
+
+
+<script src="/tpvibe/toc-sheet.js"></script>
+</body>
+</html>

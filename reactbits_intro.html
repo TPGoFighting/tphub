@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ReactBits · 深度解读</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#ffffff; --grid:#edeff4; --glow:#fff5f0;
+    --ink:#14151a; --muted:#60667a; --line:#e6e8ef;
+    --accent:#e8743b; --accent-2:#e23b3b;
+    --green:#1f9d6b; --yellow:#e0a200; --pink:#e0457f;
+    --card:#ffffff; --soft:#f7f8fb; --shadow:rgba(20,21,26,.08);
+    --radius:18px;
+  }
+  [data-theme="dark"]{
+    --bg:#0e0f14; --grid:#1a1c25; --glow:#1a1410;
+    --ink:#f1f2f6; --muted:#9aa0b4; --line:#262936;
+    --card:#15171f; --soft:#191b24; --shadow:rgba(0,0,0,.5);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0; color:var(--ink); font-family:'Inter','Noto Sans SC',system-ui,sans-serif;
+    background:var(--bg);
+    background-image:
+      linear-gradient(var(--grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+    background-size:34px 34px;
+    background-attachment:fixed;
+    line-height:1.65; -webkit-font-smoothing:antialiased;
+  }
+  body::before{
+    content:""; position:fixed; inset:0; pointer-events:none; z-index:0;
+    background:radial-gradient(60% 50% at 50% -10%, var(--glow), transparent 70%);
+  }
+  h1,h2,h3,.display{font-family:'Space Grotesk','Noto Sans SC',sans-serif; letter-spacing:-.02em;}
+  a{color:var(--accent); text-decoration:none;}
+  code,.mono{font-family:'JetBrains Mono',monospace;}
+  .wrap{max-width:1080px; margin:0 auto; padding:0 22px; position:relative; z-index:1;}
+
+  /* progress + nav */
+  #progress{position:fixed; top:0; left:0; height:3px; width:0; z-index:100;
+    background:linear-gradient(90deg,var(--accent),var(--accent-2)); transition:width .1s;}
+  nav{position:sticky; top:0; z-index:50; backdrop-filter:blur(14px);
+    background:color-mix(in srgb, var(--bg) 78%, transparent);
+    border-bottom:1px solid var(--line);}
+  .nav-in{max-width:1080px; margin:0 auto; padding:13px 22px; display:flex; align-items:center; gap:18px;}
+  .logo{font-family:'Space Grotesk'; font-weight:700; font-size:20px; display:flex; align-items:center; gap:9px;}
+  .logo .dot{width:13px;height:13px;border-radius:4px;background:linear-gradient(135deg,var(--accent),var(--accent-2)); box-shadow:0 0 0 4px color-mix(in srgb,var(--accent) 18%,transparent);}
+  .nav-links{display:flex; gap:6px; margin-left:auto; flex-wrap:wrap;}
+  .nav-links a{color:var(--muted); font-size:14px; font-weight:500; padding:7px 11px; border-radius:9px; transition:.2s;}
+  .nav-links a:hover{color:var(--ink); background:var(--soft);}
+  .toggle{cursor:pointer; border:1px solid var(--line); background:var(--card); border-radius:10px;
+    width:40px; height:36px; display:grid; place-items:center; font-size:16px; transition:.2s;}
+  .toggle:hover{border-color:var(--accent);}
+  .ghost-btn{border:1px solid var(--line); background:var(--card); color:var(--ink); padding:8px 13px;
+    border-radius:10px; font-size:14px; font-weight:600; transition:.2s; cursor:pointer;}
+  .ghost-btn:hover{border-color:var(--accent); transform:translateY(-1px);}
+
+  /* hero */
+  .hero{padding:70px 0 40px; text-align:center;}
+  .eyebrow{display:inline-flex; align-items:center; gap:8px; font-size:13px; font-weight:600; color:var(--accent);
+    background:color-mix(in srgb,var(--accent) 10%,transparent); padding:6px 13px; border-radius:99px; border:1px solid color-mix(in srgb,var(--accent) 25%,transparent);}
+  .hero h1{font-size:clamp(40px,8vw,82px); margin:18px 0 8px; line-height:1; font-weight:700;}
+  .hero h1 .grad{background:linear-gradient(120deg,var(--accent),var(--accent-2)); -webkit-background-clip:text; background-clip:text; color:transparent;}
+  .hero p.sub{font-size:clamp(16px,2.4vw,21px); color:var(--muted); max-width:680px; margin:10px auto 0;}
+  .cta{display:flex; gap:12px; justify-content:center; margin-top:26px; flex-wrap:wrap;}
+  .btn{display:inline-flex; align-items:center; gap:8px; padding:13px 22px; border-radius:12px; font-weight:600; font-size:15px; transition:.22s; cursor:pointer; border:1px solid transparent;}
+  .btn.primary{background:linear-gradient(120deg,var(--accent),var(--accent-2)); color:#fff; box-shadow:0 10px 26px color-mix(in srgb,var(--accent) 35%,transparent);}
+  .btn.primary:hover{transform:translateY(-2px); box-shadow:0 16px 34px color-mix(in srgb,var(--accent) 45%,transparent);}
+  .btn.sec{background:var(--card); border-color:var(--line); color:var(--ink);}
+  .btn.sec:hover{border-color:var(--accent); transform:translateY(-2px);}
+
+  /* stats */
+  .stats{display:grid; grid-template-columns:repeat(6,1fr); gap:14px; margin:40px 0 10px;}
+  .stat{background:var(--card); border:1px solid var(--line); border-radius:var(--radius); padding:18px 12px; text-align:center; box-shadow:0 6px 20px var(--shadow); transition:.25s;}
+  .stat:hover{transform:translateY(-3px); border-color:var(--accent);}
+  .stat .n{font-family:'Space Grotesk'; font-weight:700; font-size:clamp(20px,3vw,28px); color:var(--ink);}
+  .stat .l{font-size:12.5px; color:var(--muted); margin-top:3px;}
+
+  /* sections */
+  section{padding:54px 0; scroll-margin-top:74px;}
+  .sec-head{margin-bottom:26px;}
+  .sec-head .k{font-size:13px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--accent);}
+  .sec-head h2{font-size:clamp(26px,4vw,38px); margin:8px 0 6px;}
+  .sec-head p{color:var(--muted); max-width:720px; margin:0;}
+
+  .card{background:var(--card); border:1px solid var(--line); border-radius:var(--radius); padding:22px; box-shadow:0 6px 22px var(--shadow); transition:.25s;}
+  .card:hover{transform:translateY(-3px); box-shadow:0 14px 34px var(--shadow); border-color:color-mix(in srgb,var(--accent) 40%,var(--line));}
+  .grid{display:grid; gap:16px;}
+  .g2{grid-template-columns:repeat(2,1fr);} .g3{grid-template-columns:repeat(3,1fr);} .g4{grid-template-columns:repeat(4,1fr);}
+  .pillar .ic{width:44px;height:44px;border-radius:12px; display:grid; place-items:center; font-size:22px; margin-bottom:12px;
+    background:color-mix(in srgb,var(--accent) 12%,transparent); border:1px solid color-mix(in srgb,var(--accent) 22%,transparent);}
+  .pillar h3{font-size:18px; margin:0 0 6px;} .pillar p{color:var(--muted); font-size:14.5px; margin:0;}
+
+  .chips{display:flex; gap:10px; flex-wrap:wrap;}
+  .chip{display:inline-flex; align-items:center; gap:8px; padding:10px 15px; border-radius:12px; border:1px solid var(--line);
+    background:var(--card); font-weight:600; font-size:14.5px; transition:.2s;}
+  .chip:hover{border-color:var(--accent-2); transform:translateY(-2px); box-shadow:0 8px 20px var(--shadow);}
+  .chip .d{width:9px;height:9px;border-radius:50%; background:linear-gradient(135deg,var(--accent),var(--accent-2));}
+
+  /* flow */
+  .flow{display:flex; align-items:stretch; justify-content:center; gap:0; flex-wrap:wrap; margin:10px 0;}
+  .node{flex:1 1 200px; min-width:180px; background:var(--card); border:1px solid var(--line);
+    padding:16px; text-align:center; box-shadow:0 6px 20px var(--shadow); margin:6px; border-radius:var(--radius);}
+  .node h3{font-size:16px; color:var(--accent); margin:6px 0;}
+  .node .d{font-size:14.5px; color:var(--muted);}
+  .arrow{align-self:center; font-family:'Space Grotesk'; color:var(--accent-2); font-size:20px; padding:0 6px;}
+
+  /* tabs */
+  .tabs{display:flex; gap:6px; flex-wrap:wrap; margin-bottom:18px; border-bottom:1px solid var(--line); padding-bottom:12px;}
+  .tab{border:1px solid var(--line); background:var(--card); color:var(--muted); padding:9px 15px; border-radius:11px; font-weight:600; font-size:14px; cursor:pointer; transition:.2s;}
+  .tab:hover{color:var(--ink);}
+  .tab.active{background:linear-gradient(120deg,var(--accent),var(--accent-2)); color:#fff; border-color:transparent; box-shadow:0 8px 20px color-mix(in srgb,var(--accent) 35%,transparent);}
+  .panel-box{display:none;} .panel-box.active{display:block; animation:fade .35s ease;}
+  @keyframes fade{from{opacity:0; transform:translateY(8px);} to{opacity:1; transform:none;}}
+
+  /* code */
+  .code{background:var(--ink); color:#e7e9f2; border-radius:14px; padding:16px 18px; overflow:auto; box-shadow:0 10px 30px var(--shadow);}
+  .code pre{margin:0; font-family:'JetBrains Mono'; font-size:13.5px; line-height:1.7;}
+  .code .c{color:#7c8499;} .code .s{color:#9be8b0;} .code .p{color:#ffae8a;} .code .b{color:#8db4ff;}
+  .copy{float:right; cursor:pointer; font-size:12px; color:#aeb4c8; border:1px solid #2c2f3a; background:#1b1d26; padding:4px 9px; border-radius:8px;}
+  .copy:hover{color:#fff;}
+
+  .callout{border-left:4px solid var(--accent); background:color-mix(in srgb,var(--accent) 7%,var(--card)); padding:14px 17px; border-radius:0 12px 12px 0; font-size:14.5px; color:var(--muted); margin:16px 0;}
+  .callout b{color:var(--ink);}
+
+  /* accordion (FAQ) */
+  .acc{border:1px solid var(--line); border-radius:14px; overflow:hidden; background:var(--card); margin-bottom:11px; box-shadow:0 4px 16px var(--shadow);}
+  .acc-h{display:flex; align-items:center; gap:13px; padding:17px 19px; cursor:pointer; transition:.2s; user-select:none;}
+  .acc-h:hover{background:var(--soft);}
+  .acc-h .num{font-family:'Space Grotesk'; font-weight:700; color:var(--accent); font-size:15px; min-width:30px;}
+  .acc-h h3{font-size:17px; margin:0; flex:1;}
+  .acc-h .ar{transition:.3s; color:var(--muted); font-size:18px;}
+  .acc.open .acc-h .ar{transform:rotate(45deg); color:var(--accent);}
+  .acc-b{max-height:0; overflow:hidden; transition:max-height .35s ease;}
+  .acc-b-in{padding:0 19px 19px 62px; color:var(--muted); font-size:15px;}
+  .acc-b-in ul{margin:8px 0 0; padding-left:18px;} .acc-b-in li{margin:5px 0;}
+
+  /* timeline */
+  .tl{position:relative; margin-left:14px; padding-left:30px; border-left:2px solid var(--line);}
+  .tl-item{position:relative; padding:0 0 28px 0;}
+  .tl-item::before{content:""; position:absolute; left:-39px; top:4px; width:15px; height:15px; border-radius:50%; background:var(--card); border:3px solid var(--accent);}
+  .tl-item .v{font-family:'Space Grotesk'; font-weight:700; color:var(--accent); font-size:15px;}
+  .tl-item .t{font-weight:700; font-size:17px; margin:2px 0 5px;}
+  .tl-item p{color:var(--muted); margin:0; font-size:14.5px;}
+
+  /* list */
+  ul.b{list-style:none; padding-left:0; margin:10px 0;}
+  ul.b li{padding:6px 0 6px 26px; position:relative; color:var(--muted); font-size:15px;}
+  ul.b li::before{content:"▸"; position:absolute; left:4px; color:var(--accent); font-weight:bold;}
+
+  footer{border-top:1px solid var(--line); padding:36px 0 60px; text-align:center; color:var(--muted); font-size:14px;}
+  .reveal{opacity:0; transform:translateY(22px); transition:opacity .7s ease, transform .7s ease;}
+  .reveal.in{opacity:1; transform:none;}
+  @media(max-width:760px){.stats{grid-template-columns:repeat(3,1fr);} .g2,.g3,.g4{grid-template-columns:1fr;} .nav-links{display:none;}}
+</style>
+</head>
+<body>
+<div id="progress"></div>
+<nav>
+  <div class="nav-in">
+    <div class="logo"><span class="dot"></span>ReactBits</div>
+    <div class="nav-links">
+      <a href="#overview">概览</a>
+      <a href="#deep">深读</a>
+      <a href="#faq">FAQ</a>
+      <a href="#start">快速开始</a>
+    </div>
+    <button class="toggle" id="themeBtn" title="切换明暗">◐</button>
+    <a class="ghost-btn" href="tp.html">← 返回 TP 中心</a>
+  </div>
+</nav>
+
+<div class="wrap">
+
+  <!-- HERO -->
+  <header class="hero">
+    <span class="eyebrow">React · 动画组件库</span>
+    <h1><span class="grad">ReactBits</span></h1>
+    <p class="sub">ReactBits.dev 提供 100+ 即用动画 UI 组件，基于 Tailwind CSS + Framer Motion 构建；每个组件都能一键复制源码，直接粘进 React 项目就能跑，不用安装专有包。</p>
+    <div class="cta">
+      <a class="btn primary" href="https://www.reactbits.dev/get-started" target="_blank" rel="noopener">⚡ 访问官网 ↗</a>
+      <a class="btn sec" href="#overview">🔍 深入了解</a>
+    </div>
+    <div class="stats">
+      <div class="stat reveal"><div class="n" data-to="100" data-suf="+">0</div><div class="l">动画组件</div></div>
+      <div class="stat reveal"><div class="n" data-to="8" data-suf="">0</div><div class="l">组件分类</div></div>
+      <div class="stat reveal"><div class="n" data-to="0" data-suf="">0</div><div class="l">专有依赖</div></div>
+      <div class="stat reveal"><div class="n" data-to="2" data-suf="">0</div><div class="l">所需底层库</div></div>
+      <div class="stat reveal"><div class="n" data-to="18" data-suf="">0</div><div class="l">最低 React</div></div>
+      <div class="stat reveal"><div class="n" data-to="100" data-suf="%">0</div><div class="l">源码可控</div></div>
+    </div>
+    <div class="callout" style="text-align:left; max-width:760px; margin:18px auto 0;">
+      ⚠️ 数据说明：组件数「100+」、分类（Text Animation / Background / Loader / Card / Interactive / Element / Icon / Component）取自 Tabbit 报告与官网。ReactBits 是「复制即用」的源码库，没有自己的 npm 包——它只依赖你项目里已有的 <code>framer-motion</code> 与 <code>tailwindcss</code>，这也是它和正式组件库（如 Animate UI）最大的区别。
+    </div>
+  </header>
+
+  <!-- OVERVIEW -->
+  <section id="overview">
+    <div class="sec-head reveal">
+      <div class="k">Overview</div>
+      <h2>它不是 npm 包，而是一摞「可复制」的源码</h2>
+      <p>ReactBits 把常见动画界面拆解成独立组件：你从官网预览、点 Copy Code、粘进项目、改 props 即可。底层统一是 Tailwind 负责样式、Framer Motion 负责动画，因此对现有 React 项目零侵入。</p>
+    </div>
+    <div class="grid g3">
+      <div class="card pillar reveal"><div class="ic">🔤</div><h3>文本动画</h3><p>Typewriter、Blur Text、Animated Gradient Text 等，让标题与文案逐字、逐词或渐变入场，常用于 Hero 与 CTA。</p></div>
+      <div class="card pillar reveal"><div class="ic">🌌</div><h3>背景效果</h3><p>Aurora、Grid / Dots、Particles、Wavy 等可铺满容器的动态背景，用 GPU 友好的 transform/opacity 实现。</p></div>
+      <div class="card pillar reveal"><div class="ic">⏳</div><h3>Loader</h3><p>Spinner、Progress、Count Up 等加载与进度指示组件，覆盖从首屏骨架到按钮态的全链路等待反馈。</p></div>
+      <div class="card pillar reveal"><div class="ic">🃏</div><h3>卡片效果</h3><p>Tilt、3D Card、Spotlight 等交互卡片，鼠标移动驱动透视与高光，做产品陈列与团队介绍很省力。</p></div>
+      <div class="card pillar reveal"><div class="ic">📋</div><h3>一键复制</h3><p>每个组件详情页都有 Copy Code，复制出来是完整、可独立运行的 .tsx 文件，没有隐藏的运行时约定。</p></div>
+      <div class="card pillar reveal"><div class="ic">🔓</div><h3>源码可控</h3><p>代码在你仓库里，改颜色、速度、尺寸、触发方式都只是改 props 或几行 tailwind，不必等上游发版。</p></div>
+    </div>
+  </section>
+
+  <!-- DEEP DIVE -->
+  <section id="deep">
+    <div class="sec-head reveal">
+      <div class="k">Deep Dive</div>
+      <h2>从依赖到落地，三个真实步骤</h2>
+      <p>下面用「装依赖 → 复制组件 → 改 props」的链路，把 ReactBits 的实际用法讲透。所有命令与代码均可在你本地复现。</p>
+    </div>
+
+    <div class="reveal">
+      <div class="acc">
+        <div class="acc-h"><span class="num">01</span><h3>底层依赖：只要 Tailwind + Framer Motion</h3><span class="ar">＋</span></div>
+        <div class="acc-b"><div class="acc-b-in">ReactBits 不发布自己的包，复制出的组件只用两个通用库。先确认项目里有它们：
+          <ul>
+            <li><code>tailwindcss</code>：负责所有样式与断点（组件默认按 Tailwind v3/v4 类名书写）</li>
+            <li><code>framer-motion</code>：负责 <code>motion.*</code> 元素与 <code>animate / variants / transition</code></li>
+            <li>React 18+ 即可；没有 SSR 限制，Next.js / Vite / CRA 都能用</li>
+          </ul></div></div>
+      </div>
+      <div class="acc">
+        <div class="acc-h"><span class="num">02</span><h3>复制一个文本动画：Typewriter</h3><span class="ar">＋</span></div>
+        <div class="acc-b"><div class="acc-b-in">以官网 Text Animation 下的 Typewriter 为例（结构示意，真实 props 以官网 Copy Code 为准）：
+          <div class="code reveal"><button class="copy" data-c="tw">复制</button><pre><span class="c">// Typewriter.tsx — 从 reactbits.dev 复制后直接可用</span>
+<span class="p">import</span> { useState, useEffect } <span class="p">from</span> <span class="s">"react"</span>;
+
+<span class="p">export function</span> <span class="b">Typewriter</span>({ words, speed = 150 }: { words: string[]; speed?: number }) {
+  <span class="p">const</span> [text, setText] = useState(<span class="s">""</span>);
+  <span class="p">const</span> [i, setI] = useState(0);
+
+  useEffect(() =&gt; {
+    <span class="p">const</span> timer = setTimeout(() =&gt; {
+      setText(words[i]?.slice(0, text.length + 1) ?? <span class="s">""</span>);
+      <span class="p">if</span> (text === words[i]) setI((i + 1) % words.length);
+    }, speed);
+    <span class="p">return</span> () =&gt; clearTimeout(timer);
+  }, [text, i, words, speed]);
+
+  <span class="p">return</span> &lt;span className=<span class="s">"font-mono"</span>&gt;{text}_&lt;/span&gt;;
+}</pre></div>
+        </div></div>
+      </div>
+      <div class="acc">
+        <div class="acc-h"><span class="num">03</span><h3>用 props 定制：颜色、速度、触发</h3><span class="ar">＋</span></div>
+        <div class="acc-b"><div class="acc-b-in">大多数组件把可控参数暴露成 props。以 Card / Tilt 类组件为例，常见可改项：
+          <ul>
+            <li><code>speed</code> / <code>duration</code>：动画时长（毫秒或秒）</li>
+            <li>颜色：直接改 Tailwind 类名（如 <code>text-[#e8743b]</code> 或 <code>bg-orange-500</code>）</li>
+            <li>尺寸：改 <code>className</code> 里的 <code>w- / h- / text-</code> 工具类</li>
+            <li>触发：把无限循环改成 <code>whileInView</code>（Framer Motion）即可滚动进入视口才播放</li>
+          </ul></div></div>
+      </div>
+    </div>
+
+    <div class="card reveal" style="margin-top:18px">
+      <h3 style="margin-top:0">真实落地链路：从 0 到动画上线</h3>
+      <div class="flow">
+        <div class="node"><h3>① 装依赖</h3><div class="d">项目里装好 tailwindcss 与 framer-motion</div></div>
+        <div class="arrow">→</div>
+        <div class="node"><h3>② 复制</h3><div class="d">官网点 Copy Code，粘进 components/</div></div>
+        <div class="arrow">→</div>
+        <div class="node"><h3>③ 改 props</h3><div class="d">调速度、颜色、尺寸、触发方式</div></div>
+        <div class="arrow">→</div>
+        <div class="node"><h3>④ 用起来</h3><div class="d">在页面 import 渲染，零额外配置</div></div>
+      </div>
+    </div>
+
+    <div class="callout reveal" style="text-align:left">💡 <b>性能提示</b>：报告特别提到，ReactBits 的组件多用 <code>transform</code> / <code>opacity</code> 这类走 GPU 合成的属性，避免触发 layout。若做无限背景动画，记得给容器加 <code>will-change</code> 或用 <code>requestAnimationFrame</code> 节流，避免低端机掉帧。</div>
+
+    <div class="chips reveal" style="margin-top:16px">
+      <span class="chip"><span class="d"></span>Text Animation</span>
+      <span class="chip"><span class="d"></span>Background</span>
+      <span class="chip"><span class="d"></span>Loader</span>
+      <span class="chip"><span class="d"></span>Card</span>
+      <span class="chip"><span class="d"></span>Interactive</span>
+      <span class="chip"><span class="d"></span>Element</span>
+      <span class="chip"><span class="d"></span>Icon</span>
+      <span class="chip"><span class="d"></span>Component</span>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq">
+    <div class="sec-head reveal">
+      <div class="k">FAQ</div>
+      <h2>常见问题</h2>
+    </div>
+    <div class="reveal">
+      <div class="acc">
+        <div class="acc-h"><span class="num">01</span><h3>ReactBits 要怎么安装？npm install 吗？</h3><span class="ar">＋</span></div>
+        <div class="acc-b"><div class="acc-b-in">不需要。ReactBits 没有自己的 npm 包，它是一个「复制即用」的源码库。你只需在项目中准备好 <code>framer-motion</code> 和 <code>tailwindcss</code>，然后从官网每个组件页点 Copy Code，把 .tsx 粘进你的 <code>components/</code> 目录即可。好处是代码完全在你仓库里，不受上游发版节奏约束。</div></div>
+      </div>
+      <div class="acc">
+        <div class="acc-h"><span class="num">02</span><h3>它和 Animate UI、Framer Motion 是什么关系？</h3><span class="ar">＋</span></div>
+        <div class="acc-b"><div class="acc-b-in">Framer Motion 是底层动画引擎；ReactBits 与 Animate UI 都是「站在它之上」的现成动画组件集合。区别有两点：① ReactBits 更偏「复制源码、自由改造」，组件数量 100+ 且种类更杂（背景、Loader、卡片都覆盖）；② Animate UI 更精简、更像传统组件库，适合「只想要少量动画增强」的项目。两者都依赖 Framer Motion，可共存。</div></div>
+      </div>
+      <div class="acc">
+        <div class="acc-h"><span class="num">03</span><h3>复制出来的组件能直接跑吗？要不要配 Tailwind？</h3><span class="ar">＋</span></div>
+        <div class="acc-b"><div class="acc-b-in">能直接跑，但前提是项目已配置好 Tailwind——组件里的样式全是 Tailwind 工具类，没有内联兜底样式。若你的项目用 CSS Modules 或 styled-components，需要手动把类名翻成对应写法。动画逻辑本身只依赖 <code>framer-motion</code> 的 <code>motion</code> 组件，不依赖 Tailwind。</div></div>
+      </div>
+      <div class="acc">
+        <div class="acc-h"><span class="num">04</span><h3>动画会不会拖慢我的页面性能？</h3><span class="ar">＋</span></div>
+        <div class="acc-b"><div class="acc-b-in">官方组件大多用 <code>transform</code>/<code>opacity</code> 这类走 GPU 合成的属性，本身就比改 <code>width</code>/<code>top</code> 更省。报告还建议：做无限循环背景时配合 <code>will-change</code> 或用 <code>requestAnimationFrame</code> 节流，低端设备更稳。如果你只想要一次性进场动画，把它改成 <code>whileInView</code> 还能减少常驻开销。</div></div>
+      </div>
+      <div class="acc">
+        <div class="acc-h"><span class="num">05</span><h3>商业项目能用吗？版权会有问题吗？</h3><span class="ar">＋</span></div>
+        <div class="acc-b"><div class="acc-b-in">源码复制到你项目后，就归你把控。把它当普通开源代码片段使用即可——改颜色、速度、文案都在你本地完成。具体许可证以官网 Get Started / 仓库声明为准；接入前建议扫一眼授权页确认可商用的范围。</div></div>
+      </div>
+      <div class="acc">
+        <div class="acc-h"><span class="num">06</span><h3>Next.js / SSR 项目能用吗？</h3><span class="ar">＋</span></div>
+        <div class="acc-b"><div class="acc-b-in">可以。ReactBits 组件是纯客户端 React 组件，React 18+ 即兼容，Next.js（App Router 下标 <code>"use client"</code>）、Vite、CRA 都能用。涉及 <code>window</code> / 监听的组件放在客户端组件里即可，无需特殊配置。</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- START -->
+  <section id="start">
+    <div class="sec-head reveal">
+      <div class="k">Quick Start</div>
+      <h2>五分钟上手</h2>
+      <p>核心就两件事：把底层依赖装好，再把组件源码复制进来。下面给出最稳的两条路径。</p>
+    </div>
+
+    <div class="tabs reveal" id="tabs">
+      <button class="tab active" data-t="deps">📦 装依赖</button>
+      <button class="tab" data-t="use">🧩 复制并用起来</button>
+      <button class="tab" data-t="vite">⚡ 新建 Vite 项目</button>
+    </div>
+
+    <div class="panel-box active" data-p="deps">
+      <div class="code reveal"><button class="copy" data-c="deps">复制</button><pre><span class="c"># 在已有 React 项目里装两个底层库（ReactBits 自身不用装）</span>
+<span class="p">npm install</span> framer-motion
+<span class="p">npm install -D</span> tailwindcss @tailwindcss/postcss postcss autoprefixer
+
+<span class="c"># 初始化 Tailwind（会生成 tailwind.config.js / postcss.config.js）</span>
+<span class="p">npx</span> tailwindcss init -p</pre></div>
+      <div class="callout reveal" style="text-align:left">⚠️ 版本提醒：Tailwind v4 用 <code>@import "tailwindcss"</code> 的 CSS 入口，不再需要 <code>content</code> 数组；若你用 v3，请按官方保留 <code>content: ["./src/**/*.{ts,tsx}"]</code>。ReactBits 组件类名按对应版本书写。</div>
+    </div>
+
+    <div class="panel-box" data-p="use">
+      <div class="code reveal"><button class="copy" data-c="use">复制</button><pre><span class="c">// 1) 官网点 Copy Code，把组件存成文件</span>
+<span class="c">//    src/components/Typewriter.tsx</span>
+
+<span class="c">// 2) 在你的页面里 import 并渲染</span>
+<span class="p">import</span> { Typewriter } <span class="p">from</span> <span class="s">"./components/Typewriter"</span>;
+
+<span class="p">export default function</span> <span class="b">Hero</span>() {
+  <span class="p">return</span> (
+    &lt;h1&gt;
+      &lt;Typewriter words={[<span class="s">"构建中"</span>, <span class="s">" shipping"</span>, <span class="s">"上线了"</span>]} speed={120} /&gt;
+    &lt;/h1&gt;
+  );
+}</pre></div>
+      <div class="callout reveal" style="text-align:left">💡 复制后先 <b>原样跑通</b>，再改 props。这样能快速确认是组件问题还是你项目里 Tailwind / Framer Motion 没配好。</div>
+    </div>
+
+    <div class="panel-box" data-p="vite">
+      <div class="code reveal"><button class="copy" data-c="vite">复制</button><pre><span class="c"># 从零起一个 React + TS 项目并接好依赖</span>
+<span class="p">npm create vite@latest</span> my-app -- --template react-ts
+<span class="p">cd</span> my-app
+<span class="p">npm install</span> framer-motion
+<span class="p">npm install -D</span> tailwindcss @tailwindcss/postcss postcss
+
+<span class="c"># 启动后去 reactbits.dev 复制组件粘进 src/components/</span>
+<span class="p">npm run dev</span></pre></div>
+    </div>
+
+    <div class="grid g3 reveal" style="margin-top:22px">
+      <div class="card"><h3 style="margin-top:0; font-size:17px">🔍 先预览再复制</h3><p style="color:var(--muted); font-size:14px">每个组件页都有实时 demo，点一下看效果再决定要不要复制，避免盲目搬代码。</p></div>
+      <div class="card"><h3 style="margin-top:0; font-size:17px">🎨 改 props 不动结构</h3><p style="color:var(--muted); font-size:14px">颜色、速度、尺寸优先用 props 和 Tailwind 类改，不要重写动画逻辑。</p></div>
+      <div class="card"><h3 style="margin-top:0; font-size:17px">📚 当 Framer Motion 教材</h3><p style="color:var(--muted); font-size:14px">读源码能学到 <code>variants</code>、<code>whileInView</code>、<code>staggerChildren</code> 等高级用法。</p></div>
+    </div>
+  </section>
+
+  <footer>made with ♥ &amp; a white grid — <b>ReactBits 深度解读</b><div style="margin-top:6px;font-size:13px">数据抓取于 2026-07-14 · 内容综合自官网与 Tabbit 报告</div></footer>
+</div>
+
+<script>
+/* theme */
+const root=document.documentElement, tb=document.getElementById('themeBtn');
+tb.onclick=()=>{root.dataset.theme=root.dataset.theme==='light'?'dark':'light';};
+/* progress bar */
+const prog=document.getElementById('progress');
+addEventListener('scroll',()=>{const h=document.documentElement;
+  prog.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+'%';});
+/* reveal */
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in');}),{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+/* counters */
+function animateCounters(){
+  document.querySelectorAll('.stat .n').forEach(el=>{
+    const to=parseFloat(el.dataset.to), suf=el.dataset.suf||'';
+    let cur=0; const step=to/46;
+    const t=setInterval(()=>{cur+=step; if(cur>=to){cur=to; clearInterval(t);}
+      el.textContent=(to%1?cur.toFixed(1):Math.round(cur))+suf;},22);
+  });
+}
+const heroIO=new IntersectionObserver((es,o)=>{es.forEach(e=>{if(e.isIntersecting){animateCounters();o.disconnect();}});},{threshold:.4});
+heroIO.observe(document.querySelector('.hero'));
+/* tabs */
+document.querySelectorAll('.tabs').forEach(wrap=>{
+  const boxes=Array.from(wrap.parentElement.children).filter(c=>c.classList.contains('panel-box'));
+  wrap.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{
+    wrap.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
+    b.classList.add('active');
+    const t=b.dataset.t;
+    boxes.forEach(p=>p.classList.toggle('active',p.dataset.p===t));
+  });
+});
+/* accordion */
+document.querySelectorAll('.acc-h').forEach(h=>h.onclick=()=>{
+  const acc=h.parentElement, b=acc.querySelector('.acc-b');
+  const open=acc.classList.toggle('open');
+  b.style.maxHeight=open?b.scrollHeight+'px':'0';
+});
+/* copy */
+document.querySelectorAll('.copy').forEach(b=>b.onclick=()=>{
+  const pre=b.parentElement.querySelector('pre');
+  navigator.clipboard.writeText(pre.innerText).then(()=>{const t=b.textContent;b.textContent='已复制 ✓';setTimeout(()=>b.textContent=t,1400);});
+});
+</script>
+<a href="tp.html" style="position:fixed;left:18px;bottom:18px;z-index:90;display:inline-flex;align-items:center;gap:7px;font:600 14px/1 system-ui,sans-serif;color:#fff;text-decoration:none;background:linear-gradient(120deg,var(--accent),var(--accent-2));padding:11px 17px;border-radius:12px;box-shadow:0 8px 30px rgba(0,0,0,.3)">← 返回 TP 中心</a>
+<script>
+/* Theme button icon sync */
+(function(){
+  var btn=document.querySelector('.theme-btn');
+  if(!btn)return;
+  function sync(){btn.textContent=document.documentElement.dataset.theme==='dark'?'☀️':'🌙';}
+  sync();
+  btn.addEventListener('click',function(){setTimeout(sync,0);});
+})();
+</script>
+<script>
+/* Auto-collapse TOC: only expand the section containing the current page */
+(function(){
+  var details=document.querySelectorAll('aside.toc details.toc-sec');
+  if(details.length<2)return;
+  var current=location.pathname.replace(/\/$/,'');
+  var activeLink=null;
+  document.querySelectorAll('aside.toc a').forEach(function(a){
+    var href=a.getAttribute('href')||'';
+    if(href && !href.startsWith('http') && !href.startsWith('#')){
+      var path=href.replace(/^https?:\/\/[^\/]+/,'').replace(/\/$/,'');
+      if(current===path || current.indexOf(path)>-1 || path.indexOf(current)>-1){
+        activeLink=a;
+      }
+    }
+  });
+  details.forEach(function(d){
+    if(activeLink && d.contains(activeLink)){d.setAttribute('open','');}
+    else{d.removeAttribute('open');}
+  });
+})();
+</script>
+</body>
+</html>

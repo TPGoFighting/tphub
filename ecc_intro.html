@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ECC — Agent Harness Operating System · 深度解读</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#ffffff; --grid:#edeff4; --glow:#fff5f0;
+    --ink:#14151a; --muted:#60667a; --line:#e6e8ef;
+    --accent:#f2632f; --accent-2:#7b5cff; --blue:#2d6cdf;
+    --green:#1f9d6b; --yellow:#e0a200; --pink:#e0457f;
+    --card:#ffffff; --soft:#f7f8fb; --shadow:rgba(20,21,26,.08);
+    --radius:18px;
+  }
+  [data-theme="dark"]{
+    --bg:#0e0f14; --grid:#1a1c25; --glow:#1a1410;
+    --ink:#f1f2f6; --muted:#9aa0b4; --line:#262936;
+    --accent:#ff7a4d; --accent-2:#9a7bff; --blue:#5b8cff;
+    --card:#15171f; --soft:#191b24; --shadow:rgba(0,0,0,.5);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0; color:var(--ink); font-family:'Inter',system-ui,sans-serif;
+    background:var(--bg);
+    background-image:
+      linear-gradient(var(--grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+    background-size:34px 34px;
+    background-attachment:fixed;
+    line-height:1.65; -webkit-font-smoothing:antialiased;
+  }
+  body::before{
+    content:""; position:fixed; inset:0; pointer-events:none; z-index:0;
+    background:radial-gradient(60% 50% at 50% -10%, var(--glow), transparent 70%);
+  }
+  h1,h2,h3,.display{font-family:'Space Grotesk',sans-serif; letter-spacing:-.02em;}
+  a{color:var(--blue); text-decoration:none;}
+  code,.mono{font-family:'JetBrains Mono',monospace;}
+  .wrap{max-width:1080px; margin:0 auto; padding:0 22px; position:relative; z-index:1;}
+
+  /* progress + nav */
+  #progress{position:fixed; top:0; left:0; height:3px; width:0; z-index:100;
+    background:linear-gradient(90deg,var(--accent),var(--accent-2)); transition:width .1s;}
+  nav{position:sticky; top:0; z-index:50; backdrop-filter:blur(14px);
+    background:color-mix(in srgb, var(--bg) 78%, transparent);
+    border-bottom:1px solid var(--line);}
+  .nav-in{max-width:1080px; margin:0 auto; padding:13px 22px; display:flex; align-items:center; gap:18px;}
+  .logo{font-family:'Space Grotesk'; font-weight:700; font-size:20px; display:flex; align-items:center; gap:9px;}
+  .logo .dot{width:13px;height:13px;border-radius:4px;background:linear-gradient(135deg,var(--accent),var(--accent-2)); box-shadow:0 0 0 4px color-mix(in srgb,var(--accent) 18%,transparent);}
+  .nav-links{display:flex; gap:6px; margin-left:auto; flex-wrap:wrap;}
+  .nav-links a{color:var(--muted); font-size:14px; font-weight:500; padding:7px 11px; border-radius:9px; transition:.2s;}
+  .nav-links a:hover{color:var(--ink); background:var(--soft);}
+  .toggle{cursor:pointer; border:1px solid var(--line); background:var(--card); border-radius:10px;
+    width:40px; height:36px; display:grid; place-items:center; font-size:16px; transition:.2s;}
+  .toggle:hover{border-color:var(--accent);}
+  .ghost-btn{border:1px solid var(--line); background:var(--card); color:var(--ink); padding:8px 13px;
+    border-radius:10px; font-size:14px; font-weight:600; transition:.2s; cursor:pointer;}
+  .ghost-btn:hover{border-color:var(--accent); transform:translateY(-1px);}
+
+  /* hero */
+  .hero{padding:70px 0 40px; text-align:center;}
+  .eyebrow{display:inline-flex; align-items:center; gap:8px; font-size:13px; font-weight:600; color:var(--accent);
+    background:color-mix(in srgb,var(--accent) 10%,transparent); padding:6px 13px; border-radius:99px; border:1px solid color-mix(in srgb,var(--accent) 25%,transparent);}
+  .hero h1{font-size:clamp(40px,8vw,82px); margin:18px 0 8px; line-height:1; font-weight:700;}
+  .hero h1 .grad{background:linear-gradient(120deg,var(--accent),var(--accent-2)); -webkit-background-clip:text; background-clip:text; color:transparent;}
+  .hero p.sub{font-size:clamp(16px,2.4vw,21px); color:var(--muted); max-width:680px; margin:10px auto 0;}
+  .cta{display:flex; gap:12px; justify-content:center; margin-top:26px; flex-wrap:wrap;}
+  .btn{display:inline-flex; align-items:center; gap:8px; padding:13px 22px; border-radius:12px; font-weight:600; font-size:15px; transition:.22s; cursor:pointer; border:1px solid transparent;}
+  .btn.primary{background:linear-gradient(120deg,var(--accent),#ff8a5c); color:#fff; box-shadow:0 10px 26px color-mix(in srgb,var(--accent) 35%,transparent);}
+  .btn.primary:hover{transform:translateY(-2px); box-shadow:0 16px 34px color-mix(in srgb,var(--accent) 45%,transparent);}
+  .btn.sec{background:var(--card); border-color:var(--line); color:var(--ink);}
+  .btn.sec:hover{border-color:var(--accent); transform:translateY(-2px);}
+
+  /* stats */
+  .stats{display:grid; grid-template-columns:repeat(6,1fr); gap:14px; margin:40px 0 10px;}
+  .stat{background:var(--card); border:1px solid var(--line); border-radius:var(--radius); padding:18px 12px; text-align:center; box-shadow:0 6px 20px var(--shadow); transition:.25s;}
+  .stat:hover{transform:translateY(-3px); border-color:var(--accent);}
+  .stat .n{font-family:'Space Grotesk'; font-weight:700; font-size:clamp(20px,3vw,28px); color:var(--ink);}
+  .stat .l{font-size:12.5px; color:var(--muted); margin-top:3px;}
+
+  /* sections */
+  section{padding:54px 0; scroll-margin-top:74px;}
+  .sec-head{margin-bottom:26px;}
+  .sec-head .k{font-size:13px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--accent);}
+  .sec-head h2{font-size:clamp(26px,4vw,38px); margin:8px 0 6px;}
+  .sec-head p{color:var(--muted); max-width:720px; margin:0;}
+
+  .card{background:var(--card); border:1px solid var(--line); border-radius:var(--radius); padding:22px; box-shadow:0 6px 22px var(--shadow); transition:.25s;}
+  .card:hover{transform:translateY(-3px); box-shadow:0 14px 34px var(--shadow); border-color:color-mix(in srgb,var(--accent) 40%,var(--line));}
+  .grid{display:grid; gap:16px;}
+  .g2{grid-template-columns:repeat(2,1fr);} .g3{grid-template-columns:repeat(3,1fr);} .g4{grid-template-columns:repeat(4,1fr);}
+  .pillar .ic{width:44px;height:44px;border-radius:12px; display:grid; place-items:center; font-size:22px; margin-bottom:12px;
+    background:color-mix(in srgb,var(--accent) 12%,transparent); border:1px solid color-mix(in srgb,var(--accent) 22%,transparent);}
+  .pillar h3{font-size:18px; margin:0 0 6px;} .pillar p{color:var(--muted); font-size:14.5px; margin:0;}
+
+  .chips{display:flex; gap:10px; flex-wrap:wrap;}
+  .chip{display:inline-flex; align-items:center; gap:8px; padding:10px 15px; border-radius:12px; border:1px solid var(--line);
+    background:var(--card); font-weight:600; font-size:14.5px; transition:.2s;}
+  .chip:hover{border-color:var(--accent-2); transform:translateY(-2px); box-shadow:0 8px 20px var(--shadow);}
+  .chip .d{width:9px;height:9px;border-radius:50%; background:linear-gradient(135deg,var(--accent),var(--accent-2));}
+
+  /* tabs */
+  .tabs{display:flex; gap:6px; flex-wrap:wrap; margin-bottom:18px; border-bottom:1px solid var(--line); padding-bottom:12px;}
+  .tab{border:1px solid var(--line); background:var(--card); color:var(--muted); padding:9px 15px; border-radius:11px; font-weight:600; font-size:14px; cursor:pointer; transition:.2s;}
+  .tab:hover{color:var(--ink);}
+  .tab.active{background:linear-gradient(120deg,var(--accent),#ff8a5c); color:#fff; border-color:transparent; box-shadow:0 8px 20px color-mix(in srgb,var(--accent) 35%,transparent);}
+  .panel-box{display:none;} .panel-box.active{display:block; animation:fade .35s ease;}
+  @keyframes fade{from{opacity:0; transform:translateY(8px);} to{opacity:1; transform:none;}}
+
+  /* explorer */
+  .explorer{background:var(--card); border:1px solid var(--line); border-radius:var(--radius); padding:18px; box-shadow:0 6px 22px var(--shadow);}
+  .ex-top{display:flex; gap:12px; flex-wrap:wrap; align-items:center; margin-bottom:14px;}
+  .search{flex:1; min-width:200px; display:flex; align-items:center; gap:9px; border:1px solid var(--line); border-radius:12px; padding:10px 14px; background:var(--soft);}
+  .search input{border:none; background:transparent; outline:none; font-size:15px; width:100%; color:var(--ink); font-family:inherit;}
+  .filters{display:flex; gap:7px; flex-wrap:wrap;}
+  .fbtn{border:1px solid var(--line); background:var(--card); color:var(--muted); padding:7px 12px; border-radius:9px; font-size:13px; font-weight:600; cursor:pointer; transition:.2s;}
+  .fbtn:hover{color:var(--ink);}
+  .fbtn.active{background:var(--ink); color:var(--bg); border-color:var(--ink);}
+  .ex-list{display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:11px; max-height:430px; overflow:auto; padding:4px; margin-top:6px;}
+  .item{border:1px solid var(--line); border-radius:12px; padding:12px 13px; background:var(--soft); transition:.18s; cursor:default;}
+  .item:hover{border-color:var(--accent); transform:translateY(-2px); background:var(--card);}
+  .item .nm{font-family:'JetBrains Mono'; font-size:13.5px; font-weight:500; color:var(--ink); word-break:break-word;}
+  .item .tag{display:inline-block; margin-top:7px; font-size:11px; font-weight:600; color:var(--accent-2); background:color-mix(in srgb,var(--accent-2) 12%,transparent); padding:3px 8px; border-radius:7px;}
+  .ex-count{font-size:13px; color:var(--muted); margin-top:10px;}
+
+  /* accordion */
+  .acc{border:1px solid var(--line); border-radius:14px; overflow:hidden; background:var(--card); margin-bottom:11px; box-shadow:0 4px 16px var(--shadow);}
+  .acc-h{display:flex; align-items:center; gap:13px; padding:17px 19px; cursor:pointer; transition:.2s; user-select:none;}
+  .acc-h:hover{background:var(--soft);}
+  .acc-h .num{font-family:'Space Grotesk'; font-weight:700; color:var(--accent); font-size:15px; min-width:30px;}
+  .acc-h h3{font-size:17px; margin:0; flex:1;}
+  .acc-h .ar{transition:.3s; color:var(--muted); font-size:18px;}
+  .acc.open .acc-h .ar{transform:rotate(45deg); color:var(--accent);}
+  .acc-b{max-height:0; overflow:hidden; transition:max-height .35s ease;}
+  .acc-b-in{padding:0 19px 19px 62px; color:var(--muted); font-size:15px;}
+  .acc-b-in ul{margin:8px 0 0; padding-left:18px;} .acc-b-in li{margin:5px 0;}
+
+  /* timeline */
+  .tl{position:relative; margin-left:14px; padding-left:30px; border-left:2px solid var(--line);}
+  .tl-item{position:relative; padding:0 0 28px 0;}
+  .tl-item::before{content:""; position:absolute; left:-39px; top:4px; width:15px; height:15px; border-radius:50%; background:var(--card); border:3px solid var(--accent);}
+  .tl-item .v{font-family:'Space Grotesk'; font-weight:700; color:var(--accent); font-size:15px;}
+  .tl-item .t{font-weight:700; font-size:17px; margin:2px 0 5px;}
+  .tl-item p{color:var(--muted); margin:0; font-size:14.5px;}
+
+  /* code */
+  .code{background:var(--ink); color:#e7e9f2; border-radius:14px; padding:16px 18px; overflow:auto; box-shadow:0 10px 30px var(--shadow);}
+  .code pre{margin:0; font-family:'JetBrains Mono'; font-size:13.5px; line-height:1.7;}
+  .code .c{color:#7c8499;} .code .s{color:#9be8b0;} .code .p{color:#ffae8a;} .code .b{color:#8db4ff;}
+  .copy{float:right; cursor:pointer; font-size:12px; color:#aeb4c8; border:1px solid #2c2f3a; background:#1b1d26; padding:4px 9px; border-radius:8px;}
+  .copy:hover{color:#fff;}
+
+  .callout{border-left:4px solid var(--accent); background:color-mix(in srgb,var(--accent) 7%,var(--card)); padding:14px 17px; border-radius:0 12px 12px 0; font-size:14.5px; color:var(--muted); margin:16px 0;}
+  .callout b{color:var(--ink);}
+
+  footer{border-top:1px solid var(--line); padding:36px 0 60px; text-align:center; color:var(--muted); font-size:14px;}
+  .reveal{opacity:0; transform:translateY(22px); transition:opacity .7s ease, transform .7s ease;}
+  .reveal.in{opacity:1; transform:none;}
+  @media(max-width:760px){.stats{grid-template-columns:repeat(3,1fr);} .g2,.g3,.g4{grid-template-columns:1fr;} .nav-links{display:none;}}
+</style>
+</head>
+<body>
+<div id="progress"></div>
+<nav>
+  <div class="nav-in">
+    <div class="logo"><span class="dot"></span>ECC</div>
+    <div class="nav-links">
+      <a href="#what">概览</a>
+      <a href="#harness">跨宿主</a>
+      <a href="#inside">内部结构</a>
+      <a href="#systems">核心系统</a>
+      <a href="#timeline">版本演进</a>
+      <a href="#start">快速开始</a>
+    </div>
+    <button class="toggle" id="themeBtn" title="切换明暗">◐</button>
+    <a class="ghost-btn" href="https://github.com/affaan-m/ECC" target="_blank">GitHub ↗</a>
+  </div>
+</nav>
+
+<div class="wrap">
+
+  <!-- HERO -->
+  <header class="hero">
+    <span class="eyebrow">● Agent Harness Operating System</span>
+    <h1>The <span class="grad">ECC</span> System</h1>
+    <p class="sub">为 agentic 工作打造的「harness-native 操作系统」。不只是配置集合，而是一整套：skills、instincts、记忆优化、持续学习、安全扫描与研究优先的开发范式——横跨 Codex / Claude Code / Cursor / OpenCode / Gemini 等主流 agent harness。</p>
+    <div class="cta">
+      <a class="btn primary" href="#start">⚡ 2 分钟上手</a>
+      <a class="btn sec" href="#inside">🔍 探索内部构造</a>
+    </div>
+    <div class="stats">
+      <div class="stat reveal"><div class="n" data-to="211.9" data-suf="K">0</div><div class="l">Stars</div></div>
+      <div class="stat reveal"><div class="n" data-to="32.5" data-suf="K">0</div><div class="l">Forks</div></div>
+      <div class="stat reveal"><div class="n" data-to="230" data-suf="+">0</div><div class="l">Contributors</div></div>
+      <div class="stat reveal"><div class="n" data-to="278" data-suf="">0</div><div class="l">Skills</div></div>
+      <div class="stat reveal"><div class="n" data-to="67" data-suf="">0</div><div class="l">Agents</div></div>
+      <div class="stat reveal"><div class="n" data-to="12" data-suf="+">0</div><div class="l">语言生态</div></div>
+    </div>
+    <div class="callout" style="text-align:left; max-width:760px; margin:18px auto 0;">
+      ⚠️ 数据说明：GitHub API 本次被限流（403），上方 star / fork / contributor 等数字均取自项目 README 自述与徽章，未在本次会话中独立核验。OSS 永久 MIT，商业版 ECC Pro 为 $19/座/月 的托管 GitHub App。
+    </div>
+  </header>
+
+  <!-- WHAT -->
+  <section id="what">
+    <div class="sec-head reveal">
+      <div class="k">Overview</div>
+      <h2>它不是「又一份配置」，而是一套系统</h2>
+      <p>从 10+ 个月、每天真实用在造产品的多 harness 工程流程中演化而来。把「生产级 agent + skill + hook + 规则 + MCP 配置」打包成可复用层。</p>
+    </div>
+    <div class="grid g3">
+      <div class="card pillar reveal"><div class="ic">🧩</div><h3>Skills</h3><p>278 个工作流 / 领域知识包，是主要的「工作界面」。从语言规范到投资材料、从安全扫描到视频生成。</p></div>
+      <div class="card pillar reveal"><div class="ic">🧠</div><h3>Instincts</h3><p>持续学习 v2：从会话里自动抽取模式，带置信度评分，可导入/导出，再用 <code>/evolve</code> 聚成 skill。</p></div>
+      <div class="card pillar reveal"><div class="ic">💾</div><h3>Memory</h3><p>记忆持久化 hook：会话摘要、学到的 skill、会话别名、成本指标，按 harness 隔离存储。</p></div>
+      <div class="card pillar reveal"><div class="ic">🎓</div><h3>Continuous Learning</h3><p>从每次会话自动提炼可复用模式，让 agent 越用越懂你的代码库与偏好。</p></div>
+      <div class="card pillar reveal"><div class="ic">🛡️</div><h3>Security</h3><p>内置 AgentShield：102 条静态规则、1282 测试、98% 覆盖率的配置安全审计器。</p></div>
+      <div class="card pillar reveal"><div class="ic">🔬</div><h3>Research-First</h3><p>研究优先开发：<code>search-first</code>、文档查询、引文归因的市场/竞品研究技能。</p></div>
+    </div>
+  </section>
+
+  <!-- HARNESS -->
+  <section id="harness">
+    <div class="sec-head reveal">
+      <div class="k">Cross-Harness</div>
+      <h2>同一套仓库，干净地跑遍所有主流 harness</h2>
+      <p>这是 ECC 与普通「prompt 合集」最大的差别：行为在 Claude Code、Cursor、OpenCode、Codex（app + CLI）之间被刻意对齐。</p>
+    </div>
+    <div class="chips reveal">
+      <span class="chip"><span class="d"></span>Claude Code</span>
+      <span class="chip"><span class="d"></span>Codex</span>
+      <span class="chip"><span class="d"></span>Cursor</span>
+      <span class="chip"><span class="d"></span>OpenCode</span>
+      <span class="chip"><span class="d"></span>Gemini CLI</span>
+      <span class="chip"><span class="d"></span>Zed</span>
+      <span class="chip"><span class="d"></span>GitHub Copilot</span>
+      <span class="chip"><span class="d"></span>Antigravity</span>
+    </div>
+    <div class="callout reveal" style="text-align:left;">💡 <b>包管理自动探测</b>：ECC 按 环境变量 → 项目配置 → package.json → lockfile → 全局配置 → 兜底 的顺序识别 npm/pnpm/yarn/bun，无需手动指定。</div>
+  </section>
+
+  <!-- INSIDE -->
+  <section id="inside">
+    <div class="sec-head reveal">
+      <div class="k">Architecture</div>
+      <h2>拆开看：仓库里到底有什么</h2>
+      <p>一个标准的 Claude Code 插件结构。注意 hooks 由约定自动加载，<b>不能在 plugin.json 里再声明</b>（否则重复检测报错，已有回归测试守卫）。</p>
+    </div>
+
+    <div class="tabs reveal" id="tabs">
+      <button class="tab active" data-t="agents">🤖 Agents</button>
+      <button class="tab" data-t="skills">⚡ Skills</button>
+      <button class="tab" data-t="commands">⌨️ Commands</button>
+      <button class="tab" data-t="rules">📏 Rules</button>
+      <button class="tab" data-t="hooks">🪝 Hooks</button>
+      <button class="tab" data-t="misc">🧰 其余</button>
+    </div>
+
+    <div class="panel-box active" data-p="agents">
+      <div class="card reveal">
+        <p style="margin:0 0 10px; color:var(--muted);"><b style="color:var(--ink)">67 个专职子 agent</b>，用于委派（delegate）。下面是可交互搜索/筛选器（数据节选自 README 明示清单）：</p>
+        <div class="explorer">
+          <div class="ex-top">
+            <div class="search">🔍 <input id="agSearch" placeholder="搜索 agent，如 reviewer / build / rust …"></div>
+            <div class="filters" id="agFilters">
+              <button class="fbtn active" data-f="all">全部</button>
+              <button class="fbtn" data-f="review">审查</button>
+              <button class="fbtn" data-f="build">构建修复</button>
+              <button class="fbtn" data-f="lang">语言</button>
+              <button class="fbtn" data-f="ops">运维/编排</button>
+            </div>
+          </div>
+          <div class="ex-list" id="agList"></div>
+          <div class="ex-count" id="agCount"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel-box" data-p="skills">
+      <div class="card reveal">
+        <p style="margin:0 0 10px; color:var(--muted);"><b style="color:var(--ink)">278 个 skill</b> 按领域分类。点击分类标签筛选，输入关键词搜索：</p>
+        <div class="explorer">
+          <div class="ex-top">
+            <div class="search">🔍 <input id="skSearch" placeholder="搜索 skill，如 django / security / swift …"></div>
+            <div class="filters" id="skFilters">
+              <button class="fbtn active" data-f="all">全部</button>
+              <button class="fbtn" data-f="lang">语言</button>
+              <button class="fbtn" data-f="fw">框架</button>
+              <button class="fbtn" data-f="sec">安全</button>
+              <button class="fbtn" data-f="wf">工作流</button>
+              <button class="fbtn" data-f="ml">ML</button>
+              <button class="fbtn" data-f="biz">内容/运营</button>
+              <button class="fbtn" data-f="mob">移动</button>
+            </div>
+          </div>
+          <div class="ex-list" id="skList"></div>
+          <div class="ex-count" id="skCount"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel-box" data-p="commands">
+      <div class="grid g2 reveal">
+        <div class="card"><h3 style="margin-top:0">⌨️ 维护中的斜杠命令</h3><p style="color:var(--muted); font-size:14.5px">plan · code-review · build-fix · refactor-clean · quality-gate · learn · learn-eval · checkpoint · setup-pm · go-review/test/build · skill-create · instinct-status/import/export · evolve · prune · pm2 · multi-plan/execute/backend/frontend/workflow · sessions · test-coverage · update-docs · update-codemaps · python-review</p></div>
+        <div class="card"><h3 style="margin-top:0">🗄️ 遗留命令垫片</h3><p style="color:var(--muted); font-size:14.5px">legacy-command-shims/ 存放退役别名（opt-in）：<code>/tdd</code> → tdd-workflow、<code>/e2e</code> → e2e-testing、<code>/eval</code> → eval-harness、<code>/verify</code> → verification-loop、<code>/orchestrate</code> → multi-workflow。共 94 个 shim。</p></div>
+      </div>
+    </div>
+
+    <div class="panel-box" data-p="rules">
+      <div class="card reveal">
+        <h3 style="margin-top:0">📏 Rules：始终遵循的准则（手动复制到 ~/.claude/rules/ecc/）</h3>
+        <p style="color:var(--muted); font-size:14.5px"><b style="color:var(--ink)">common/</b>（语言无关）：coding-style · git-workflow · testing(TDD,80% 覆盖) · performance(模型选择/上下文管理) · patterns · hooks · agents(何时委派) · security(强制检查)。<br><b style="color:var(--ink)">语言包</b>：typescript · python · golang · swift · php · arkts(HarmonyOS)。插件无法自动分发 rules，需手动 cp。</p>
+      </div>
+    </div>
+
+    <div class="panel-box" data-p="hooks">
+      <div class="card reveal">
+        <h3 style="margin-top:0">🪝 Hooks：基于触发的自动化</h3>
+        <p style="color:var(--muted); font-size:14.5px"><code>hooks.json</code> 聚合 PreToolUse / PostToolUse / Stop 等钩子，由 Claude Code v2.1+ 按约定自动加载。<code>hooks/</code> 下有 memory-persistence（会话生命周期）与 strategic-compact（压缩建议）。运行时可用 <code>ECC_HOOK_PROFILE=minimal|standard|strict</code> 与 <code>ECC_DISABLED_HOOKS=...</code> 临时调严格度，无需改文件。</p>
+      </div>
+    </div>
+
+    <div class="panel-box" data-p="misc">
+      <div class="grid g3 reveal">
+        <div class="card"><h3 style="margin-top:0; font-size:17px">📂 scripts/</h3><p style="color:var(--muted); font-size:14px">跨平台 Node.js：session-start/end、pre-compact、evaluate-session、setup-package-manager、uninstall/doctor/repair。</p></div>
+        <div class="card"><h3 style="margin-top:0; font-size:17px">🖥️ ecc_dashboard.py</h3><p style="color:var(--muted); font-size:14px">Tkinter 桌面 GUI：Agents/Skills/Commands/Rules/Settings 分页、明暗主题、字体自定义、搜索过滤。</p></div>
+        <div class="card"><h3 style="margin-top:0; font-size:17px">🦀 ecc2/</h3><p style="color:var(--muted); font-size:14px">Rust 控制面原型：dashboard/start/sessions/status/stop/resume/daemon，可本地构建的 alpha。</p></div>
+        <div class="card"><h3 style="margin-top:0; font-size:17px">🔌 mcp-configs/</h3><p style="color:var(--muted); font-size:14px">mcp-servers.json：GitHub · Supabase · Vercel · Railway 等现成 MCP 配置。</p></div>
+        <div class="card"><h3 style="margin-top:0; font-size:17px">📋 contexts/</h3><p style="color:var(--muted); font-size:14px">动态系统提示注入：dev / review / research 三种模式上下文。</p></div>
+        <div class="card"><h3 style="margin-top:0; font-size:17px">📦 .claude-plugin/</h3><p style="color:var(--muted); font-size:14px">plugin.json + marketplace.json，支撑 <code>/plugin marketplace add</code> 与 <code>/plugin install ecc@ecc</code>。</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SYSTEMS -->
+  <section id="systems">
+    <div class="sec-head reveal">
+      <div class="k">Deep Dive</div>
+      <h2>六个核心系统，逐层点开</h2>
+    </div>
+    <div class="reveal">
+      <div class="acc">
+        <div class="acc-h"><span class="num">01</span><h3>持续学习 v2 · Instinct 机制</h3><span class="ar">＋</span></div>
+        <div class="acc-b"><div class="acc-b-in">基于「本能(instinct)」的学习：会话结束后 <code>evaluate-session</code> 抽取模式，每条 instinct 带<b>置信度评分</b>。
+          <ul><li><code>/instinct-status</code> 查看已学本能（默认最多注入 6 条，阈值 0.7，可用 env 调）</li>
+          <li><code>/instinct-import · /instinct-export</code> 与他人共享</li>
+          <li><code>/evolve</code> 把相关 instinct 聚合成正式 skill</li>
+          <li>底层用 <b>SQLite 状态库</b>记录已装组件，支持增量更新与 <code>ecc status</code> 便携交接</li></ul></div></div>
+      </div>
+      <div class="acc">
+        <div class="acc-h"><span class="num">02</span><h3>AgentShield · 安全审计器</h3><span class="ar">＋</span></div>
+        <div class="acc-b"><div class="acc-b-in">独立 npm 包 <code>ecc-agentshield</code>（1282 测试、98% 覆盖、102 条静态规则）。扫描 CLAUDE.md / settings.json / MCP 配置 / hooks / agent 定义 / skills 五类：
+          <ul><li>密钥检测（14 种模式）、权限审计、hook 注入分析、MCP 风险画像、agent 配置审查</li>
+          <li><code>--opus</code> 启动 3 个 Opus 4.6 agent 做红队/蓝队/审计三角色对抗推理，而非简单模式匹配</li>
+          <li>输出 A–F 终端评级 / JSON（CI）/ Markdown / HTML；发现严重项时 exit code 2，可直接做构建门禁</li></ul></div></div>
+      </div>
+      <div class="acc">
+        <div class="acc-h"><span class="num">03</span><h3>记忆持久化 · Memory Persistence</h3><span class="ar">＋</span></div>
+        <div class="acc-b"><div class="acc-b-in">多个 hook 在会话生命周期里自动存/取上下文。数据集中在单一 agent 数据根（默认 <code>~/.claude</code>），可用 <code>ECC_AGENT_DATA_HOME</code> 为不同 harness（如 Cursor）隔离，避免互相覆盖：
+          <ul><li><code>session-data/</code> 会话摘要 · <code>skills/learned/</code> 学到的 skill</li>
+          <li><code>session-aliases.json</code> 会话别名 · <code>metrics/</code> 成本与活跃度指标</li>
+          <li><code>ECC_SESSION_RETENTION_DAYS</code> 控制保留窗口（默认 30 天）</li></ul></div></div>
+      </div>
+      <div class="acc">
+        <div class="acc-h"><span class="num">04</span><h3>Token 优化与验证循环</h3><span class="ar">＋</span></div>
+        <div class="acc-b"><div class="acc-b-in">长表单指南覆盖的主题：
+          <ul><li><b>Token 优化</b>：模型选择、系统提示瘦身、后台进程、<code>strategic-compact</code> 压缩建议</li>
+          <li><b>验证循环</b>：checkpoint vs continuous eval、grader 类型、pass@k 指标</li>
+          <li><b>子 agent 编排</b>：上下文问题、迭代检索(iterative-retrieval)模式</li></ul></div></div>
+      </div>
+      <div class="acc">
+        <div class="acc-h"><span class="num">05</span><h3>并行化 · Parallelization</h3><span class="ar">＋</span></div>
+        <div class="acc-b"><div class="acc-b-in">用 Git worktree 做多实例并行，cascade 方法决定何时扩实例。<code>multi-*</code> 命令（multi-plan/execute/backend/frontend/workflow）需额外安装 <code>ccg-workflow</code> 运行时，提供 <code>~/.claude/bin/codeagent-wrapper</code> 等外部依赖。</div></div>
+      </div>
+      <div class="acc">
+        <div class="acc-h"><span class="num">06</span><h3>Hermes 操作员层 · ecc2 控制面</h3><span class="ar">＋</span></div>
+        <div class="acc-b"><div class="acc-b-in">v2.0.0 在可复用层之上叠了公开的 <b>Hermes 操作员</b>故事：控制面基底（session adapters + MCP inventory）、worktree-lifecycle 服务、<code>orch-*</code> 编排器家族。配套的 Rust 控制面原型 <code>ecc2/</code> 已可本地构建，暴露 dashboard/start/sessions/status/stop/resume/daemon 命令（alpha 阶段）。</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TIMELINE -->
+  <section id="timeline">
+    <div class="sec-head reveal">
+      <div class="k">Evolution</div>
+      <h2>版本演进时间线</h2>
+    </div>
+    <div class="tl reveal">
+      <div class="tl-item"><div class="v">v1.2.0</div><div class="t">Unified Commands & Skills</div><p>Python/Django、Java Spring Boot 支持；/sessions；持续学习 v2（基于 instinct 的置信度学习）。</p></div>
+      <div class="tl-item"><div class="v">v1.3.0</div><div class="t">OpenCode Plugin</div><p>完整 OpenCode 集成：12 agent / 24 command / 16 skill + hook；3 个原生工具（run-tests/check-coverage/security-audit）。</p></div>
+      <div class="tl-item"><div class="v">v1.4.0</div><div class="t">多语言规则 + 安装向导 + PM2</div><p>交互式配置向导；PM2 多 agent 编排命令；common+typescript+python+golang 规则架构；中文翻译。</p></div>
+      <div class="tl-item"><div class="v">v1.6.0</div><div class="t">Codex CLI · AgentShield · Marketplace</div><p><code>/codex-setup</code>；AgentShield 集成（1282 测试/102 规则）；ECC Tools GitHub App 上线。</p></div>
+      <div class="tl-item"><div class="v">v1.8.0</div><div class="t">Harness Performance System</div><p>明确定位为「agent harness 性能系统」；hook 可靠性大修；NanoClaw v2；997 内部测试通过。</p></div>
+      <div class="tl-item"><div class="v">v1.9.0</div><div class="t">Selective Install & 语言扩张</div><p>manifest 驱动的增量安装；6 个新 agent 扩张到 10 语言；SQLite 状态库；12 语言生态规则。</p></div>
+      <div class="tl-item"><div class="v">v2.0.0</div><div class="t">Agent Harness Operating System</div><p>2026-06 稳定毕业：261 skill、控制面基底、worktree-lifecycle 服务、orch-* 编排器家族、Discord 社区。2.0 alpha 起 Rust 控制面 <code>ecc2/</code> 可本地构建。</p></div>
+    </div>
+  </section>
+
+  <!-- START -->
+  <section id="start">
+    <div class="sec-head reveal">
+      <div class="k">Quick Start</div>
+      <h2>两分钟上手</h2>
+      <p>Claude Code 用户通常只走<b>一条</b>安装路径——插件安装最省事；手动安装给更细的掌控。两者不要叠加。</p>
+    </div>
+
+    <div class="tabs reveal" id="tabs2">
+      <button class="tab active" data-t="plugin">🔌 插件（推荐）</button>
+      <button class="tab" data-t="manual">📁 手动安装</button>
+      <button class="tab" data-t="rules">📏 仅装规则</button>
+    </div>
+
+    <div class="panel-box active" data-p="plugin">
+      <div class="code reveal"><button class="copy" data-c="plugin">复制</button><pre><span class="c"># 1) 添加 marketplace</span>
+<span class="p">/plugin</span> marketplace add https://github.com/affaan-m/ECC
+
+<span class="c"># 2) 安装插件（规范标识 ecc@ecc）</span>
+<span class="p">/plugin</span> install ecc@ecc
+
+<span class="c"># 3) 使用（命名空间形式）</span>
+<span class="p">/ecc:plan</span> <span class="s">"Add user authentication"</span></pre></div>
+      <div class="callout reveal" style="text-align:left">⚠️ 插件<b>不会</b>自动分发 rules（上游限制）。装完插件后，再手动 cp 你需要的 <code>rules/</code> 目录到 <code>~/.claude/rules/ecc/</code>，从 <code>rules/common</code> + 一种语言包起步即可。</div>
+    </div>
+
+    <div class="panel-box" data-p="manual">
+      <div class="code reveal"><button class="copy" data-c="manual">复制</button><pre><span class="c"># 克隆 + 依赖</span>
+git clone https://github.com/affaan-m/ECC.git <span class="b">&amp;&amp;</span> cd ECC
+npm install
+
+<span class="c"># 全量手动安装（不要与 /plugin install 叠加）</span>
+./install.sh --profile full        <span class="c"># 或 .\install.ps1 / npx ecc-install --profile full</span>
+
+<span class="c"># 低上下文路径：跳过 hooks</span>
+./install.sh --profile minimal --target claude</pre></div>
+    </div>
+
+    <div class="panel-box" data-p="rules">
+      <div class="code reveal"><button class="copy" data-c="rules">复制</button><pre><span class="c"># 用户级规则（所有项目生效）</span>
+mkdir -p ~/.claude/rules/ecc
+cp -r rules/common ~/.claude/rules/ecc/
+cp -r rules/typescript ~/.claude/rules/ecc/   <span class="c"># 选你的栈</span>
+cp -r rules/python ~/.claude/rules/ecc/
+cp -r rules/golang ~/.claude/rules/ecc/</pre></div>
+    </div>
+
+    <div class="grid g3 reveal" style="margin-top:22px">
+      <div class="card"><h3 style="margin-top:0; font-size:17px">🖥️ 桌面仪表盘</h3><p style="color:var(--muted); font-size:14px"><code>npm run dashboard</code> 或 <code>python3 ecc_dashboard.py</code>：分页浏览 Agents/Skills/Commands/Rules，明暗主题 + 字体自定义。</p></div>
+      <div class="card"><h3 style="margin-top:0; font-size:17px">🛡️ 安全扫描</h3><p style="color:var(--muted); font-size:14px"><code>npx ecc-agentshield scan</code>，或 Claude Code 里 <code>/security-scan</code>；<code>--fix</code> 自动修安全项。</p></div>
+      <div class="card"><h3 style="margin-top:0; font-size:17px">🔧 生命周期</h3><p style="color:var(--muted); font-size:14px"><code>node scripts/ecc.js doctor|repair|uninstall --dry-run</code> 自检与清理，只读删自己装的文件。</p></div>
+    </div>
+  </section>
+
+  <footer>
+    <div>made with ♥ &amp; a white grid — <b>ECC 深度解读</b></div>
+    <div style="margin-top:6px; font-size:13px">数据抓取于 2026-07-13 · 架构解读综合自项目 README / 版本说明 · Star 等数字取自 README 徽章（GitHub API 本次限流）</div>
+  </footer>
+</div>
+
+<script>
+/* ---------- theme ---------- */
+const root=document.documentElement, tb=document.getElementById('themeBtn');
+tb.onclick=()=>{root.dataset.theme=root.dataset.theme==='light'?'dark':'light';};
+
+/* ---------- progress bar ---------- */
+const prog=document.getElementById('progress');
+addEventListener('scroll',()=>{const h=document.documentElement;
+  prog.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+'%';});
+
+/* ---------- reveal ---------- */
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in');}),{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+/* ---------- counters ---------- */
+function animateCounters(){
+  document.querySelectorAll('.stat .n').forEach(el=>{
+    const to=parseFloat(el.dataset.to), suf=el.dataset.suf||'';
+    let cur=0; const step=to/46;
+    const t=setInterval(()=>{cur+=step; if(cur>=to){cur=to; clearInterval(t);}
+      el.textContent=(to%1?cur.toFixed(1):Math.round(cur))+suf;},22);
+  });
+}
+const heroIO=new IntersectionObserver((es,o)=>{es.forEach(e=>{if(e.isIntersecting){animateCounters();o.disconnect();}});},{threshold:.4});
+heroIO.observe(document.querySelector('.hero'));
+
+/* ---------- tabs ---------- */
+function bindTabs(id){
+  const wrap=document.getElementById(id);
+  wrap.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{
+    wrap.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
+    b.classList.add('active');
+    const t=b.dataset.t;
+    document.querySelectorAll('#'+id+' ~ .panel-box').forEach(p=>p.classList.toggle('active',p.dataset.p===t));
+  });
+}
+bindTabs('tabs'); bindTabs('tabs2');
+
+/* ---------- accordion ---------- */
+document.querySelectorAll('.acc-h').forEach(h=>h.onclick=()=>{
+  const acc=h.parentElement, b=acc.querySelector('.acc-b');
+  const open=acc.classList.toggle('open');
+  b.style.maxHeight=open?b.scrollHeight+'px':'0';
+});
+
+/* ---------- data ---------- */
+const agents=[
+  ['planner','规划','ops'],['architect','系统设计','ops'],['tdd-guide','TDD','wf'],
+  ['code-reviewer','代码审查','review'],['security-reviewer','漏洞分析','review'],
+  ['build-error-resolver','构建报错修复','build'],['e2e-runner','Playwright E2E','wf'],
+  ['refactor-cleaner','死代码清理','wf'],['doc-updater','文档同步','wf'],
+  ['docs-lookup','文档/API 查询','wf'],['chief-of-staff','沟通分诊','ops'],
+  ['loop-operator','自主循环执行','ops'],['harness-optimizer','harness 调优','ops'],
+  ['cpp-reviewer','C++ 审查','review'],['cpp-build-resolver','C++ 构建修复','build'],
+  ['fsharp-reviewer','F# 审查','review'],['go-reviewer','Go 审查','review'],
+  ['go-build-resolver','Go 构建修复','build'],['python-reviewer','Python 审查','review'],
+  ['database-reviewer','DB/Supabase 审查','review'],['typescript-reviewer','TS/JS 审查','review'],
+  ['java-reviewer','Java/Spring 审查','review'],['java-build-resolver','Java/Maven 修复','build'],
+  ['kotlin-reviewer','Kotlin 审查','review'],['kotlin-build-resolver','Kotlin/Gradle 修复','build'],
+  ['harmonyos-app-resolver','HarmonyOS/ArkTS','build'],['rust-reviewer','Rust 审查','review'],
+  ['rust-build-resolver','Rust 构建修复','build'],['pytorch-build-resolver','PyTorch/CUDA 修复','build'],
+  ['mle-reviewer','生产 ML 审查','review'],['nestjs-patterns','NestJS','lang']
+];
+const skills=[
+  ['coding-standards','语言最佳实践','lang'],['clickhouse-io','ClickHouse 数据工程','fw'],
+  ['backend-patterns','API/DB/缓存','fw'],['frontend-patterns','React/Next.js','fw'],
+  ['frontend-slides','HTML 幻灯片/PPTX','wf'],['article-writing','长文写作','biz'],
+  ['content-engine','多平台内容','biz'],['market-research','市场/竞品研究','biz'],
+  ['investor-materials','BP/一页纸/模型','biz'],['investor-outreach','融资触达','biz'],
+  ['continuous-learning','v1 模式抽取','wf'],['continuous-learning-v2','instinct 学习','wf'],
+  ['iterative-retrieval','子 agent 渐进检索','wf'],['strategic-compact','手动压缩建议','wf'],
+  ['tdd-workflow','TDD 方法','wf'],['security-review','安全清单','sec'],
+  ['eval-harness','验证循环评估','wf'],['verification-loop','持续验证','wf'],
+  ['videodb','音视频处理','ml'],['golang-patterns','Go 惯用法','lang'],
+  ['golang-testing','Go 测试','lang'],['cpp-coding-standards','C++ 规范','lang'],
+  ['cpp-testing','GoogleTest/CTest','lang'],['django-patterns','Django','fw'],
+  ['django-security','Django 安全','sec'],['django-tdd','Django TDD','wf'],
+  ['laravel-patterns','Laravel','fw'],['python-patterns','Python 惯用法','lang'],
+  ['python-testing','pytest','lang'],['quarkus-patterns','Quarkus','fw'],
+  ['springboot-patterns','Spring Boot','fw'],['configure-ecc','安装向导','wf'],
+  ['security-scan','AgentShield 集成','sec'],['java-coding-standards','Java 规范','lang'],
+  ['jpa-patterns','JPA/Hibernate','fw'],['postgres-patterns','PostgreSQL 优化','fw'],
+  ['database-migrations','迁移模式','fw'],['api-design','REST 设计','fw'],
+  ['deployment-patterns','CI/CD/回滚','fw'],['docker-patterns','Docker','fw'],
+  ['e2e-testing','Playwright E2E','wf'],['content-hash-cache-pattern','SHA-256 缓存','wf'],
+  ['cost-aware-llm-pipeline','LLM 成本优化','wf'],['regex-vs-llm-structured-text','决策框架','wf'],
+  ['swift-actor-persistence','Swift actors','mob'],['swift-protocol-di-testing','Swift DI','mob'],
+  ['search-first','研究优先','wf'],['skill-stocktake','技能审计','wf'],
+  ['liquid-glass-design','iOS 26 液态玻璃','mob'],['foundation-models-on-device','Apple 端侧 LLM','mob'],
+  ['swift-concurrency-6-2','Swift 6.2 并发','mob'],['mle-workflow','生产 ML','ml'],
+  ['perl-patterns','Perl 惯用法','lang'],['perl-security','Perl 安全','sec'],
+  ['perl-testing','Perl TDD','lang'],['autonomous-loops','自主循环编排','wf'],
+  ['plankton-code-quality','写入时质检','wf'],['brand-voice','品牌语气(运营)','biz'],
+  ['social-graph-ranker','社媒图谱排序','biz'],['customer-billing-ops','计费运营','biz'],
+  ['google-workspace-ops','Workspace 运营','biz'],['project-flow-ops','项目流运营','biz'],
+  ['ito-market-intelligence','Itô 市场情报','biz'],['ito-trade-planner','Itô 交易规划','biz'],
+  ['parallel-execution-optimizer','并行优化','wf'],['benchmark-optimization-loop','基准循环','wf'],
+  ['data-throughput-accelerator','吞吐加速','wf'],['latency-critical-systems','低延迟系统','wf'],
+  ['manim-video','Manim 视频','biz'],['remotion-video-creation','Remotion 视频','biz'],
+  ['nestjs-patterns','NestJS 模式','fw'],['arkts-patterns','HarmonyOS/ArkTS','mob']
+];
+const agCat={review:'审查',build:'构建修复',lang:'语言',ops:'运维/编排',wf:'工作流'};
+const skCat={lang:'语言',fw:'框架',sec:'安全',wf:'工作流',ml:'ML',biz:'内容/运营',mob:'移动'};
+
+/* ---------- explorer logic ---------- */
+function setupExplorer(listId,countId,searchId,filterId,data,catMap){
+  const list=document.getElementById(listId), cnt=document.getElementById(countId),
+        box=document.getElementById(searchId), fwrap=document.getElementById(filterId);
+  let f='all', q='';
+  function render(){
+    const items=data.filter(([n,c])=>{
+      const okF=(f==='all'|| (catMap[c]&&catMap[c]===({review:'审查',build:'构建修复',lang:'语言',ops:'运维/编排',wf:'工作流'}[f]||f)));
+      const okQ=n.toLowerCase().includes(q);
+      return okF&&okQ;
+    });
+    list.innerHTML=items.map(([n,c])=>`<div class="item"><div class="nm">${n}</div><span class="tag">${catMap[c]||c}</span></div>`).join('')||'<div class="item">无匹配结果</div>';
+    cnt.textContent=`显示 ${items.length} / ${data.length} 项`;
+  }
+  box.addEventListener('input',e=>{q=e.target.value.toLowerCase();render();});
+  fwrap.querySelectorAll('.fbtn').forEach(b=>b.onclick=()=>{
+    fwrap.querySelectorAll('.fbtn').forEach(x=>x.classList.remove('active'));
+    b.classList.add('active'); f=b.dataset.f; render();
+  });
+  render();
+}
+setupExplorer('agList','agCount','agSearch','agFilters',agents,agCat);
+setupExplorer('skList','skCount','skSearch','skFilters',skills,skCat);
+
+/* ---------- copy ---------- */
+document.querySelectorAll('.copy').forEach(b=>b.onclick=()=>{
+  const pre=b.parentElement.querySelector('pre');
+  navigator.clipboard.writeText(pre.innerText).then(()=>{const t=b.textContent;b.textContent='已复制 ✓';setTimeout(()=>b.textContent=t,1400);});
+});
+</script>
+<a href="tp.html" style="position:fixed;left:18px;bottom:18px;z-index:90;display:inline-flex;align-items:center;gap:7px;font:600 14px/1 system-ui,sans-serif;color:#fff;text-decoration:none;background:linear-gradient(120deg,#ff6b5e,#7c5cff);padding:11px 17px;border-radius:12px;box-shadow:0 8px 30px rgba(124,92,255,.4)">← 返回 TP 中心</a>
+<script>
+/* Theme button icon sync */
+(function(){
+  var btn=document.querySelector('.theme-btn');
+  if(!btn)return;
+  function sync(){btn.textContent=document.documentElement.dataset.theme==='dark'?'☀️':'🌙';}
+  sync();
+  btn.addEventListener('click',function(){setTimeout(sync,0);});
+})();
+</script>
+<script>
+/* Auto-collapse TOC: only expand the section containing the current page */
+(function(){
+  var details=document.querySelectorAll('aside.toc details.toc-sec');
+  if(details.length<2)return;
+  var current=location.pathname.replace(/\/$/,'');
+  var activeLink=null;
+  document.querySelectorAll('aside.toc a').forEach(function(a){
+    var href=a.getAttribute('href')||'';
+    if(href && !href.startsWith('http') && !href.startsWith('#')){
+      var path=href.replace(/^https?:\/\/[^\/]+/,'').replace(/\/$/,'');
+      if(current===path || current.indexOf(path)>-1 || path.indexOf(current)>-1){
+        activeLink=a;
+      }
+    }
+  });
+  details.forEach(function(d){
+    if(activeLink && d.contains(activeLink)){d.setAttribute('open','');}
+    else{d.removeAttribute('open');}
+  });
+})();
+</script>
+</body>
+</html>

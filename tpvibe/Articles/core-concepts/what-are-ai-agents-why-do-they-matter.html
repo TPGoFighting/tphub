@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="geo.region" content="CN">
+<meta name="geo.placename" content="China">
+<meta name="geo.position" content="39.9042;116.4074">
+<meta name="ICBM" content="39.9042, 116.4074">
+<link rel="icon" href="/tpvibe/images/tp_logo.jpg" type="image/png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Agent 是什么 | TPvibe</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/tpvibe/style.css">
+<!-- SEO:tphub -->
+<meta name="description" content="AI Agent 是什么 — TPvibe 中文 AI 学习与实战教程，从零基础到进阶，边学边做。">
+<link rel="canonical" href="https://tphub.tpgofighting.top/tpvibe/Articles/core-concepts/what-are-ai-agents-why-do-they-matter.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="TPvibe">
+<meta property="og:title" content="AI Agent 是什么 | TPvibe">
+<meta property="og:description" content="AI Agent 是什么 — TPvibe 中文 AI 学习与实战教程，从零基础到进阶，边学边做。">
+<meta property="og:url" content="https://tphub.tpgofighting.top/tpvibe/Articles/core-concepts/what-are-ai-agents-why-do-they-matter.html">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://tphub.tpgofighting.top/tpvibe/images/tp_logo.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="AI Agent 是什么 | TPvibe">
+<meta name="twitter:description" content="AI Agent 是什么 — TPvibe 中文 AI 学习与实战教程，从零基础到进阶，边学边做。">
+<meta name="twitter:image" content="https://tphub.tpgofighting.top/tpvibe/images/tp_logo.jpg">
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "name": "AI Agent 是什么",
+  "url": "https://tphub.tpgofighting.top/tpvibe/Articles/core-concepts/what-are-ai-agents-why-do-they-matter.html",
+  "description": "TPvibe 中文 AI 学习与实战教程：从零基础到进阶，边学边做，附可运行示例与实战项目。",
+  "inLanguage": "zh-CN",
+  "isPartOf": {"@type": "WebSite", "name": "TPvibe", "url": "https://tphub.tpgofighting.top/tpvibe/"}
+}</script>
+<!-- GEO:v2 -->
+<!-- LOGOFIX:v2 -->
+</head>
+<body>
+<aside class="toc" id="toc">
+<button class="toc-toggle" id="tocToggle" aria-label="收起目录">«</button>
+<div class="toc-inner">
+<a class="toc-home" href="/tpvibe/index.html">TPvibe 首页</a>
+<details class="toc-sec">
+<summary>基础篇</summary>
+<ul class="toc-tree">
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Basic/lecture-1.html">00 序言</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Basic/lecture-1/0.1-start-here.html">开始之前</a></li>
+<li><a href="/tpvibe/Basic/lecture-1/0.2-what-you-will-build.html">你要做什么</a></li>
+<li><a href="/tpvibe/Basic/lecture-1/0.3-who-this-is-for.html">适合谁学</a></li>
+<li><a href="/tpvibe/Basic/lecture-1/0.4-how-to-learn.html">怎么学</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Basic/lecture-2.html">01 觉醒</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Basic/lecture-2/1.1-coder-to-commander.html">从程序员到指挥官</a></li>
+<li><a href="/tpvibe/Basic/lecture-2/1.2-breaking-myths.html">打破误区</a></li>
+<li><a href="/tpvibe/Basic/lecture-2/1.3-tools-guide.html">工具选择指南</a></li>
+<li><a href="/tpvibe/Basic/lecture-2/1.4-vibe-vs-spec.html">Vibe Coding vs 规格驱动</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Basic/lecture-3.html">02 心智</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Basic/lecture-3/2.1-thinking-upgrade.html">思维升级</a></li>
+<li><a href="/tpvibe/Basic/lecture-3/2.2-inversion-thinking.html">逆向思维</a></li><li><a href="/tpvibe/Basic/lecture-3/2.3-subtraction-thinking.html">减法思维</a></li>
+<li><a href="/tpvibe/Basic/lecture-3/2.4-story-thinking.html">故事思维</a></li>
+
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Basic/lecture-4.html">03 技法</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Basic/lecture-4/3.1-prompt-basics.html">提示词基础</a></li>
+<li><a href="/tpvibe/Basic/lecture-4/3.2-structured-frameworks.html">结构化框架</a></li>
+<li><a href="/tpvibe/Basic/lecture-4/3.3-advanced-techniques.html">进阶技巧</a></li>
+<li><a href="/tpvibe/Basic/lecture-4/3.4-first-prd.html">第一份 PRD</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Basic/lecture-5.html">04 从0到1</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Basic/lecture-5/4.1-before-start.html">搭建前准备</a></li>
+<li><a href="/tpvibe/Basic/lecture-5/4.2-build-page.html">搭建页面</a></li>
+<li><a href="/tpvibe/Basic/lecture-5/4.3-core-features.html">核心功能</a></li>
+<li><a href="/tpvibe/Basic/lecture-5/4.4-data-storage.html">数据存储</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Basic/appendix-a.html">05 进阶</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Basic/appendix-a/5.1-version-control.html">版本控制</a></li>
+<li><a href="/tpvibe/Basic/appendix-a/5.2-deployment.html">部署上线</a></li>
+<li><a href="/tpvibe/Basic/appendix-a/5.3-security.html">安全防护</a></li>
+<li><a href="/tpvibe/Basic/appendix-a/5.4-iteration.html">迭代优化</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Basic/appendix-b.html">06 上线</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Basic/appendix-b/6.1-preflight.html">发布前检查</a></li>
+<li><a href="/tpvibe/Basic/appendix-b/6.2-deploy.html">发布流程</a></li>
+<li><a href="/tpvibe/Basic/appendix-b/6.3-feedback.html">收集反馈</a></li>
+<li><a href="/tpvibe/Basic/appendix-b/6.4-wrap-up.html">总结回顾</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Basic/appendix-c.html">99 附录</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Basic/appendix-c/a-prompt-cheatsheet.html">提示词速查表</a></li>
+<li><a href="/tpvibe/Basic/appendix-c/b-errors-and-asking-ai.html">常见错误与求助</a></li>
+<li><a href="/tpvibe/Basic/appendix-c/c-ui-cheatsheet.html">UI 速查表</a></li>
+<li><a href="/tpvibe/Basic/appendix-c/d-git-minimal-card.html">Git 最小知识卡</a></li>
+<li><a href="/tpvibe/Basic/appendix-c/e-api-key-env-security.html">API Key 与环境安全</a></li>
+<li><a href="/tpvibe/Basic/appendix-c/f-vibe-coding-can-and-cannot.html">Vibe Coding 能做与不能做</a></li>
+<li><a href="/tpvibe/Basic/appendix-c/g-advanced-jump-map.html">进阶跳转地图</a></li>
+</ul>
+</li>
+<li class="toc-chapter">
+<a href="/tpvibe/Basic/conclusion.html">100 结语</a>
+</li>
+</ul>
+</details>
+<details class="toc-sec">
+<summary>进阶篇</summary>
+<ul class="toc-tree">
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch01.html">01 环境搭建</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch01/00-quick-start.html">快速上手</a></li>
+<li><a href="/tpvibe/Advanced/ch01/01-code-formats.html">代码格式与编辑器</a></li>
+<li><a href="/tpvibe/Advanced/ch01/02-tech-stack.html">技术栈选择</a></li>
+<li><a href="/tpvibe/Advanced/ch01/03-browser-server.html">浏览器与服务器</a></li>
+<li><a href="/tpvibe/Advanced/ch01/04-terminal-basics.html">终端基础操作</a></li>
+<li><a href="/tpvibe/Advanced/ch01/05-package-manager-and-config.html">包管理与配置文件</a></li>
+<li><a href="/tpvibe/Advanced/ch01/06-models-and-tools.html">AI 模型与工具选择</a></li>
+<li><a href="/tpvibe/Advanced/ch01/07-creating-project.html">创建你的第一个项目</a></li>
+<li><a href="/tpvibe/Advanced/ch01/08-localhost-and-ports.html">本地服务器与端口</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch02.html">02 开发工具与AI调优</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch02/01-ai-economics.html">AI 经济学</a></li>
+<li><a href="/tpvibe/Advanced/ch02/02-vibecoding-workflow.html">Vibe Coding 工作流</a></li>
+<li><a href="/tpvibe/Advanced/ch02/03-mcp-and-skills.html">MCP 与 Skills</a></li>
+<li><a href="/tpvibe/Advanced/ch02/04-project-config.html">项目配置</a></li>
+<li><a href="/tpvibe/Advanced/ch02/05-debugging-tips.html">调试技巧</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch03.html">03 产品验证</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch03/01-product-validation.html">产品验证</a></li>
+<li><a href="/tpvibe/Advanced/ch03/02-discuss-with-ai.html">与 AI 讨论</a></li>
+<li><a href="/tpvibe/Advanced/ch03/03-prd-template-guide.html">PRD 模板指南</a></li>
+<li><a href="/tpvibe/Advanced/ch03/04-coding-agents.html">编码代理</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch04.html">04 编程基础</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch04/00-build-basics.html">构建基础</a></li>
+<li><a href="/tpvibe/Advanced/ch04/01-tech-stack-decision.html">技术栈决策</a></li>
+<li><a href="/tpvibe/Advanced/ch04/03-programming-basics.html">编程基础</a></li>
+<li><a href="/tpvibe/Advanced/ch04/02-prd-and-tech-docs.html">PRD 与技术文档</a></li>
+<li><a href="/tpvibe/Advanced/ch04/04-api-and-http.html">API 与 HTTP</a></li>
+<li><a href="/tpvibe/Advanced/ch04/05-frontend-backend-separation.html">前后端分离</a></li>
+<li><a href="/tpvibe/Advanced/ch04/06-config-formats.html">配置格式</a></li>
+<li><a href="/tpvibe/Advanced/ch04/07-api-integration.html">API 集成</a></li>
+<li><a href="/tpvibe/Advanced/ch04/08-readme-structure.html">README 结构</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch05.html">05 好看好用的界面</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch05/03-animation-libraries.html">动画库</a></li>
+</ul>
+</li>
+<li class="toc-chapter">
+<a href="/tpvibe/Advanced/ch06.html">06 数据存哪里</a>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch07.html">07 连接前后端</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch07/00-crud-example.html">CRUD 示例</a></li>
+<li><a href="/tpvibe/Advanced/ch07/02-when-things-go-wrong.html">出错处理</a></li>
+<li><a href="/tpvibe/Advanced/ch07/03-api-as-product.html">API 即产品</a></li>
+<li><a href="/tpvibe/Advanced/ch07/01-api-growing-pains.html">API 成长烦恼</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch08.html">08 谁能访问数据</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch08/00-user-system-example.html">用户系统示例</a></li>
+<li><a href="/tpvibe/Advanced/ch08/01-env-and-secrets.html">环境变量与密钥</a></li>
+<li><a href="/tpvibe/Advanced/ch08/03-route-protection.html">路由保护</a></li>
+<li><a href="/tpvibe/Advanced/ch08/04-security-checklist.html">安全清单</a></li>
+<li><a href="/tpvibe/Advanced/ch08/05-advanced-security.html">高级安全</a></li>
+<li><a href="/tpvibe/Advanced/ch08/02-auth-methods.html">认证方式</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch09.html">09 功能测试</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch09/01-testing-strategy.html">测试策略</a></li>
+<li><a href="/tpvibe/Advanced/ch09/02-api-and-e2e-testing.html">API 与 E2E 测试</a></li>
+<li><a href="/tpvibe/Advanced/ch09/03-automation-workflow.html">自动化工作流</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch10.html">10 公网访问</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch10/01-network-layers.html">网络分层</a></li>
+<li><a href="/tpvibe/Advanced/ch10/02-tunneling.html">隧道穿透</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch11.html">11 协作开发</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch11/01-why-git.html">为什么用 Git</a></li>
+<li><a href="/tpvibe/Advanced/ch11/02-remote-and-collaboration.html">远程与协作</a></li>
+<li><a href="/tpvibe/Advanced/ch11/03-branch-and-workflow.html">分支与工作流</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch12.html">12 无服务器部署</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch12/01-deploy-edgeone.html">EdgeOne 部署</a></li>
+<li><a href="/tpvibe/Advanced/ch12/02-deploy-vercel-platforms.html">Vercel 等平台部署</a></li>
+<li><a href="/tpvibe/Advanced/ch12/03-cicd-automation.html">CI/CD 自动化</a></li>
+<li><a href="/tpvibe/Advanced/ch12/04-operations-cost.html">运维成本</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch13.html">13 域名解析</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch13/01-domain-setup.html">域名设置</a></li>
+<li><a href="/tpvibe/Advanced/ch13/02-compliance-access.html">合规接入</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch14.html">14 部署到服务器</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch14/01-vps-selection.html">VPS 选择</a></li>
+<li><a href="/tpvibe/Advanced/ch14/02-vps-setup.html">VPS 配置</a></li>
+<li><a href="/tpvibe/Advanced/ch14/03-1-docker-apps.html">Docker 应用</a></li>
+<li><a href="/tpvibe/Advanced/ch14/03-2-deploy-nextjs.html">部署 Next.js</a></li>
+<li><a href="/tpvibe/Advanced/ch14/03-4-deploy-fullstack.html">部署全栈应用</a></li>
+<li><a href="/tpvibe/Advanced/ch14/05-cool-apps.html">酷应用</a></li>
+<li><a href="/tpvibe/Advanced/ch14/03-3-deploy-static.html">部署静态站点</a></li>
+<li><a href="/tpvibe/Advanced/ch14/04-domain-ssl.html">域名与 SSL</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch15.html">15 SEO与统计</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch15/01-opengraph-sharing.html">OpenGraph 分享</a></li>
+<li><a href="/tpvibe/Advanced/ch15/02-seo-guide.html">SEO 指南</a></li>
+<li><a href="/tpvibe/Advanced/ch15/03-umami.html">Umami 统计</a></li>
+<li><a href="/tpvibe/Advanced/ch15/04-legal.html">法律合规</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch16.html">16 反馈与迭代</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch16/01-facing-real-users.html">面向真实用户</a></li>
+<li><a href="/tpvibe/Advanced/ch16/02-feedback-prioritization.html">反馈优先级</a></li>
+<li><a href="/tpvibe/Advanced/ch16/03-understanding-users.html">理解用户</a></li>
+<li><a href="/tpvibe/Advanced/ch16/04-iteration-and-growth.html">迭代与增长</a></li>
+</ul>
+</li>
+<li class="toc-chapter">
+<a href="/tpvibe/Advanced/next-level.html">进阶实战</a>
+</li>
+</ul>
+</details>
+<details class="toc-sec">
+<summary>文章</summary>
+<ul class="toc-tree">
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Articles/core-concepts.html">核心概念</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Articles/core-concepts/what-are-ai-agents-why-do-they-matter.html" class="active">AI Agent 是什么</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Articles/architecture.html">技术架构</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Articles/architecture/how-claude-code-works.html">Claude Code 如何工作</a></li>
+<li><a href="/tpvibe/Articles/architecture/mcp-what-it-is-and-why-it-matters.html">MCP 是什么及为何重要</a></li>
+<li><a href="/tpvibe/Articles/architecture/build-agents-with-filesystems-and-bash.html">用文件系统和 Bash 构建 Agent</a></li>
+<li><a href="/tpvibe/Articles/architecture/testing-bash-vs-sql.html">Bash vs SQL 测试</a></li>
+<li><a href="/tpvibe/Articles/architecture/multi-agent-systems-ai-native-engineering.html">多 Agent 系统与 AI 原生工程</a></li>
+<li><a href="/tpvibe/Articles/architecture/self-improving-coding-agents.html">自我改进的编码 Agent</a></li>
+<li><a href="/tpvibe/Articles/architecture/nvidia-ai-5-layer-cake.html">NVIDIA AI 五层架构</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Articles/tools.html">工具链</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Articles/tools/how-to-write-good-spec-for-ai-agents.html">如何为 AI Agent 写 Spec</a></li>
+<li><a href="/tpvibe/Articles/tools/ai-driven-prototyping-v0-bolt-and-lovable-compared.html">AI 原型工具对比</a></li>
+<li><a href="/tpvibe/Articles/tools/why-i-use-cline-for-ai-engineering.html">为什么用 Cline 做 AI 工程</a></li>
+<li><a href="/tpvibe/Articles/tools/agents-md-vs-skills.html">AGENTS.md 与 Skills 对比</a></li>
+<li><a href="/tpvibe/Articles/tools/complete-guide-to-building-skills-for-claude.html">Claude Skills 构建指南</a></li>
+<li><a href="/tpvibe/Articles/tools/we-removed-80-percent-tools.html">我们移除了 80% 的工具</a></li>
+<li><a href="/tpvibe/Articles/tools/claude-code-swarms.html">Claude Code 集群</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Articles/engineering.html">工程实践</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Articles/engineering/ai-writes-code-faster-your-job-is-to-prove-it-works.html">AI 写代码更快，你要证明它有效</a></li>
+<li><a href="/tpvibe/Articles/engineering/beyond-the-70-maximizing-the-human-30-of-ai-assisted-coding.html">超越 70%：最大化人类 30%</a></li>
+<li><a href="/tpvibe/Articles/engineering/avoiding-skill-atrophy-in-the-age-of-ai.html">AI 时代的技能退化</a></li>
+<li><a href="/tpvibe/Articles/engineering/how-to-write-a-good-spec-for-ai-agents.html">如何为 AI Agent 写好 Spec</a></li>
+<li><a href="/tpvibe/Articles/engineering/leading-effective-engineering-teams-in-the-age-of-genai.html">GenAI 时代的工程团队领导</a></li>
+<li><a href="/tpvibe/Articles/engineering/your-ai-coding-agents-need-a-manager.html">AI 编码 Agent 需要管理者</a></li>
+<li><a href="/tpvibe/Articles/engineering/ai-code-review-implementation.html">AI 代码审查实现</a></li>
+<li><a href="/tpvibe/Articles/engineering/react-best-practices.html">React 最佳实践</a></li>
+<li><a href="/tpvibe/Articles/engineering/vercel-aeo-tracking.html">Vercel AEO 追踪</a></li>
+<li><a href="/tpvibe/Articles/engineering/my-llm-coding-workflow-going-into-2026.html">2026 年我的 LLM 工作流</a></li>
+<li><a href="/tpvibe/Articles/engineering/stop-using-init-for-agents.html">停止对 Agent 使用 init</a></li>
+<li><a href="/tpvibe/Articles/engineering/video-generation-with-ai-gateway.html">AI 网关视频生成</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Articles/security.html">安全合规</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Articles/security/ai-agents-threats-and-mitigations.html">AI Agent 威胁与缓解</a></li>
+<li><a href="/tpvibe/Articles/security/security-boundaries-in-agentic-architectures.html">Agent 架构安全边界</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Articles/business.html">商业趋势</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Articles/business/the-next-two-years-of-software-engineering.html">软件工程的未来两年</a></li>
+<li><a href="/tpvibe/Articles/business/how-openevidence-built-healthcare-ai-physicians-trust.html">OpenEvidence 医疗 AI</a></li>
+<li><a href="/tpvibe/Articles/business/keeping-community-human-while-scaling-with-agents.html">用 Agent 扩展时保持人性</a></li>
+</ul>
+</li>
+</ul>
+</details>
+<details class="toc-sec">
+<summary>实践案例</summary>
+<ul class="toc-tree">
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Practice/index.html">实践案例</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Practice/index/vibe-coding-methodology.html">Vibe Coding 方法论</a></li>
+<li><a href="/tpvibe/Practice/index/ai-canvas-vibecoding-journey.html">AI Canvas 之旅</a></li>
+<li><a href="/tpvibe/Practice/index/ai-picture-book-generator.html">AI 绘本生成器</a></li>
+<li><a href="/tpvibe/Practice/index/ai-resume-saas.html">AI 简历 SaaS</a></li>
+<li><a href="/tpvibe/Practice/index/full-stack-21-day-thinking-habit-game.html">21 天思维习惯游戏</a></li>
+</ul>
+</li>
+</ul>
+</details>
+</div>
+</aside>
+<script>
+(function(){
+  /* Move toc-toggle to body to avoid overflow/transform clipping */
+  var tocToggle=document.getElementById('tocToggle');
+  var toc=document.getElementById('toc');
+  if(tocToggle&&toc){
+    document.body.appendChild(tocToggle);
+    tocToggle.style.position='fixed';
+    tocToggle.style.top='70px';
+    tocToggle.style.left='254px';
+    tocToggle.style.zIndex='41';
+    tocToggle.style.width='28px';
+    tocToggle.style.height='28px';
+    tocToggle.style.borderRadius='50%';
+    tocToggle.style.border='1px solid var(--line)';
+    tocToggle.style.background='var(--card)';
+    tocToggle.style.color='var(--muted)';
+    tocToggle.style.cursor='pointer';
+    tocToggle.style.display='grid';
+    tocToggle.style.placeItems='center';
+    tocToggle.style.boxShadow='0 4px 14px var(--shadow)';
+    tocToggle.style.fontSize='14px';
+    tocToggle.style.fontWeight='700';
+    tocToggle.style.transition='left .35s cubic-bezier(.34,1.3,.64,1), background .2s, color .2s, border-color .2s';
+    tocToggle.addEventListener('mouseenter',function(){
+      this.style.background='var(--soft)';
+      this.style.color='var(--accent)';
+      this.style.borderColor='var(--accent)';
+    });
+    tocToggle.addEventListener('mouseleave',function(){
+      this.style.background='var(--card)';
+      this.style.color='var(--muted)';
+      this.style.borderColor='var(--line)';
+    });
+    tocToggle.addEventListener('click',function(){
+      toc.classList.toggle('collapsed');
+      var c=toc.classList.contains('collapsed');
+      this.style.left=c?'8px':'254px';
+      this.textContent=c?'»':'«';
+      this.setAttribute('aria-label',c?'展开目录':'收起目录');
+    });
+  }
+  /* Mobile scrim click to close */
+  var scrim=document.querySelector('.toc-scrim');
+  if(scrim){
+    scrim.addEventListener('click',function(){
+      var cb=document.getElementById('tocToggleMobile');
+      if(cb)cb.checked=false;
+    });
+  }
+  /* Chapter expand/collapse (L1) */
+  document.querySelectorAll('.toc-chapter-toggle').forEach(function(btn){
+    btn.addEventListener('click',function(e){
+      e.preventDefault();
+      e.stopPropagation();
+      var li=this.closest('.toc-chapter');
+      if(li)li.classList.toggle('expanded');
+    });
+  });
+  /* Auto-expand: find active link and open its section + chapter */
+  var currentRaw=location.pathname.replace(/\/$/,'');
+  var activeLink=null;
+  document.querySelectorAll('aside.toc a[href]').forEach(function(a){
+    var href=a.getAttribute('href')||'';
+    if(!href||href.startsWith('http')||href.startsWith('#'))return;
+    var path=href.replace(/^https?:\/\/[^\/]+/,'').replace(/\/$/,'');
+    /* Skip home link for active matching */
+    if(path.indexOf('/index.html')>=0&&currentRaw.indexOf('/index.html')<0)return;
+    if(currentRaw===path){activeLink=a;return;}
+    /* Also check if currentRaw contains the path (for sub-pages) */
+    if(path.length>5&&currentRaw.indexOf(path)>=0){activeLink=a;}
+  });
+  /* Open the section (L0) containing active link, close others */
+  var sections=document.querySelectorAll('aside.toc details.toc-sec');
+  if(sections.length>0){
+    sections.forEach(function(d){
+      if(activeLink&&d.contains(activeLink)){d.setAttribute('open','');}
+      else{d.removeAttribute('open');}
+    });
+  }
+  /* Expand the chapter (L1) containing active link */
+  if(activeLink){
+    var chap=activeLink.closest('.toc-chapter.has-children');
+    if(chap)chap.classList.add('expanded');
+  }
+  /* If no active link found (e.g. index page), open first section and first chapter */
+  if(!activeLink&&sections.length>0){
+    sections[0].setAttribute('open','');
+    var firstChapter=sections[0].querySelector('.toc-chapter.has-children');
+    if(firstChapter)firstChapter.classList.add('expanded');
+  }
+})();
+</script>
+
+<div id="progress"></div>
+<header class="site-header">
+<div class="header-inner">
+  <a href="/tpvibe/index.html" class="logo"><img src="/tpvibe/images/tp_logo.jpg" alt="TPvibe" width="200" height="200"> TPvibe</a>
+  <input type="checkbox" id="nav-toggle-cb" class="nav-toggle-cb" aria-hidden="true">
+  <label for="nav-toggle-cb" class="nav-toggle" aria-label="打开菜单">&#9776;</label>
+  <nav><ul class="nav-links"><li><a href="/tpvibe/index.html">TPvibe</a></li><li><a href="/tpvibe/index.html">首页</a></li><li><a href="/tpvibe/Basic/lecture-1.html">基础篇</a></li><li><a href="/tpvibe/Advanced/ch01.html">进阶篇</a></li><li><a href="/tpvibe/Articles/core-concepts.html">文章</a></li><li><a href="/tpvibe/Practice/index.html">实践案例</a></li></ul>
+</nav>
+<button class="theme-btn" aria-label="切换主题" onclick="document.documentElement.dataset.theme=document.documentElement.dataset.theme==='dark'?'light':'dark';localStorage.setItem('tpvibe-theme',document.documentElement.dataset.theme)">🌙</button>
+</div>
+</header>
+<main class="container">
+<h1 class="page-title">AI Agent 是什么</h1>
+<div class="page-cover reveal">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400" preserveAspectRatio="xMidYMid slice" style="width:100%;height:100%;display:block;">
+  <defs>
+    <linearGradient id="bg-1317394164" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f97316"/>
+      <stop offset="100%" style="stop-color:#dc2626"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="400" fill="url(#bg-1317394164)"/>
+  <polygon points="413,183 335,339 491,339" fill="white" opacity="0.08" transform="rotate(207 413 261)"/>
+<polygon points="573,279 538,349 608,349" fill="white" opacity="0.09" transform="rotate(255 573 314)"/>
+<polygon points="733,326 691,409 774,409" fill="white" opacity="0.10" transform="rotate(303 733 367)"/>
+<polygon points="892,-27 844,68 940,68" fill="white" opacity="0.12" transform="rotate(351 892 20)"/>
+<polygon points="1052,19 997,128 1107,128" fill="white" opacity="0.13" transform="rotate(39 1052 74)"/>
+<polygon points="12,66 -50,188 73,188" fill="white" opacity="0.14" transform="rotate(86 12 127)"/>
+<polygon points="171,112 104,248 239,248" fill="white" opacity="0.06" transform="rotate(134 171 180)"/>
+<polygon points="331,159 257,308 406,308" fill="white" opacity="0.07" transform="rotate(182 331 233)"/>
+<polygon points="491,255 460,318 522,318" fill="white" opacity="0.08" transform="rotate(230 491 287)"/>
+<polygon points="650,302 613,378 688,378" fill="white" opacity="0.10" transform="rotate(278 650 340)"/>
+<polygon points="810,349 766,438 855,438" fill="white" opacity="0.11" transform="rotate(326 810 393)"/>
+<polygon points="970,-5 919,98 1021,98" fill="white" opacity="0.12" transform="rotate(14 970 46)"/>
+<polygon points="1130,42 1072,157 1187,157" fill="white" opacity="0.14" transform="rotate(62 1130 100)"/>
+<polygon points="89,88 25,217 154,217" fill="white" opacity="0.15" transform="rotate(110 89 153)"/>
+<polygon points="249,135 178,277 320,277" fill="white" opacity="0.06" transform="rotate(158 249 206)"/>
+
+  
+  <text x="60" y="340" font-family="system-ui, -apple-system, sans-serif" font-size="36" font-weight="700" fill="white">AI Agent 是什么</text>
+  <rect x="60" y="355" width="60" height="4" rx="2" fill="#fbbf24"/>
+</svg>
+</div>
+
+<div class="content reveal">
+<p><strong>作者：Addy Osmani</strong></p><p><strong>原文：<a href="https://addyo.substack.com/p/what-are-ai-agents-why-do-they-matter" target="_blank" rel="noreferrer">查看原文</a></strong></p><blockquote><h2>摘要 </h2><p>理解 AI Agent 的演进、架构和未来</p></blockquote><p><em><strong>Agent 是一个根据数据自主完成任务或做出决策的程序。它与 AI 模型对话，使用工具和资源执行基于目标的操作</strong>。</em></p><p>传统 AI 模型和 Agent 之间的区别微妙但深刻。当我们与 AI 模型（例如 Gemini、o1、Sonnet 或类似的大型语言模型）交互时，我们本质上是在进行一系列单次交互：我们提供输入，模型处理它，然后返回输出。虽然这些交互可能很复杂，但它们本质上是被动的和无状态的。每个响应都是孤立存在的，没有真正的连续性或采取独立行动的能力。</p><p><img src="/tpvibe/images/Articles_core-concepts/subs/what-are-ai-agents-why-do-they-matter/01.gif" alt="" width="800" height="600"></p><p><strong>相比之下，AI Agent 是设计用来感知环境、做出决策并采取行动以实现特定目标的自主系统——同时保持上下文并根据结果调整方法</strong>。</p><p>这听起来可能是一个微小的区别，但它代表了 AI 系统如何运作以及它们能够实现什么的根本转变。</p><p>考虑一下我们今天如何使用 AI 聊天界面。你可能会要求 ChatGPT 从头到尾写一篇文章，然后得到一个<strong>单次响应</strong>。你可能需要自己做一些工作来迭代它。Agent 版本更加细致——Agent 可能会写一个大纲，决定是否需要研究，写一个草稿，评估是否需要改进并自我修订。让我们看看一些 Agent 实际运行的例子。</p><p><img src="/tpvibe/images/Articles_core-concepts/subs/what-are-ai-agents-why-do-they-matter/02.jpg" alt="" width="800" height="600"></p><p>当你要求 AI 模型帮助你分析一些数据时，它可以建议方法甚至编写代码，但它不能实际执行该代码或直接与你的数据交互。另一方面，AI Agent 可以主动处理你的数据：加载文件、运行分析、生成可视化，甚至根据结果建议和实施改进。</p><p>这在 Agent 到 Agent 的工作流程中变得更加强大。考虑一个数据分析项目，其中多个 Agent 协作：数据准备 Agent 可能会清理和规范化你的原始数据，将其传递给应用统计方法并识别模式的分析 Agent。然后，这个 Agent 可能会与可视化 Agent 协作，创建引人注目的发现表示，而文档 Agent 则记录方法和结果。最后，审查 Agent 可能会验证整个工作流程并建议改进或额外的分析。</p><p><img src="/tpvibe/images/Articles_core-concepts/subs/what-are-ai-agents-why-do-they-matter/03.jpg" alt="" width="800" height="600"></p><p>此工作流程中的每个 Agent 都保持自己的上下文和专业知识，同时通过结构化协议与其他 Agent 协调。</p><p>它们可以动态处理边缘情况——例如，如果分析 Agent 发现数据质量问题，它可以向准备 Agent 请求特定的清理，或者如果可视化 Agent 识别出有趣的模式，它可以建议额外的分析来进一步探索。这不再只是拥有一个可以提供建议的顾问和拥有一个可以帮助完成工作的同事之间的区别——这就像拥有一整个专家团队代表你无缝协作。</p><p>回到单次提示与 Agent：当我们谈论用于代码生成的 AI 时，我们大多数人习惯于&quot;提示和响应&quot;方法。你给 AI 一个提示，比如&quot;给我写做 X 的代码&quot;，它会用一些代码响应。</p><p><img src="/tpvibe/images/Articles_core-concepts/subs/what-are-ai-agents-why-do-they-matter/04.jpg" alt="" width="800" height="600"></p><p>Agent 采用更细致的方法。它可以概述逻辑，检查代码，运行测试，检测错误，然后如果出现问题就重新思考并修复它们。这个迭代过程模仿了工程师处理问题的方式，并提供更好的结果。AI 成为协作者，而不仅仅是输出的纯生成器。</p><p>这种自主性和采取行动的能力是将 Agent 与即使是最复杂的语言模型区分开来的原因。这种转变使得能够自动化以前从未值得构建传统自动化的&quot;长尾&quot;任务——从跨多个系统组织文件到监控数据源以查找特定模式，再到协调跨多个应用的复杂工作流程。</p><p><strong>我个人为什么对 Agent 感到兴奋</strong>？</p><ul><li>它们具有弹性能力来处理组织以前无法负担的工作——而不是替换现有系统或人员。</li><li>Agent 将范式从软件作为工具转变为软件作为工作者。这可能是企业与其技术堆栈之间的全新关系。</li><li>Agent 可能会将软件价值与最终用户数量脱钩。你不再受限于人类团队可以完成多少工作。</li><li>Agent 用例，如&quot;深度研究&quot;和 Agent 驱动的编码，已经为我节省了<em>大量</em>时间。这正在释放时间让我专注于 AI 无法做到的事情。</li></ul><h2>AI Agent 互操作性标准化协议的出现 </h2><p>AI Agent 自主和协作操作的能力需要开发和采用标准化通信协议，以确保无缝互操作性和创建复杂的多 Agent 系统。缺乏这样的标准可能导致生态系统碎片化，阻碍复杂任务自动化和跨平台协作的潜力。这里有两个值得记住的关键发展。</p><ul><li><p><strong><a href="https://addyo.substack.com/p/mcp-what-it-is-and-why-it-matters" target="_blank" rel="noreferrer">模型上下文协议 (MCP)</a></strong>： 由 Anthropic 推出，MCP 是一个开放标准，旨在将 AI 模型连接到外部工具和数据源（它是&quot;AI 集成的 USB-C&quot;）。它使 AI 助手能够直接访问和交互各种数据集，增强其信息检索和任务执行能力。例如，MCP 允许 AI 助手直接连接到 GitHub 等平台以创建存储库并高效管理拉取请求。在 <a href="https://addyo.substack.com/p/mcp-what-it-is-and-why-it-matters" target="_blank" rel="noreferrer">MCP：它是什么以及为什么重要</a> 中了解更多关于 MCP 的实际示例。</p></li><li><p><strong><a href="https://developers.googleblog.com/en/a2a-a-new-era-of-agent-interoperability/" target="_blank" rel="noreferrer">Agent2Agent 协议 (A2A)</a></strong>： 最近由 Google 宣布，A2A 是一个开放标准，旨在促进来自不同供应商和框架的 AI Agent 之间的无缝通信和协作。它允许 Agent 在各种企业平台之间安全地交换信息和协调行动，促进互操作性和增强自动化。</p></li></ul><p>这是通过 Google 的 <a href="https://cloud.google.com/products/agentspace" target="_blank" rel="noreferrer">Agentspace</a> 工作的 A2A 示例：</p><p><strong>简单来说：MCP 将 Agent 连接到工具（想想 Agent 到 API），而 A2A 使 Agent 能够与其他 Agent 对话</strong>。</p><p><img src="/tpvibe/images/Articles_core-concepts/subs/what-are-ai-agents-why-do-they-matter/05.jpg" alt="" width="800" height="600"></p><p><img src="/tpvibe/images/Articles_core-concepts/subs/what-are-ai-agents-why-do-they-matter/06.jpg" alt="" width="800" height="600"></p><h2><strong>超越简单自动化：理解 Agent 能力</strong> </h2><p>AI Agent 的能力远远超出简单的自动化脚本或聊天机器人。它们可以：</p><ol><li><p><strong>在多次交互中保持持久的上下文和记忆</strong>，使它们能够从经验中学习并随着时间的推移调整方法。</p></li><li><p><strong>使用工具并与外部系统交互</strong>，无论是通过 API、Web 浏览器还是直接系统交互。</p></li><li><p><strong>将复杂目标分解为可管理的子任务</strong>，并按逻辑顺序执行它们。</p></li><li><p><strong>监控自己的进度</strong>并根据结果调整策略。</p></li><li><p><strong>与其他 Agent 协作</strong>，每个 Agent 专门负责更大任务的不同方面。</p></li></ol><p><strong>这种能力的组合使 Agent 能够处理传统 AI 系统难以或不可能完成的复杂、多步骤任务</strong>。</p><p>这种自主性和持续、目标导向行动的能力代表了 AI 系统如何协助完成复杂任务的根本进步。</p><p><em><a href="https://www.agentrecipes.com/" target="_blank" rel="noreferrer">Agent Recipes</a> 是一个学习 Agent/工作流程配方的网站，提供代码示例，你可以轻松复制并粘贴到自己的 AI 应用中。</em></p><h2><strong>Agent 模式和架构：自主系统的构建块</strong> </h2><p>AI Agent 的出现催生了几种不同的架构模式，每种模式都解决了自主决策和行动挑战的不同方面。理解这些模式对于掌握 Agent 系统的当前能力和局限性以及它们未来的潜在演变至关重要。</p><p><img src="/tpvibe/images/Articles_core-concepts/subs/what-are-ai-agents-why-do-they-matter/07.jpg" alt="" width="800" height="600"></p><h3><strong>工具使用和集成</strong> </h3><p>Agent 架构中最基本的模式是工具使用——与外部系统和 API 交互以完成任务的能力。这是关于理解何时以及如何有效地使用不同的工具。现代 Agent 可以与从数据库系统到开发环境的所有内容交互，但特别有趣的是它们如何选择使用哪些工具以及何时使用。</p><p>例如，当 Agent 被要求分析销售数据时，它可能需要：</p><ul><li>使用文件系统 API 访问原始数据</li><li>使用数据处理库进行分析</li><li>利用可视化工具创建报告</li><li>利用通信 API 共享结果</li></ul><p>复杂性不在于单个工具交互，而在于 Agent 能够朝着目标连贯地编排这些工具。这反映了人类的认知过程——我们不仅知道如何使用工具，还了解每个工具何时合适以及如何有效地组合它们。</p><h3><strong>记忆和上下文管理</strong> </h3><p>也许 Agent 系统中最重要的架构挑战是管理记忆和上下文。与无状态的 LLM 交互不同，Agent 需要随着时间的推移保持对其环境和先前行动的理解。这导致了几种创新方法：</p><ol><li><p>情景记忆：Agent 保持过去交互及其结果的记录，使它们能够从经验中学习并避免重复错误。这不仅仅是存储对话历史；而是提取和组织相关信息以供将来使用。</p></li><li><p>工作记忆：类似于人类的短期记忆，这允许 Agent 保持关于其当前任务和最近行动的上下文。这对于在复杂的多步骤操作中保持连贯性至关重要。</p></li><li><p>语义记忆：Agent 随着时间的推移学到的事实、模式和关系的长期存储。这有助于为未来的决策和策略提供信息。</p></li></ol><h3><strong>分层规划和执行</strong> </h3><p>Agent 架构中出现的最复杂的模式之一是分层规划。这种方法将复杂目标分解为可管理的子任务，在 Agent 系统内创建相当于认知层次结构的东西。这模仿了人类专家处理复杂问题的方式——将它们分解为更小、可管理的部分。</p><p>层次结构通常包括：</p><ol><li>战略规划：高层目标设定和策略开发</li><li>战术规划：将策略分解为具体的可操作任务</li><li>执行规划：确定每个任务所需的具体步骤</li><li>行动执行：执行计划的步骤并监控结果</li></ol><p>这允许 Agent 管理扁平架构会令人不知所措的复杂性。例如，一个被要求&quot;改善我们网站性能&quot;的 Agent 可能：</p><ul><li>在战略层面：决定专注于加载时间和用户体验</li><li>在战术层面：计划优化 JavaScript / 长任务、压缩图像和改善服务器响应时间</li><li>在执行层面：详细说明每个优化的具体步骤</li><li>在行动层面：实际实施更改并测量结果</li></ul><h3><strong>多 Agent 系统和协作</strong> </h3><p>也许 Agent 架构中出现的最有趣的模式是多 Agent 系统的发展。这些系统将认知负载分布在多个专门的 Agent 上，每个 Agent 处理复杂任务的不同方面。这种模式作为单 Agent 系统局限性的自然解决方案而出现，就像人类组织演变为通过专业化和协作处理复杂任务一样。</p><p>Microsoft 的 AutoGen 和开源 CrewAI 框架体现了这种方法，允许开发人员创建在复杂任务上协同工作的 Agent 团队。典型的多 Agent 系统可能包括：</p><ul><li>管理整体任务流程和委派的协调器 Agent</li><li>在特定领域具有深厚知识的专家 Agent</li><li>审查和验证工作的评论家 Agent</li><li>处理其他 Agent 和外部系统之间通信的集成 Agent</li></ul><p>这种方法的力量在于它能够将复杂的认知任务分解为可管理的部分，同时通过结构化的通信和协作协议保持连贯性。例如，在软件开发环境中，你可能有：</p><ul><li>与利益相关者交互并维护项目目标的需求 Agent</li><li>创建技术规范的设计 Agent</li><li>在不同组件上工作的多个开发 Agent</li><li>验证功能的测试 Agent</li><li>维护技术文档的文档 Agent</li></ul><p><img src="/tpvibe/images/Articles_core-concepts/subs/what-are-ai-agents-why-do-they-matter/08.jpg" alt="" width="800" height="600"></p><p><em>图为 CrewAI，它允许你创建和管理 Agent 团队。</em></p><p>这些 Agent 之间的交互不仅仅是传递消息；它涉及用于谈判、共识建立和冲突解决的复杂协议。这反映了人类组织结构，但具有完美信息共享和一致执行既定协议的优势。</p><p><img src="/tpvibe/images/Articles_core-concepts/subs/what-are-ai-agents-why-do-they-matter/09.jpg" alt="" width="800" height="600"></p><p><em><a href="https://www.letta.com/blog/ai-agents-stack" target="_blank" rel="noreferrer">AI Agent 技术栈</a> 组织成三个关键层：Agent 托管/服务、Agent 框架和 LLM 模型与存储。</em></p><h2><strong>浏览器 Agent 生态系统：连接 AI 和 Web</strong> </h2><p>基于浏览器的 AI Agent 的出现代表了（在我看来）Agent 生态系统中最重要的发展之一。这些 Agent 可以像人类一样与 Web 界面交互——导航页面、填写表单、提取信息和执行复杂的工作流程。这种能力从根本上改变了 Web 自动化和交互的格局，开启了以前不切实际或不可能的可能性。</p><h3><strong>当前格局</strong> </h3><p>浏览器 Agent 生态系统目前分为几种不同的方法，每种方法都有自己的优势和权衡：</p><h4><strong>专有解决方案</strong> </h4><p>Google 的 Project Mariner 代表了光谱的一端——一个构建在 Chrome 之上并由 Gemini 驱动的紧密集成解决方案。虽然仍处于实验阶段，但它展示了浏览器 Agent 成为我们 Web 体验原生部分的潜力。我很幸运有机会与 Mariner 合作，将他们的愿景变为现实。</p><p>OpenAI 的 Operator 采用了不同的方法，专注于通过名为 Computer-Using Agent (CUA) 的模型进行通用 Web 交互。它特别值得注意的是其先进的视觉和推理能力，使其能够理解和交互复杂的 Web 界面。与 GPT-4 的集成提供了复杂的决策能力，使其能够处理复杂的任务，如预订旅行安排或管理电子商务交易。</p><p><em>视频**：<a href="https://x.com/rowancheung" target="_blank" rel="noreferrer">Rowan Cheung</a>**</em></p><h4><strong>开源替代方案</strong> </h4><p>在光谱的另一端，像 Browser Use 和 Browserbase 的 Open Operator 这样的项目正在使浏览器自动化能力民主化。</p><p><strong><a href="https://browser-use.com/" target="_blank" rel="noreferrer">Browser Use</a></strong> 是一个开源项目，旨在使 AI Agent 能够直接与 Web 浏览器交互，促进复杂的基于 Web 的任务的自动化。通过利用此工具，AI 模型可以自主导航网站、执行数据提取并通过用户友好的界面执行各种 Web 操作。它无需手动配置即可识别和交互 Web 元素，并与各种大型语言模型 (LLM) 兼容。</p><p><em>演示：&quot;阅读我的简历并找到 ML 工作，将它们保存到文件中，然后开始在新标签页中申请它们，如果你需要帮助，问我。&quot;</em></p><p>Browser Use 背后的团队现在还有一个<a href="https://cloud.browser-use.com/handler/sign-in" target="_blank" rel="noreferrer">基于云的版本</a>可用。</p><p><strong><a href="https://operator.browserbase.com/" target="_blank" rel="noreferrer">Browserbase 的 Open Operator</a></strong> 是一个开源工具，旨在通过自然语言命令自动化 Web 任务。通过解释用户指令，它在无头浏览器环境中执行操作，简化复杂的 Web 交互。Open Operator 利用 Browserbase 的基于云的基础设施。</p><p><strong><a href="https://www.skyvern.com/" target="_blank" rel="noreferrer">Skyvern</a></strong> 利用大型语言模型 (LLM) 和计算机视觉来自动化基于浏览器的工作流程。它适应各种网页，通过简单的自然语言命令执行复杂的任务。他们一直在探索如何将更多第三方集成无缝地整合到 Agent 工作流程中。</p><p>这些开源解决方案提供了几个优势：</p><ol><li>透明度：用户可以检查和修改代码，准确了解 Agent 如何做出决策</li><li>定制化：组织可以根据其特定需求调整工具</li><li>成本控制：不依赖专有 API 定价</li><li>社区开发：通过社区贡献快速迭代和改进</li></ol><p>特别是 Browserbase 生态系统，因其 Stagehand 框架而获得了关注，该框架为构建自定义浏览器 Agent 提供了强大的基础。它允许开发人员创建复杂的自动化工作流程，同时保持对整个堆栈的控制。</p><h3><strong>超越简单自动化</strong> </h3><p>使浏览器 Agent 特别有趣的是它们超越传统 Web 自动化的能力。正如 Aaron Levie 所指出的：</p><blockquote><p>&quot;可以启动无限云浏览器的 AI Agent 不是用来做我们已经用 API 做得很好的事情。它们将用于我们以前从未抽出时间用 API 连接的长尾任务。&quot;</p></blockquote><p>这一见解触及了浏览器 Agent 重要性的核心。考虑一些例子：</p><ol><li><p>复杂的研究任务：</p><ul><li>Agent 可以导航多个网站，交叉引用信息</li><li>在保持上下文的同时提取相关数据</li><li>将发现综合成连贯的报告</li><li>所有这些都不需要特定的 API 或集成点</li></ul></li><li><p>用户界面测试：</p><ul><li>Agent 可以系统地探索 Web 应用</li><li>识别可用性问题</li><li>测试边缘情况</li><li>记录错误和不一致</li><li>所有这些都在理解上下文和用户体验原则的同时进行</li></ul></li><li><p>内容管理：</p><ul><li>Agent 可以监控多个站点的更改</li><li>跨平台更新内容</li><li>确保品牌和消息传递的一致性</li><li>处理数字存在管理的繁琐方面</li></ul></li></ol><p><em>&quot;深度研究&quot;是我最喜欢的复杂研究实现之一，我很喜欢使用 OpenAI 的深度研究以及 Google 的深度研究（这些天真的很好）。</em></p><p><img src="/tpvibe/images/Articles_core-concepts/subs/what-are-ai-agents-why-do-they-matter/10.jpg" alt="" width="800" height="600"></p><h3><strong>技术实现和挑战</strong> </h3><p>浏览器 Agent 的实现提出了几个独特的技术挑战：</p><ol><li><p>视觉理解：Agent 必须解释复杂的视觉布局并在上下文中理解 UI 元素。这需要复杂的计算机视觉能力与 Web 界面的语义理解相结合。</p></li><li><p>状态管理：Web 应用可以具有复杂的状态转换和动态内容。Agent 需要跟踪这些状态并了解它们的行动如何影响应用。</p></li><li><p>错误处理：Web 界面可能是不可预测的，元素可能会改变位置、消失或根据条件表现不同。Agent 需要强大的错误处理和恢复机制。</p></li><li><p>安全考虑：具有与 Web 界面交互能力的浏览器 Agent 带来了独特的安全挑战，特别是在凭证管理和敏感数据处理方面。</p></li></ol><h3><strong>经济和战略影响</strong> </h3><p>浏览器 Agent 的兴起对我们如何思考 Web 应用和服务具有重大影响。正如 Levie 所指出的：</p><blockquote><p>&quot;这样做的摩擦如此之高，以至于当你开始着手时，你可能最终还是手动完成任务。现在，你只需花几美元看看工作流程是否有效，然后扩展它。&quot;</p></blockquote><p>这种经济现实可能会重塑我们对以下方面的思考：</p><ol><li><p>API 开发：</p><ul><li>公司可能会优先考虑人性化界面而不是 API 开发</li><li>&quot;API 优先&quot;范式可能会在某些用例中转变为&quot;浏览器优先&quot;</li><li>基于 Agent 交互可能会出现新的集成模式</li></ul></li><li><p>服务设计：</p><ul><li>Web 界面可能会演变为更加 Agent 友好，同时保持人类可用性</li><li>可能会出现 Agent-界面交互的新标准</li><li>服务可能会为 Agent 交互提供专门的界面</li></ul></li><li><p>成本结构：</p><ul><li>自动化的经济性可能会发生巨大变化</li><li>可能会出现基于 Agent 使用的新定价模型</li><li>许多任务的自动化成本效益分析可能会改变</li></ul></li></ol><h2><strong>现实世界的应用和影响</strong> </h2><p>AI Agent 从理论构想到实用工具的转变已经在进行中，应用在多个领域出现。虽然很容易被技术的潜力所吸引，但批判性地审视当前的实现，了解它们的成功和局限性至关重要。</p><h3><strong>软件开发和工程</strong> </h3><p>AI Agent 在软件开发中的影响也许提供了其当前能力和局限性的最清晰画面。我们可能会看到从简单的代码补全转变为可以参与整个开发生命周期的&quot;AI 队友&quot;。</p><h4><strong>当前实现示例</strong>： </h4><ol><li><p>代码生成和审查：</p><ul><li>Agent 现在可以根据自然语言描述生成整个组件或服务</li><li>它们可以审查拉取请求，识别潜在问题并提出改进建议</li><li>更复杂的 Agent 可以在多个文件中保持上下文并理解项目特定的约定</li></ul></li><li><p>测试和质量保证：</p><ul><li>基于代码更改的自动化测试生成</li><li>通过浏览器交互进行 UI 测试</li><li>性能分析和优化建议</li></ul></li><li><p>文档和维护：</p><ul><li>基于代码更改的自动文档更新</li><li>API 文档生成和维护</li><li>基于使用模式的代码重构建议</li></ul></li></ol><p>特别值得注意的是这些实现如何超越简单的自动化。例如，Agent 可能会注意到开发人员如何处理某些边缘情况的模式，并主动建议在整个代码库中标准化这种方法。这种上下文感知和主动协助水平代表了对传统开发工具的重大进步。</p><h3><strong>企业自动化和业务流程</strong> </h3><p>在企业环境中，AI Agent 开始处理传统方法无法经济地解决的自动化任务的&quot;长尾&quot;。</p><h4><strong>当前应用</strong>： </h4><ol><li><p>文档管理：</p><ul><li>跨多个系统的自动化文件组织</li><li>内容分类和标记</li><li>元数据管理和更新</li><li>跨平台内容同步</li></ul></li><li><p>客户服务：</p><ul><li>多步骤查询解决</li><li>主动问题识别</li><li>跨系统信息收集</li><li>上下文响应生成</li></ul></li><li><p>工作流程自动化：</p><ul><li>复杂的审批流程</li><li>多系统数据对账</li><li>合规监控和报告</li><li>资源分配和调度</li></ul></li></ol><p>与传统自动化的关键区别在于处理异常和边缘情况的能力。例如，在组织文件时，Agent 可以识别在不同系统中以不同名称引用同一实体的情况，并就分类做出智能决策。</p><h2><strong>挑战和局限性：现实检验</strong> </h2><p>虽然 AI Agent 的潜力很大，但了解它们当前的局限性和挑战至关重要。这不仅仅是技术限制——而是需要解决的基本问题，以使技术实现其全部潜力。</p><h3><strong>技术挑战</strong> </h3><h4><strong>可靠性和一致性</strong> </h4><p><strong>AI Agent 面临的最直接挑战是可靠性</strong>。</p><p>与遵循确定性规则的传统软件不同，Agent 可能表现出不可预测的行为，特别是在面对新情况时。这以几种方式表现出来：</p><ol><li><p>幻觉和错误信心：</p><ul><li>Agent 可能对其环境做出不正确的假设</li><li>它们可能基于误解的上下文执行操作</li><li>通常没有内置机制来识别它们何时在其能力范围之外运行</li></ul></li><li><p>错误传播：</p><ul><li>在多步骤任务中，小错误可能会复合</li><li>从中间故障中恢复仍然是一个重大挑战</li><li>长时间运行的任务特别容易受到级联故障的影响</li></ul></li><li><p>上下文管理：</p><ul><li>在长序列操作中保持准确状态</li><li>处理中断和恢复任务</li><li>可靠地管理多个并发操作</li></ul></li></ol><p>正如 Levie 所指出的：</p><blockquote><p>&quot;我们如何确保结果的准确性，而不是在每一步都有增量幻觉或错误？&quot;</p></blockquote><p>这仍然是 Agent 开发中的核心挑战之一。</p><h3><strong>安全和隐私问题</strong> </h3><p>Agent 的自主性质引发了重大的安全和隐私问题：</p><ol><li><p>访问控制：</p><ul><li>Agent 通常需要广泛的系统访问才能有效</li><li>传统的安全模型不是为自主行为者设计的</li><li>安全地管理凭证委派很复杂</li></ul></li><li><p>数据隐私：</p><ul><li>Agent 可能会跨多个系统处理敏感信息</li><li>复杂工作流程中的隐私边界可能不清楚</li><li>数据保留和处置政策需要重新思考</li></ul></li><li><p>审计和问责：</p><ul><li>跟踪 Agent 行动以实现合规</li><li>为 Agent 决策建立责任</li><li>管理自动化流程中的责任</li></ul></li></ol><h3><strong>经济和实际限制</strong> </h3><p>AI Agent 的经济性提出了自己的挑战：</p><ol><li><p>计算成本：</p><ul><li>运行复杂的 Agent 需要大量的计算资源</li><li>与传统自动化相比，每次操作的成本可能很高</li><li>规模经济尚不清楚</li></ul></li><li><p>集成开销：</p><ul><li>调整现有系统以进行 Agent 交互</li><li>培训和维护成本</li><li>Agent 友好界面的开发</li></ul></li><li><p>技能要求：</p><ul><li>有效的 Agent 部署仍然需要大量专业知识</li><li>理解 Agent 的局限性和能力</li><li>管理和监控 Agent 操作</li></ul></li></ol><h2><strong>结论：前进的道路</strong> </h2><p>AI Agent 代表了我们与技术交互方式的根本转变。虽然当前的实现有局限性，但我们显然正在朝着自主 AI Agent 将成为我们工作、创造和解决问题方式不可或缺的一部分的未来迈进。</p><p>成功采用的关键在于理解这些系统的潜力和局限性。正如 Levie 所指出的：</p><blockquote><p>&quot;未来十年将由我们与 AI 协作的程度来定义——而不仅仅是它有多聪明。&quot;</p></blockquote><p>这表明成功不仅取决于技术进步，还取决于开发部署和集成框架，在以前根本没有完成工作的&quot;非消费&quot;领域解锁全新类别的价值。</p><p>对于开发人员、业务领导者和技术专家来说，当务之急是深思熟虑地参与这项技术。了解其能力和边界，但也要将你的想象力扩展到自动化现有工作流程之外，设想以前不可能的事情。当技术的价值不再受人类带宽的限制时，创新的机会就会爆发。</p><p>AI Agent 的时代正在展开。</p><p>问题不是它们是否会改变我们使用技术的方式，而是我们如何塑造这种转变。当我们度过这一转变时，我们既需要意识到挑战，也需要有勇气重新想象当软件成为自主合作伙伴而不仅仅是工具时可能发生的事情。</p><p><img src="/tpvibe/images/Articles_core-concepts/subs/what-are-ai-agents-why-do-they-matter/11.jpg" alt="" width="800" height="600"></p></div></div>
+</div>
+
+
+</main>
+
+<footer class="site-footer">
+<p>© 2026 TPvibe · 内部预览版</p>
+<p style="margin-top:8px;">
+<a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer">蜀ICP备2024097797号-3</a>
+</p>
+</footer>
+<!-- THEME:tpvibe -->
+<script>
+/* Theme toggle */
+(function(){
+  var r=document.documentElement;
+  var saved=localStorage.getItem('tpvibe-theme');r.dataset.theme=saved||'light';
+  
+  /* sync button icon */
+  
+})();
+/* Reveal on scroll */
+(function(){
+  var obs=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');obs.unobserve(e.target);}});},{threshold:.15});
+  document.querySelectorAll('.reveal').forEach(function(el){obs.observe(el);});
+})();
+/* Progress bar */
+(function(){
+  var bar=document.getElementById('progress');
+  if(!bar)return;
+  window.addEventListener('scroll',function(){
+    var h=document.documentElement.scrollHeight-window.innerHeight;
+    bar.style.width=(h>0?(window.scrollY/h*100):0)+'%';
+  });
+})();
+</script>
+<script>
+/* Theme button icon sync */
+(function(){
+  var btn=document.querySelector('.theme-btn');
+  if(!btn)return;
+  function sync(){btn.textContent=document.documentElement.dataset.theme==='dark'?'☀️':'🌙';}
+  sync();
+  btn.addEventListener('click',function(){setTimeout(sync,0);});
+})();
+</script>
+
+<nav class="mobile-bottom-tabs"><ul><li><a href="/tpvibe/index.html"><svg viewBox="0 0 24 24"><path d="M3 12L12 3l9 9M5 10v10h4v-6h6v6h4V10"/></svg><span>首页</span></a></li><li><a href="/tpvibe/Basic/lecture-1.html"><svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg><span>基础篇</span></a></li><li><a href="/tpvibe/Advanced/ch01.html"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg><span>进阶篇</span></a></li><li><a href="/tpvibe/Articles/core-concepts.html"><svg viewBox="0 0 24 24"><path d="M4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zM8 7h8M8 11h8M8 15h6"/></svg><span>文章</span></a></li><li><a href="/tpvibe/Practice/index.html"><svg viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg><span>实践</span></a></li></ul></nav>
+<script>
+(function(){
+  // 判断当前页面，高亮对应的 tab（目录前缀匹配）
+  var path=location.pathname.replace(/\/index\.html$/,'/').replace(/\/$/,'');
+  var tabs=document.querySelectorAll('.mobile-bottom-tabs a');
+  var bestMatch=null;
+  var bestMatchLen=0;
+  tabs.forEach(function(a){
+    var href=a.getAttribute('href')||'';
+    if(!href)return;
+    var hrefPath=href.replace(/https?:\/\/[^\/]+/,'').replace(/\/index\.html$/,'/').replace(/\/$/,'');
+    if(path===hrefPath){bestMatch=a;return;}
+    // 目录前缀匹配：当前路径以 tab 路径开头
+    if(hrefPath.length>2&&path.indexOf(hrefPath)>=0&&hrefPath.length>bestMatchLen){bestMatch=a;bestMatchLen=hrefPath.length;}
+  });
+  if(bestMatch)bestMatch.classList.add('active');
+})();
+</script>
+
+
+<script src="/tpvibe/toc-sheet.js"></script>
+</body>
+</html>

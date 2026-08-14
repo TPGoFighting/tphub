@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="geo.region" content="CN">
+<meta name="geo.placename" content="China">
+<meta name="geo.position" content="39.9042;116.4074">
+<meta name="ICBM" content="39.9042, 116.4074">
+<link rel="icon" href="/tpvibe/images/tp_logo.jpg" type="image/png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>路由保护与权限控制 | TPvibe</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/tpvibe/style.css">
+<!-- SEO:tphub -->
+<meta name="description" content="路由保护与权限控制 — TPvibe 中文 AI 学习与实战教程，从零基础到进阶，边学边做。">
+<link rel="canonical" href="https://tphub.tpgofighting.top/tpvibe/Advanced/ch08/03-route-protection.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="TPvibe">
+<meta property="og:title" content="路由保护与权限控制 | TPvibe">
+<meta property="og:description" content="路由保护与权限控制 — TPvibe 中文 AI 学习与实战教程，从零基础到进阶，边学边做。">
+<meta property="og:url" content="https://tphub.tpgofighting.top/tpvibe/Advanced/ch08/03-route-protection.html">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://tphub.tpgofighting.top/tpvibe/images/tp_logo.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="路由保护与权限控制 | TPvibe">
+<meta name="twitter:description" content="路由保护与权限控制 — TPvibe 中文 AI 学习与实战教程，从零基础到进阶，边学边做。">
+<meta name="twitter:image" content="https://tphub.tpgofighting.top/tpvibe/images/tp_logo.jpg">
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "name": "路由保护与权限控制 | TPvibe",
+  "url": "https://tphub.tpgofighting.top/tpvibe/Advanced/ch08/03-route-protection.html",
+  "description": "TPvibe 中文 AI 学习与实战教程：从零基础到进阶，边学边做，附可运行示例与实战项目。",
+  "inLanguage": "zh-CN",
+  "isPartOf": {"@type": "WebSite", "name": "TPvibe", "url": "https://tphub.tpgofighting.top/tpvibe/"}
+}</script>
+<!-- GEO:v2 -->
+<!-- LOGOFIX:v2 -->
+</head>
+<body>
+<aside class="toc" id="toc">
+<button class="toc-toggle" id="tocToggle" aria-label="收起目录">«</button>
+<div class="toc-inner">
+<a class="toc-home" href="/tpvibe/index.html">TPvibe 首页</a>
+<details class="toc-sec">
+<summary>基础篇</summary>
+<ul class="toc-tree">
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Basic/lecture-1.html">00 序言</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Basic/lecture-1/0.1-start-here.html">开始之前</a></li>
+<li><a href="/tpvibe/Basic/lecture-1/0.2-what-you-will-build.html">你要做什么</a></li>
+<li><a href="/tpvibe/Basic/lecture-1/0.3-who-this-is-for.html">适合谁学</a></li>
+<li><a href="/tpvibe/Basic/lecture-1/0.4-how-to-learn.html">怎么学</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Basic/lecture-2.html">01 觉醒</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Basic/lecture-2/1.1-coder-to-commander.html">从程序员到指挥官</a></li>
+<li><a href="/tpvibe/Basic/lecture-2/1.2-breaking-myths.html">打破误区</a></li>
+<li><a href="/tpvibe/Basic/lecture-2/1.3-tools-guide.html">工具选择指南</a></li>
+<li><a href="/tpvibe/Basic/lecture-2/1.4-vibe-vs-spec.html">Vibe Coding vs 规格驱动</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Basic/lecture-3.html">02 心智</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Basic/lecture-3/2.1-thinking-upgrade.html">思维升级</a></li>
+<li><a href="/tpvibe/Basic/lecture-3/2.2-inversion-thinking.html">逆向思维</a></li><li><a href="/tpvibe/Basic/lecture-3/2.3-subtraction-thinking.html">减法思维</a></li>
+<li><a href="/tpvibe/Basic/lecture-3/2.4-story-thinking.html">故事思维</a></li>
+
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Basic/lecture-4.html">03 技法</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Basic/lecture-4/3.1-prompt-basics.html">提示词基础</a></li>
+<li><a href="/tpvibe/Basic/lecture-4/3.2-structured-frameworks.html">结构化框架</a></li>
+<li><a href="/tpvibe/Basic/lecture-4/3.3-advanced-techniques.html">进阶技巧</a></li>
+<li><a href="/tpvibe/Basic/lecture-4/3.4-first-prd.html">第一份 PRD</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Basic/lecture-5.html">04 从0到1</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Basic/lecture-5/4.1-before-start.html">搭建前准备</a></li>
+<li><a href="/tpvibe/Basic/lecture-5/4.2-build-page.html">搭建页面</a></li>
+<li><a href="/tpvibe/Basic/lecture-5/4.3-core-features.html">核心功能</a></li>
+<li><a href="/tpvibe/Basic/lecture-5/4.4-data-storage.html">数据存储</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Basic/appendix-a.html">05 进阶</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Basic/appendix-a/5.1-version-control.html">版本控制</a></li>
+<li><a href="/tpvibe/Basic/appendix-a/5.2-deployment.html">部署上线</a></li>
+<li><a href="/tpvibe/Basic/appendix-a/5.3-security.html">安全防护</a></li>
+<li><a href="/tpvibe/Basic/appendix-a/5.4-iteration.html">迭代优化</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Basic/appendix-b.html">06 上线</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Basic/appendix-b/6.1-preflight.html">发布前检查</a></li>
+<li><a href="/tpvibe/Basic/appendix-b/6.2-deploy.html">发布流程</a></li>
+<li><a href="/tpvibe/Basic/appendix-b/6.3-feedback.html">收集反馈</a></li>
+<li><a href="/tpvibe/Basic/appendix-b/6.4-wrap-up.html">总结回顾</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Basic/appendix-c.html">99 附录</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Basic/appendix-c/a-prompt-cheatsheet.html">提示词速查表</a></li>
+<li><a href="/tpvibe/Basic/appendix-c/b-errors-and-asking-ai.html">常见错误与求助</a></li>
+<li><a href="/tpvibe/Basic/appendix-c/c-ui-cheatsheet.html">UI 速查表</a></li>
+<li><a href="/tpvibe/Basic/appendix-c/d-git-minimal-card.html">Git 最小知识卡</a></li>
+<li><a href="/tpvibe/Basic/appendix-c/e-api-key-env-security.html">API Key 与环境安全</a></li>
+<li><a href="/tpvibe/Basic/appendix-c/f-vibe-coding-can-and-cannot.html">Vibe Coding 能做与不能做</a></li>
+<li><a href="/tpvibe/Basic/appendix-c/g-advanced-jump-map.html">进阶跳转地图</a></li>
+</ul>
+</li>
+<li class="toc-chapter">
+<a href="/tpvibe/Basic/conclusion.html">100 结语</a>
+</li>
+</ul>
+</details>
+<details class="toc-sec">
+<summary>进阶篇</summary>
+<ul class="toc-tree">
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch01.html">01 环境搭建</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch01/00-quick-start.html">快速上手</a></li>
+<li><a href="/tpvibe/Advanced/ch01/01-code-formats.html">代码格式与编辑器</a></li>
+<li><a href="/tpvibe/Advanced/ch01/02-tech-stack.html">技术栈选择</a></li>
+<li><a href="/tpvibe/Advanced/ch01/03-browser-server.html">浏览器与服务器</a></li>
+<li><a href="/tpvibe/Advanced/ch01/04-terminal-basics.html">终端基础操作</a></li>
+<li><a href="/tpvibe/Advanced/ch01/05-package-manager-and-config.html">包管理与配置文件</a></li>
+<li><a href="/tpvibe/Advanced/ch01/06-models-and-tools.html">AI 模型与工具选择</a></li>
+<li><a href="/tpvibe/Advanced/ch01/07-creating-project.html">创建你的第一个项目</a></li>
+<li><a href="/tpvibe/Advanced/ch01/08-localhost-and-ports.html">本地服务器与端口</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch02.html">02 开发工具与AI调优</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch02/01-ai-economics.html">AI 经济学</a></li>
+<li><a href="/tpvibe/Advanced/ch02/02-vibecoding-workflow.html">Vibe Coding 工作流</a></li>
+<li><a href="/tpvibe/Advanced/ch02/03-mcp-and-skills.html">MCP 与 Skills</a></li>
+<li><a href="/tpvibe/Advanced/ch02/04-project-config.html">项目配置</a></li>
+<li><a href="/tpvibe/Advanced/ch02/05-debugging-tips.html">调试技巧</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch03.html">03 产品验证</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch03/01-product-validation.html">产品验证</a></li>
+<li><a href="/tpvibe/Advanced/ch03/02-discuss-with-ai.html">与 AI 讨论</a></li>
+<li><a href="/tpvibe/Advanced/ch03/03-prd-template-guide.html">PRD 模板指南</a></li>
+<li><a href="/tpvibe/Advanced/ch03/04-coding-agents.html">编码代理</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch04.html">04 编程基础</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch04/00-build-basics.html">构建基础</a></li>
+<li><a href="/tpvibe/Advanced/ch04/01-tech-stack-decision.html">技术栈决策</a></li>
+<li><a href="/tpvibe/Advanced/ch04/03-programming-basics.html">编程基础</a></li>
+<li><a href="/tpvibe/Advanced/ch04/02-prd-and-tech-docs.html">PRD 与技术文档</a></li>
+<li><a href="/tpvibe/Advanced/ch04/04-api-and-http.html">API 与 HTTP</a></li>
+<li><a href="/tpvibe/Advanced/ch04/05-frontend-backend-separation.html">前后端分离</a></li>
+<li><a href="/tpvibe/Advanced/ch04/06-config-formats.html">配置格式</a></li>
+<li><a href="/tpvibe/Advanced/ch04/07-api-integration.html">API 集成</a></li>
+<li><a href="/tpvibe/Advanced/ch04/08-readme-structure.html">README 结构</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch05.html">05 好看好用的界面</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch05/03-animation-libraries.html">动画库</a></li>
+</ul>
+</li>
+<li class="toc-chapter">
+<a href="/tpvibe/Advanced/ch06.html">06 数据存哪里</a>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch07.html">07 连接前后端</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch07/00-crud-example.html">CRUD 示例</a></li>
+<li><a href="/tpvibe/Advanced/ch07/02-when-things-go-wrong.html">出错处理</a></li>
+<li><a href="/tpvibe/Advanced/ch07/03-api-as-product.html">API 即产品</a></li>
+<li><a href="/tpvibe/Advanced/ch07/01-api-growing-pains.html">API 成长烦恼</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch08.html">08 谁能访问数据</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch08/00-user-system-example.html">用户系统示例</a></li>
+<li><a href="/tpvibe/Advanced/ch08/01-env-and-secrets.html">环境变量与密钥</a></li>
+<li><a href="/tpvibe/Advanced/ch08/03-route-protection.html" class="active">路由保护</a></li>
+<li><a href="/tpvibe/Advanced/ch08/04-security-checklist.html">安全清单</a></li>
+<li><a href="/tpvibe/Advanced/ch08/05-advanced-security.html">高级安全</a></li>
+<li><a href="/tpvibe/Advanced/ch08/02-auth-methods.html">认证方式</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch09.html">09 功能测试</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch09/01-testing-strategy.html">测试策略</a></li>
+<li><a href="/tpvibe/Advanced/ch09/02-api-and-e2e-testing.html">API 与 E2E 测试</a></li>
+<li><a href="/tpvibe/Advanced/ch09/03-automation-workflow.html">自动化工作流</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch10.html">10 公网访问</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch10/01-network-layers.html">网络分层</a></li>
+<li><a href="/tpvibe/Advanced/ch10/02-tunneling.html">隧道穿透</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch11.html">11 协作开发</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch11/01-why-git.html">为什么用 Git</a></li>
+<li><a href="/tpvibe/Advanced/ch11/02-remote-and-collaboration.html">远程与协作</a></li>
+<li><a href="/tpvibe/Advanced/ch11/03-branch-and-workflow.html">分支与工作流</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch12.html">12 无服务器部署</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch12/01-deploy-edgeone.html">EdgeOne 部署</a></li>
+<li><a href="/tpvibe/Advanced/ch12/02-deploy-vercel-platforms.html">Vercel 等平台部署</a></li>
+<li><a href="/tpvibe/Advanced/ch12/03-cicd-automation.html">CI/CD 自动化</a></li>
+<li><a href="/tpvibe/Advanced/ch12/04-operations-cost.html">运维成本</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch13.html">13 域名解析</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch13/01-domain-setup.html">域名设置</a></li>
+<li><a href="/tpvibe/Advanced/ch13/02-compliance-access.html">合规接入</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch14.html">14 部署到服务器</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch14/01-vps-selection.html">VPS 选择</a></li>
+<li><a href="/tpvibe/Advanced/ch14/02-vps-setup.html">VPS 配置</a></li>
+<li><a href="/tpvibe/Advanced/ch14/03-1-docker-apps.html">Docker 应用</a></li>
+<li><a href="/tpvibe/Advanced/ch14/03-2-deploy-nextjs.html">部署 Next.js</a></li>
+<li><a href="/tpvibe/Advanced/ch14/03-4-deploy-fullstack.html">部署全栈应用</a></li>
+<li><a href="/tpvibe/Advanced/ch14/05-cool-apps.html">酷应用</a></li>
+<li><a href="/tpvibe/Advanced/ch14/03-3-deploy-static.html">部署静态站点</a></li>
+<li><a href="/tpvibe/Advanced/ch14/04-domain-ssl.html">域名与 SSL</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch15.html">15 SEO与统计</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch15/01-opengraph-sharing.html">OpenGraph 分享</a></li>
+<li><a href="/tpvibe/Advanced/ch15/02-seo-guide.html">SEO 指南</a></li>
+<li><a href="/tpvibe/Advanced/ch15/03-umami.html">Umami 统计</a></li>
+<li><a href="/tpvibe/Advanced/ch15/04-legal.html">法律合规</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch16.html">16 反馈与迭代</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch16/01-facing-real-users.html">面向真实用户</a></li>
+<li><a href="/tpvibe/Advanced/ch16/02-feedback-prioritization.html">反馈优先级</a></li>
+<li><a href="/tpvibe/Advanced/ch16/03-understanding-users.html">理解用户</a></li>
+<li><a href="/tpvibe/Advanced/ch16/04-iteration-and-growth.html">迭代与增长</a></li>
+</ul>
+</li>
+<li class="toc-chapter">
+<a href="/tpvibe/Advanced/next-level.html">进阶实战</a>
+</li>
+</ul>
+</details>
+<details class="toc-sec">
+<summary>文章</summary>
+<ul class="toc-tree">
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Articles/core-concepts.html">核心概念</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Articles/core-concepts/what-are-ai-agents-why-do-they-matter.html">AI Agent 是什么</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Articles/architecture.html">技术架构</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Articles/architecture/how-claude-code-works.html">Claude Code 如何工作</a></li>
+<li><a href="/tpvibe/Articles/architecture/mcp-what-it-is-and-why-it-matters.html">MCP 是什么及为何重要</a></li>
+<li><a href="/tpvibe/Articles/architecture/build-agents-with-filesystems-and-bash.html">用文件系统和 Bash 构建 Agent</a></li>
+<li><a href="/tpvibe/Articles/architecture/testing-bash-vs-sql.html">Bash vs SQL 测试</a></li>
+<li><a href="/tpvibe/Articles/architecture/multi-agent-systems-ai-native-engineering.html">多 Agent 系统与 AI 原生工程</a></li>
+<li><a href="/tpvibe/Articles/architecture/self-improving-coding-agents.html">自我改进的编码 Agent</a></li>
+<li><a href="/tpvibe/Articles/architecture/nvidia-ai-5-layer-cake.html">NVIDIA AI 五层架构</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Articles/tools.html">工具链</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Articles/tools/how-to-write-good-spec-for-ai-agents.html">如何为 AI Agent 写 Spec</a></li>
+<li><a href="/tpvibe/Articles/tools/ai-driven-prototyping-v0-bolt-and-lovable-compared.html">AI 原型工具对比</a></li>
+<li><a href="/tpvibe/Articles/tools/why-i-use-cline-for-ai-engineering.html">为什么用 Cline 做 AI 工程</a></li>
+<li><a href="/tpvibe/Articles/tools/agents-md-vs-skills.html">AGENTS.md 与 Skills 对比</a></li>
+<li><a href="/tpvibe/Articles/tools/complete-guide-to-building-skills-for-claude.html">Claude Skills 构建指南</a></li>
+<li><a href="/tpvibe/Articles/tools/we-removed-80-percent-tools.html">我们移除了 80% 的工具</a></li>
+<li><a href="/tpvibe/Articles/tools/claude-code-swarms.html">Claude Code 集群</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Articles/engineering.html">工程实践</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Articles/engineering/ai-writes-code-faster-your-job-is-to-prove-it-works.html">AI 写代码更快，你要证明它有效</a></li>
+<li><a href="/tpvibe/Articles/engineering/beyond-the-70-maximizing-the-human-30-of-ai-assisted-coding.html">超越 70%：最大化人类 30%</a></li>
+<li><a href="/tpvibe/Articles/engineering/avoiding-skill-atrophy-in-the-age-of-ai.html">AI 时代的技能退化</a></li>
+<li><a href="/tpvibe/Articles/engineering/how-to-write-a-good-spec-for-ai-agents.html">如何为 AI Agent 写好 Spec</a></li>
+<li><a href="/tpvibe/Articles/engineering/leading-effective-engineering-teams-in-the-age-of-genai.html">GenAI 时代的工程团队领导</a></li>
+<li><a href="/tpvibe/Articles/engineering/your-ai-coding-agents-need-a-manager.html">AI 编码 Agent 需要管理者</a></li>
+<li><a href="/tpvibe/Articles/engineering/ai-code-review-implementation.html">AI 代码审查实现</a></li>
+<li><a href="/tpvibe/Articles/engineering/react-best-practices.html">React 最佳实践</a></li>
+<li><a href="/tpvibe/Articles/engineering/vercel-aeo-tracking.html">Vercel AEO 追踪</a></li>
+<li><a href="/tpvibe/Articles/engineering/my-llm-coding-workflow-going-into-2026.html">2026 年我的 LLM 工作流</a></li>
+<li><a href="/tpvibe/Articles/engineering/stop-using-init-for-agents.html">停止对 Agent 使用 init</a></li>
+<li><a href="/tpvibe/Articles/engineering/video-generation-with-ai-gateway.html">AI 网关视频生成</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Articles/security.html">安全合规</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Articles/security/ai-agents-threats-and-mitigations.html">AI Agent 威胁与缓解</a></li>
+<li><a href="/tpvibe/Articles/security/security-boundaries-in-agentic-architectures.html">Agent 架构安全边界</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Articles/business.html">商业趋势</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Articles/business/the-next-two-years-of-software-engineering.html">软件工程的未来两年</a></li>
+<li><a href="/tpvibe/Articles/business/how-openevidence-built-healthcare-ai-physicians-trust.html">OpenEvidence 医疗 AI</a></li>
+<li><a href="/tpvibe/Articles/business/keeping-community-human-while-scaling-with-agents.html">用 Agent 扩展时保持人性</a></li>
+</ul>
+</li>
+</ul>
+</details>
+<details class="toc-sec">
+<summary>实践案例</summary>
+<ul class="toc-tree">
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Practice/index.html">实践案例</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Practice/index/vibe-coding-methodology.html">Vibe Coding 方法论</a></li>
+<li><a href="/tpvibe/Practice/index/ai-canvas-vibecoding-journey.html">AI Canvas 之旅</a></li>
+<li><a href="/tpvibe/Practice/index/ai-picture-book-generator.html">AI 绘本生成器</a></li>
+<li><a href="/tpvibe/Practice/index/ai-resume-saas.html">AI 简历 SaaS</a></li>
+<li><a href="/tpvibe/Practice/index/full-stack-21-day-thinking-habit-game.html">21 天思维习惯游戏</a></li>
+</ul>
+</li>
+</ul>
+</details>
+</div>
+</aside>
+<script>
+(function(){
+  /* Move toc-toggle to body to avoid overflow/transform clipping */
+  var tocToggle=document.getElementById('tocToggle');
+  var toc=document.getElementById('toc');
+  if(tocToggle&&toc){
+    document.body.appendChild(tocToggle);
+    tocToggle.style.position='fixed';
+    tocToggle.style.top='70px';
+    tocToggle.style.left='254px';
+    tocToggle.style.zIndex='41';
+    tocToggle.style.width='28px';
+    tocToggle.style.height='28px';
+    tocToggle.style.borderRadius='50%';
+    tocToggle.style.border='1px solid var(--line)';
+    tocToggle.style.background='var(--card)';
+    tocToggle.style.color='var(--muted)';
+    tocToggle.style.cursor='pointer';
+    tocToggle.style.display='grid';
+    tocToggle.style.placeItems='center';
+    tocToggle.style.boxShadow='0 4px 14px var(--shadow)';
+    tocToggle.style.fontSize='14px';
+    tocToggle.style.fontWeight='700';
+    tocToggle.style.transition='left .35s cubic-bezier(.34,1.3,.64,1), background .2s, color .2s, border-color .2s';
+    tocToggle.addEventListener('mouseenter',function(){
+      this.style.background='var(--soft)';
+      this.style.color='var(--accent)';
+      this.style.borderColor='var(--accent)';
+    });
+    tocToggle.addEventListener('mouseleave',function(){
+      this.style.background='var(--card)';
+      this.style.color='var(--muted)';
+      this.style.borderColor='var(--line)';
+    });
+    tocToggle.addEventListener('click',function(){
+      toc.classList.toggle('collapsed');
+      var c=toc.classList.contains('collapsed');
+      this.style.left=c?'8px':'254px';
+      this.textContent=c?'»':'«';
+      this.setAttribute('aria-label',c?'展开目录':'收起目录');
+    });
+  }
+  /* Mobile scrim click to close */
+  var scrim=document.querySelector('.toc-scrim');
+  if(scrim){
+    scrim.addEventListener('click',function(){
+      var cb=document.getElementById('tocToggleMobile');
+      if(cb)cb.checked=false;
+    });
+  }
+  /* Chapter expand/collapse (L1) */
+  document.querySelectorAll('.toc-chapter-toggle').forEach(function(btn){
+    btn.addEventListener('click',function(e){
+      e.preventDefault();
+      e.stopPropagation();
+      var li=this.closest('.toc-chapter');
+      if(li)li.classList.toggle('expanded');
+    });
+  });
+  /* Auto-expand: find active link and open its section + chapter */
+  var currentRaw=location.pathname.replace(/\/$/,'');
+  var activeLink=null;
+  document.querySelectorAll('aside.toc a[href]').forEach(function(a){
+    var href=a.getAttribute('href')||'';
+    if(!href||href.startsWith('http')||href.startsWith('#'))return;
+    var path=href.replace(/^https?:\/\/[^\/]+/,'').replace(/\/$/,'');
+    /* Skip home link for active matching */
+    if(path.indexOf('/index.html')>=0&&currentRaw.indexOf('/index.html')<0)return;
+    if(currentRaw===path){activeLink=a;return;}
+    /* Also check if currentRaw contains the path (for sub-pages) */
+    if(path.length>5&&currentRaw.indexOf(path)>=0){activeLink=a;}
+  });
+  /* Open the section (L0) containing active link, close others */
+  var sections=document.querySelectorAll('aside.toc details.toc-sec');
+  if(sections.length>0){
+    sections.forEach(function(d){
+      if(activeLink&&d.contains(activeLink)){d.setAttribute('open','');}
+      else{d.removeAttribute('open');}
+    });
+  }
+  /* Expand the chapter (L1) containing active link */
+  if(activeLink){
+    var chap=activeLink.closest('.toc-chapter.has-children');
+    if(chap)chap.classList.add('expanded');
+  }
+  /* If no active link found (e.g. index page), open first section and first chapter */
+  if(!activeLink&&sections.length>0){
+    sections[0].setAttribute('open','');
+    var firstChapter=sections[0].querySelector('.toc-chapter.has-children');
+    if(firstChapter)firstChapter.classList.add('expanded');
+  }
+})();
+</script>
+
+<div id="progress"></div>
+<header class="site-header">
+<div class="header-inner">
+  <a href="/tpvibe/index.html" class="logo"><img src="/tpvibe/images/tp_logo.jpg" alt="TPvibe" width="200" height="200"> TPvibe</a>
+  <input type="checkbox" id="nav-toggle-cb" class="nav-toggle-cb" aria-hidden="true">
+  <label for="nav-toggle-cb" class="nav-toggle" aria-label="打开菜单">&#9776;</label>
+  <nav><ul class="nav-links"><li><a href="/tpvibe/index.html">TPvibe</a></li><li><a href="/tpvibe/index.html">首页</a></li><li><a href="/tpvibe/Basic/lecture-1.html">基础篇</a></li><li><a href="/tpvibe/Advanced/ch01.html">进阶篇</a></li><li><a href="/tpvibe/Articles/core-concepts.html">文章</a></li><li><a href="/tpvibe/Practice/index.html">实践案例</a></li></ul>
+</nav>
+<button class="theme-btn" aria-label="切换主题" onclick="document.documentElement.dataset.theme=document.documentElement.dataset.theme==='dark'?'light':'dark';localStorage.setItem('tpvibe-theme',document.documentElement.dataset.theme)">🌙</button>
+</div>
+</header>
+<main class="container">
+<h1 class="page-title">路由保护与权限控制</h1>
+<div class="page-cover reveal">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400" preserveAspectRatio="xMidYMid slice" style="width:100%;height:100%;display:block;">
+  <defs>
+    <linearGradient id="bg-4116340938" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0f172a"/>
+      <stop offset="100%" style="stop-color:#1e3a8a"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="400" fill="url(#bg-4116340938)"/>
+  <polygon points="40,73 0,96 -40,73 -40,27 -0,4 40,27" fill="white" opacity="0.05"/>
+<polygon points="193,69 160,88 127,69 127,31 160,12 193,31" fill="white" opacity="0.10"/>
+<polygon points="363,75 320,100 277,75 277,25 320,0 363,25" fill="white" opacity="0.06"/>
+<polygon points="516,71 480,91 444,71 444,29 480,9 516,29" fill="white" opacity="0.11"/>
+<polygon points="669,67 640,83 611,67 611,33 640,17 669,33" fill="white" opacity="0.08"/>
+<polygon points="839,72 800,95 761,72 761,28 800,5 839,28" fill="white" opacity="0.04"/>
+<polygon points="992,68 960,87 928,68 928,32 960,13 992,32" fill="white" opacity="0.09"/>
+<polygon points="1162,74 1120,98 1078,74 1078,26 1120,2 1162,26" fill="white" opacity="0.06"/>
+<polygon points="115,170 80,190 45,170 45,130 80,110 115,130" fill="white" opacity="0.10"/>
+<polygon points="268,166 240,182 212,166 212,134 240,118 268,134" fill="white" opacity="0.07"/>
+<polygon points="438,172 400,194 362,172 362,128 400,106 438,128" fill="white" opacity="0.04"/>
+<polygon points="591,168 560,185 529,168 529,132 560,115 591,132" fill="white" opacity="0.09"/>
+<polygon points="761,174 720,197 679,174 679,126 720,103 761,126" fill="white" opacity="0.05"/>
+<polygon points="914,170 880,189 846,170 846,130 880,111 914,130" fill="white" opacity="0.10"/>
+<polygon points="1067,165 1040,181 1013,165 1013,135 1040,119 1067,135" fill="white" opacity="0.07"/>
+<polygon points="1237,171 1200,193 1163,171 1163,129 1200,107 1237,129" fill="white" opacity="0.03"/>
+<polygon points="30,267 0,284 -30,267 -30,233 -0,216 30,233" fill="white" opacity="0.08"/>
+<polygon points="200,273 160,296 120,273 120,227 160,204 200,227" fill="white" opacity="0.05"/>
+<polygon points="353,269 320,288 287,269 287,231 320,212 353,231" fill="white" opacity="0.10"/>
+<polygon points="523,275 480,300 437,275 437,225 480,200 523,225" fill="white" opacity="0.06"/>
+<polygon points="676,271 640,291 604,271 604,229 640,209 676,229" fill="white" opacity="0.11"/>
+<polygon points="829,267 800,283 771,267 771,233 800,217 829,233" fill="white" opacity="0.08"/>
+<polygon points="999,272 960,295 921,272 921,228 960,205 999,228" fill="white" opacity="0.04"/>
+<polygon points="1152,268 1120,287 1088,268 1088,232 1120,213 1152,232" fill="white" opacity="0.09"/>
+<polygon points="122,374 80,399 38,374 38,326 80,301 122,326" fill="white" opacity="0.06"/>
+<polygon points="275,370 240,390 205,370 205,330 240,310 275,330" fill="white" opacity="0.11"/>
+<polygon points="428,366 400,382 372,366 372,334 400,318 428,334" fill="white" opacity="0.07"/>
+<polygon points="598,372 560,394 522,372 522,328 560,306 598,328" fill="white" opacity="0.04"/>
+<polygon points="751,368 720,386 689,368 689,332 720,314 751,332" fill="white" opacity="0.09"/>
+<polygon points="921,374 880,397 839,374 839,326 880,303 921,326" fill="white" opacity="0.05"/>
+<polygon points="1074,370 1040,389 1006,370 1006,330 1040,311 1074,330" fill="white" opacity="0.10"/>
+<polygon points="1227,365 1200,381 1173,365 1173,335 1200,319 1227,335" fill="white" opacity="0.07"/>
+
+  
+  <text x="60" y="340" font-family="system-ui, -apple-system, sans-serif" font-size="36" font-weight="700" fill="white">路由保护与权限控制</text>
+  <rect x="60" y="355" width="60" height="4" rx="2" fill="#06b6d4"/>
+</svg>
+</div>
+
+<div class="content reveal">
+<blockquote><p><strong>本节目标</strong>：理解为什么前端隐藏入口不等于安全，学会用 Middleware 和权限控制守住每一个路由。</p></blockquote><hr><h2>前端隐藏不是安全 </h2><p>小明给&quot;个人豆瓣&quot;加了管理后台 <code>/admin</code>，可以批量删除电影、管理用户评论。他在前端导航栏里没有放 <code>/admin</code> 的入口，觉得这样就安全了——普通用户看不到入口，自然就进不去。</p><p>直到有一天，朋友老王在群里说：&quot;你这个管理后台挺好用的，我帮你删了几条重复的电影。&quot;</p><p>小明吓了一跳：&quot;你怎么进去的？&quot;</p><p>老王：&quot;我在浏览器地址栏直接输了 <code>localhost:3000/admin</code>，就进去了啊。&quot;</p><p>小明这才明白：<strong>前端隐藏入口只是掩耳盗铃</strong>。不在导航栏放链接，只是让用户&quot;看不到&quot;入口，但任何人都可以在地址栏手动输入 URL。更进一步，攻击者可以用 curl 发请求、写脚本批量调用你的 API——前端的&quot;隐藏&quot;在这些方式面前形同虚设。这就像你把家门钥匙藏在花盆下面，然后把花盆用布盖住。你觉得别人看不到花盆就找不到钥匙，但任何人只要掀开布就能拿到。真正的保护必须在<strong>服务端</strong>完成——不是&quot;藏起入口&quot;，而是&quot;没有钥匙就打不开门&quot;。</p><h2>Middleware——Next.js 的守门员 </h2><p>在 Next.js 中，你不需要在每个页面都写权限判断。只需要在项目根目录放一个 <code>middleware.ts</code> 文件——它就像网站的守门员，<strong>每一个请求</strong>到达页面或 API 之前，都要先经过它的检查。用户请求 <code>/admin</code>，Middleware 拦截，检查是否登录、是否是管理员。未登录就重定向到 <code>/login</code>，不是管理员就返回 403——403 的意思是&quot;我知道你是谁，但你没权限&quot;，和 401&quot;你是谁？先登录&quot;不同——通过了才放行到 <code>/admin</code> 页面。这个检查发生在服务端，用户的浏览器根本不会收到 <code>/admin</code> 页面的内容——不是&quot;页面加载了再跳转&quot;，而是&quot;页面压根没发给你&quot;。</p><blockquote><p>跟 AI 说：&quot;创建一个 middleware.ts，拦截所有以 /admin 开头的路径。如果用户没有登录或者角色不是 admin，重定向到登录页。同时保护所有 /api/admin 开头的接口。&quot;</p></blockquote><details><summary>好奇 Middleware 长什么样？展开看看</summary><div class="language-typescript vp-adaptive-theme"><button title="Copy Code" class="copy" aria-label="复制代码"></button><span class="lang">typescript</span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;">// middleware.ts（项目根目录）</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">import</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> { betterFetch } </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">from</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> &#39;@better-fetch/fetch&#39;</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">import</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> { NextRequest, NextResponse } </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">from</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> &#39;next/server&#39;</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">export</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> async</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> function</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;"> middleware</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(</span><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70;">request</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">:</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;"> NextRequest</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">) {</span></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;">  // 检查用户是否登录</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">  const</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> { </span><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70;">data</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">session</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> } </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> await</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;"> betterFetch</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&#39;/api/auth/get-session&#39;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">, {</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">    baseURL: request.nextUrl.origin,</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">    headers: { cookie: request.headers.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">get</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&#39;cookie&#39;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">) </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">||</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> &#39;&#39;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> },</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">  })</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">  if</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> (</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">!</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">session) {</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">    return</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> NextResponse.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">redirect</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">new</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;"> URL</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&#39;/login&#39;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">, request.url))</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">  return</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> NextResponse.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">next</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">()</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;">// 指定哪些路径需要保护</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">export</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> const</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;"> config</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> =</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> {</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">  matcher: [</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&#39;/dashboard/:path*&#39;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">, </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&#39;/admin/:path*&#39;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">],</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">}</span></span></code></pre></div></details><p>Middleware 不只能保护页面，也能保护 API。通过 <code>matcher</code> 配置，你可以精确控制哪些路径需要检查——<code>/dashboard/:path*</code> 保护所有 dashboard 页面，<code>/admin/:path*</code> 保护管理后台，<code>/api/admin/:path*</code> 保护管理 API。<code>:path*</code> 是通配符，意思是&quot;这个路径下的所有子路径&quot;，所以 <code>/admin/users</code>、<code>/admin/settings</code> 都会被保护。不需要保护的路径（首页、登录页、注册页、公开 API）不写在 matcher 里就行——Middleware 只拦截你指定的路径，其他路径直接放行。</p><div class="mw-container" data-v-463effa9><div class="mw-section" data-v-463effa9><div class="mw-section-title" data-v-463effa9>Middleware 拦截流程</div><div class="mw-flow" data-v-463effa9><div class="mw-node mw-node-start" data-v-463effa9><div class="mw-node-icon" data-v-463effa9>📨</div><div class="mw-node-label" data-v-463effa9>请求到达</div></div><div class="mw-arrow" data-v-463effa9><div class="mw-arrow-line" data-v-463effa9></div><div class="mw-arrow-head" data-v-463effa9></div></div><div class="mw-node mw-node-check" data-v-463effa9><div class="mw-node-icon" data-v-463effa9>🛡️</div><div class="mw-node-label" data-v-463effa9>Middleware 检查</div></div><div class="mw-arrow" data-v-463effa9><div class="mw-arrow-line" data-v-463effa9></div><div class="mw-arrow-head" data-v-463effa9></div></div><div class="mw-diamond" data-v-463effa9><div class="mw-diamond-inner" data-v-463effa9>有 Session?</div></div><div class="mw-branches" data-v-463effa9><div class="mw-branch mw-branch-yes" data-v-463effa9><div class="mw-branch-label mw-label-yes" data-v-463effa9>Yes</div><div class="mw-branch-arrow" data-v-463effa9><div class="mw-arrow-line mw-line-yes" data-v-463effa9></div><div class="mw-arrow-head mw-head-yes" data-v-463effa9></div></div><div class="mw-branch-result mw-result-yes" data-v-463effa9><div class="mw-result-icon" data-v-463effa9>✅</div><div class="mw-result-text" data-v-463effa9>放行</div></div><div class="mw-branch-arrow" data-v-463effa9><div class="mw-arrow-line mw-line-yes" data-v-463effa9></div><div class="mw-arrow-head mw-head-yes" data-v-463effa9></div></div><div class="mw-branch-dest mw-dest-yes" data-v-463effa9><div class="mw-dest-icon" data-v-463effa9>📄</div><div class="mw-dest-text" data-v-463effa9>页面 / API</div></div></div><div class="mw-branch mw-branch-no" data-v-463effa9><div class="mw-branch-label mw-label-no" data-v-463effa9>No</div><div class="mw-branch-arrow" data-v-463effa9><div class="mw-arrow-line mw-line-no" data-v-463effa9></div><div class="mw-arrow-head mw-head-no" data-v-463effa9></div></div><div class="mw-branch-result mw-result-no" data-v-463effa9><div class="mw-result-icon" data-v-463effa9>🚫</div><div class="mw-result-text" data-v-463effa9>拦截</div></div><div class="mw-branch-arrow" data-v-463effa9><div class="mw-arrow-line mw-line-no" data-v-463effa9></div><div class="mw-arrow-head mw-head-no" data-v-463effa9></div></div><div class="mw-branch-dest mw-dest-no" data-v-463effa9><div class="mw-dest-icon" data-v-463effa9>🔒</div><div class="mw-dest-text" data-v-463effa9>/login</div></div></div></div></div></div><div class="mw-section" data-v-463effa9><div class="mw-section-title" data-v-463effa9>RBAC 角色权限</div><div class="rbac-stack" data-v-463effa9><!--[--><div class="rbac-layer" style="width:100%;--role-color:#9333ea;" data-v-463effa9><div class="rbac-header" data-v-463effa9><span class="rbac-name" data-v-463effa9>管理员 (Admin)</span><span class="rbac-badge rbac-badge-all" data-v-463effa9>所有权限</span></div><div class="rbac-permissions" data-v-463effa9><!--[--><span class="rbac-perm" style="background:#9333ea18;color:#9333ea;border-color:#9333ea40;" data-v-463effa9>创建</span><span class="rbac-perm" style="background:#9333ea18;color:#9333ea;border-color:#9333ea40;" data-v-463effa9>编辑</span><span class="rbac-perm" style="background:#9333ea18;color:#9333ea;border-color:#9333ea40;" data-v-463effa9>删除</span><span class="rbac-perm" style="background:#9333ea18;color:#9333ea;border-color:#9333ea40;" data-v-463effa9>查看</span><span class="rbac-perm" style="background:#9333ea18;color:#9333ea;border-color:#9333ea40;" data-v-463effa9>管理用户</span><span class="rbac-perm" style="background:#9333ea18;color:#9333ea;border-color:#9333ea40;" data-v-463effa9>系统设置</span><!--]--></div></div><div class="rbac-layer" style="width:70%;--role-color:#2eb3df;" data-v-463effa9><div class="rbac-header" data-v-463effa9><span class="rbac-name" data-v-463effa9>编辑者 (Editor)</span><!----></div><div class="rbac-permissions" data-v-463effa9><!--[--><span class="rbac-perm" style="background:#2eb3df18;color:#2eb3df;border-color:#2eb3df40;" data-v-463effa9>创建</span><span class="rbac-perm" style="background:#2eb3df18;color:#2eb3df;border-color:#2eb3df40;" data-v-463effa9>编辑</span><span class="rbac-perm" style="background:#2eb3df18;color:#2eb3df;border-color:#2eb3df40;" data-v-463effa9>查看</span><!--]--></div></div><div class="rbac-layer" style="width:40%;--role-color:#15a051;" data-v-463effa9><div class="rbac-header" data-v-463effa9><span class="rbac-name" data-v-463effa9>普通用户 (User)</span><!----></div><div class="rbac-permissions" data-v-463effa9><!--[--><span class="rbac-perm" style="background:#15a05118;color:#15a051;border-color:#15a05140;" data-v-463effa9>查看</span><!--]--></div></div><!--]--></div></div></div><h2>页面保护和接口保护缺一不可 </h2><p>小明加了 Middleware，保护了 <code>/admin</code> 页面。他觉得安全了——用户在浏览器里访问 <code>/admin</code> 会被拦截。但老师傅问了一个问题：&quot;你的删除电影接口 <code>/api/admin/delete-movie</code> 也保护了吗？&quot;</p><p>小明说：&quot;Middleware 不是已经拦了 <code>/admin</code> 开头的路径吗？&quot;</p><p>老师傅说：&quot;Middleware 拦的是页面请求。但如果有人直接用 curl 调用 <code>POST /api/admin/delete-movie</code>，带上一个合法用户的 Cookie，Middleware 可能拦不住——取决于你的 matcher 配置。而且即使 Middleware 拦了，API 内部也应该有自己的权限检查，这是<strong>纵深防御</strong>的原则。&quot;</p><p>为什么两层都要？因为 Middleware 是一道&quot;大门&quot;，但大门后面的每个房间也应该有自己的锁。即使页面被保护了，攻击者仍然可以绕过浏览器，直接用 curl 或 Postman 调用 API 接口——就像有人不走商场正门，而是从员工通道直接进了仓库，你在正门设的安检对他完全无效。如果 API 没有自己的权限检查，攻击者只要拿到一个合法用户的 Cookie，就能用 curl 删除数据、修改配置、甚至提升权限。页面级保护靠 Middleware 拦截加服务端检查，接口级保护靠 API Route 内部校验——两层都在服务端控制，都无法被绕过。这就是安全领域常说的<strong>纵深防御</strong>：不把所有鸡蛋放在一个篮子里，每一层都有自己的防护。</p><div class="defense-container" data-v-910406c4><div class="defense-header" data-v-910406c4><h3>🛡️ 纵深防御架构</h3><button class="attack-btn" data-v-910406c4>🎯 模拟攻击</button></div><div class="defense-layers" data-v-910406c4><!--[--><div class="idle defense-layer" style="--layer-color:#ff3b30;" data-v-910406c4><div class="layer-main" data-v-910406c4><div class="layer-icon" data-v-910406c4>🛡️</div><div class="layer-info" data-v-910406c4><div class="layer-name" data-v-910406c4>边界防护</div><div class="layer-desc" data-v-910406c4>第一道防线，阻挡外部攻击</div></div><div class="layer-number" data-v-910406c4>1</div></div><!----><!----><!----></div><div class="idle defense-layer" style="--layer-color:#ff9500;" data-v-910406c4><div class="layer-main" data-v-910406c4><div class="layer-icon" data-v-910406c4>🌐</div><div class="layer-info" data-v-910406c4><div class="layer-name" data-v-910406c4>网络层</div><div class="layer-desc" data-v-910406c4>控制网络访问和流量</div></div><div class="layer-number" data-v-910406c4>2</div></div><!----><!----><!----></div><div class="idle defense-layer" style="--layer-color:#ffcc00;" data-v-910406c4><div class="layer-main" data-v-910406c4><div class="layer-icon" data-v-910406c4>🔐</div><div class="layer-info" data-v-910406c4><div class="layer-name" data-v-910406c4>应用层</div><div class="layer-desc" data-v-910406c4>保护应用程序安全</div></div><div class="layer-number" data-v-910406c4>3</div></div><!----><!----><!----></div><div class="idle defense-layer" style="--layer-color:#34c759;" data-v-910406c4><div class="layer-main" data-v-910406c4><div class="layer-icon" data-v-910406c4>💾</div><div class="layer-info" data-v-910406c4><div class="layer-name" data-v-910406c4>数据层</div><div class="layer-desc" data-v-910406c4>保护数据安全</div></div><div class="layer-number" data-v-910406c4>4</div></div><!----><!----><!----></div><div class="idle defense-layer" style="--layer-color:#007aff;" data-v-910406c4><div class="layer-main" data-v-910406c4><div class="layer-icon" data-v-910406c4>👁️</div><div class="layer-info" data-v-910406c4><div class="layer-name" data-v-910406c4>监控层</div><div class="layer-desc" data-v-910406c4>实时监控和响应</div></div><div class="layer-number" data-v-910406c4>5</div></div><!----><!----><!----></div><!--]--></div><div class="defense-info" data-v-910406c4><div class="info-card" data-v-910406c4><div class="info-icon" data-v-910406c4>🎯</div><div class="info-content" data-v-910406c4><div class="info-title" data-v-910406c4>纵深防御原则</div><div class="info-text" data-v-910406c4> 多层防护，即使某一层被突破，其他层仍能提供保护 </div></div></div><div class="info-card" data-v-910406c4><div class="info-icon" data-v-910406c4>🔄</div><div class="info-content" data-v-910406c4><div class="info-title" data-v-910406c4>层层递进</div><div class="info-text" data-v-910406c4> 从外到内，每一层都有独立的防护机制和监控 </div></div></div><div class="info-card" data-v-910406c4><div class="info-icon" data-v-910406c4>👁️</div><div class="info-content" data-v-910406c4><div class="info-title" data-v-910406c4>全面监控</div><div class="info-text" data-v-910406c4> 实时监控所有层级，快速发现和响应安全威胁 </div></div></div></div></div><blockquote><p>跟 AI 说：&quot;确保所有 /api/admin 开头的接口都在代码内部检查用户权限，不要只依赖 Middleware。&quot;</p></blockquote><h2>CORS——浏览器的跨域安全机制 </h2><div class="component-wrapper" data-v-01fa0f95><div class="component-header" data-v-01fa0f95><h3>CORS 跨域机制演示</h3><button class="btn btn-primary" data-v-01fa0f95>播放动画</button></div><div class="component-body" data-v-01fa0f95><div class="scenario-tabs" data-v-01fa0f95><!--[--><button class="active scenario-tab" data-v-01fa0f95>同源请求</button><button class="scenario-tab" data-v-01fa0f95>跨域请求（无 CORS 头）</button><button class="scenario-tab" data-v-01fa0f95>跨域请求（有 CORS 头）</button><button class="scenario-tab" data-v-01fa0f95>跨域请求（通配符）</button><!--]--></div><div class="animation-area" data-v-01fa0f95><div class="entity browser" data-v-01fa0f95><div class="entity-icon" data-v-01fa0f95>🌐</div><div class="entity-label" data-v-01fa0f95>浏览器</div><div class="entity-info" data-v-01fa0f95>https://example.com</div></div><div class="arrow-container" data-v-01fa0f95><div class="arrow request" data-v-01fa0f95><div class="arrow-label" data-v-01fa0f95><div data-v-01fa0f95>HTTP 请求</div><div class="cookie-badge" data-v-01fa0f95>🍪 Cookie</div></div></div><div class="arrow response" data-v-01fa0f95><div class="arrow-label" data-v-01fa0f95><div data-v-01fa0f95>HTTP 响应</div><!----></div></div></div><div class="entity server" data-v-01fa0f95><div class="entity-icon" data-v-01fa0f95>🖥️</div><div class="entity-label" data-v-01fa0f95>服务器</div><div class="entity-info" data-v-01fa0f95>https://example.com/api</div></div></div><!----><!----><div class="knowledge-box" data-v-01fa0f95><div class="knowledge-title" data-v-01fa0f95>💡 关键知识点</div><ul class="knowledge-list" data-v-01fa0f95><li data-v-01fa0f95>CORS 是浏览器的安全机制，不是服务器的限制</li><li data-v-01fa0f95>同源请求（协议、域名、端口都相同）不受 CORS 限制</li><li data-v-01fa0f95>跨域请求需要服务器返回 <code data-v-01fa0f95>Access-Control-Allow-Origin</code> 头</li><li data-v-01fa0f95>通配符 <code data-v-01fa0f95>*</code> 允许所有域名，但不能携带 Cookie（不安全）</li><li data-v-01fa0f95>在浏览器地址栏直接访问不受 CORS 限制，只有 JavaScript 发起的请求才受限</li></ul></div></div></div><p>小明后来想给&quot;个人豆瓣&quot;加一个功能：调用豆瓣的公开 API 获取电影海报。他在前端写了一个 <code>fetch(&#39;https://api.douban.com/...&#39;)</code>，浏览器控制台立刻报了一个红色错误：&quot;跨域请求被阻止（CORS policy）&quot;。他很困惑——这个 API 在浏览器地址栏里直接打开是能看到数据的，为什么用 JavaScript 调用就不行？</p><p>这不是 bug，是浏览器的<strong>安全机制</strong>。想象一下：你登录了银行网站，浏览器里存着你的登录 Cookie。然后你打开了一个恶意网站。如果没有跨域限制，这个恶意网站的 JavaScript 可以偷偷向银行网站发请求——因为浏览器会自动带上银行的 Cookie，银行服务器以为是你本人在操作。攻击者就能冒充你转账。CORS（跨域资源共享）就是浏览器的防线：<strong>默认禁止网页里的 JavaScript 向其他域名发请求，除非对方的服务器明确允许</strong>。在浏览器地址栏直接访问不受限制（那是你主动访问），但网页里的 JavaScript 代码发请求会被拦截（因为可能是恶意代码在偷偷发）。</p><p>什么时候会遇到 CORS？如果前后端在同一个 Next.js 项目内（本教程的情况），前端调自己的 API Route，不会遇到 CORS 问题，因为是同源的。但如果前后端分离部署——前端在 <code>app.example.com</code>，API 在 <code>api.example.com</code>——就会遇到。从前端直接调用第三方 API 也会遇到。如果你的前后端在同一个 Next.js 项目里，通常不需要配置 CORS。如果确实需要跨域，告诉 AI：&quot;我的前端在 <code>https://app.example.com</code>，需要调用 <code>https://api.example.com</code> 的接口，帮我配置 CORS，只允许这个域名访问。&quot;</p><div class="warning custom-block"><p><strong>不要配置 <code>Access-Control-Allow-Origin: *</code></strong></p><p>允许所有域名访问等于没有 CORS 保护。始终指定具体的域名。</p></div><h2>角色权限控制 </h2><div class="component-wrapper" data-v-cb580197><div class="component-header" data-v-cb580197><h3>角色权限矩阵（RBAC）</h3><div class="role-selector" data-v-cb580197><!--[--><button class="role-btn" style="--role-color:#9ca3af;" data-v-cb580197>访客 <span class="permission-count" data-v-cb580197>1</span></button><button class="active role-btn" style="--role-color:#2eb3df;" data-v-cb580197>普通用户 <span class="permission-count" data-v-cb580197>5</span></button><button class="role-btn" style="--role-color:#D4952C;" data-v-cb580197>版主 <span class="permission-count" data-v-cb580197>6</span></button><button class="role-btn" style="--role-color:#15a051;" data-v-cb580197>管理员 <span class="permission-count" data-v-cb580197>10</span></button><!--]--></div></div><div class="component-body" data-v-cb580197><div class="role-info" style="--role-color:#2eb3df;" data-v-cb580197><div class="role-info-header" data-v-cb580197><div class="role-name" data-v-cb580197>普通用户</div><div class="role-badge" data-v-cb580197>5 项权限 </div></div><div class="role-desc" data-v-cb580197>已登录用户，可以发布和管理自己的内容</div></div><div class="permissions-grid" data-v-cb580197><!--[--><div class="granted permission-card" data-v-cb580197><div class="permission-header" data-v-cb580197><div class="permission-icon" data-v-cb580197>✅</div><div class="permission-status" data-v-cb580197>允许</div></div><div class="permission-name" data-v-cb580197>浏览公开内容</div><!----></div><div class="granted permission-card" data-v-cb580197><div class="permission-header" data-v-cb580197><div class="permission-icon" data-v-cb580197>✅</div><div class="permission-status" data-v-cb580197>允许</div></div><div class="permission-name" data-v-cb580197>查看个人资料</div><!----></div><div class="granted permission-card" data-v-cb580197><div class="permission-header" data-v-cb580197><div class="permission-icon" data-v-cb580197>✅</div><div class="permission-status" data-v-cb580197>允许</div></div><div class="permission-name" data-v-cb580197>发布评论</div><!----></div><div class="granted permission-card" data-v-cb580197><div class="permission-header" data-v-cb580197><div class="permission-icon" data-v-cb580197>✅</div><div class="permission-status" data-v-cb580197>允许</div></div><div class="permission-name" data-v-cb580197>编辑自己的内容</div><!----></div><div class="granted permission-card" data-v-cb580197><div class="permission-header" data-v-cb580197><div class="permission-icon" data-v-cb580197>✅</div><div class="permission-status" data-v-cb580197>允许</div></div><div class="permission-name" data-v-cb580197>删除自己的内容</div><!----></div><div class="denied permission-card" data-v-cb580197><div class="permission-header" data-v-cb580197><div class="permission-icon" data-v-cb580197>❌</div><div class="permission-status" data-v-cb580197>拒绝</div></div><div class="permission-name" data-v-cb580197>审核内容</div><!----></div><div class="denied permission-card" data-v-cb580197><div class="permission-header" data-v-cb580197><div class="permission-icon" data-v-cb580197>❌</div><div class="permission-status" data-v-cb580197>拒绝</div></div><div class="permission-name" data-v-cb580197>管理电影</div><!----></div><div class="denied permission-card" data-v-cb580197><div class="permission-header" data-v-cb580197><div class="permission-icon" data-v-cb580197>❌</div><div class="permission-status" data-v-cb580197>拒绝</div></div><div class="permission-name" data-v-cb580197>管理用户</div><!----></div><div class="denied permission-card" data-v-cb580197><div class="permission-header" data-v-cb580197><div class="permission-icon" data-v-cb580197>❌</div><div class="permission-status" data-v-cb580197>拒绝</div></div><div class="permission-name" data-v-cb580197>查看数据</div><!----></div><div class="denied permission-card" data-v-cb580197><div class="permission-header" data-v-cb580197><div class="permission-icon" data-v-cb580197>❌</div><div class="permission-status" data-v-cb580197>拒绝</div></div><div class="permission-name" data-v-cb580197>系统配置</div><!----></div><!--]--></div><details class="matrix-details" data-v-cb580197><summary class="matrix-summary" data-v-cb580197>查看完整权限矩阵</summary><div class="matrix-table-wrapper" data-v-cb580197><table class="matrix-table" data-v-cb580197><thead data-v-cb580197><tr data-v-cb580197><th class="matrix-header" data-v-cb580197>权限 / 角色</th><!--[--><th class="matrix-header role-header" style="--role-color:#9ca3af;" data-v-cb580197>访客</th><th class="matrix-header role-header" style="--role-color:#2eb3df;" data-v-cb580197>普通用户</th><th class="matrix-header role-header" style="--role-color:#D4952C;" data-v-cb580197>版主</th><th class="matrix-header role-header" style="--role-color:#15a051;" data-v-cb580197>管理员</th><!--]--></tr></thead><tbody data-v-cb580197><!--[--><tr data-v-cb580197><td class="permission-cell" data-v-cb580197><div class="permission-cell-name" data-v-cb580197>浏览公开内容</div><div class="permission-cell-desc" data-v-cb580197>查看首页、电影列表等公开页面</div></td><!--[--><td class="granted matrix-cell" data-v-cb580197><div class="matrix-cell-icon" data-v-cb580197>✓</div></td><td class="granted matrix-cell" data-v-cb580197><div class="matrix-cell-icon" data-v-cb580197>✓</div></td><td class="granted matrix-cell" data-v-cb580197><div class="matrix-cell-icon" data-v-cb580197>✓</div></td><td class="granted matrix-cell" data-v-cb580197><div class="matrix-cell-icon" data-v-cb580197>✓</div></td><!--]--></tr><tr data-v-cb580197><td class="permission-cell" data-v-cb580197><div class="permission-cell-name" data-v-cb580197>查看个人资料</div><div class="permission-cell-desc" data-v-cb580197>访问自己的个人主页</div></td><!--[--><td class="denied matrix-cell" data-v-cb580197><div class="matrix-cell-icon" data-v-cb580197>×</div></td><td class="granted matrix-cell" data-v-cb580197><div class="matrix-cell-icon" data-v-cb580197>✓</div></td><td class="granted matrix-cell" data-v-cb580197><div class="matrix-cell-icon" data-v-cb580197>✓</div></td><td class="granted matrix-cell" data-v-cb580197><div class="matrix-cell-icon" data-v-cb580197>✓</div></td><!--]--></tr><tr data-v-cb580197><td class="permission-cell" data-v-cb580197><div class="permission-cell-name" data-v-cb580197>发布评论</div><div class="permission-cell-desc" data-v-cb580197>对电影发表评论和评分</div></td><!--[--><td class="denied matrix-cell" data-v-cb580197><div class="matrix-cell-icon" data-v-cb580197>×</div></td><td class="granted matrix-cell" data-v-cb580197><div class="matrix-cell-icon" data-v-cb580197>✓</div></td><td class="granted matrix-cell" data-v-cb580197><div class="matrix-cell-icon" data-v-cb580197>✓</div></td><td class="granted matrix-cell" data-v-cb580197><div class="matrix-cell-icon" data-v-cb580197>✓</div></td><!--]--></tr><tr data-v-cb580197><td class="permission-cell" data-v-cb580197><div class="permission-cell-name" data-v-cb580197>编辑自己的内容</div><div class="permission-cell-desc" data-v-cb580197>修改自己发布的评论</div></td><!--[--><td class="denied matrix-cell" data-v-cb580197><div class="matrix-cell-icon" data-v-cb580197>×</div></td><td class="granted matrix-cell" data-v-cb580197><div class="matrix-cell-icon" data-v-cb580197>✓</div></td><td class="granted matrix-cell" data-v-cb580197><div class="matrix-cell-icon" data-v-cb580197>✓</div></td><td class="granted matrix-cell" data-v-cb580197><div class="matrix-cell-icon" data-v-cb580197>✓</div></td><!--]--></tr><tr data-v-cb580197><td class="permission-cell" data-v-cb580197><div class="permission-cell-name" data-v-cb580197>删除自己的内容</div><div class="permission-cell-desc" data-v-cb580197>删除自己发布的评论</div></td><!--[--><td class="denied matrix-cell" data-v-cb580197><div class="matrix-cell-icon" data-v-cb580197>×</div></td><td class="granted matrix-cell" data-v-cb580197><div class="matrix-cell-icon" data-v-cb580197>✓</div></td><td class="granted matrix-cell" data-v-cb580197><div class="matrix-cell-icon" data-v-cb580197>✓</div></td><td class="granted matrix-cell" data-v-cb580197><div class="matrix-cell-icon" data-v-cb580197>✓</div></td><!--]--></tr><tr data-v-cb580197><td class="permission-cell" data-v-cb580197><div class="permission-cell-name" data-v-cb580197>审核内容</div><div class="permission-cell-desc" data-v-cb580197>删除违规评论、封禁用户</div></td><!--[--><td class="denied matrix-cell" data-v-cb580197><div class="matrix-cell-icon" data-v-cb580197>×</div></td><td class="denied matrix-cell" data-v-cb580197><div class="matrix-cell-icon" data-v-cb580197>×</div></td><td class="granted matrix-cell" data-v-cb580197><div class="matrix-cell-icon" data-v-cb580197>✓</div></td><td class="granted matrix-cell" data-v-cb580197><div class="matrix-cell-icon" data-v-cb580197>✓</div></td><!--]--></tr><tr data-v-cb580197><td class="permission-cell" data-v-cb580197><div class="permission-cell-name" data-v-cb580197>管理电影</div><div class="permission-cell-desc" data-v-cb580197>添加、编辑、删除电影信息</div></td><!--[--><td class="denied matrix-cell" data-v-cb580197><div class="matrix-cell-icon" data-v-cb580197>×</div></td><td class="denied matrix-cell" data-v-cb580197><div class="matrix-cell-icon" data-v-cb580197>×</div></td><td class="denied matrix-cell" data-v-cb580197><div class="matrix-cell-icon" data-v-cb580197>×</div></td><td class="granted matrix-cell" data-v-cb580197><div class="matrix-cell-icon" data-v-cb580197>✓</div></td><!--]--></tr><tr data-v-cb580197><td class="permission-cell" data-v-cb580197><div class="permission-cell-name" data-v-cb580197>管理用户</div><div class="permission-cell-desc" data-v-cb580197>查看用户列表、修改用户权限</div></td><!--[--><td class="denied matrix-cell" data-v-cb580197><div class="matrix-cell-icon" data-v-cb580197>×</div></td><td class="denied matrix-cell" data-v-cb580197><div class="matrix-cell-icon" data-v-cb580197>×</div></td><td class="denied matrix-cell" data-v-cb580197><div class="matrix-cell-icon" data-v-cb580197>×</div></td><td class="granted matrix-cell" data-v-cb580197><div class="matrix-cell-icon" data-v-cb580197>✓</div></td><!--]--></tr><tr data-v-cb580197><td class="permission-cell" data-v-cb580197><div class="permission-cell-name" data-v-cb580197>查看数据</div><div class="permission-cell-desc" data-v-cb580197>访问后台数据统计</div></td><!--[--><td class="denied matrix-cell" data-v-cb580197><div class="matrix-cell-icon" data-v-cb580197>×</div></td><td class="denied matrix-cell" data-v-cb580197><div class="matrix-cell-icon" data-v-cb580197>×</div></td><td class="denied matrix-cell" data-v-cb580197><div class="matrix-cell-icon" data-v-cb580197>×</div></td><td class="granted matrix-cell" data-v-cb580197><div class="matrix-cell-icon" data-v-cb580197>✓</div></td><!--]--></tr><tr data-v-cb580197><td class="permission-cell" data-v-cb580197><div class="permission-cell-name" data-v-cb580197>系统配置</div><div class="permission-cell-desc" data-v-cb580197>修改系统设置、管理数据库</div></td><!--[--><td class="denied matrix-cell" data-v-cb580197><div class="matrix-cell-icon" data-v-cb580197>×</div></td><td class="denied matrix-cell" data-v-cb580197><div class="matrix-cell-icon" data-v-cb580197>×</div></td><td class="denied matrix-cell" data-v-cb580197><div class="matrix-cell-icon" data-v-cb580197>×</div></td><td class="granted matrix-cell" data-v-cb580197><div class="matrix-cell-icon" data-v-cb580197>✓</div></td><!--]--></tr><!--]--></tbody></table></div></details><div class="knowledge-box" data-v-cb580197><div class="knowledge-title" data-v-cb580197>💡 RBAC 核心概念</div><ul class="knowledge-list" data-v-cb580197><li data-v-cb580197><strong data-v-cb580197>角色（Role）</strong>：一组权限的集合，如 admin、user、moderator</li><li data-v-cb580197><strong data-v-cb580197>权限（Permission）</strong>：具体的操作能力，如&quot;删除评论&quot;、&quot;管理用户&quot;</li><li data-v-cb580197><strong data-v-cb580197>用户-角色绑定</strong>：每个用户分配一个或多个角色</li><li data-v-cb580197><strong data-v-cb580197>最小权限原则</strong>：只给用户完成工作所需的最小权限</li><li data-v-cb580197><strong data-v-cb580197>纵深防御</strong>：前端隐藏入口 + Middleware 拦截 + API 内部校验</li></ul></div></div></div><p>Middleware 解决了&quot;有没有登录&quot;的问题，但小明很快遇到了新问题：老王登录后，居然也能访问 <code>/admin</code> 页面——因为 Middleware 只检查了&quot;是否登录&quot;，没检查&quot;是不是管理员&quot;。小明的应用有两种用户：他自己是管理员，能删除电影、管理评论；朋友们是普通用户，只能看电影、写评论。这就需要<strong>基于角色的访问控制（RBAC）</strong>——不同角色能做不同的事。</p><p>最简单的实现是在 <code>user</code> 表里加一个 <code>role</code> 字段：小明的 role 是 <code>admin</code>，老王的 role 是 <code>user</code>。然后在 Middleware 或 API 里检查 <code>session.user.role !== &#39;admin&#39;</code> 就返回 403。这个检查可以放在 Middleware 里（统一拦截），也可以放在每个 API Route 里（精细控制），最好两个地方都放——又是纵深防御。</p><p>随着应用复杂度增长，简单的 admin/user 两个角色可能不够。比如小明的&quot;个人豆瓣&quot;火了，有了几百个用户，他需要几个信任的朋友帮忙管理评论区。这时候就需要更细的角色划分：guest 只能浏览公开内容，user 可以浏览、发布、编辑自己的内容，moderator 拥有 user 的所有权限加上删除违规内容的权力，admin 拥有所有权限。Better Auth 的组织管理插件支持更复杂的权限模型，但对于大多数个人项目，admin/user 两个角色就够了。不要过度设计——等真正需要时再扩展，到时候告诉 AI 你的需求，它会帮你调整权限模型。</p><blockquote><p>跟 AI 说：&quot;帮我实现完整的路由保护方案：创建 middleware.ts 保护 /dashboard 和 /admin 路径，/admin 路径额外检查用户角色必须是 admin，所有 /api/admin 开头的接口也要在代码内部检查权限，未登录用户重定向到 /login，登录用户访问 /login 时重定向到 /dashboard。&quot;</p></blockquote><hr><div class="callout"><p><strong>本节核心要点</strong></p><ul><li>前端隐藏入口不是安全措施，真正的保护在服务端</li><li>Middleware 是 Next.js 的统一拦截层，用 <code>matcher</code> 指定保护范围</li><li>页面保护和接口保护缺一不可</li><li>CORS 是浏览器的安全机制，同项目内通常不需要配置</li><li>角色权限从简单的 admin/user 开始，需要时再扩展</li></ul></div><div class="info custom-block"><p><strong>下一步</strong></p><p>路由守住了，接下来去 <a href="./04-security-checklist.html">安全检查与问题排查</a>——一份开发各阶段的安全清单，以及遇到问题时的快速排查手册。</p></div></div></div>
+</div>
+
+
+</main>
+
+<footer class="site-footer">
+<p>© 2026 TPvibe · 内部预览版</p>
+<p style="margin-top:8px;">
+<a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer">蜀ICP备2024097797号-3</a>
+</p>
+</footer>
+<!-- THEME:tpvibe -->
+<script>
+/* Theme toggle */
+(function(){
+  var r=document.documentElement;
+  var saved=localStorage.getItem('tpvibe-theme');r.dataset.theme=saved||'light';
+  
+  /* sync button icon */
+  
+})();
+/* Reveal on scroll */
+(function(){
+  var obs=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');obs.unobserve(e.target);}});},{threshold:.15});
+  document.querySelectorAll('.reveal').forEach(function(el){obs.observe(el);});
+})();
+/* Progress bar */
+(function(){
+  var bar=document.getElementById('progress');
+  if(!bar)return;
+  window.addEventListener('scroll',function(){
+    var h=document.documentElement.scrollHeight-window.innerHeight;
+    bar.style.width=(h>0?(window.scrollY/h*100):0)+'%';
+  });
+})();
+</script>
+<script>
+/* Theme button icon sync */
+(function(){
+  var btn=document.querySelector('.theme-btn');
+  if(!btn)return;
+  function sync(){btn.textContent=document.documentElement.dataset.theme==='dark'?'☀️':'🌙';}
+  sync();
+  btn.addEventListener('click',function(){setTimeout(sync,0);});
+})();
+</script>
+
+<nav class="mobile-bottom-tabs"><ul><li><a href="/tpvibe/index.html"><svg viewBox="0 0 24 24"><path d="M3 12L12 3l9 9M5 10v10h4v-6h6v6h4V10"/></svg><span>首页</span></a></li><li><a href="/tpvibe/Basic/lecture-1.html"><svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg><span>基础篇</span></a></li><li><a href="/tpvibe/Advanced/ch01.html"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg><span>进阶篇</span></a></li><li><a href="/tpvibe/Articles/core-concepts.html"><svg viewBox="0 0 24 24"><path d="M4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zM8 7h8M8 11h8M8 15h6"/></svg><span>文章</span></a></li><li><a href="/tpvibe/Practice/index.html"><svg viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg><span>实践</span></a></li></ul></nav>
+<script>
+(function(){
+  // 判断当前页面，高亮对应的 tab（目录前缀匹配）
+  var path=location.pathname.replace(/\/index\.html$/,'/').replace(/\/$/,'');
+  var tabs=document.querySelectorAll('.mobile-bottom-tabs a');
+  var bestMatch=null;
+  var bestMatchLen=0;
+  tabs.forEach(function(a){
+    var href=a.getAttribute('href')||'';
+    if(!href)return;
+    var hrefPath=href.replace(/https?:\/\/[^\/]+/,'').replace(/\/index\.html$/,'/').replace(/\/$/,'');
+    if(path===hrefPath){bestMatch=a;return;}
+    // 目录前缀匹配：当前路径以 tab 路径开头
+    if(hrefPath.length>2&&path.indexOf(hrefPath)>=0&&hrefPath.length>bestMatchLen){bestMatch=a;bestMatchLen=hrefPath.length;}
+  });
+  if(bestMatch)bestMatch.classList.add('active');
+})();
+</script>
+
+
+<script src="/tpvibe/toc-sheet.js"></script>
+</body>
+</html>

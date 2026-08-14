@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IndieTools · 深度解读</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#ffffff; --grid:#edeff4; --glow:#fff5f0;
+    --ink:#14151a; --muted:#60667a; --line:#e6e8ef;
+    --accent:#e0902b; --accent-2:#c2603f;
+    --green:#1f9d6b; --yellow:#e0a200; --pink:#e0457f;
+    --card:#ffffff; --soft:#f7f8fb; --shadow:rgba(20,21,26,.08);
+    --radius:18px;
+  }
+  [data-theme="dark"]{
+    --bg:#0e0f14; --grid:#1a1c25; --glow:#1a1410;
+    --ink:#f1f2f6; --muted:#9aa0b4; --line:#262936;
+    --card:#15171f; --soft:#191b24; --shadow:rgba(0,0,0,.5);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0; color:var(--ink); font-family:'Inter','Noto Sans SC',system-ui,sans-serif;
+    background:var(--bg);
+    background-image:
+      linear-gradient(var(--grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+    background-size:34px 34px;
+    background-attachment:fixed;
+    line-height:1.65; -webkit-font-smoothing:antialiased;
+  }
+  body::before{
+    content:""; position:fixed; inset:0; pointer-events:none; z-index:0;
+    background:radial-gradient(60% 50% at 50% -10%, var(--glow), transparent 70%);
+  }
+  h1,h2,h3,.display{font-family:'Space Grotesk','Noto Sans SC',sans-serif; letter-spacing:-.02em;}
+  a{color:var(--accent); text-decoration:none;}
+  code,.mono{font-family:'JetBrains Mono',monospace;}
+  .wrap{max-width:1080px; margin:0 auto; padding:0 22px; position:relative; z-index:1;}
+
+  /* progress + nav */
+  #progress{position:fixed; top:0; left:0; height:3px; width:0; z-index:100;
+    background:linear-gradient(90deg,var(--accent),var(--accent-2)); transition:width .1s;}
+  nav{position:sticky; top:0; z-index:50; backdrop-filter:blur(14px);
+    background:color-mix(in srgb, var(--bg) 78%, transparent);
+    border-bottom:1px solid var(--line);}
+  .nav-in{max-width:1080px; margin:0 auto; padding:13px 22px; display:flex; align-items:center; gap:18px;}
+  .logo{font-family:'Space Grotesk'; font-weight:700; font-size:20px; display:flex; align-items:center; gap:9px;}
+  .logo .dot{width:13px;height:13px;border-radius:4px;background:linear-gradient(135deg,var(--accent),var(--accent-2)); box-shadow:0 0 0 4px color-mix(in srgb,var(--accent) 18%,transparent);}
+  .nav-links{display:flex; gap:6px; margin-left:auto; flex-wrap:wrap;}
+  .nav-links a{color:var(--muted); font-size:14px; font-weight:500; padding:7px 11px; border-radius:9px; transition:.2s;}
+  .nav-links a:hover{color:var(--ink); background:var(--soft);}
+  .toggle{cursor:pointer; border:1px solid var(--line); background:var(--card); border-radius:10px;
+    width:40px; height:36px; display:grid; place-items:center; font-size:16px; transition:.2s;}
+  .toggle:hover{border-color:var(--accent);}
+  .ghost-btn{border:1px solid var(--line); background:var(--card); color:var(--ink); padding:8px 13px;
+    border-radius:10px; font-size:14px; font-weight:600; transition:.2s; cursor:pointer;}
+  .ghost-btn:hover{border-color:var(--accent); transform:translateY(-1px);}
+
+  /* hero */
+  .hero{padding:70px 0 40px; text-align:center;}
+  .eyebrow{display:inline-flex; align-items:center; gap:8px; font-size:13px; font-weight:600; color:var(--accent);
+    background:color-mix(in srgb,var(--accent) 10%,transparent); padding:6px 13px; border-radius:99px; border:1px solid color-mix(in srgb,var(--accent) 25%,transparent);}
+  .hero h1{font-size:clamp(40px,8vw,82px); margin:18px 0 8px; line-height:1; font-weight:700;}
+  .hero h1 .grad{background:linear-gradient(120deg,var(--accent),var(--accent-2)); -webkit-background-clip:text; background-clip:text; color:transparent;}
+  .hero p.sub{font-size:clamp(16px,2.4vw,21px); color:var(--muted); max-width:680px; margin:10px auto 0;}
+  .cta{display:flex; gap:12px; justify-content:center; margin-top:26px; flex-wrap:wrap;}
+  .btn{display:inline-flex; align-items:center; gap:8px; padding:13px 22px; border-radius:12px; font-weight:600; font-size:15px; transition:.22s; cursor:pointer; border:1px solid transparent;}
+  .btn.primary{background:linear-gradient(120deg,var(--accent),var(--accent-2)); color:#fff; box-shadow:0 10px 26px color-mix(in srgb,var(--accent) 35%,transparent);}
+  .btn.primary:hover{transform:translateY(-2px); box-shadow:0 16px 34px color-mix(in srgb,var(--accent) 45%,transparent);}
+  .btn.sec{background:var(--card); border-color:var(--line); color:var(--ink);}
+  .btn.sec:hover{border-color:var(--accent); transform:translateY(-2px);}
+
+  /* stats */
+  .stats{display:grid; grid-template-columns:repeat(6,1fr); gap:14px; margin:40px 0 10px;}
+  .stat{background:var(--card); border:1px solid var(--line); border-radius:var(--radius); padding:18px 12px; text-align:center; box-shadow:0 6px 20px var(--shadow); transition:.25s;}
+  .stat:hover{transform:translateY(-3px); border-color:var(--accent);}
+  .stat .n{font-family:'Space Grotesk'; font-weight:700; font-size:clamp(20px,3vw,28px); color:var(--ink);}
+  .stat .l{font-size:12.5px; color:var(--muted); margin-top:3px;}
+
+  /* sections */
+  section{padding:54px 0; scroll-margin-top:74px;}
+  .sec-head{margin-bottom:26px;}
+  .sec-head .k{font-size:13px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--accent);}
+  .sec-head h2{font-size:clamp(26px,4vw,38px); margin:8px 0 6px;}
+  .sec-head p{color:var(--muted); max-width:720px; margin:0;}
+
+  .card{background:var(--card); border:1px solid var(--line); border-radius:var(--radius); padding:22px; box-shadow:0 6px 22px var(--shadow); transition:.25s;}
+  .card:hover{transform:translateY(-3px); box-shadow:0 14px 34px var(--shadow); border-color:color-mix(in srgb,var(--accent) 40%,var(--line));}
+  .grid{display:grid; gap:16px;}
+  .g2{grid-template-columns:repeat(2,1fr);} .g3{grid-template-columns:repeat(3,1fr);} .g4{grid-template-columns:repeat(4,1fr);}
+  .pillar .ic{width:44px;height:44px;border-radius:12px; display:grid; place-items:center; font-size:22px; margin-bottom:12px;
+    background:color-mix(in srgb,var(--accent) 12%,transparent); border:1px solid color-mix(in srgb,var(--accent) 22%,transparent);}
+  .pillar h3{font-size:18px; margin:0 0 6px;} .pillar p{color:var(--muted); font-size:14.5px; margin:0;}
+
+  .chips{display:flex; gap:10px; flex-wrap:wrap;}
+  .chip{display:inline-flex; align-items:center; gap:8px; padding:10px 15px; border-radius:12px; border:1px solid var(--line);
+    background:var(--card); font-weight:600; font-size:14.5px; transition:.2s;}
+  .chip:hover{border-color:var(--accent-2); transform:translateY(-2px); box-shadow:0 8px 20px var(--shadow);}
+  .chip .d{width:9px;height:9px;border-radius:50%; background:linear-gradient(135deg,var(--accent),var(--accent-2));}
+
+  /* flow */
+  .flow{display:flex; align-items:stretch; justify-content:center; gap:0; flex-wrap:wrap; margin:10px 0;}
+  .node{flex:1 1 200px; min-width:180px; background:var(--card); border:1px solid var(--line);
+    padding:16px; text-align:center; box-shadow:0 6px 20px var(--shadow); margin:6px; border-radius:var(--radius);}
+  .node h3{font-size:16px; color:var(--accent); margin:6px 0;}
+  .node .d{font-size:14.5px; color:var(--muted);}
+  .arrow{align-self:center; font-family:'Space Grotesk'; color:var(--accent-2); font-size:20px; padding:0 6px;}
+
+  /* tabs */
+  .tabs{display:flex; gap:6px; flex-wrap:wrap; margin-bottom:18px; border-bottom:1px solid var(--line); padding-bottom:12px;}
+  .tab{border:1px solid var(--line); background:var(--card); color:var(--muted); padding:9px 15px; border-radius:11px; font-weight:600; font-size:14px; cursor:pointer; transition:.2s;}
+  .tab:hover{color:var(--ink);}
+  .tab.active{background:linear-gradient(120deg,var(--accent),var(--accent-2)); color:#fff; border-color:transparent; box-shadow:0 8px 20px color-mix(in srgb,var(--accent) 35%,transparent);}
+  .panel-box{display:none;} .panel-box.active{display:block; animation:fade .35s ease;}
+  @keyframes fade{from{opacity:0; transform:translateY(8px);} to{opacity:1; transform:none;}}
+
+  /* code */
+  .code{background:var(--ink); color:#e7e9f2; border-radius:14px; padding:16px 18px; overflow:auto; box-shadow:0 10px 30px var(--shadow);}
+  .code pre{margin:0; font-family:'JetBrains Mono'; font-size:13.5px; line-height:1.7;}
+  .code .c{color:#7c8499;} .code .s{color:#9be8b0;} .code .p{color:#ffae8a;} .code .b{color:#8db4ff;}
+  .copy{float:right; cursor:pointer; font-size:12px; color:#aeb4c8; border:1px solid #2c2f3a; background:#1b1d26; padding:4px 9px; border-radius:8px;}
+  .copy:hover{color:#fff;}
+
+  .callout{border-left:4px solid var(--accent); background:color-mix(in srgb,var(--accent) 7%,var(--card)); padding:14px 17px; border-radius:0 12px 12px 0; font-size:14.5px; color:var(--muted); margin:16px 0;}
+  .callout b{color:var(--ink);}
+
+  /* accordion (FAQ) */
+  .acc{border:1px solid var(--line); border-radius:14px; overflow:hidden; background:var(--card); margin-bottom:11px; box-shadow:0 4px 16px var(--shadow);}
+  .acc-h{display:flex; align-items:center; gap:13px; padding:17px 19px; cursor:pointer; transition:.2s; user-select:none;}
+  .acc-h:hover{background:var(--soft);}
+  .acc-h .num{font-family:'Space Grotesk'; font-weight:700; color:var(--accent); font-size:15px; min-width:30px;}
+  .acc-h h3{font-size:17px; margin:0; flex:1;}
+  .acc-h .ar{transition:.3s; color:var(--muted); font-size:18px;}
+  .acc.open .acc-h .ar{transform:rotate(45deg); color:var(--accent);}
+  .acc-b{max-height:0; overflow:hidden; transition:max-height .35s ease;}
+  .acc-b-in{padding:0 19px 19px 62px; color:var(--muted); font-size:15px;}
+  .acc-b-in ul{margin:8px 0 0; padding-left:18px;} .acc-b-in li{margin:5px 0;}
+
+  /* timeline */
+  .tl{position:relative; margin-left:14px; padding-left:30px; border-left:2px solid var(--line);}
+  .tl-item{position:relative; padding:0 0 28px 0;}
+  .tl-item::before{content:""; position:absolute; left:-39px; top:4px; width:15px; height:15px; border-radius:50%; background:var(--card); border:3px solid var(--accent);}
+  .tl-item .v{font-family:'Space Grotesk'; font-weight:700; color:var(--accent); font-size:15px;}
+  .tl-item .t{font-weight:700; font-size:17px; margin:2px 0 5px;}
+  .tl-item p{color:var(--muted); margin:0; font-size:14.5px;}
+
+  /* list */
+  ul.b{list-style:none; padding-left:0; margin:10px 0;}
+  ul.b li{padding:6px 0 6px 26px; position:relative; color:var(--muted); font-size:15px;}
+  ul.b li::before{content:"▸"; position:absolute; left:4px; color:var(--accent); font-weight:bold;}
+
+  footer{border-top:1px solid var(--line); padding:36px 0 60px; text-align:center; color:var(--muted); font-size:14px;}
+  .reveal{opacity:0; transform:translateY(22px); transition:opacity .7s ease, transform .7s ease;}
+  .reveal.in{opacity:1; transform:none;}
+  @media(max-width:760px){.stats{grid-template-columns:repeat(3,1fr);} .g2,.g3,.g4{grid-template-columns:1fr;} .nav-links{display:none;}}
+</style>
+</head>
+<body>
+<div id="progress"></div>
+<nav>
+  <div class="nav-in">
+    <div class="logo"><span class="dot"></span>IndieTools</div>
+    <div class="nav-links">
+      <a href="#overview">概览</a>
+      <a href="#deep">深读</a>
+      <a href="#faq">FAQ</a>
+      <a href="#start">快速开始</a>
+    </div>
+    <button class="toggle" id="themeBtn" title="切换明暗">◐</button>
+    <a class="ghost-btn" href="tp.html">← 返回 TP 中心</a>
+  </div>
+</nav>
+
+<div class="wrap">
+
+  <!-- HERO -->
+  <header class="hero">
+    <span class="eyebrow">独立开发 · 工具导航</span>
+    <h1><span class="grad">IndieTools</span></h1>
+    <p class="sub">IndieTools.work 是面向独立开发者、创业者与小团队的工具目录聚合平台，收录 650+ 高质量工具，按开发 / 设计 / 营销 / 效率等维度分门别类——帮你跳过"重复造轮子"和"搜索引擎试错"，直达可用方案。</p>
+    <div class="cta">
+      <a class="btn primary" href="https://www.indietools.work" target="_blank" rel="noopener">⚡ 访问官网 ↗</a>
+      <a class="btn sec" href="#overview">🔍 深入了解</a>
+    </div>
+    <div class="stats">
+      <div class="stat reveal"><div class="n" data-to="650" data-suf="+">0</div><div class="l">收录工具</div></div>
+      <div class="stat reveal"><div class="n" data-to="4" data-suf="+">0</div><div class="l">核心分类</div></div>
+      <div class="stat reveal"><div class="n" data-to="3" data-suf="">0</div><div class="l">定价档位</div></div>
+      <div class="stat reveal"><div class="n" data-to="5" data-suf="">0</div><div class="l">浏览方式</div></div>
+      <div class="stat reveal"><div class="n" data-to="100" data-suf="%">0</div><div class="l">免费访问</div></div>
+      <div class="stat reveal"><div class="n" data-to="1" data-suf="站">0</div><div class="l">单站直达</div></div>
+    </div>
+    <div class="callout" style="text-align:left; max-width:760px; margin:18px auto 0;">
+      📌 <b>数据口径</b>：上方"650+ 收录工具""开发 / 设计 / 营销 / 效率分类""Free / Freemium / Paid 三档定价"等事实取自 Tabbit《websites_final_report》（2026-07-14 抓取）。IndieTools.work 为人工精选目录，工具数持续增长，<b>具体分类树与总数以官网实时为准</b>。本页未独立核验实时数字，纯展示型站点、无 CLI/API，文中命令均为"把目录纳入你工作流"的本地辅助脚本。
+    </div>
+  </header>
+
+  <!-- OVERVIEW -->
+  <section id="overview">
+    <div class="sec-head reveal">
+      <div class="k">Overview</div>
+      <h2>它到底是什么</h2>
+      <p>不是又一个"工具大全"链接堆，而是一个被人工筛选、按场景归类的独立开发者工具集散地。它把从写代码到做设计、跑营销、管效率的全链路软件收进同一栋"工具 App Store"，让一个人也能像一支小团队那样配齐装备。</p>
+    </div>
+    <div class="grid g3">
+      <div class="card pillar reveal"><div class="ic">🗂️</div><h3>精选目录</h3><p>650+ 工具经人工归类，每一条都带分类与定价标签，省去你在搜索引擎里翻广告、辨套路的功夫。</p></div>
+      <div class="card pillar reveal"><div class="ic">🔎</div><h3>多维度检索</h3><p>支持关键词搜索、按 Development / Design / Marketing / Productivity 等分类筛选，再用 Free / Freemium / Paid 收窄预算。</p></div>
+      <div class="card pillar reveal"><div class="ic">💸</div><h3>定价透明</h3><p>三档定价一目了然：免费工具直接上手，Freemium 先尝后买，Paid 也能先看清投入再决策。</p></div>
+      <div class="card pillar reveal"><div class="ic">🧭</div><h3>全链路覆盖</h3><p>从开发、设计到营销、效率，覆盖一个独立产品从 0 到 1 的各阶段，不必在十几个网站间来回切换。</p></div>
+      <div class="card pillar reveal"><div class="ic">⭐</div><h3>个人工具箱</h3><p>注册账号后可收藏常用工具、沉淀成自己的工具箱，复访时不再从头找起。</p></div>
+      <div class="card pillar reveal"><div class="ic">🚀</div><h3>发现新工具</h3><p>持续收录新兴工具，帮你跟上生态，及时用更高效的方案替换掉自己手搓的笨办法。</p></div>
+    </div>
+  </section>
+
+  <!-- DEEP DIVE (one or more <section> blocks) -->
+  <section id="deep">
+    <div class="sec-head reveal">
+      <div class="k">Deep Dive</div>
+      <h2>拆开看：目录是怎么组织的</h2>
+      <p>理解它的分类与筛选逻辑，才能在 650+ 工具里用最少的动作命中你真正要的那一个。</p>
+    </div>
+
+    <div class="chips reveal">
+      <span class="chip"><span class="d"></span>Development 开发</span>
+      <span class="chip"><span class="d"></span>Design 设计</span>
+      <span class="chip"><span class="d"></span>Marketing 营销</span>
+      <span class="chip"><span class="d"></span>Productivity 效率</span>
+    </div>
+
+    <div class="grid g2 reveal" style="margin-top:18px">
+      <div class="card">
+        <h3 style="margin-top:0">🧩 按"做什么"分大类</h3>
+        <p style="color:var(--muted); font-size:14.5px">报告明确列出四大核心类目，每个类目下再细分场景，例如 Development 下可能有部署、数据库、支付、分析等子主题；Design 下覆盖原型、图标、配色、素材。点大类即可横向扫一遍同类竞品。</p>
+      </div>
+      <div class="card">
+        <h3 style="margin-top:0">💰 按"花多少钱"分档</h3>
+        <p style="color:var(--muted); font-size:14.5px">三档定价是 IndieTools 的关键筛选维度：<b>Free</b> 直接可用、<b>Freemium</b> 先免费用核心再升级、<b>Paid</b> 需付费。预算紧时先勾 Free/Freemium，能过滤掉大量试错成本。</p>
+      </div>
+    </div>
+
+    <div class="callout reveal" style="text-align:left;">💡 <b>用法心法</b>：先选大类锁定场景，再用定价档位收窄，最后用关键词（如 <code>payment</code> / <code>analytics</code> / <code>design</code>）精确命中。三步顺序反过来会淹没在结果里。</div>
+  </section>
+
+  <section id="pick">
+    <div class="sec-head reveal">
+      <div class="k">How to choose</div>
+      <h2>从"看到"到"选对"的一条动线</h2>
+      <p>目录的价值不在罗列，而在帮你把选型时间从半天压到几分钟。下面这条动线可直接照搬。</p>
+    </div>
+    <div class="flow reveal">
+      <div class="node"><h3>① 定位场景</h3><div class="d">明确当前卡在开发 / 设计 / 营销 / 效率哪一段</div></div>
+      <div class="arrow">→</div>
+      <div class="node"><h3>② 大类筛选</h3><div class="d">进入对应分类，横向扫一遍同类工具</div></div>
+      <div class="arrow">→</div>
+      <div class="node"><h3>③ 定价收窄</h3><div class="d">按 Free / Freemium / Paid 卡预算</div></div>
+      <div class="arrow">→</div>
+      <div class="node"><h3>④ 关键词命中</h3><div class="d">用具体需求词精准定位 1–3 个候选</div></div>
+      <div class="arrow">→</div>
+      <div class="node"><h3>⑤ 看详情收藏</h3><div class="d">读功能 / 评价 / 场景，收藏进工具箱</div></div>
+    </div>
+    <ul class="b reveal">
+      <li><b>别一上来就搜关键词</b>：大类筛选能先把不相关的整片砍掉，比关键词盲搜更快收敛。</li>
+      <li><b>Free 优先验证</b>：能用免费工具跑通 MVP，就别提前上 Paid；等需求真实存在再付费。</li>
+      <li><b>收藏即沉淀</b>：每次找到顺手的工具就立刻收藏，工具箱越长，下次启动越快。</li>
+      <li><b>同类多存几个</b>：同一场景存 2–3 个候选，某工具涨价或停运时能立刻顶上。</li>
+    </ul>
+  </section>
+
+  <section id="embed">
+    <div class="sec-head reveal">
+      <div class="k">Workflow</div>
+      <h2>把目录嵌进你自己的工作流</h2>
+      <p>IndieTools 是纯展示型站点、不提供 CLI/API。但你可以把"在它上面发现的好工具"沉淀成本地可检索的知识库，下面给一套可落地的写法。</p>
+    </div>
+
+    <div class="code reveal"><button class="copy">复制</button><pre><span class="c"># 1) 在你常用的笔记/仓库里建一个工具清单（Markdown）</span>
+<span class="p">mkdir</span> -p ~/notes/tools <span class="b">&amp;&amp;</span> <span class="p">touch</span> ~/notes/tools/indietools.md
+
+<span class="c"># 2) 每次在 IndieTools 发现顺手的工具，追加一条统一格式</span>
+<span class="p">cat</span> &gt;&gt; ~/notes/tools/indietools.md <span class="s">&lt;&lt;'EOF'
+- [ToolName](https://...) | 分类: Design | 定价: Freemium | 用途: 一键生成配色
+EOF</span>
+
+<span class="c"># 3) 想找"免费的设计类"工具时，本地直接 grep，不必再打开网站</span>
+<span class="p">grep</span> -i <span class="s">"分类: Design"</span> ~/notes/tools/indietools.md <span class="b">|</span> <span class="p">grep</span> -i <span class="s">"Free"</span></pre></div>
+
+    <div class="callout reveal" style="text-align:left;">⚠️ 注意：上面的 <code>mkdir/cat/grep</code> 都是在你<b>本地文件系统</b>上管理"你收藏的工具"，IndieTools.work 本身并不提供命令行接口。把站点当成"货源"，把本地文件当成"库存"，二者职责分开，最稳。</div>
+
+    <div class="code reveal" style="margin-top:16px"><button class="copy">复制</button><pre><span class="c"># 用一段 Python 把收藏清单渲染成"按定价分组的速查表"</span>
+<span class="p">import</span> re, collections
+
+rows = []
+<span class="p">with</span> open(<span class="s">"~/notes/tools/indietools.md"</span>) <span class="p">as</span> f:
+    <span class="p">for</span> line <span class="p">in</span> f:
+        m = re.search(<span class="s">r"\[(.*?)\]\((.*?)\) \| 分类: (.*?) \| 定价: (.*?) \| 用途: (.*)"</span>, line)
+        <span class="p">if</span> m:
+            rows.append(m.groups())
+
+by_price = collections.defaultdict(list)
+<span class="p">for</span> name, url, cat, price, use <span class="p">in</span> rows:
+    by_price[price].append(<span class="s">f"{name} ({cat}) — {use}"</span>)
+
+<span class="p">for</span> price, items <span class="p">in</span> by_price.items():
+    print(<span class="s">f"\n== {price} =="</span>)
+    <span class="p">for</span> it <span class="p">in</span> items:
+        print(<span class="s">f"  - {it}"</span>)</pre></div>
+  </section>
+
+  <section id="evolve">
+    <div class="sec-head reveal">
+      <div class="k">Keep updated</div>
+      <h2>让工具箱跟着生态一起长大</h2>
+      <p>独立开发工具生态迭代极快，今天趁手的明天可能停运。用一条轻量节奏维持"货源"新鲜度。</p>
+    </div>
+    <div class="tl reveal">
+      <div class="tl-item"><div class="v">每周一次</div><div class="t">扫新收录</div><p>花 10 分钟翻一遍 IndieTools 的更新/新工具区，把可能用得上的候选先收藏，不急着细读。</p></div>
+      <div class="tl-item"><div class="v">每月一次</div><div class="t">清退与替换</div><p>检查收藏里哪些工具已涨价、停运或体验变差；用同类候选顶替，保持工具箱"都能用"。</p></div>
+      <div class="tl-item"><div class="v">每季度一次</div><div class="t">重做选型</div><p>对核心环节（部署、支付、邮件、分析）做一次重新比选，新出现的 Freemium 工具常能省下整笔 Paid 开支。</p></div>
+      <div class="tl-item"><div class="v">每次启动新项目</div><div class="t">先翻工具箱</div><p>新项目立项第一件事不是写代码，而是从工具箱里把开发/设计/营销/效率装备一次性配齐，省下重复搜索。</p></div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq">
+    <div class="sec-head reveal">
+      <div class="k">FAQ</div>
+      <h2>常见问题</h2>
+      <p>关于收录范围、与其他导航站的区别、适合人群等高频疑问，集中解答。</p>
+    </div>
+    <div class="reveal">
+      <div class="acc">
+        <div class="acc-h"><span class="num">01</span><h3>IndieTools 收录的工具都是免费的吗？</h3><span class="ar">＋</span></div>
+        <div class="acc-b"><div class="acc-b-in">不是。目录用 <b>Free / Freemium / Paid</b> 三档定价明确标注每件工具的收费模式：
+          <ul><li><b>Free</b>：可免费直接使用；</li>
+          <li><b>Freemium</b>：核心功能免费，进阶能力需付费；</li>
+          <li><b>Paid</b>：需付费才能用（常有试用或 demo）。</li></ul>
+          筛选时先勾 Free / Freemium，能快速过滤掉预算外的选项。浏览目录本身（搜索、分类、看详情）是免费的。</div></div>
+      </div>
+      <div class="acc">
+        <div class="acc-h"><span class="num">02</span><h3>它和 Product Hunt、其他工具导航有什么不同？</h3><span class="ar">＋</span></div>
+        <div class="acc-b"><div class="acc-b-in">定位更"实用主义"：它不是按"今天谁在投票上位"排热度的资讯流，而是<b>按独立开发者的真实工作环节（开发 / 设计 / 营销 / 效率）做静态归类</b>的精选目录。
+          <ul><li>Product Hunt 偏"新品曝光 + 投票热度"，刷得快、沉淀弱；</li>
+          <li>IndieTools 偏"按场景找装备"，适合你已经知道自己缺哪类工具、要快速配齐；</li>
+          <li>它强调 650+ 的<b>规模与覆盖度</b>，更像工具界的"App Store"而非热榜。</li></ul></div></div>
+      </div>
+      <div class="acc">
+        <div class="acc-h"><span class="num">03</span><h3>工具的分类是怎么组织的？</h3><span class="ar">＋</span></div>
+        <div class="acc-b"><div class="acc-b-in">分两层：<b>大类按"做什么"</b>（Development / Design / Marketing / Productivity，报告列明且为"等"类目，实际可能更多），<b>档位按"花多少钱"</b>（Free / Freemium / Paid）。
+          <ul><li>先选大类锁定场景，再按定价收窄预算；</li>
+          <li>最后用关键词（如 payment / analytics / design）精确命中；</li>
+          <li>具体子分类树以官网实时结构为准，本页只还原报告明示的四大类。</li></ul></div></div>
+      </div>
+      <div class="acc">
+        <div class="acc-h"><span class="num">04</span><h3>怎么判断一个工具到底适不适合我？</h3><span class="ar">＋</span></div>
+        <div class="acc-b"><div class="acc-b-in">目录给的是"入口"，判断交给你的工作流：
+          <ul><li>看<b>详情页的功能点</b>是否命中你当前的具体痛点，而不是"听起来很酷"；</li>
+          <li>优先用 <b>Free / Freemium</b> 版本跑通一个最小验证，再决定是否上 Paid；</li>
+          <li>同一场景存 2–3 个候选，用一周后留下顺手的那一个，其余清退。</li></ul></div></div>
+      </div>
+      <div class="acc">
+        <div class="acc-h"><span class="num">05</span><h3>可以提交自己做的工具吗？</h3><span class="ar">＋</span></div>
+        <div class="acc-b"><div class="acc-b-in">作为"独立开发者工具目录"，它天然服务于 maker 群体，收录逻辑与提交入口通常随站点演进。具体提交方式与审核标准以官网当前的"提交 / Submit"入口为准——本页未核验实时提交流程，建议直接到 IndieTools.work 查看页面上的提交通道。对独立开发者而言，这类目录是发布早期作品、获取第一批用户的低成本曝光位。</div></div>
+      </div>
+      <div class="acc">
+        <div class="acc-h"><span class="num">06</span><h3>它适合团队用，还是只适合个人独立开发者？</h3><span class="ar">＋</span></div>
+        <div class="acc-b"><div class="acc-b-in">名字叫 IndieTools，但价值不限于"一个人"：
+          <ul><li><b>个人 maker</b>：用它配齐从开发到营销的全套轻量装备，零预算起步；</li>
+          <li><b>小团队 / 初创</b>：把它当作"采购前的比选清单"，在 Freemium/Paid 之间做成本决策；</li>
+          <li><b>团队负责人</b>：收藏通用工具箱后共享给成员，统一技术选型、减少各自试错。</li></ul>
+          核心理念是"用小团队预算拿到接近大厂的工具链"，人群比名字更宽。</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- START -->
+  <section id="start">
+    <div class="sec-head reveal">
+      <div class="k">Quick Start</div>
+      <h2>三步上手</h2>
+      <p>IndieTools 没有安装步骤——打开即用。下面按"浏览 → 收藏 → 沉淀到本地"三步走，把目录真正变成你的装备库。</p>
+    </div>
+
+    <div class="tabs reveal" id="tabs">
+      <button class="tab active" data-t="browser">🌐 浏览器直达</button>
+      <button class="tab" data-t="collect">⭐ 收藏与对比</button>
+      <button class="tab" data-t="local">🗄️ 沉淀到本地</button>
+    </div>
+
+    <div class="panel-box active" data-p="browser">
+      <div class="code reveal"><button class="copy">复制</button><pre><span class="c"># 直接打开官网（无需注册即可浏览 / 搜索 / 筛分类）</span>
+<span class="p">open</span> https://www.indietools.work
+
+<span class="c"># 典型检索顺序：大类 → 定价 → 关键词</span>
+<span class="b">1.</span> 进入 Development / Design / Marketing / Productivity 之一
+<span class="b">2.</span> 勾选 Free 或 Freemium 收窄预算
+<span class="b">3.</span> 在搜索框输入需求词，如：
+<span class="p">payment</span>   <span class="c"># 支付接入</span>
+<span class="p">analytics</span> <span class="c"># 数据分析</span>
+<span class="p">design</span>    <span class="c"># 设计素材 / 原型</span></pre></div>
+      <div class="callout reveal" style="text-align:left">💡 浏览免费、无需登录。先大类后关键词，比直接搜能更快收敛到对的工具。</div>
+    </div>
+
+    <div class="panel-box" data-p="collect">
+      <div class="code reveal"><button class="copy">复制</button><pre><span class="c"># 注册账号后，把顺手的工具逐个收藏进"个人工具箱"</span>
+<span class="p">步骤</span>：
+  <span class="b">1.</span> 在 IndieTools.work 注册 / 登录
+  <span class="b">2.</span> 打开候选工具详情页，点收藏（★）
+  <span class="b">3.</span> 同一场景至少存 2–3 个，便于后续比选与替换
+  <span class="b">4.</span> 复访时直接看工具箱，不再从零搜索
+
+<span class="c"># 比选时给每个候选打三行笔记（功能 / 定价 / 弃用原因）</span>
+Tool A | Design | Freemium | 配色强，但导出限速
+Tool B | Design | Free     | 够用，先留着
+Tool C | Design | Paid     | 贵，MVP 阶段暂不上</pre></div>
+      <div class="callout reveal" style="text-align:left">⚠️ 收藏是"轻量数据库"：同一环节多存候选，某工具涨价 / 停运时能立刻顶上。</div>
+    </div>
+
+    <div class="panel-box" data-p="local">
+      <div class="code reveal"><button class="copy">复制</button><pre><span class="c"># 把收藏导出/手抄成本地 Markdown，方便 grep 与版本管理</span>
+<span class="p">cat</span> &gt; ~/notes/tools/indietools.md <span class="s">&lt;&lt;'EOF'
+# 我的 IndieTools 工具箱
+- [ToolA](https://...) | 分类: Design    | 定价: Freemium | 用途: 一键配色
+- [ToolB](https://...) | 分类: Design    | 定价: Free     | 用途: 图标库
+- [ToolC](https://...) | 分类: Marketing | 定价: Freemium | 用途: 落地页分析
+EOF</span>
+
+<span class="c"># 想找"免费的设计类"工具，本地直接查，不必再开网站</span>
+<span class="p">grep</span> -i <span class="s">"分类: Design"</span> ~/notes/tools/indietools.md <span class="b">|</span> <span class="p">grep</span> -i <span class="s">"Free"</span>
+
+<span class="c"># 用 git 跟踪这份清单，团队可共享同一套选型</span>
+<span class="p">cd</span> ~/notes <span class="b">&amp;&amp;</span> git add tools/indietools.md <span class="b">&amp;&amp;</span> git commit -m <span class="s">"chore: 更新工具箱"</span></pre></div>
+      <div class="callout reveal" style="text-align:left">📌 站点本身无 CLI/API；这里的命令都是在本地方便你管理"收藏快照"。把官网当货源、本地文件当库存，职责最清晰。</div>
+    </div>
+
+    <div class="grid g3 reveal" style="margin-top:22px">
+      <div class="card"><h3 style="margin-top:0; font-size:17px">🆓 零成本起步</h3><p style="color:var(--muted); font-size:14px">浏览、搜索、筛分类全部免费，先用 Free / Freemium 跑通 MVP，再考虑 Paid。</p></div>
+      <div class="card"><h3 style="margin-top:0; font-size:17px">🧩 全链路配齐</h3><p style="color:var(--muted); font-size:14px">开发 / 设计 / 营销 / 效率一次扫完，不必在十几个站点间反复横跳。</p></div>
+      <div class="card"><h3 style="margin-top:0; font-size:17px">🔄 持续保鲜</h3><p style="color:var(--muted); font-size:14px">每周扫新收录、每月清退、每季度重做选型，让工具箱跟生态一起长大。</p></div>
+    </div>
+  </section>
+
+  <footer>made with ♥ &amp; a white grid — <b>IndieTools 深度解读</b><div style="margin-top:6px;font-size:13px">数据抓取于 2026-07-14 · 内容综合自官网与 Tabbit 报告</div></footer>
+</div>
+
+<script>
+/* theme */
+const root=document.documentElement, tb=document.getElementById('themeBtn');
+tb.onclick=()=>{root.dataset.theme=root.dataset.theme==='light'?'dark':'light';};
+/* progress bar */
+const prog=document.getElementById('progress');
+addEventListener('scroll',()=>{const h=document.documentElement;
+  prog.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+'%';});
+/* reveal */
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in');}),{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+/* counters */
+function animateCounters(){
+  document.querySelectorAll('.stat .n').forEach(el=>{
+    const to=parseFloat(el.dataset.to), suf=el.dataset.suf||'';
+    let cur=0; const step=to/46;
+    const t=setInterval(()=>{cur+=step; if(cur>=to){cur=to; clearInterval(t);}
+      el.textContent=(to%1?cur.toFixed(1):Math.round(cur))+suf;},22);
+  });
+}
+const heroIO=new IntersectionObserver((es,o)=>{es.forEach(e=>{if(e.isIntersecting){animateCounters();o.disconnect();}});},{threshold:.4});
+heroIO.observe(document.querySelector('.hero'));
+/* tabs */
+document.querySelectorAll('.tabs').forEach(wrap=>{
+  const boxes=Array.from(wrap.parentElement.children).filter(c=>c.classList.contains('panel-box'));
+  wrap.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{
+    wrap.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
+    b.classList.add('active');
+    const t=b.dataset.t;
+    boxes.forEach(p=>p.classList.toggle('active',p.dataset.p===t));
+  });
+});
+/* accordion */
+document.querySelectorAll('.acc-h').forEach(h=>h.onclick=()=>{
+  const acc=h.parentElement, b=acc.querySelector('.acc-b');
+  const open=acc.classList.toggle('open');
+  b.style.maxHeight=open?b.scrollHeight+'px':'0';
+});
+/* copy */
+document.querySelectorAll('.copy').forEach(b=>b.onclick=()=>{
+  const pre=b.parentElement.querySelector('pre');
+  navigator.clipboard.writeText(pre.innerText).then(()=>{const t=b.textContent;b.textContent='已复制 ✓';setTimeout(()=>b.textContent=t,1400);});
+});
+</script>
+<a href="tp.html" style="position:fixed;left:18px;bottom:18px;z-index:90;display:inline-flex;align-items:center;gap:7px;font:600 14px/1 system-ui,sans-serif;color:#fff;text-decoration:none;background:linear-gradient(120deg,var(--accent),var(--accent-2));padding:11px 17px;border-radius:12px;box-shadow:0 8px 30px rgba(0,0,0,.3)">← 返回 TP 中心</a>
+<script>
+/* Theme button icon sync */
+(function(){
+  var btn=document.querySelector('.theme-btn');
+  if(!btn)return;
+  function sync(){btn.textContent=document.documentElement.dataset.theme==='dark'?'☀️':'🌙';}
+  sync();
+  btn.addEventListener('click',function(){setTimeout(sync,0);});
+})();
+</script>
+<script>
+/* Auto-collapse TOC: only expand the section containing the current page */
+(function(){
+  var details=document.querySelectorAll('aside.toc details.toc-sec');
+  if(details.length<2)return;
+  var current=location.pathname.replace(/\/$/,'');
+  var activeLink=null;
+  document.querySelectorAll('aside.toc a').forEach(function(a){
+    var href=a.getAttribute('href')||'';
+    if(href && !href.startsWith('http') && !href.startsWith('#')){
+      var path=href.replace(/^https?:\/\/[^\/]+/,'').replace(/\/$/,'');
+      if(current===path || current.indexOf(path)>-1 || path.indexOf(current)>-1){
+        activeLink=a;
+      }
+    }
+  });
+  details.forEach(function(d){
+    if(activeLink && d.contains(activeLink)){d.setAttribute('open','');}
+    else{d.removeAttribute('open');}
+  });
+})();
+</script>
+</body>
+</html>

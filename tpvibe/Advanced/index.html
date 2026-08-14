@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="geo.region" content="CN">
+<meta name="geo.placename" content="China">
+<meta name="geo.position" content="39.9042;116.4074">
+<meta name="ICBM" content="39.9042, 116.4074">
+<link rel="icon" href="/tpvibe/images/tp_logo.jpg" type="image/png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>进阶篇：从想法到产品的100小时 | TPvibe</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/tpvibe/style.css">
+<!-- SEO:tphub -->
+<meta name="description" content="进阶篇：从想法到产品的100小时 — TPvibe 中文 AI 学习与实战教程，从零基础到进阶，边学边做。">
+<link rel="canonical" href="https://tphub.tpgofighting.top/tpvibe/Advanced/index.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="TPvibe">
+<meta property="og:title" content="进阶篇：从想法到产品的100小时 | TPvibe">
+<meta property="og:description" content="进阶篇：从想法到产品的100小时 — TPvibe 中文 AI 学习与实战教程，从零基础到进阶，边学边做。">
+<meta property="og:url" content="https://tphub.tpgofighting.top/tpvibe/Advanced/index.html">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://tphub.tpgofighting.top/tpvibe/images/tp_logo.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="进阶篇：从想法到产品的100小时 | TPvibe">
+<meta name="twitter:description" content="进阶篇：从想法到产品的100小时 — TPvibe 中文 AI 学习与实战教程，从零基础到进阶，边学边做。">
+<meta name="twitter:image" content="https://tphub.tpgofighting.top/tpvibe/images/tp_logo.jpg">
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "name": "进阶篇：从想法到产品的100小时 | TPvibe",
+  "url": "https://tphub.tpgofighting.top/tpvibe/Advanced/index.html",
+  "description": "TPvibe 中文 AI 学习与实战教程：从零基础到进阶，边学边做，附可运行示例与实战项目。",
+  "inLanguage": "zh-CN",
+  "isPartOf": {"@type": "WebSite", "name": "TPvibe", "url": "https://tphub.tpgofighting.top/tpvibe/"}
+}</script>
+<!-- GEO:v2 -->
+<!-- LOGOFIX:v2 -->
+</head>
+<body>
+<aside class="toc" id="toc">
+<button class="toc-toggle" id="tocToggle" aria-label="收起目录">«</button>
+<div class="toc-inner">
+<a class="toc-home" href="/tpvibe/index.html">TPvibe 首页</a>
+<details class="toc-sec">
+<summary>基础篇</summary>
+<ul class="toc-tree">
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Basic/lecture-1.html">00 序言</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Basic/lecture-1/0.1-start-here.html">开始之前</a></li>
+<li><a href="/tpvibe/Basic/lecture-1/0.2-what-you-will-build.html">你要做什么</a></li>
+<li><a href="/tpvibe/Basic/lecture-1/0.3-who-this-is-for.html">适合谁学</a></li>
+<li><a href="/tpvibe/Basic/lecture-1/0.4-how-to-learn.html">怎么学</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Basic/lecture-2.html">01 觉醒</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Basic/lecture-2/1.1-coder-to-commander.html">从程序员到指挥官</a></li>
+<li><a href="/tpvibe/Basic/lecture-2/1.2-breaking-myths.html">打破误区</a></li>
+<li><a href="/tpvibe/Basic/lecture-2/1.3-tools-guide.html">工具选择指南</a></li>
+<li><a href="/tpvibe/Basic/lecture-2/1.4-vibe-vs-spec.html">Vibe Coding vs 规格驱动</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Basic/lecture-3.html">02 心智</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Basic/lecture-3/2.1-thinking-upgrade.html">思维升级</a></li>
+<li><a href="/tpvibe/Basic/lecture-3/2.2-inversion-thinking.html">逆向思维</a></li><li><a href="/tpvibe/Basic/lecture-3/2.3-subtraction-thinking.html">减法思维</a></li>
+<li><a href="/tpvibe/Basic/lecture-3/2.4-story-thinking.html">故事思维</a></li>
+
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Basic/lecture-4.html">03 技法</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Basic/lecture-4/3.1-prompt-basics.html">提示词基础</a></li>
+<li><a href="/tpvibe/Basic/lecture-4/3.2-structured-frameworks.html">结构化框架</a></li>
+<li><a href="/tpvibe/Basic/lecture-4/3.3-advanced-techniques.html">进阶技巧</a></li>
+<li><a href="/tpvibe/Basic/lecture-4/3.4-first-prd.html">第一份 PRD</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Basic/lecture-5.html">04 从0到1</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Basic/lecture-5/4.1-before-start.html">搭建前准备</a></li>
+<li><a href="/tpvibe/Basic/lecture-5/4.2-build-page.html">搭建页面</a></li>
+<li><a href="/tpvibe/Basic/lecture-5/4.3-core-features.html">核心功能</a></li>
+<li><a href="/tpvibe/Basic/lecture-5/4.4-data-storage.html">数据存储</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Basic/appendix-a.html">05 进阶</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Basic/appendix-a/5.1-version-control.html">版本控制</a></li>
+<li><a href="/tpvibe/Basic/appendix-a/5.2-deployment.html">部署上线</a></li>
+<li><a href="/tpvibe/Basic/appendix-a/5.3-security.html">安全防护</a></li>
+<li><a href="/tpvibe/Basic/appendix-a/5.4-iteration.html">迭代优化</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Basic/appendix-b.html">06 上线</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Basic/appendix-b/6.1-preflight.html">发布前检查</a></li>
+<li><a href="/tpvibe/Basic/appendix-b/6.2-deploy.html">发布流程</a></li>
+<li><a href="/tpvibe/Basic/appendix-b/6.3-feedback.html">收集反馈</a></li>
+<li><a href="/tpvibe/Basic/appendix-b/6.4-wrap-up.html">总结回顾</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Basic/appendix-c.html">99 附录</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Basic/appendix-c/a-prompt-cheatsheet.html">提示词速查表</a></li>
+<li><a href="/tpvibe/Basic/appendix-c/b-errors-and-asking-ai.html">常见错误与求助</a></li>
+<li><a href="/tpvibe/Basic/appendix-c/c-ui-cheatsheet.html">UI 速查表</a></li>
+<li><a href="/tpvibe/Basic/appendix-c/d-git-minimal-card.html">Git 最小知识卡</a></li>
+<li><a href="/tpvibe/Basic/appendix-c/e-api-key-env-security.html">API Key 与环境安全</a></li>
+<li><a href="/tpvibe/Basic/appendix-c/f-vibe-coding-can-and-cannot.html">Vibe Coding 能做与不能做</a></li>
+<li><a href="/tpvibe/Basic/appendix-c/g-advanced-jump-map.html">进阶跳转地图</a></li>
+</ul>
+</li>
+<li class="toc-chapter">
+<a href="/tpvibe/Basic/conclusion.html">100 结语</a>
+</li>
+</ul>
+</details>
+<details class="toc-sec">
+<summary>进阶篇</summary>
+<ul class="toc-tree">
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch01.html">01 环境搭建</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch01/00-quick-start.html">快速上手</a></li>
+<li><a href="/tpvibe/Advanced/ch01/01-code-formats.html">代码格式与编辑器</a></li>
+<li><a href="/tpvibe/Advanced/ch01/02-tech-stack.html">技术栈选择</a></li>
+<li><a href="/tpvibe/Advanced/ch01/03-browser-server.html">浏览器与服务器</a></li>
+<li><a href="/tpvibe/Advanced/ch01/04-terminal-basics.html">终端基础操作</a></li>
+<li><a href="/tpvibe/Advanced/ch01/05-package-manager-and-config.html">包管理与配置文件</a></li>
+<li><a href="/tpvibe/Advanced/ch01/06-models-and-tools.html">AI 模型与工具选择</a></li>
+<li><a href="/tpvibe/Advanced/ch01/07-creating-project.html">创建你的第一个项目</a></li>
+<li><a href="/tpvibe/Advanced/ch01/08-localhost-and-ports.html">本地服务器与端口</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch02.html">02 开发工具与AI调优</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch02/01-ai-economics.html">AI 经济学</a></li>
+<li><a href="/tpvibe/Advanced/ch02/02-vibecoding-workflow.html">Vibe Coding 工作流</a></li>
+<li><a href="/tpvibe/Advanced/ch02/03-mcp-and-skills.html">MCP 与 Skills</a></li>
+<li><a href="/tpvibe/Advanced/ch02/04-project-config.html">项目配置</a></li>
+<li><a href="/tpvibe/Advanced/ch02/05-debugging-tips.html">调试技巧</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch03.html">03 产品验证</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch03/01-product-validation.html">产品验证</a></li>
+<li><a href="/tpvibe/Advanced/ch03/02-discuss-with-ai.html">与 AI 讨论</a></li>
+<li><a href="/tpvibe/Advanced/ch03/03-prd-template-guide.html">PRD 模板指南</a></li>
+<li><a href="/tpvibe/Advanced/ch03/04-coding-agents.html">编码代理</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch04.html">04 编程基础</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch04/00-build-basics.html">构建基础</a></li>
+<li><a href="/tpvibe/Advanced/ch04/01-tech-stack-decision.html">技术栈决策</a></li>
+<li><a href="/tpvibe/Advanced/ch04/03-programming-basics.html">编程基础</a></li>
+<li><a href="/tpvibe/Advanced/ch04/02-prd-and-tech-docs.html">PRD 与技术文档</a></li>
+<li><a href="/tpvibe/Advanced/ch04/04-api-and-http.html">API 与 HTTP</a></li>
+<li><a href="/tpvibe/Advanced/ch04/05-frontend-backend-separation.html">前后端分离</a></li>
+<li><a href="/tpvibe/Advanced/ch04/06-config-formats.html">配置格式</a></li>
+<li><a href="/tpvibe/Advanced/ch04/07-api-integration.html">API 集成</a></li>
+<li><a href="/tpvibe/Advanced/ch04/08-readme-structure.html">README 结构</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch05.html">05 好看好用的界面</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch05/03-animation-libraries.html">动画库</a></li>
+</ul>
+</li>
+<li class="toc-chapter">
+<a href="/tpvibe/Advanced/ch06.html">06 数据存哪里</a>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch07.html">07 连接前后端</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch07/00-crud-example.html">CRUD 示例</a></li>
+<li><a href="/tpvibe/Advanced/ch07/02-when-things-go-wrong.html">出错处理</a></li>
+<li><a href="/tpvibe/Advanced/ch07/03-api-as-product.html">API 即产品</a></li>
+<li><a href="/tpvibe/Advanced/ch07/01-api-growing-pains.html">API 成长烦恼</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch08.html">08 谁能访问数据</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch08/00-user-system-example.html">用户系统示例</a></li>
+<li><a href="/tpvibe/Advanced/ch08/01-env-and-secrets.html">环境变量与密钥</a></li>
+<li><a href="/tpvibe/Advanced/ch08/03-route-protection.html">路由保护</a></li>
+<li><a href="/tpvibe/Advanced/ch08/04-security-checklist.html">安全清单</a></li>
+<li><a href="/tpvibe/Advanced/ch08/05-advanced-security.html">高级安全</a></li>
+<li><a href="/tpvibe/Advanced/ch08/02-auth-methods.html">认证方式</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch09.html">09 功能测试</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch09/01-testing-strategy.html">测试策略</a></li>
+<li><a href="/tpvibe/Advanced/ch09/02-api-and-e2e-testing.html">API 与 E2E 测试</a></li>
+<li><a href="/tpvibe/Advanced/ch09/03-automation-workflow.html">自动化工作流</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch10.html">10 公网访问</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch10/01-network-layers.html">网络分层</a></li>
+<li><a href="/tpvibe/Advanced/ch10/02-tunneling.html">隧道穿透</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch11.html">11 协作开发</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch11/01-why-git.html">为什么用 Git</a></li>
+<li><a href="/tpvibe/Advanced/ch11/02-remote-and-collaboration.html">远程与协作</a></li>
+<li><a href="/tpvibe/Advanced/ch11/03-branch-and-workflow.html">分支与工作流</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch12.html">12 无服务器部署</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch12/01-deploy-edgeone.html">EdgeOne 部署</a></li>
+<li><a href="/tpvibe/Advanced/ch12/02-deploy-vercel-platforms.html">Vercel 等平台部署</a></li>
+<li><a href="/tpvibe/Advanced/ch12/03-cicd-automation.html">CI/CD 自动化</a></li>
+<li><a href="/tpvibe/Advanced/ch12/04-operations-cost.html">运维成本</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch13.html">13 域名解析</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch13/01-domain-setup.html">域名设置</a></li>
+<li><a href="/tpvibe/Advanced/ch13/02-compliance-access.html">合规接入</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch14.html">14 部署到服务器</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch14/01-vps-selection.html">VPS 选择</a></li>
+<li><a href="/tpvibe/Advanced/ch14/02-vps-setup.html">VPS 配置</a></li>
+<li><a href="/tpvibe/Advanced/ch14/03-1-docker-apps.html">Docker 应用</a></li>
+<li><a href="/tpvibe/Advanced/ch14/03-2-deploy-nextjs.html">部署 Next.js</a></li>
+<li><a href="/tpvibe/Advanced/ch14/03-4-deploy-fullstack.html">部署全栈应用</a></li>
+<li><a href="/tpvibe/Advanced/ch14/05-cool-apps.html">酷应用</a></li>
+<li><a href="/tpvibe/Advanced/ch14/03-3-deploy-static.html">部署静态站点</a></li>
+<li><a href="/tpvibe/Advanced/ch14/04-domain-ssl.html">域名与 SSL</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch15.html">15 SEO与统计</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch15/01-opengraph-sharing.html">OpenGraph 分享</a></li>
+<li><a href="/tpvibe/Advanced/ch15/02-seo-guide.html">SEO 指南</a></li>
+<li><a href="/tpvibe/Advanced/ch15/03-umami.html">Umami 统计</a></li>
+<li><a href="/tpvibe/Advanced/ch15/04-legal.html">法律合规</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch16.html">16 反馈与迭代</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch16/01-facing-real-users.html">面向真实用户</a></li>
+<li><a href="/tpvibe/Advanced/ch16/02-feedback-prioritization.html">反馈优先级</a></li>
+<li><a href="/tpvibe/Advanced/ch16/03-understanding-users.html">理解用户</a></li>
+<li><a href="/tpvibe/Advanced/ch16/04-iteration-and-growth.html">迭代与增长</a></li>
+</ul>
+</li>
+<li class="toc-chapter">
+<a href="/tpvibe/Advanced/next-level.html">进阶实战</a>
+</li>
+</ul>
+</details>
+<details class="toc-sec">
+<summary>文章</summary>
+<ul class="toc-tree">
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Articles/core-concepts.html">核心概念</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Articles/core-concepts/what-are-ai-agents-why-do-they-matter.html">AI Agent 是什么</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Articles/architecture.html">技术架构</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Articles/architecture/how-claude-code-works.html">Claude Code 如何工作</a></li>
+<li><a href="/tpvibe/Articles/architecture/mcp-what-it-is-and-why-it-matters.html">MCP 是什么及为何重要</a></li>
+<li><a href="/tpvibe/Articles/architecture/build-agents-with-filesystems-and-bash.html">用文件系统和 Bash 构建 Agent</a></li>
+<li><a href="/tpvibe/Articles/architecture/testing-bash-vs-sql.html">Bash vs SQL 测试</a></li>
+<li><a href="/tpvibe/Articles/architecture/multi-agent-systems-ai-native-engineering.html">多 Agent 系统与 AI 原生工程</a></li>
+<li><a href="/tpvibe/Articles/architecture/self-improving-coding-agents.html">自我改进的编码 Agent</a></li>
+<li><a href="/tpvibe/Articles/architecture/nvidia-ai-5-layer-cake.html">NVIDIA AI 五层架构</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Articles/tools.html">工具链</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Articles/tools/how-to-write-good-spec-for-ai-agents.html">如何为 AI Agent 写 Spec</a></li>
+<li><a href="/tpvibe/Articles/tools/ai-driven-prototyping-v0-bolt-and-lovable-compared.html">AI 原型工具对比</a></li>
+<li><a href="/tpvibe/Articles/tools/why-i-use-cline-for-ai-engineering.html">为什么用 Cline 做 AI 工程</a></li>
+<li><a href="/tpvibe/Articles/tools/agents-md-vs-skills.html">AGENTS.md 与 Skills 对比</a></li>
+<li><a href="/tpvibe/Articles/tools/complete-guide-to-building-skills-for-claude.html">Claude Skills 构建指南</a></li>
+<li><a href="/tpvibe/Articles/tools/we-removed-80-percent-tools.html">我们移除了 80% 的工具</a></li>
+<li><a href="/tpvibe/Articles/tools/claude-code-swarms.html">Claude Code 集群</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Articles/engineering.html">工程实践</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Articles/engineering/ai-writes-code-faster-your-job-is-to-prove-it-works.html">AI 写代码更快，你要证明它有效</a></li>
+<li><a href="/tpvibe/Articles/engineering/beyond-the-70-maximizing-the-human-30-of-ai-assisted-coding.html">超越 70%：最大化人类 30%</a></li>
+<li><a href="/tpvibe/Articles/engineering/avoiding-skill-atrophy-in-the-age-of-ai.html">AI 时代的技能退化</a></li>
+<li><a href="/tpvibe/Articles/engineering/how-to-write-a-good-spec-for-ai-agents.html">如何为 AI Agent 写好 Spec</a></li>
+<li><a href="/tpvibe/Articles/engineering/leading-effective-engineering-teams-in-the-age-of-genai.html">GenAI 时代的工程团队领导</a></li>
+<li><a href="/tpvibe/Articles/engineering/your-ai-coding-agents-need-a-manager.html">AI 编码 Agent 需要管理者</a></li>
+<li><a href="/tpvibe/Articles/engineering/ai-code-review-implementation.html">AI 代码审查实现</a></li>
+<li><a href="/tpvibe/Articles/engineering/react-best-practices.html">React 最佳实践</a></li>
+<li><a href="/tpvibe/Articles/engineering/vercel-aeo-tracking.html">Vercel AEO 追踪</a></li>
+<li><a href="/tpvibe/Articles/engineering/my-llm-coding-workflow-going-into-2026.html">2026 年我的 LLM 工作流</a></li>
+<li><a href="/tpvibe/Articles/engineering/stop-using-init-for-agents.html">停止对 Agent 使用 init</a></li>
+<li><a href="/tpvibe/Articles/engineering/video-generation-with-ai-gateway.html">AI 网关视频生成</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Articles/security.html">安全合规</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Articles/security/ai-agents-threats-and-mitigations.html">AI Agent 威胁与缓解</a></li>
+<li><a href="/tpvibe/Articles/security/security-boundaries-in-agentic-architectures.html">Agent 架构安全边界</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Articles/business.html">商业趋势</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Articles/business/the-next-two-years-of-software-engineering.html">软件工程的未来两年</a></li>
+<li><a href="/tpvibe/Articles/business/how-openevidence-built-healthcare-ai-physicians-trust.html">OpenEvidence 医疗 AI</a></li>
+<li><a href="/tpvibe/Articles/business/keeping-community-human-while-scaling-with-agents.html">用 Agent 扩展时保持人性</a></li>
+</ul>
+</li>
+</ul>
+</details>
+<details class="toc-sec">
+<summary>实践案例</summary>
+<ul class="toc-tree">
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Practice/index.html">实践案例</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Practice/index/vibe-coding-methodology.html">Vibe Coding 方法论</a></li>
+<li><a href="/tpvibe/Practice/index/ai-canvas-vibecoding-journey.html">AI Canvas 之旅</a></li>
+<li><a href="/tpvibe/Practice/index/ai-picture-book-generator.html">AI 绘本生成器</a></li>
+<li><a href="/tpvibe/Practice/index/ai-resume-saas.html">AI 简历 SaaS</a></li>
+<li><a href="/tpvibe/Practice/index/full-stack-21-day-thinking-habit-game.html">21 天思维习惯游戏</a></li>
+</ul>
+</li>
+</ul>
+</details>
+</div>
+</aside>
+<script>
+(function(){
+  /* Move toc-toggle to body to avoid overflow/transform clipping */
+  var tocToggle=document.getElementById('tocToggle');
+  var toc=document.getElementById('toc');
+  if(tocToggle&&toc){
+    document.body.appendChild(tocToggle);
+    tocToggle.style.position='fixed';
+    tocToggle.style.top='70px';
+    tocToggle.style.left='254px';
+    tocToggle.style.zIndex='41';
+    tocToggle.style.width='28px';
+    tocToggle.style.height='28px';
+    tocToggle.style.borderRadius='50%';
+    tocToggle.style.border='1px solid var(--line)';
+    tocToggle.style.background='var(--card)';
+    tocToggle.style.color='var(--muted)';
+    tocToggle.style.cursor='pointer';
+    tocToggle.style.display='grid';
+    tocToggle.style.placeItems='center';
+    tocToggle.style.boxShadow='0 4px 14px var(--shadow)';
+    tocToggle.style.fontSize='14px';
+    tocToggle.style.fontWeight='700';
+    tocToggle.style.transition='left .35s cubic-bezier(.34,1.3,.64,1), background .2s, color .2s, border-color .2s';
+    tocToggle.addEventListener('mouseenter',function(){
+      this.style.background='var(--soft)';
+      this.style.color='var(--accent)';
+      this.style.borderColor='var(--accent)';
+    });
+    tocToggle.addEventListener('mouseleave',function(){
+      this.style.background='var(--card)';
+      this.style.color='var(--muted)';
+      this.style.borderColor='var(--line)';
+    });
+    tocToggle.addEventListener('click',function(){
+      toc.classList.toggle('collapsed');
+      var c=toc.classList.contains('collapsed');
+      this.style.left=c?'8px':'254px';
+      this.textContent=c?'»':'«';
+      this.setAttribute('aria-label',c?'展开目录':'收起目录');
+    });
+  }
+  /* Mobile scrim click to close */
+  var scrim=document.querySelector('.toc-scrim');
+  if(scrim){
+    scrim.addEventListener('click',function(){
+      var cb=document.getElementById('tocToggleMobile');
+      if(cb)cb.checked=false;
+    });
+  }
+  /* Chapter expand/collapse (L1) */
+  document.querySelectorAll('.toc-chapter-toggle').forEach(function(btn){
+    btn.addEventListener('click',function(e){
+      e.preventDefault();
+      e.stopPropagation();
+      var li=this.closest('.toc-chapter');
+      if(li)li.classList.toggle('expanded');
+    });
+  });
+  /* Auto-expand: find active link and open its section + chapter */
+  var currentRaw=location.pathname.replace(/\/$/,'');
+  var activeLink=null;
+  document.querySelectorAll('aside.toc a[href]').forEach(function(a){
+    var href=a.getAttribute('href')||'';
+    if(!href||href.startsWith('http')||href.startsWith('#'))return;
+    var path=href.replace(/^https?:\/\/[^\/]+/,'').replace(/\/$/,'');
+    /* Skip home link for active matching */
+    if(path.indexOf('/index.html')>=0&&currentRaw.indexOf('/index.html')<0)return;
+    if(currentRaw===path){activeLink=a;return;}
+    /* Also check if currentRaw contains the path (for sub-pages) */
+    if(path.length>5&&currentRaw.indexOf(path)>=0){activeLink=a;}
+  });
+  /* Open the section (L0) containing active link, close others */
+  var sections=document.querySelectorAll('aside.toc details.toc-sec');
+  if(sections.length>0){
+    sections.forEach(function(d){
+      if(activeLink&&d.contains(activeLink)){d.setAttribute('open','');}
+      else{d.removeAttribute('open');}
+    });
+  }
+  /* Expand the chapter (L1) containing active link */
+  if(activeLink){
+    var chap=activeLink.closest('.toc-chapter.has-children');
+    if(chap)chap.classList.add('expanded');
+  }
+  /* If no active link found (e.g. index page), open first section and first chapter */
+  if(!activeLink&&sections.length>0){
+    sections[0].setAttribute('open','');
+    var firstChapter=sections[0].querySelector('.toc-chapter.has-children');
+    if(firstChapter)firstChapter.classList.add('expanded');
+  }
+})();
+</script>
+
+<div id="progress"></div>
+<label for="tocToggleMobile" class="toc-burger" aria-label="目录">☰</label>
+<input type="checkbox" id="tocToggleMobile" class="toc-toggle-cb" aria-hidden="true">
+<div class="toc-scrim"></div>
+<header class="site-header">
+<div class="header-inner">
+  <a href="/tpvibe/index.html" class="logo"><img src="/tpvibe/images/tp_logo.jpg" alt="TPvibe" width="200" height="200"> TPvibe</a>
+  <input type="checkbox" id="nav-toggle-cb" class="nav-toggle-cb" aria-hidden="true">
+  <label for="nav-toggle-cb" class="nav-toggle" aria-label="打开菜单">&#9776;</label>
+  <nav><ul class="nav-links"><li><a href="/tpvibe/index.html">TPvibe</a></li><li><a href="/tpvibe/index.html">首页</a></li><li><a href="/tpvibe/Basic/lecture-1.html">基础篇</a></li><li><a href="/tpvibe/Advanced/ch01.html">进阶篇</a></li><li><a href="/tpvibe/Articles/core-concepts.html">文章</a></li><li><a href="/tpvibe/Practice/index.html">实践案例</a></li></ul>
+</nav>
+<button class="theme-btn" aria-label="切换主题" onclick="document.documentElement.dataset.theme=document.documentElement.dataset.theme==='dark'?'light':'dark';localStorage.setItem('tpvibe-theme',document.documentElement.dataset.theme)">🌙</button>
+</div>
+</header>
+<main class="container">
+<h1 class="page-title">进阶篇：从想法到产品的100小时</h1>
+<div class="page-cover reveal">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400" preserveAspectRatio="xMidYMid slice" style="width:100%;height:100%;display:block;">
+  <defs>
+    <linearGradient id="bg-2411126621" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0f172a"/>
+      <stop offset="100%" style="stop-color:#1e3a8a"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="400" fill="url(#bg-2411126621)"/>
+  <polygon points="27,65 0,81 -27,65 -27,35 -0,19 27,35" fill="white" opacity="0.03"/>
+<polygon points="201,74 160,97 119,74 119,26 160,3 201,26" fill="white" opacity="0.10"/>
+<polygon points="358,72 320,93 282,72 282,28 320,7 358,28" fill="white" opacity="0.08"/>
+<polygon points="514,70 480,90 446,70 446,30 480,10 514,30" fill="white" opacity="0.07"/>
+<polygon points="671,68 640,86 609,68 609,32 640,14 671,32" fill="white" opacity="0.05"/>
+<polygon points="828,66 800,83 772,66 772,34 800,17 828,34" fill="white" opacity="0.04"/>
+<polygon points="1002,74 960,99 918,74 918,26 960,1 1002,26" fill="white" opacity="0.10"/>
+<polygon points="1159,73 1120,95 1081,73 1081,27 1120,5 1159,27" fill="white" opacity="0.09"/>
+<polygon points="116,171 80,192 44,171 44,129 80,108 116,129" fill="white" opacity="0.08"/>
+<polygon points="273,169 240,188 207,169 207,131 240,112 273,131" fill="white" opacity="0.06"/>
+<polygon points="430,167 400,185 370,167 370,133 400,115 430,133" fill="white" opacity="0.05"/>
+<polygon points="587,165 560,181 533,165 533,135 560,119 587,135" fill="white" opacity="0.03"/>
+<polygon points="761,174 720,197 679,174 679,126 720,103 761,126" fill="white" opacity="0.10"/>
+<polygon points="918,172 880,194 842,172 842,128 880,106 918,128" fill="white" opacity="0.08"/>
+<polygon points="1075,170 1040,190 1005,170 1005,130 1040,110 1075,130" fill="white" opacity="0.07"/>
+<polygon points="1232,168 1200,187 1168,168 1168,132 1200,113 1232,132" fill="white" opacity="0.05"/>
+<polygon points="28,266 0,283 -28,266 -28,234 -0,217 28,234" fill="white" opacity="0.04"/>
+<polygon points="203,275 160,299 117,275 117,225 160,201 203,225" fill="white" opacity="0.11"/>
+<polygon points="360,273 320,296 280,273 280,227 320,204 360,227" fill="white" opacity="0.09"/>
+<polygon points="516,271 480,292 444,271 444,229 480,208 516,229" fill="white" opacity="0.08"/>
+<polygon points="673,269 640,288 607,269 607,231 640,212 673,231" fill="white" opacity="0.06"/>
+<polygon points="830,267 800,285 770,267 770,233 800,215 830,233" fill="white" opacity="0.05"/>
+<polygon points="987,266 960,281 933,266 933,234 960,219 987,234" fill="white" opacity="0.03"/>
+<polygon points="1161,274 1120,298 1079,274 1079,226 1120,202 1161,226" fill="white" opacity="0.10"/>
+<polygon points="118,372 80,394 42,372 42,328 80,306 118,328" fill="white" opacity="0.08"/>
+<polygon points="275,370 240,390 205,370 205,330 240,310 275,330" fill="white" opacity="0.07"/>
+<polygon points="432,368 400,387 368,368 368,332 400,313 432,332" fill="white" opacity="0.06"/>
+<polygon points="589,367 560,383 531,367 531,333 560,317 589,333" fill="white" opacity="0.04"/>
+<polygon points="763,375 720,400 677,375 677,325 720,300 763,325" fill="white" opacity="0.11"/>
+<polygon points="920,373 880,396 840,373 840,327 880,304 920,327" fill="white" opacity="0.09"/>
+<polygon points="1077,371 1040,392 1003,371 1003,329 1040,308 1077,329" fill="white" opacity="0.08"/>
+<polygon points="1234,369 1200,389 1166,369 1166,331 1200,311 1234,331" fill="white" opacity="0.06"/>
+
+  
+  <text x="60" y="340" font-family="system-ui, -apple-system, sans-serif" font-size="36" font-weight="700" fill="white">进阶篇：从想法到产品的100小时</text>
+  <rect x="60" y="355" width="60" height="4" rx="2" fill="#06b6d4"/>
+</svg>
+</div>
+
+<div class="content reveal">
+<p><img src="/tpvibe/images/Advanced_index/Advanced_index.B64dkog3.png" alt="Advanced_index.png" width="800" height="600"></p><p>如果你翻开这本进阶教程的目录，会看到满眼的技术名词：环境搭建、包管理器、数据库、部署……</p><p>这看起来很像传统编程教育的内容列表。但我想先告诉你：<strong>这些不是重点，只是工具。</strong></p><p>在过去十年里，编程教育似乎陷入了一个巨大的误区：一上来就教你语法、数据结构、算法，好像掌握了这些就能做产品。看起来没错。但实际上，从&quot;会写代码&quot;到&quot;能做产品&quot;，中间隔着巨大的鸿沟。</p><p>更麻烦的是，很多人以为做软件就是写代码。但事实恰恰相反——<strong>代码从来不是软件的出发点，而是解决方案的最后一个环节。</strong></p><p>你看，任何一个软件项目，都始于一个<strong>问题</strong>。</p><p>它可以是一个商业问题：一家餐厅每天高峰期排队两小时，老板想减少顾客的等待时间。</p><p>它可以是一个科学问题：一个实验室每天产生海量的实验数据，研究人员想自动分析出趋势。</p><p>它可以是一个个人问题：你想记录自己读过的每一本书，整理出每本书带给你的启发。</p><p>它甚至可以是一个虚构的问题：你就是想练习某项技术，于是给自己编了一个需求。</p><p>为了解决这个问题，你需要先形成一个<strong>解决方案</strong>。</p><p>这个方案包含很多维度：需要设计什么流程、制定什么规则、分配什么角色、怎么协调各方。这些才是项目的核心。</p><p>只有当方案中某些部分需要自动化、规模化、或者超越人力极限时，你才会想到：<strong>&quot;这部分可以用软件来实现&quot;</strong>。</p><p>这时候，代码才开始登场。</p><p>所以，<strong>写代码是在相当中后期的阶段才需要做的事情。</strong></p><hr><h2>鸿沟正在消失 </h2><p>但时代的钟摆已经摆动到了新的位置。</p><p>在 AI 编程工具出现之前，从&quot;想法&quot;到&quot;产品&quot;之间，横亘着一道名为&quot;实现能力&quot;的巨大鸿沟。</p><p>你有想法，但你不会写代码。或者你会写一点，但写出来的代码质量不够高，跑不起来，跑起来也到处是 bug。</p><p>或者你有钱能雇人开发，但沟通成本高得离谱，做出来的东西总差点意思。</p><p>或者你咬牙自己做，花了几个月时间，最后发现产品根本不是用户想要的。</p><p>于是，想法就止步于想法。</p><p>我见过太多这样的人：他们有敏锐的商业嗅觉，有丰富的行业经验，有对用户需求的深刻理解。但就是因为他们不会写代码，他们的想法永远停留在笔记本上，停留在酒桌上的聊天里，停留在深夜的辗转反侧中。</p><p>这道鸿沟，挡住了多少可能改变世界的产品。</p><p>现在，这道鸿沟正在被填平。</p><p>这就像摄影技术的发展史。</p><p>以前你想拍一张像样的照片，需要懂什么？光圈、快门、对焦、ISO、白平衡……你得把这一堆复杂原理搞明白，还得买一堆昂贵的设备。大多数人光是想想就放弃了。</p><p>现在呢？手机相机自动帮你处理了所有技术细节。你只需要关注两件事：你想拍什么，怎么拍才好看。</p><p>AI 编程工具也是如此。</p><p>它们帮你处理了代码细节，你只需要关注产品本身——<strong>你想解决什么问题，如何解决。</strong></p><p>这并不意味着你可以完全不懂技术。你仍然需要理解技术的原理和边界，就像你用手机拍照也需要知道&quot;光线太暗会拍糊&quot;。</p><p>但你不需要死记硬背每一行代码的写法，就像你不需要知道手机相机的底层算法。</p><p><strong>门槛降低了，但天花板还在那里，甚至更高了。</strong></p><p>而且还有一个更重要的变化正在发生。</p><p>过去我们总觉得：得先有大模型，再做应用。大模型公司在前面探路，我们跟着就好。</p><p>但你现在去各行各业看看，<strong>AI 的爆发场景，恰恰不是在大模型公司，而是在那些离真实问题最近的地方</strong>。</p><p>这对你意味着什么？意味着你不必等待 AI 公司推出什么新功能。你只需要理解你身边的那个问题，然后用现有的 AI 工具去解决它。在这个过程中，你对 AI 的理解会自然生长。</p><hr><h2>谁是老师 </h2><p>这还有一个更深层的变化正在发生。</p><p>在人类漫长历史中，经验与智慧总是随着年龄增长而积累——长辈教导晚辈，师父传授徒弟，这是数千年来不变的规律。</p><p>但这背后有一个前提：世界变化足够慢，过去的经验足以应对未来的挑战。</p><p>当技术迭代的速度超过了人类积累经验的速度，这个前提就崩塌了。</p><p>你有没有见过这样的场景：</p><p>一个刚刚入门的年轻人，可能比他精通技术的老师更懂如何调试服务器；一个刚开始学编程的学生，可能比他钻研了十年的前辈更敏锐地发现 AI 工具的价值；一个刚入行的运营，可能比她的资深同事更快地用 AI 工具把工作自动化。</p><p>这不是年龄的错，而是时代加速度的必然结果。</p><p>当&quot;经验&quot;还没来得及沉淀为&quot;智慧&quot;，技术就已经翻新了好几轮。</p><p>于是我们看到一种悄然发生的角色互换：不再是父辈单向传授知识，而是年轻一代成为向导。</p><p>这不是对传统的否定。恰恰相反，这是对&quot;谁在前面探路&quot;这一问题的重新回答。</p><p>在这个时代，最先拥抱新技术的人，就天然拥有了带领他人穿越迷雾的责任。</p><p>这不取决于资历、学历或职位，只取决于你是否敢于在别人观望时先迈出那一步。</p><p><strong>当世界变化太快，最危险的不是走错路，而是站在原地不动。</strong></p><hr><h2>另一条路 </h2><p>在这本进阶教程里，你不会看到&quot;从语法开始学编程&quot;的传统路径。</p><p>相反，你会看到一条实干家的路径：</p><p>从一个问题开始，形成一个解决方案，然后用 AI 工具把这个方案变成产品。</p><p>我用一种复盘笔记的方式，把每一章的序言写出来——它不是百科式的知识点堆砌，而是把当时的决策、踩坑、纠结、取舍都写清楚，让你先获得一条能走通的路径与核心理念。</p><p>这不是一本教你&quot;怎么做&quot;的手册，而是一本告诉你&quot;我是怎么走过来的&quot;的笔记。</p><hr><h3>一个人就是一支队伍 </h3><p>为了让你理解我们即将学到的这套路径的独特之处，有必要先看看现代软件开发的传统流程是怎样的。</p><p><strong>在大型互联网公司，一个看似简单的功能上线，背后是一套完整而复杂的流程：</strong></p><p>首先是<strong>需求阶段</strong>：产品经理撰写需求文档，组织需求评审会，PM、开发、测试一起围坐在会议室里讨论半天。</p><p>然后是<strong>技术设计阶段</strong>：后端和前端分别撰写技术方案，再组织技术评审会，甚至上下游团队的开发也要参与进来。</p><p>接下来是<strong>开发阶段</strong>：编码、单元测试、接口自测、前后端联调。每个人对着自己的屏幕敲代码，然后再凑到一起对接口。</p><p>然后是<strong>测试阶段</strong>：开发者自测通过后，&quot;提测&quot;交给 QA 团队，QA 进行手动测试和自动化测试，发现 Bug 再打回给开发修复。一来一回，几天就过去了。</p><p>再然后是<strong>上线阶段</strong>：代码合并、预发环境验证、灰度发布——先给 5% 用户，再 10%、50%，最后 100% 全量。每一步都小心翼翼，生怕出什么问题。</p><p>最后是<strong>迭代阶段</strong>：以两周为一个迭代周期，持续规划和交付新功能。整个流程像一台精密的机器，周而复始地运转。</p><p>这套流程的好处是什么？规范、可控、风险低。</p><p>但问题也很明显：慢、重、门槛高。</p><p>一个功能从提出到上线，往往需要几周甚至几个月。而且每个环节都需要专人负责——产品经理、后端开发、前端开发、测试工程师……</p><p>对于个人或小团队来说，这套流程几乎是难以复制的。你哪来那么多人？哪来那么多时间？</p><hr><p><strong>而在 AI 时代，这套流程被压缩和重构了：</strong></p><p><strong>需求阶段</strong>：你自己就是产品经理，写 PRD 让 AI 理解。你不需要掌握专业的产品术语，你只需要把你想做的事情说清楚。</p><p><strong>技术设计阶段</strong>：AI 帮你生成技术方案，你只需要审核和调整。就像有一个经验丰富的架构师坐在你旁边，随时给你提建议。</p><p><strong>开发阶段</strong>：AI 帮你写代码，你只需要描述需求、检查结果。你不需要背诵每一个 API 的用法，不需要记得每一个框架的细节。</p><p><strong>测试阶段</strong>：AI 帮你写测试用例，自动化执行。你不再需要花大量时间写重复的测试代码，也不担心漏掉什么边界情况。</p><p><strong>上线阶段</strong>：一键部署到云平台，自动完成构建和发布。你不需要自己配置服务器，不需要自己搭建 CI/CD 流水线。</p><p><strong>迭代阶段</strong>：根据数据和反馈快速调整，以天甚至小时为单位迭代。你想改一个功能，几分钟就能看到效果。</p><p>你看，从几周到几分钟，从数十人到一个人。这不是夸张，而是正在发生的现实。</p><p>注意，这并不意味着流程消失了。</p><p>而是很多环节被 AI 自动化了，或者说一个人可以兼任多个角色。</p><p>你不需要写每一行代码，但你仍然需要理解每个环节在做什么，为什么这么做，出了问题怎么排查。</p><p><strong>这就是本教程要教你的：不是取代流程，而是掌握流程的核心，用 AI 提升效率。</strong></p><hr><h3>100 小时走完全程 </h3><p>本篇以「从零基础到上线的避坑指南」为主线，带你用一条完整的产品交付流程串起全栈开发：</p><p><strong>第一步：技术选型与环境准备</strong>（第 1-2 章）</p><p>先搭台子，再唱戏。选择合适的技术栈，配置开发环境，掌握与 AI 协作的基本方法。没有这些基础，后面的想法再好也落不了地。</p><p><strong>第二步：问题定义与方案设计</strong>（第 3 章）</p><p>写 PRD，明确要解决什么问题、如何解决。这一步很多人会跳过，觉得直接开始写代码更痛快。但相信我，把问题想清楚，后面会省下无数时间。</p><p>你可能注意到：<strong>实际项目流程是&quot;先想清楚问题，再选技术&quot;，但教程顺序是反的。</strong></p><p>这是有意为之。PRD 里会出现 Next.js、Prisma、数据库这些技术名词，如果你连这些是什么都不知道，文档就看不下去。所以先让你把环境搭起来、工具用顺手，对技术有个基本感觉，再来学习如何规范地写 PRD。</p><p><strong>第三步：产品实现</strong>（第 4-8 章）</p><p>UI/UX 设计让产品好看好用，数据存储让信息持久化，安全机制保护用户隐私，自动化测试保证质量。每一步都有具体的工具和方法。</p><p><strong>第四步：发布与迭代</strong>（第 9-16 章）</p><p>从本地到公网，让世界看到你的产品；从个人到团队，学会协作和分享；从上线到持续改进，让产品在反馈中进化。</p><p>在这条路径的终点，等待你的不是&quot;成为程序员&quot;，而是&quot;成为一个能用产品解决问题的人&quot;。<strong>代码是手段，不是目的</strong>——你的目标是解决问题、创造价值，而代码只是帮你实现这个目标的工具之一。</p><hr><h2>停下来想，不如跑起来做 </h2><p>在这个充满了不确定性与加速度的时代，过度思考往往是行动的敌人。</p><p>你有没有过这样的经历：</p><p>你想做一个产品，但总觉得自己的准备还不够充分。你想学一个技术，但总觉得要先看完所有的教程。你想解决一个问题，但总觉得可能有更好的方案。</p><p>于是你在原地踏步，看着别人已经跑远了。</p><p>不要等到想法完美无缺才开始做产品，不要等到看清了终局才开始起跑。</p><p>因为在真实世界里，从来没有什么完美的开局。</p><p>那些你羡慕的成功产品，很多都是从简陋的 MVP 开始的。那些你佩服的创业者，很多都是在摸索中不断调整方向的。</p><p><strong>在这个时代，想，都是问题；做，才是答案。</strong></p><hr><h2>你需要做什么 </h2><p>说到这里，你可能会问：如果 AI 能做这么多事，那我还需要做什么？</p><p>这是个好问题。</p><p>AI 确实替代了我们。但它替代掉的部分，恰恰是我们原来不愿意干、干不动、甚至压根就不该人干的部分。</p><p>那些繁琐的、重复的、高危的、枯燥的工作，AI 拿走了。</p><p>而它留给我们的，或者说它逼着我们去做的，是去开拓新的可能，是去干那些只有人才能干好的事。</p><p>把这个关系想清楚，你就知道该怎么跟 AI 共处了：</p><p><strong>把重复琐碎交给 AI，把判断创造留给自己。</strong></p><p><strong>把苦活累活交给 AI，把品味思考留给自己。</strong></p><p><strong>把机械执行交给 AI，把灵感创意留给自己。</strong></p><p>AI 能帮你生成代码，但它不能帮你决定要做什么产品。</p><p>AI 能帮你写测试用例，但它不能帮你理解用户真正的需求。</p><p>AI 能帮你优化性能，但它不能帮你发现那个值得解决的问题。</p><p><strong>那些需要判断、品味、连接、创造的工作，永远是人的领地。</strong></p><hr><h2>开始之前 </h2><p>所以，使用这本教程的正确姿势是：</p><p>不要把它当成一本教科书，从头到尾啃完。</p><p>把它当成一个地图，一个向导，一个随时可以求助的朋友。</p><p>当你遇到具体问题时，翻开对应的章节，看看我是怎么走过来的。当你陷入困惑时，读读那些序言，看看当时的心路历程。当你不知道下一步该做什么时，对照着章节总览，找一个方向先动起来。</p><p><strong>学习不是背诵，而是模仿。</strong></p><p><strong>成长不是等待，而是行动。</strong></p><p>100 小时后，你会惊讶于自己能做成什么。</p><p>不，可能用不了 100 小时。</p><p><strong>慢慢来，会很快。</strong></p><p>这不是终点，而是起点。</p><p>本教程不是让你读完之后成为全栈工程师，而是让你在读的过程中，开始做一个能解决问题的人。</p><p><strong>不要被&quot;可能出错&quot;的想象吓住，而要被&quot;可能做成&quot;的愿景驱动。</strong> 你要做的，是看见那个能解决问题的产品，然后动身去实现它。</p><p>让我们一起，进化。</p><p>符航康 / Eyre</p><p>2026 年 1 月 1 日</p><div class="info custom-block"><p><strong>教程进度说明</strong></p><p>部分章节正文/图片待补充，内容可能随迭代调整。就像写代码一样——先搭框架，再打磨细节。敬请期待正式版发布，感谢你的耐心！</p></div><hr><h2>章节总览 </h2><table tabindex="0"><thead><tr><th>章节</th><th>主题</th></tr></thead><tbody><tr><td>1</td><td><a href="/tpvibe/Advanced/ch01.html">环境搭建</a></td></tr><tr><td>2</td><td><a href="/tpvibe/Advanced/ch02.html">AI怎么用</a></td></tr><tr><td>3</td><td><a href="/tpvibe/Advanced/ch03.html">从需求到文档</a></td></tr><tr><td>4</td><td><a href="/tpvibe/Advanced/ch04.html">必须知道的开发知识</a></td></tr><tr><td>5</td><td><a href="/tpvibe/Advanced/ch05.html">好看好用的界面</a></td></tr><tr><td>6</td><td><a href="/tpvibe/Advanced/ch06.html">数据存在哪里</a></td></tr><tr><td>7</td><td><a href="/tpvibe/Advanced/ch07.html">连接前后端</a></td></tr><tr><td>8</td><td><a href="/tpvibe/Advanced/ch08.html">谁能访问我的数据</a></td></tr><tr><td>9</td><td><a href="/tpvibe/Advanced/ch09.html">功能测试</a></td></tr><tr><td>10</td><td><a href="/tpvibe/Advanced/ch10.html">公网访问</a></td></tr><tr><td>11</td><td><a href="/tpvibe/Advanced/ch11.html">协作开发</a></td></tr><tr><td>12</td><td><a href="/tpvibe/Advanced/ch12.html">无服务器自动部署</a></td></tr><tr><td>13</td><td><a href="/tpvibe/Advanced/ch13.html">域名解析与接入</a></td></tr><tr><td>14</td><td><a href="/tpvibe/Advanced/ch14.html">部署到服务器</a></td></tr><tr><td>15</td><td><a href="/tpvibe/Advanced/ch15.html">SEO、分享与数据统计</a></td></tr><tr><td>16</td><td><a href="/tpvibe/Advanced/ch16.html">用户反馈与产品迭代</a></td></tr></tbody></table><hr><h2>知识点概览 </h2></div></div>
+</div>
+
+
+</main>
+
+<footer class="site-footer">
+<p>© 2026 TPvibe · 内部预览版</p>
+<p style="margin-top:8px;">
+<a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer">蜀ICP备2024097797号-3</a>
+</p>
+</footer>
+<!-- THEME:tpvibe -->
+<script>
+/* Theme toggle */
+(function(){
+  var r=document.documentElement;
+  var saved=localStorage.getItem('tpvibe-theme');r.dataset.theme=saved||'light';
+  
+  /* sync button icon */
+  
+})();
+/* Reveal on scroll */
+(function(){
+  var obs=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');obs.unobserve(e.target);}});},{threshold:.15});
+  document.querySelectorAll('.reveal').forEach(function(el){obs.observe(el);});
+})();
+/* Progress bar */
+(function(){
+  var bar=document.getElementById('progress');
+  if(!bar)return;
+  window.addEventListener('scroll',function(){
+    var h=document.documentElement.scrollHeight-window.innerHeight;
+    bar.style.width=(h>0?(window.scrollY/h*100):0)+'%';
+  });
+})();
+</script>
+<script>
+/* Theme button icon sync */
+(function(){
+  var btn=document.querySelector('.theme-btn');
+  if(!btn)return;
+  function sync(){btn.textContent=document.documentElement.dataset.theme==='dark'?'☀️':'🌙';}
+  sync();
+  btn.addEventListener('click',function(){setTimeout(sync,0);});
+})();
+</script>
+
+<nav class="mobile-bottom-tabs"><ul><li><a href="/tpvibe/index.html"><svg viewBox="0 0 24 24"><path d="M3 12L12 3l9 9M5 10v10h4v-6h6v6h4V10"/></svg><span>首页</span></a></li><li><a href="/tpvibe/Basic/lecture-1.html"><svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg><span>基础篇</span></a></li><li><a href="/tpvibe/Advanced/ch01.html"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg><span>进阶篇</span></a></li><li><a href="/tpvibe/Articles/core-concepts.html"><svg viewBox="0 0 24 24"><path d="M4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zM8 7h8M8 11h8M8 15h6"/></svg><span>文章</span></a></li><li><a href="/tpvibe/Practice/index.html"><svg viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg><span>实践</span></a></li></ul></nav>
+<script>
+(function(){
+  // 判断当前页面，高亮对应的 tab（目录前缀匹配）
+  var path=location.pathname.replace(/\/index\.html$/,'/').replace(/\/$/,'');
+  var tabs=document.querySelectorAll('.mobile-bottom-tabs a');
+  var bestMatch=null;
+  var bestMatchLen=0;
+  tabs.forEach(function(a){
+    var href=a.getAttribute('href')||'';
+    if(!href)return;
+    var hrefPath=href.replace(/https?:\/\/[^\/]+/,'').replace(/\/index\.html$/,'/').replace(/\/$/,'');
+    if(path===hrefPath){bestMatch=a;return;}
+    // 目录前缀匹配：当前路径以 tab 路径开头
+    if(hrefPath.length>2&&path.indexOf(hrefPath)>=0&&hrefPath.length>bestMatchLen){bestMatch=a;bestMatchLen=hrefPath.length;}
+  });
+  if(bestMatch)bestMatch.classList.add('active');
+})();
+</script>
+
+
+<script src="/tpvibe/toc-sheet.js"></script>
+</body>
+</html>

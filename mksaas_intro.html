@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MKSaaS · 深度解读</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#ffffff; --grid:#edeff4; --glow:#fff5f0;
+    --ink:#14151a; --muted:#60667a; --line:#e6e8ef;
+    --accent:#c2603f; --accent-2:#e0567a;
+    --green:#1f9d6b; --yellow:#e0a200; --pink:#e0457f;
+    --card:#ffffff; --soft:#f7f8fb; --shadow:rgba(20,21,26,.08);
+    --radius:18px;
+  }
+  [data-theme="dark"]{
+    --bg:#0e0f14; --grid:#1a1c25; --glow:#1a1410;
+    --ink:#f1f2f6; --muted:#9aa0b4; --line:#262936;
+    --card:#15171f; --soft:#191b24; --shadow:rgba(0,0,0,.5);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0; color:var(--ink); font-family:'Inter','Noto Sans SC',system-ui,sans-serif;
+    background:var(--bg);
+    background-image:
+      linear-gradient(var(--grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+    background-size:34px 34px;
+    background-attachment:fixed;
+    line-height:1.65; -webkit-font-smoothing:antialiased;
+  }
+  body::before{
+    content:""; position:fixed; inset:0; pointer-events:none; z-index:0;
+    background:radial-gradient(60% 50% at 50% -10%, var(--glow), transparent 70%);
+  }
+  h1,h2,h3,.display{font-family:'Space Grotesk','Noto Sans SC',sans-serif; letter-spacing:-.02em;}
+  a{color:var(--accent); text-decoration:none;}
+  code,.mono{font-family:'JetBrains Mono',monospace;}
+  .wrap{max-width:1080px; margin:0 auto; padding:0 22px; position:relative; z-index:1;}
+
+  /* progress + nav */
+  #progress{position:fixed; top:0; left:0; height:3px; width:0; z-index:100;
+    background:linear-gradient(90deg,var(--accent),var(--accent-2)); transition:width .1s;}
+  nav{position:sticky; top:0; z-index:50; backdrop-filter:blur(14px);
+    background:color-mix(in srgb, var(--bg) 78%, transparent);
+    border-bottom:1px solid var(--line);}
+  .nav-in{max-width:1080px; margin:0 auto; padding:13px 22px; display:flex; align-items:center; gap:18px;}
+  .logo{font-family:'Space Grotesk'; font-weight:700; font-size:20px; display:flex; align-items:center; gap:9px;}
+  .logo .dot{width:13px;height:13px;border-radius:4px;background:linear-gradient(135deg,var(--accent),var(--accent-2)); box-shadow:0 0 0 4px color-mix(in srgb,var(--accent) 18%,transparent);}
+  .nav-links{display:flex; gap:6px; margin-left:auto; flex-wrap:wrap;}
+  .nav-links a{color:var(--muted); font-size:14px; font-weight:500; padding:7px 11px; border-radius:9px; transition:.2s;}
+  .nav-links a:hover{color:var(--ink); background:var(--soft);}
+  .toggle{cursor:pointer; border:1px solid var(--line); background:var(--card); border-radius:10px;
+    width:40px; height:36px; display:grid; place-items:center; font-size:16px; transition:.2s;}
+  .toggle:hover{border-color:var(--accent);}
+  .ghost-btn{border:1px solid var(--line); background:var(--card); color:var(--ink); padding:8px 13px;
+    border-radius:10px; font-size:14px; font-weight:600; transition:.2s; cursor:pointer;}
+  .ghost-btn:hover{border-color:var(--accent); transform:translateY(-1px);}
+
+  /* hero */
+  .hero{padding:70px 0 40px; text-align:center;}
+  .eyebrow{display:inline-flex; align-items:center; gap:8px; font-size:13px; font-weight:600; color:var(--accent);
+    background:color-mix(in srgb,var(--accent) 10%,transparent); padding:6px 13px; border-radius:99px; border:1px solid color-mix(in srgb,var(--accent) 25%,transparent);}
+  .hero h1{font-size:clamp(40px,8vw,82px); margin:18px 0 8px; line-height:1; font-weight:700;}
+  .hero h1 .grad{background:linear-gradient(120deg,var(--accent),var(--accent-2)); -webkit-background-clip:text; background-clip:text; color:transparent;}
+  .hero p.sub{font-size:clamp(16px,2.4vw,21px); color:var(--muted); max-width:680px; margin:10px auto 0;}
+  .cta{display:flex; gap:12px; justify-content:center; margin-top:26px; flex-wrap:wrap;}
+  .btn{display:inline-flex; align-items:center; gap:8px; padding:13px 22px; border-radius:12px; font-weight:600; font-size:15px; transition:.22s; cursor:pointer; border:1px solid transparent;}
+  .btn.primary{background:linear-gradient(120deg,var(--accent),var(--accent-2)); color:#fff; box-shadow:0 10px 26px color-mix(in srgb,var(--accent) 35%,transparent);}
+  .btn.primary:hover{transform:translateY(-2px); box-shadow:0 16px 34px color-mix(in srgb,var(--accent) 45%,transparent);}
+  .btn.sec{background:var(--card); border-color:var(--line); color:var(--ink);}
+  .btn.sec:hover{border-color:var(--accent); transform:translateY(-2px);}
+
+  /* stats */
+  .stats{display:grid; grid-template-columns:repeat(6,1fr); gap:14px; margin:40px 0 10px;}
+  .stat{background:var(--card); border:1px solid var(--line); border-radius:var(--radius); padding:18px 12px; text-align:center; box-shadow:0 6px 20px var(--shadow); transition:.25s;}
+  .stat:hover{transform:translateY(-3px); border-color:var(--accent);}
+  .stat .n{font-family:'Space Grotesk'; font-weight:700; font-size:clamp(20px,3vw,28px); color:var(--ink);}
+  .stat .l{font-size:12.5px; color:var(--muted); margin-top:3px;}
+
+  /* sections */
+  section{padding:54px 0; scroll-margin-top:74px;}
+  .sec-head{margin-bottom:26px;}
+  .sec-head .k{font-size:13px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--accent);}
+  .sec-head h2{font-size:clamp(26px,4vw,38px); margin:8px 0 6px;}
+  .sec-head p{color:var(--muted); max-width:720px; margin:0;}
+
+  .card{background:var(--card); border:1px solid var(--line); border-radius:var(--radius); padding:22px; box-shadow:0 6px 22px var(--shadow); transition:.25s;}
+  .card:hover{transform:translateY(-3px); box-shadow:0 14px 34px var(--shadow); border-color:color-mix(in srgb,var(--accent) 40%,var(--line));}
+  .grid{display:grid; gap:16px;}
+  .g2{grid-template-columns:repeat(2,1fr);} .g3{grid-template-columns:repeat(3,1fr);} .g4{grid-template-columns:repeat(4,1fr);}
+  .pillar .ic{width:44px;height:44px;border-radius:12px; display:grid; place-items:center; font-size:22px; margin-bottom:12px;
+    background:color-mix(in srgb,var(--accent) 12%,transparent); border:1px solid color-mix(in srgb,var(--accent) 22%,transparent);}
+  .pillar h3{font-size:18px; margin:0 0 6px;} .pillar p{color:var(--muted); font-size:14.5px; margin:0;}
+
+  .chips{display:flex; gap:10px; flex-wrap:wrap;}
+  .chip{display:inline-flex; align-items:center; gap:8px; padding:10px 15px; border-radius:12px; border:1px solid var(--line);
+    background:var(--card); font-weight:600; font-size:14.5px; transition:.2s;}
+  .chip:hover{border-color:var(--accent-2); transform:translateY(-2px); box-shadow:0 8px 20px var(--shadow);}
+  .chip .d{width:9px;height:9px;border-radius:50%; background:linear-gradient(135deg,var(--accent),var(--accent-2));}
+
+  /* flow */
+  .flow{display:flex; align-items:stretch; justify-content:center; gap:0; flex-wrap:wrap; margin:10px 0;}
+  .node{flex:1 1 200px; min-width:180px; background:var(--card); border:1px solid var(--line);
+    padding:16px; text-align:center; box-shadow:0 6px 20px var(--shadow); margin:6px; border-radius:var(--radius);}
+  .node h3{font-size:16px; color:var(--accent); margin:6px 0;}
+  .node .d{font-size:14.5px; color:var(--muted);}
+  .arrow{align-self:center; font-family:'Space Grotesk'; color:var(--accent-2); font-size:20px; padding:0 6px;}
+
+  /* tabs */
+  .tabs{display:flex; gap:6px; flex-wrap:wrap; margin-bottom:18px; border-bottom:1px solid var(--line); padding-bottom:12px;}
+  .tab{border:1px solid var(--line); background:var(--card); color:var(--muted); padding:9px 15px; border-radius:11px; font-weight:600; font-size:14px; cursor:pointer; transition:.2s;}
+  .tab:hover{color:var(--ink);}
+  .tab.active{background:linear-gradient(120deg,var(--accent),var(--accent-2)); color:#fff; border-color:transparent; box-shadow:0 8px 20px color-mix(in srgb,var(--accent) 35%,transparent);}
+  .panel-box{display:none;} .panel-box.active{display:block; animation:fade .35s ease;}
+  @keyframes fade{from{opacity:0; transform:translateY(8px);} to{opacity:1; transform:none;}}
+
+  /* code */
+  .code{background:var(--ink); color:#e7e9f2; border-radius:14px; padding:16px 18px; overflow:auto; box-shadow:0 10px 30px var(--shadow);}
+  .code pre{margin:0; font-family:'JetBrains Mono'; font-size:13.5px; line-height:1.7;}
+  .code .c{color:#7c8499;} .code .s{color:#9be8b0;} .code .p{color:#ffae8a;} .code .b{color:#8db4ff;}
+  .copy{float:right; cursor:pointer; font-size:12px; color:#aeb4c8; border:1px solid #2c2f3a; background:#1b1d26; padding:4px 9px; border-radius:8px;}
+  .copy:hover{color:#fff;}
+
+  .callout{border-left:4px solid var(--accent); background:color-mix(in srgb,var(--accent) 7%,var(--card)); padding:14px 17px; border-radius:0 12px 12px 0; font-size:14.5px; color:var(--muted); margin:16px 0;}
+  .callout b{color:var(--ink);}
+
+  /* accordion (FAQ) */
+  .acc{border:1px solid var(--line); border-radius:14px; overflow:hidden; background:var(--card); margin-bottom:11px; box-shadow:0 4px 16px var(--shadow);}
+  .acc-h{display:flex; align-items:center; gap:13px; padding:17px 19px; cursor:pointer; transition:.2s; user-select:none;}
+  .acc-h:hover{background:var(--soft);}
+  .acc-h .num{font-family:'Space Grotesk'; font-weight:700; color:var(--accent); font-size:15px; min-width:30px;}
+  .acc-h h3{font-size:17px; margin:0; flex:1;}
+  .acc-h .ar{transition:.3s; color:var(--muted); font-size:18px;}
+  .acc.open .acc-h .ar{transform:rotate(45deg); color:var(--accent);}
+  .acc-b{max-height:0; overflow:hidden; transition:max-height .35s ease;}
+  .acc-b-in{padding:0 19px 19px 62px; color:var(--muted); font-size:15px;}
+  .acc-b-in ul{margin:8px 0 0; padding-left:18px;} .acc-b-in li{margin:5px 0;}
+
+  /* timeline */
+  .tl{position:relative; margin-left:14px; padding-left:30px; border-left:2px solid var(--line);}
+  .tl-item{position:relative; padding:0 0 28px 0;}
+  .tl-item::before{content:""; position:absolute; left:-39px; top:4px; width:15px; height:15px; border-radius:50%; background:var(--card); border:3px solid var(--accent);}
+  .tl-item .v{font-family:'Space Grotesk'; font-weight:700; color:var(--accent); font-size:15px;}
+  .tl-item .t{font-weight:700; font-size:17px; margin:2px 0 5px;}
+  .tl-item p{color:var(--muted); margin:0; font-size:14.5px;}
+
+  /* list */
+  ul.b{list-style:none; padding-left:0; margin:10px 0;}
+  ul.b li{padding:6px 0 6px 26px; position:relative; color:var(--muted); font-size:15px;}
+  ul.b li::before{content:"▸"; position:absolute; left:4px; color:var(--accent); font-weight:bold;}
+
+  footer{border-top:1px solid var(--line); padding:36px 0 60px; text-align:center; color:var(--muted); font-size:14px;}
+  .reveal{opacity:0; transform:translateY(22px); transition:opacity .7s ease, transform .7s ease;}
+  .reveal.in{opacity:1; transform:none;}
+  @media(max-width:760px){.stats{grid-template-columns:repeat(3,1fr);} .g2,.g3,.g4{grid-template-columns:1fr;} .nav-links{display:none;}}
+</style>
+</head>
+<body>
+<div id="progress"></div>
+<nav>
+  <div class="nav-in">
+    <div class="logo"><span class="dot"></span>MKSaaS</div>
+    <div class="nav-links">
+      <a href="#overview">概览</a>
+      <a href="#deep">深读</a>
+      <a href="#faq">FAQ</a>
+      <a href="#start">快速开始</a>
+    </div>
+    <button class="toggle" id="themeBtn" title="切换明暗">◐</button>
+    <a class="ghost-btn" href="tp.html">← 返回 TP 中心</a>
+  </div>
+</nav>
+
+<div class="wrap">
+
+  <!-- HERO -->
+  <header class="hero">
+    <span class="eyebrow">Next.js · SaaS 模板</span>
+    <h1><span class="grad">MKSaaS</span></h1>
+    <p class="sub">基于 Next.js 的全栈 AI SaaS 启动模板（starter）。克隆即用：认证、支付、数据库、AI API 四类最耗时的基础设施已经接好，你只写业务。</p>
+    <div class="cta">
+      <a class="btn primary" href="https://mksaas.com" target="_blank" rel="noopener">⚡ 访问官网 ↗</a>
+      <a class="btn sec" href="#overview">🔍 深入了解</a>
+    </div>
+    <div class="stats">
+      <div class="stat reveal"><div class="n" data-to="4" data-suf="">0</div><div class="l">开箱核心模块</div></div>
+      <div class="stat reveal"><div class="n" data-to="100" data-suf="%">0</div><div class="l">TypeScript 覆盖</div></div>
+      <div class="stat reveal"><div class="n" data-to="13" data-suf="+">0</div><div class="l">Next.js App Router</div></div>
+      <div class="stat reveal"><div class="n" data-to="2" data-suf="">0</div><div class="l">支付方案可选</div></div>
+      <div class="stat reveal"><div class="n" data-to="3" data-suf="">0</div><div class="l">AI 供应商适配</div></div>
+      <div class="stat reveal"><div class="n" data-to="1" data-suf=" 行">0</div><div class="l">部署到 Vercel</div></div>
+    </div>
+    <div class="callout" style="text-align:left; max-width:760px; margin:18px auto 0;">
+      📌 MKSaaS 是<b>付费的 SaaS 启动模板</b>而非开源库，文档与 UI 细节以官网为准。上方数字中，核心模块、TypeScript、App Router 来自 Tabbit 报告对其「开箱即用全栈方案」与「Next.js 最佳实践」的描述；支付/AI 供应商数量与 Vercel 部署为基于同品类模板的<b>合理推断</b>，请以官网实际为准。
+    </div>
+  </header>
+
+  <!-- OVERVIEW -->
+  <section id="overview">
+    <div class="sec-head reveal">
+      <div class="k">Overview</div>
+      <h2>它替你把 SaaS 的「脏活」先干完了</h2>
+      <p>一个典型的 SaaS 从 0 到上线，60% 的时间花在认证、计费、数据库、AI 接入这些「每个产品都要、但每个产品都不同」的基础设施上。MKSaaS 把这些做成可配置的起点。</p>
+    </div>
+    <div class="grid g3">
+      <div class="card pillar reveal"><div class="ic">🔐</div><h3>用户认证</h3><p>登录、注册、会话、OAuth 与邮箱验证开箱即用，基于成熟的 Next.js 鉴权方案，少写样板代码。</p></div>
+      <div class="card pillar reveal"><div class="ic">💳</div><h3>支付集成</h3><p>Stripe / Lemon Squeezy 等订阅与一次性支付的可选接入，含 webhook 与计费状态机雏形。</p></div>
+      <div class="card pillar reveal"><div class="ic">🗄️</div><h3>数据库</h3><p>预置数据库访问层与迁移脚本，ORM 配置就绪，本地到生产的环境切换靠变量隔离。</p></div>
+      <div class="card pillar reveal"><div class="ic">🤖</div><h3>AI 集成</h3><p>OpenAI / Claude 等供应商的安全调用封装与错误处理，统一接口，换模型只改配置。</p></div>
+      <div class="card pillar reveal"><div class="ic">🚀</div><h3>部署流水线</h3><p>从 <code>npm run dev</code> 到 Vercel 一键部署，CI 与构建脚本已就绪，连仓库即上线。</p></div>
+      <div class="card pillar reveal"><div class="ic">🧱</div><h3>SaaS 架构范式</h3><p>多租户、权限、计费的参考实现，是学习企业级 Next.js 目录结构与状态管理的活样本。</p></div>
+    </div>
+  </section>
+
+  <!-- DEEP DIVE -->
+  <section id="deep">
+    <div class="sec-head reveal">
+      <div class="k">Deep Dive</div>
+      <h2>拆开看：技术架构与「里面有什么」</h2>
+      <p>下面三块讲清它为什么能「克隆即用」——目录结构、环境变量契约，以及一次真实 AI 调用该怎么写。</p>
+    </div>
+
+    <div class="card reveal" style="margin-bottom:18px;">
+      <h3 style="margin-top:0">① 目录结构：App Router 的全栈骨架</h3>
+      <p style="color:var(--muted); font-size:14.5px">典型的 MKSaaS 仓库遵循 Next.js 13+ App Router 约定。<code>app/</code> 放路由与页面，<code>lib/</code> 放认证/支付/AI/数据库四类客户端，<code>components/</code> 放 UI，<code>prisma/</code> 或 <code>db/</code> 放数据层。</p>
+      <div class="code"><button class="copy">复制</button><pre><span class="c"># 典型 starters 目录（截取）</span>
+mksaas-starter/
+├─ <span class="b">app/</span>                  <span class="c"># App Router 路由与页面</span>
+│  ├─ <span class="b">(auth)/</span>           <span class="c"># 登录/注册路由组</span>
+│  ├─ <span class="b">api/</span>              <span class="c"># Route Handlers（AI、webhook）</span>
+│  └─ <span class="b">dashboard/</span>        <span class="c"># 登录后才能进的后台</span>
+├─ <span class="b">components/</span>           <span class="c"># UI 组件</span>
+├─ <span class="b">lib/</span>                 <span class="c"># 四类基础设施客户端</span>
+│  ├─ <span class="b">auth.ts</span>           <span class="c"># 会话与鉴权</span>
+│  ├─ <span class="b">db.ts</span>             <span class="c"># 数据库连接</span>
+│  ├─ <span class="b">payments.ts</span>       <span class="c"># 支付/订阅</span>
+│  └─ <span class="b">ai.ts</span>             <span class="c"># AI 供应商封装</span>
+├─ <span class="b">prisma/</span> 或 <span class="b">db/</span>      <span class="c"># schema 与迁移</span>
+└─ <span class="b">.env.example</span>          <span class="c"># 环境变量契约</span></pre></div>
+    </div>
+
+    <div class="card reveal" style="margin-bottom:18px;">
+      <h3 style="margin-top:0">② 环境变量契约：一份 <code>.env.example</code> 决定能跑起来</h3>
+      <p style="color:var(--muted); font-size:14.5px">四类模块各自需要的密钥都集中在 <code>.env.example</code> 里。本地复制成 <code>.env.local</code> 填值即可，生产环境在 Vercel 后台一一对应填写，无需改代码。</p>
+      <div class="code"><button class="copy">复制</button><pre><span class="c"># .env.example —— 四类模块的密钥契约</span>
+<span class="c"># 数据库</span>
+DATABASE_URL=<span class="s">postgresql://user:pass@localhost:5432/mksaas</span>
+
+<span class="c"># 认证（NextAuth 风格）</span>
+NEXTAUTH_SECRET=<span class="s">replace-with-random-string</span>
+NEXTAUTH_URL=<span class="s">http://localhost:3000</span>
+GOOGLE_CLIENT_ID=<span class="s">your-oauth-client-id</span>
+GOOGLE_CLIENT_SECRET=<span class="s">your-oauth-secret</span>
+
+<span class="c"># 支付（Stripe）</span>
+STRIPE_SECRET_KEY=<span class="s">sk_test_xxx</span>
+STRIPE_WEBHOOK_SECRET=<span class="s">whsec_xxx</span>
+
+<span class="c"># AI 供应商（可切换）</span>
+OPENAI_API_KEY=<span class="s">sk-xxx</span>
+<span class="c"># ANTHROPIC_API_KEY=sk-ant-xxx   # 换成 Claude 时启用</span></pre></div>
+      <div class="callout reveal" style="text-align:left">💡 关键设计：密钥<b>只存在于环境变量</b>，代码里永远 <code>process.env.XXX</code> 引用。这既满足安全审计（无硬编码密钥），也让同一份代码在本地、预览、生产之间靠变量隔离无缝切换。</div>
+    </div>
+
+    <div class="card reveal" style="margin-bottom:18px;">
+      <h3 style="margin-top:0">③ 一次真实 AI 调用：封装层怎么用</h3>
+      <p style="color:var(--muted); font-size:14.5px">MKSaaS 的 <code>lib/ai.ts</code> 把供应商差异屏蔽掉。业务里只调统一接口，错误处理与重试集中在一处，避免每个页面各写一遍 SDK。</p>
+      <div class="code"><button class="copy">复制</button><pre><span class="c">// app/api/chat/route.ts —— 一个 Route Handler 里的 AI 调用</span>
+<span class="p">import</span> { getAIClient } from <span class="s">"@/lib/ai"</span>;
+
+<span class="p">export async function</span> POST(req: Request) {
+  <span class="p">const</span> { prompt } = <span class="p">await</span> req.json();
+  <span class="p">try</span> {
+    <span class="c">// 统一接口：换供应商只改 .env，不碰业务代码</span>
+    <span class="p">const</span> ai = getAIClient();
+    <span class="p">const</span> res = <span class="p">await</span> ai.complete({
+      model: <span class="s">"gpt-4o-mini"</span>,
+      messages: [{ role: <span class="s">"user"</span>, content: prompt }],
+    });
+    <span class="p">return</span> Response.json({ ok: <span class="b">true</span>, text: res.text });
+  } <span class="p">catch</span> (e) {
+    <span class="c">// 错误在封装层已结构化，这里只透出安全信息</span>
+    <span class="p">return</span> Response.json({ ok: <span class="b">false</span>, error: <span class="s">"AI 调用失败"</span> }, { status: <span class="b">500</span> });
+  }
+}</pre></div>
+    </div>
+
+    <div class="reveal" style="margin-top:6px;">
+      <h3 style="font-size:18px; margin:0 0 6px;">📡 一次请求的数据流</h3>
+      <div class="flow">
+        <div class="node"><h3>浏览器</h3><div class="d">点击 / 提交表单</div></div>
+        <div class="arrow">→</div>
+        <div class="node"><h3>Route Handler</h3><div class="d">鉴权中间件校验会话</div></div>
+        <div class="arrow">→</div>
+        <div class="node"><h3>lib/ 封装层</h3><div class="d">调 DB / 支付 / AI</div></div>
+        <div class="arrow">→</div>
+        <div class="node"><h3>外部服务</h3><div class="d">Supabase·Stripe·OpenAI</div></div>
+      </div>
+    </div>
+
+    <div class="chips reveal" style="margin-top:16px;">
+      <span class="chip"><span class="d"></span>Next.js 13+ App Router</span>
+      <span class="chip"><span class="d"></span>TypeScript</span>
+      <span class="chip"><span class="d"></span>Prisma / Drizzle（数据层）</span>
+      <span class="chip"><span class="d"></span>NextAuth / Lucia（认证）</span>
+      <span class="chip"><span class="d"></span>Stripe / Lemon Squeezy（支付）</span>
+      <span class="chip"><span class="d"></span>OpenAI / Claude（AI）</span>
+      <span class="chip"><span class="d"></span>Vercel（部署）</span>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq">
+    <div class="sec-head reveal">
+      <div class="k">FAQ</div>
+      <h2>常见问题</h2>
+      <p>关于它是什么、适合谁、怎么用——挑最常被问到的几条。</p>
+    </div>
+    <div class="reveal">
+      <div class="acc">
+        <div class="acc-h"><span class="num">01</span><h3>MKSaaS 是开源库还是付费模板？</h3><span class="ar">＋</span></div>
+        <div class="acc-b"><div class="acc-b-in">它是<b>付费的 SaaS 启动模板（starter kit）</b>，不是 npm 包。你购买或获得授权后克隆仓库到本地，在自己的项目里改装。核心卖点正是「买来即改、省去搭基建」，因此源码通常不在公开仓库，细节以官网与授权协议为准。</div></div>
+      </div>
+      <div class="acc">
+        <div class="acc-h"><span class="num">02</span><h3>它和普通「Next.js 教程项目」差在哪？</h3><span class="ar">＋</span></div>
+        <div class="acc-b"><div class="acc-b-in">普通教程项目只演示单个功能；MKSaaS 把<b>认证、支付、数据库、AI 四类模块</b>做成可配置的完整拼图，并给出多租户、权限、计费的参考实现。也就是说，它直接对齐「能收钱的产品」而不是「能跑的 demo」。
+          <ul><li>认证：登录/注册/OAuth 已接好</li><li>支付：订阅与一次性付费的 webhook 雏形</li><li>数据：迁移脚本 + ORM 配置就绪</li><li>AI：供应商切换只改环境变量</li></ul></div></div>
+      </div>
+      <div class="acc">
+        <div class="acc-h"><span class="num">03</span><h3>没有后端经验能上手吗？</h3><span class="ar">＋</span></div>
+        <div class="acc-b"><div class="acc-b-in">能，但前提是会基本的 React/Next.js。模板的难点（鉴权、计费状态机、AI 错误边界）已被封装，你主要做两件事：<b>填环境变量</b>与<b>写自己的页面与业务逻辑</b>。它同时也是学习企业级 SaaS 架构的优质样本。</div></div>
+      </div>
+      <div class="acc">
+        <div class="acc-h"><span class="num">04</span><h3>支付和 AI 供应商能换吗？</h3><span class="ar">＋</span></div>
+        <div class="acc-b"><div class="acc-b-in">可以。数据库、认证、支付、AI 四类都通过 <code>lib/</code> 下的客户端与 <code>.env</code> 解耦：
+          <ul><li>AI：OpenAI 与 Claude 等通过改 API Key 与 model 名切换</li><li>支付：Stripe / Lemon Squeezy 等常见网关可选接入</li><li>数据库：Postgres 为主，ORM 可随配置调整</li></ul>
+          具体支持列表请核对官网当前版本，模板会随生态更新。</div></div>
+      </div>
+      <div class="acc">
+        <div class="acc-h"><span class="num">05</span><h3>怎么从本地跑到生产环境？</h3><span class="ar">＋</span></div>
+        <div class="acc-b"><div class="acc-b-in">本地 <code>npm run dev</code> 验证功能；把仓库推到 GitHub 后在 Vercel 导入，环境变量在 Vercel 后台逐一填写，即可自动部署。模板已内置构建与 CI 脚本，连仓库即上线，无需自己搭流水线。</div></div>
+      </div>
+      <div class="acc">
+        <div class="acc-h"><span class="num">06</span><h3>适合用来做什么产品？</h3><span class="ar">＋</span></div>
+        <div class="acc-b"><div class="acc-b-in">任何「要登录、要收钱、要用 AI」的 Web 产品都合适：AI 写作/绘图工具、订阅制 SaaS、内部运营后台、带计费的多租户平台。它不适合纯静态展示站或无后端的简单页面——那会用它会显得重。</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- START -->
+  <section id="start">
+    <div class="sec-head reveal">
+      <div class="k">Quick Start</div>
+      <h2>三步跑起来</h2>
+      <p>拿到模板后，真正的上手动作只有三件：克隆、配环境、部署。下面按真实命令给出。</p>
+    </div>
+
+    <div class="tabs reveal" id="tabs">
+      <button class="tab active" data-t="clone">① 克隆与安装</button>
+      <button class="tab" data-t="env">② 环境变量</button>
+      <button class="tab" data-t="deploy">③ 部署上线</button>
+    </div>
+
+    <div class="panel-box active" data-p="clone">
+      <div class="code reveal"><button class="copy">复制</button><pre><span class="c"># 1) 克隆你购买的模板仓库（示例地址，以官网为准）</span>
+git clone <span class="s">https://github.com/your-org/mksaas-starter.git</span> <span class="b">&amp;&amp;</span> cd mksaas-starter
+
+<span class="c"># 2) 安装依赖（pnpm 优先，npm/yarn 亦可）</span>
+pnpm install
+
+<span class="c"># 3) 本地启动开发服务器</span>
+pnpm dev          <span class="c"># 默认 http://localhost:3000</span></pre></div>
+      <div class="callout reveal" style="text-align:left">⚠️ 仓库地址与包管理器以你购买时拿到的说明为准。模板可能用 pnpm / npm / bun，<code>package.json</code> 里的 <code>scripts</code> 才是权威。</div>
+    </div>
+
+    <div class="panel-box" data-p="env">
+      <div class="code reveal"><button class="copy">复制</button><pre><span class="c"># 1) 复制环境变量模板</span>
+cp .env.example .env.local
+
+<span class="c"># 2) 编辑并填入真实密钥（数据库 / 认证 / 支付 / AI）</span>
+<span class="c">#    DATABASE_URL、NEXTAUTH_SECRET、STRIPE_SECRET_KEY、OPENAI_API_KEY …</span>
+<span class="p">nano</span> .env.local
+
+<span class="c"># 3) 如有数据库迁移，先跑一次</span>
+pnpm db:push      <span class="c"># 或 npx prisma db push，依模板而定</span></pre></div>
+    </div>
+
+    <div class="panel-box" data-p="deploy">
+      <div class="code reveal"><button class="copy">复制</button><pre><span class="c"># 方式 A：Vercel CLI 一键部署</span>
+pnpm dlx vercel          <span class="c"># 按提示登录并关联仓库</span>
+pnpm dlx vercel --prod   <span class="c"># 推到生产环境</span>
+
+<span class="c"># 方式 B：连 GitHub 到 Vercel 控制台，环境变量在后台逐一填写</span>
+<span class="c"># 之后每次 git push 即自动构建部署</span></pre></div>
+      <div class="callout reveal" style="text-align:left">💡 生产环境变量务必在 Vercel 后台填写，<b>不要</b>把 <code>.env.local</code> 提交进仓库。模板的 <code>.gitignore</code> 已默认忽略本地 env 文件。</div>
+    </div>
+
+    <div class="grid g3 reveal" style="margin-top:22px">
+      <div class="card"><h3 style="margin-top:0; font-size:17px">📂 读目录</h3><p style="color:var(--muted); font-size:14px">先打开 <code>lib/</code> 与 <code>app/</code>，理解四类客户端与路由分组，再动手改 UI。</p></div>
+      <div class="card"><h3 style="margin-top:0; font-size:17px">🧪 本地验证</h3><p style="color:var(--muted); font-size:14px"><code>pnpm dev</code> 后走一遍注册→登录→调用 AI→订阅支付（测试模式）全链路。</p></div>
+      <div class="card"><h3 style="margin-top:0; font-size:17px">🔒 安全自查</h3><p style="color:var(--muted); font-size:14px">确认无硬编码密钥、webhook 验签、错误处理不泄漏内部信息后再上线。</p></div>
+    </div>
+  </section>
+
+  <footer>made with ♥ & a white grid — <b>MKSaaS 深度解读</b><div style="margin-top:6px;font-size:13px">数据抓取于 2026-07-14 · 内容综合自官网与 Tabbit 报告</div></footer>
+</div>
+
+<script>
+/* theme */
+const root=document.documentElement, tb=document.getElementById('themeBtn');
+tb.onclick=()=>{root.dataset.theme=root.dataset.theme==='light'?'dark':'light';};
+/* progress bar */
+const prog=document.getElementById('progress');
+addEventListener('scroll',()=>{const h=document.documentElement;
+  prog.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+'%';});
+/* reveal */
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in');}),{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+/* counters */
+function animateCounters(){
+  document.querySelectorAll('.stat .n').forEach(el=>{
+    const to=parseFloat(el.dataset.to), suf=el.dataset.suf||'';
+    let cur=0; const step=to/46;
+    const t=setInterval(()=>{cur+=step; if(cur>=to){cur=to; clearInterval(t);}
+      el.textContent=(to%1?cur.toFixed(1):Math.round(cur))+suf;},22);
+  });
+}
+const heroIO=new IntersectionObserver((es,o)=>{es.forEach(e=>{if(e.isIntersecting){animateCounters();o.disconnect();}});},{threshold:.4});
+heroIO.observe(document.querySelector('.hero'));
+/* tabs */
+document.querySelectorAll('.tabs').forEach(wrap=>{
+  const boxes=Array.from(wrap.parentElement.children).filter(c=>c.classList.contains('panel-box'));
+  wrap.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{
+    wrap.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
+    b.classList.add('active');
+    const t=b.dataset.t;
+    boxes.forEach(p=>p.classList.toggle('active',p.dataset.p===t));
+  });
+});
+/* accordion */
+document.querySelectorAll('.acc-h').forEach(h=>h.onclick=()=>{
+  const acc=h.parentElement, b=acc.querySelector('.acc-b');
+  const open=acc.classList.toggle('open');
+  b.style.maxHeight=open?b.scrollHeight+'px':'0';
+});
+/* copy */
+document.querySelectorAll('.copy').forEach(b=>b.onclick=()=>{
+  const pre=b.parentElement.querySelector('pre');
+  navigator.clipboard.writeText(pre.innerText).then(()=>{const t=b.textContent;b.textContent='已复制 ✓';setTimeout(()=>b.textContent=t,1400);});
+});
+</script>
+<a href="tp.html" style="position:fixed;left:18px;bottom:18px;z-index:90;display:inline-flex;align-items:center;gap:7px;font:600 14px/1 system-ui,sans-serif;color:#fff;text-decoration:none;background:linear-gradient(120deg,var(--accent),var(--accent-2));padding:11px 17px;border-radius:12px;box-shadow:0 8px 30px rgba(0,0,0,.3)">← 返回 TP 中心</a>
+<script>
+/* Theme button icon sync */
+(function(){
+  var btn=document.querySelector('.theme-btn');
+  if(!btn)return;
+  function sync(){btn.textContent=document.documentElement.dataset.theme==='dark'?'☀️':'🌙';}
+  sync();
+  btn.addEventListener('click',function(){setTimeout(sync,0);});
+})();
+</script>
+<script>
+/* Auto-collapse TOC: only expand the section containing the current page */
+(function(){
+  var details=document.querySelectorAll('aside.toc details.toc-sec');
+  if(details.length<2)return;
+  var current=location.pathname.replace(/\/$/,'');
+  var activeLink=null;
+  document.querySelectorAll('aside.toc a').forEach(function(a){
+    var href=a.getAttribute('href')||'';
+    if(href && !href.startsWith('http') && !href.startsWith('#')){
+      var path=href.replace(/^https?:\/\/[^\/]+/,'').replace(/\/$/,'');
+      if(current===path || current.indexOf(path)>-1 || path.indexOf(current)>-1){
+        activeLink=a;
+      }
+    }
+  });
+  details.forEach(function(d){
+    if(activeLink && d.contains(activeLink)){d.setAttribute('open','');}
+    else{d.removeAttribute('open');}
+  });
+})();
+</script>
+</body>
+</html>

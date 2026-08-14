@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OpenHands 深度解读</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#1a1c2c; --bg2:#29366f; --panel:#3b5dc9; --panel2:#41a6f6;
+    --ink:#f4f4f4; --green:#38b764; --pink:#ef7d57; --yellow:#ffcd75;
+    --purple:#b55088; --red:#b13e53; --cyan:#a7f070; --shadow:#0d0d1a;
+    --line:#94b0c2;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0; padding:0; background:var(--bg);
+    background-image:
+      radial-gradient(var(--bg2) 1px, transparent 1px);
+    background-size:16px 16px;
+    color:var(--ink);
+    font-family:'VT323', monospace;
+    font-size:21px; line-height:1.5;
+    image-rendering:pixelated;
+  }
+  h1,h2,h3,.pf{font-family:'Press Start 2P', monospace; line-height:1.5;}
+  a{color:var(--cyan); text-decoration:none;}
+  a:hover{color:var(--yellow);}
+
+  /* ---------- pixel container ---------- */
+  .wrap{max-width:1000px; margin:0 auto; padding:24px 16px 80px;}
+  .panel{
+    background:var(--panel);
+    border:4px solid var(--shadow);
+    box-shadow: 8px 8px 0 var(--shadow);
+    padding:22px 22px 26px; margin:28px 0;
+    position:relative;
+  }
+  .panel.dark{background:var(--bg2);}
+  .panel.green{background:var(--green); color:var(--shadow);}
+  .panel.pink{background:var(--pink); color:var(--shadow);}
+  .panel.yellow{background:var(--yellow); color:var(--shadow);}
+  .panel.purple{background:var(--purple);}
+  .tag{display:inline-block; background:var(--shadow); color:var(--cyan);
+    padding:4px 8px; font-family:'Press Start 2P'; font-size:10px; margin:0 6px 8px 0;}
+
+  /* ---------- HERO ---------- */
+  .hero{text-align:center; padding:30px 10px 10px;}
+  .hero h1{font-size:30px; color:var(--yellow); text-shadow:4px 4px 0 var(--red); margin-bottom:4px;}
+  .hero .sub{color:var(--cyan); font-size:22px;}
+  .robot{font-size:64px; margin:6px;}
+  .badge-row{margin-top:14px; display:flex; gap:10px; justify-content:center; flex-wrap:wrap;}
+  .badge{background:var(--purple); border:3px solid var(--shadow); padding:6px 10px;
+    font-family:'Press Start 2P'; font-size:10px; color:var(--ink); box-shadow:4px 4px 0 var(--shadow);}
+
+  /* ---------- stat grid ---------- */
+  .stats{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:14px; margin-top:10px;}
+  .stat{background:var(--bg2); border:3px solid var(--shadow); padding:14px; text-align:center; box-shadow:5px 5px 0 var(--shadow);}
+  .stat .n{font-family:'Press Start 2P'; font-size:18px; color:var(--yellow);}
+  .stat .l{color:var(--line); font-size:18px;}
+
+  /* ---------- code ---------- */
+  pre{background:var(--shadow); color:#cfe9ff; border:3px solid #000; padding:14px 16px; overflow:auto;
+    font-family:'VT323', monospace; font-size:18px; line-height:1.35; box-shadow:inset 0 0 0 2px #333;}
+  code{color:var(--cyan);}
+  .kw{color:#ff8cc6;} .fn{color:#aef;} .str{color:var(--green);} .cm{color:#7a7a99;}
+
+  /* ---------- flow diagram (pure CSS) ---------- */
+  .flow{display:flex; align-items:stretch; justify-content:center; gap:0; flex-wrap:wrap; margin:10px 0;}
+  .node{flex:1 1 160px; min-width:150px; background:var(--bg2); border:3px solid var(--shadow);
+    padding:12px; text-align:center; box-shadow:5px 5px 0 var(--shadow); margin:6px;}
+  .node h3{font-size:11px; color:var(--yellow); margin:6px 0;}
+  .node .d{font-size:17px; color:var(--line);}
+  .arrow{align-self:center; font-family:'Press Start 2P'; color:var(--pink); font-size:16px; padding:0 4px;}
+
+  .legend{font-size:18px; color:var(--line);}
+  .pill{display:inline-block; padding:2px 8px; border:2px solid var(--shadow); margin:2px; font-size:16px;}
+  .pill.act{background:var(--green); color:var(--shadow);}
+  .pill.obs{background:var(--panel2); color:var(--shadow);}
+  .pill.int{background:var(--pink); color:var(--shadow);}
+
+  ul.b{list-style:none; padding-left:0;}
+  ul.b li{padding:4px 0 4px 26px; position:relative;}
+  ul.b li::before{content:"▸"; position:absolute; left:4px; color:var(--pink); font-weight:bold;}
+
+  .note{border-left:6px solid var(--yellow); background:#22243a; padding:10px 14px; margin:14px 0; font-size:19px;}
+
+  .toc{columns:2; font-size:19px;}
+  .toc a{display:block; padding:3px 0;}
+
+  .sprite{width:18px;height:18px;display:inline-block;vertical-align:middle;margin:0 4px;
+    background:
+      linear-gradient(var(--cyan),var(--cyan)) 0 0/6px 6px no-repeat,
+      linear-gradient(var(--pink),var(--pink)) 12px 6px/6px 6px no-repeat,
+      linear-gradient(var(--yellow),var(--yellow)) 6px 12px/6px 6px no-repeat;
+  }
+  footer{text-align:center; color:var(--line); font-size:18px; padding:20px;}
+  .blink{animation:bl 1s steps(2) infinite;} @keyframes bl{50%{opacity:0;}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- ============ HERO ============ -->
+  <div class="hero">
+    <div class="robot">🤖</div>
+    <h1>OpenHands</h1>
+    <div class="sub">~ 会写代码 · 会跑命令 · 会逛网页的 AI 软件工程师 ~</div>
+    <div class="badge-row">
+      <span class="badge">★ 80.6k STARS</span>
+      <span class="badge">⑂ 10.3k FORKS</span>
+      <span class="badge">PY 3.12+</span>
+      <span class="badge">MIT-ish</span>
+      <span class="badge">v1.11.0</span>
+    </div>
+  </div>
+
+  <div class="panel dark">
+    <div class="toc">
+      <a href="#what">① 它到底是什么</a>
+      <a href="#stats">② 仓库数据一览</a>
+      <a href="#arch">③ 三大件架构</a>
+      <a href="#event">④ 事件流深读</a>
+      <a href="#agent">⑤ Agent 内核</a>
+      <a href="#runtime">⑥ 运行时沙箱</a>
+      <a href="#transition">⑦ 正在发生的重构</a>
+      <a href="#stack">⑧ 技术栈</a>
+      <a href="#skills">⑨ Skills / Microagents</a>
+      <a href="#run">⑩ 怎么跑起来</a>
+    </div>
+  </div>
+
+  <!-- ============ ① WHAT ============ -->
+  <div class="panel pink" id="what">
+    <span class="tag">INTRO</span>
+    <h2>① 它到底是什么？</h2>
+    <p>OpenHands（前身 <b>OpenDevin</b>）是一个开源的「通用 AI 软件工程师」平台。
+    它的目标不是只做一个聊天机器人，而是让 LLM 真正像人一样去<b>操作一台电脑</b>：
+    开终端跑命令、写/改文件、起 Jupyter 跑 Python、用浏览器查资料、调 API、提 PR。</p>
+    <p>核心论文 <i>OpenHands: An Open Platform for AI Software Developers as Generalist Agents</i>
+    (arXiv:2407.16741) 把它概括为三个可插拔的支柱：<b>Agent 抽象</b>、<b>Event Stream 事件流</b>、
+    <b>Runtime 运行时</b>。这三者通过事件流解耦，所以前端、后端、沙箱、agent 可以分别演进、分别部署。</p>
+    <div class="note">⚠️ 重要背景：这个仓库<b>正在发生大拆分</b>。README 顶部明确写着 "The code in this repo is moving!"。
+    原来庞大的 <code>openhands/</code> 包（agent / runtime / controller）已经被抽进独立的
+    <code>software-agent-sdk</code> 仓库；本仓库现在主推 <b>Agent Canvas</b>（自托管的 agent 控制面板）。
+    下文会同时讲「历史经典架构」和「现在的 V1 形态」。</div>
+  </div>
+
+  <!-- ============ ② STATS ============ -->
+  <div class="panel dark" id="stats">
+    <span class="tag">STATS</span>
+    <h2>② 仓库数据一览</h2>
+    <div class="stats">
+      <div class="stat"><div class="n">80,601</div><div class="l">Stars</div></div>
+      <div class="stat"><div class="n">10,287</div><div class="l">Forks</div></div>
+      <div class="stat"><div class="n">358</div><div class="l">Open Issues</div></div>
+      <div class="stat"><div class="n">2024-03</div><div class="l">创建于</div></div>
+      <div class="stat"><div class="n">354MB</div><div class="l">仓库体积</div></div>
+      <div class="stat"><div class="n">Python</div><div class="l">主语言</div></div>
+      <div class="stat"><div class="n">1.11.0</div><div class="l">版本</div></div>
+      <div class="stat"><div class="n">~1.0k</div><div class="l">依赖 lock 行</div></div>
+    </div>
+  </div>
+
+  <!-- ============ ③ ARCH ============ -->
+  <div class="panel" id="arch">
+    <span class="tag">ARCH</span>
+    <h2>③ 三大件架构</h2>
+    <div class="flow">
+      <div class="node"><h3>AGENT</h3><div class="d">读事件流 → 调 LLM → 产出 Action</div></div>
+      <div class="arrow">»</div>
+      <div class="node"><h3>EVENT STREAM</h3><div class="d">只追加日志 (append-only log)</div></div>
+      <div class="arrow">»</div>
+      <div class="node"><h3>RUNTIME</h3><div class="d">Docker 沙箱里执行 → 回 Observation</div></div>
+    </div>
+    <p>这是整张图的灵魂：<b>一切皆事件 (Action / Observation)</b>。Agent 不直接碰环境，而是把「意图」写成 Action
+    丢进事件流；Runtime 订阅事件流、在沙箱里执行、再把「结果」写成 Observation 丢回来。
+    控制台、前端、监控服务都是事件流的<b>订阅者 (subscriber)</b>，彼此完全解耦。</p>
+
+    <p class="legend">事件按「是否给 LLM 看」分两类：</p>
+    <span class="pill act">ActionEvent 工具调用</span>
+    <span class="pill act">MessageEvent 人说的话</span>
+    <span class="pill obs">ObservationEvent 执行结果</span>
+    <span class="pill obs">UserRejectObservation 被拒</span>
+    <span class="pill int">CondensationRequest 压缩请求</span>
+    <span class="pill int">PauseEvent 用户暂停</span>
+    <p class="legend">→ <code>act</code>/<code>obs</code> 类会进 LLM 上下文；<code>int</code> 内部事件只给框架用，不喂给模型。</p>
+  </div>
+
+  <!-- ============ ④ EVENT ============ -->
+  <div class="panel dark" id="event">
+    <span class="tag">DEEP DIVE</span>
+    <h2>④ 事件流 EventStream 深读</h2>
+    <p>代码里真正的实现是 <code>openhands/events/stream.py</code> 中的 <code>EventStream(EventStore)</code>。
+    它不是简单的 list，而是一个<b>带订阅、带持久化、带线程池的发布/订阅总线</b>。</p>
+    <pre><span class="cm"># 核心字段（精简自真实源码）</span>
+<span class="kw">class</span> <span class="fn">EventStream</span>(EventStore):
+    _subscribers: <span class="kw">dict</span>[str, <span class="kw">dict</span>[str, Callable]]   <span class="cm"># 订阅者ID -> 回调集合</span>
+    _queue: queue.Queue[Event]                       <span class="cm"># 跨线程事件队列</span>
+    _queue_thread: threading.Thread                  <span class="cm"># 后台消费线程</span>
+    _thread_pools: <span class="kw">dict</span>[...]                            <span class="cm"># 每个回调一个独立 event loop</span>
+    _write_page_cache: <span class="kw">list</span>[<span class="kw">dict</span>]                     <span class="cm"># 分页缓存，避免逐条读盘</span></pre>
+    <p>几个值得玩味的设计点：</p>
+    <ul class="b">
+      <li><b>每个订阅者独占一个线程 + 独立 asyncio event loop</b>。这样 AgentController、Runtime、Memory、Server
+      可以在不同线程里并发处理同一个事件，互不阻塞。</li>
+      <li><b>写入走「分页缓存」</b>：事件先攒成一页（<code>cache_size</code> 条）再整页 JSON 落盘，
+      事件很多时比逐条写快得多。单条事件超过 ~1MB 会打 warning。</li>
+      <li><b>秘密替换</b>：<code>_replace_secrets()</code> 把 token/密码在落盘前替换成
+      <code>&lt;secret_hidden&gt;</code>，避免把 API key 写进事件日志。</li>
+      <li><b>subscriber 枚举</b>：<code>AGENT_CONTROLLER / RUNTIME / MEMORY / SERVER / RESOLVER / MAIN</code>，
+      谁都能 <code>subscribe(id, callback)</code> 监听全量事件——这就是插件化监控的基础。</li>
+    </ul>
+    <div class="note">💡 控制流也是事件：早期 PR (#1538) 把「暂停/恢复/停止」也统一成
+    <code>ChangeAgentStateAction</code> → <code>AgentStateChangedObservation</code>，
+    前端改状态不再需要特殊通道，全部走同一条事件总线。</div>
+  </div>
+
+  <!-- ============ ⑤ AGENT ============ -->
+  <div class="panel" id="agent">
+    <span class="tag">DEEP DIVE</span>
+    <h2>⑤ Agent 内核：CodeAct 循环</h2>
+    <p>主角是 <b>CodeActAgent</b>，思路来自 CodeAct 论文：与其让模型输出 JSON 工具调用，
+    不如让模型直接输出<b>可执行的代码</b>（bash / Python），因为代码本身就是最强、最灵活的工具接口。</p>
+    <p>论文里给了一个极简 agent 骨架，正好看懂主循环：</p>
+    <pre><span class="kw">class</span> <span class="fn">MinimalAgent</span>:
+    <span class="kw">def</span> reset(self):
+        self.system_message = <span class="str">"You are a helpful assistant..."</span>
+
+    <span class="kw">def</span> step(self, state: State):
+        messages = [{<span class="str">'role'</span>:<span class="str">'system'</span>, <span class="str">'content'</span>: self.system_message}]
+        <span class="kw">for</span> prev_action, obs <span class="kw">in</span> state.history:   <span class="cm"># 把历史事件流还原成 LLM 消息</span>
+            messages.append(get_action_message(prev_action))
+            messages.append(get_observation_message(obs))
+        response = self.llm.do_completion(messages)   <span class="cm"># 调 LLM</span>
+        action = self.parse_response(response)         <span class="cm"># 解析意图</span>
+        <span class="kw">if</span>   self.is_finish_command(action): <span class="kw">return</span> AgentFinishAction()
+        <span class="kw">elif</span> self.is_bash_command(action):   <span class="kw">return</span> CmdRunAction(command=action.command)
+        <span class="kw">elif</span> self.is_python_code(action):   <span class="kw">return</span> IPythonRunCellAction(code=action.code)
+        <span class="kw">elif</span> self.is_browser_action(action):<span class="kw">return</span> BrowseInteractiveAction(code=action.code)
+        <span class="kw">else</span>: <span class="kw">return</span> MessageAction(content=action.message)</pre>
+    <p>真实 <code>AgentController</code>（<code>openhands/controller/agent_controller.py</code>）在这个循环之上加了：</p>
+    <ul class="b">
+      <li><b>max_iterations / max_budget</b>：步数和美元预算上限，超了就停。</li>
+      <li><b>SecurityAnalyzer</b>：每个 Action 先做风险评估；没配分析器时按 fail-safe 一律当
+      <code>UNKNOWN</code> 风险处理，确认模式下必须人工放行。</li>
+      <li><b>StuckDetector</b>：检测到模型在死循环就自动触发恢复。</li>
+      <li><b>多 Agent 委派</b>：本体可以 spawn delegate controller，子任务跑完把结果交回父控制器。</li>
+      <li><b>Condenser（记忆压缩）</b>：上下文太长时，发 <code>CondensationRequest</code>，
+      把旧事件摘要成 <code>CondensationSummaryEvent</code>，腾出窗口——这是长任务不爆 context 的关键。</li>
+    </ul>
+    <div class="note">🧠 <code>State</code> 不只是事件流，还装着：累计 LLM 花费、多 agent 委派元数据、当前 agent 状态、
+    <code>start_id</code>（断点续跑入口）等。事件流 + 这些辅助字段 = 一次会话的完整可恢复快照。</div>
+  </div>
+
+  <!-- ============ ⑥ RUNTIME ============ -->
+  <div class="panel dark" id="runtime">
+    <span class="tag">DEEP DIVE</span>
+    <h2>⑥ Runtime：Docker 沙箱里发生了什么</h2>
+    <p>每次任务，OpenHands 起一个<b>隔离的 Docker 容器</b>当沙箱，用户的 workspace 目录挂载进去。
+    容器里跑一个 <b>Action Execution Server（REST API）</b>，后端通过它发 Action、收 Observation。</p>
+    <div class="flow">
+      <div class="node"><h3>BACKEND</h3><div class="d">action_execution_client.py<br>发 Action / 收 Obs</div></div>
+      <div class="arrow">«REST»</div>
+      <div class="node"><h3>SANDBOX</h3><div class="d">ActionExecutor<br>初始化 ↓</div></div>
+    </div>
+    <div class="flow">
+      <div class="node"><h3>BASH</h3><div class="d">pexpect 维持<br>有状态 shell</div></div>
+      <div class="node"><h3>JUPYTER</h3><div class="d">IPython kernel<br>跑 Python cell</div></div>
+      <div class="node"><h3>BROWSER</h3><div class="d">Playwright +<br>BrowserGym DSL</div></div>
+      <div class="node"><h3>PLUGINS</h3><div class="d">agent-skills 等<br>按需挂载端口</div></div>
+    </div>
+    <ul class="b">
+      <li><b>任意镜像支持</b>：用户给任意 Docker 镜像，OpenHands 自动 build 出带 runtime client 的
+      <code>_od</code> 镜像，因此不再依赖 ssh——容器里直接用 <code>pexpect</code> 维持 bash 会话，
+      cwd / 环境变量都是有状态的。</li>
+      <li><b>插件系统</b>：插件继承基类 <code>Plugin</code>，在
+      <code>runtime/plugins/__init__.py</code> 的 <code>ALL_PLUGINS</code> 注册；
+      <code>Agent.sandbox_plugins</code> 声明要加载哪些（如 Jupyter、agent-skills）。</li>
+      <li><b>多 runtime 后端</b>：<code>DockerRuntime</code> / <code>LocalRuntime</code> /
+      <code>RemoteRuntime</code> / <code>E2BRuntime</code> / K8s / Modal / Daytona，同一套接口随便换。</li>
+      <li><b>端口分配</b>：用文件锁在固定区间找可用端口（runtime 主端口、VSCode 端口、web app 端口），
+      浏览器观测还能返回 HTML / DOM / 无障碍树 / 截图。</li>
+    </ul>
+  </div>
+
+  <!-- ============ ⑦ TRANSITION ============ -->
+  <div class="panel yellow" id="transition">
+    <span class="tag">2026 现状</span>
+    <h2>⑦ 正在发生的重构：V1 / Agent Canvas</h2>
+    <p>本仓库现在定位为 <b>「自托管的 agent 控制中枢 (developer control center)」</b>，
+    即 <b>Agent Canvas</b>。它把 AI agent 变成一支「永远在线」的工程小队，可接：
+    OpenHands 自带 agent、Claude Code、Codex、Gemini，或任何支持 <b>ACP</b>（Agent-Client Protocol）的 agent。</p>
+    <ul class="b">
+      <li><b>架构分层</b>：Agent Canvas 前端 ↔ <b>Agent Server</b>（REST API，跑多个 agent）↔
+      可选 <b>Automation Server</b>（定时/Webhook 触发）。</li>
+      <li><b>agentic 内核已外置</b>：原来 <code>openhands/</code> 里的 agent / runtime / controller
+      抽进了 <code>OpenHands/software-agent-sdk</code>（即 <code>openhands-sdk</code> /
+      <code>openhands-agent-server</code> / <code>openhands-tools</code>，pyproject 里固定 <code>==1.35.0</code>）。</li>
+      <li><b>本仓库剩下什么</b>：<code>openhands/server</code>、<code>openhands/app_server</code>、
+      <code>openhands/db</code>（Postgres/SQLAlchemy）、<code>frontend</code>（React+Vite）、
+      以及 <code>skills/</code>。</li>
+      <li><b>多后端切换</b>：本地笔记本、Mac Mini、云 VM、OpenHands Cloud 都能当 backend，
+      同一个 Canvas 前端一键切换，团队可共用一个 Agent Server 做 code review / 依赖升级。</li>
+    </ul>
+  </div>
+
+  <!-- ============ ⑧ STACK ============ -->
+  <div class="panel" id="stack">
+    <span class="tag">TECH</span>
+    <h2>⑧ 技术栈</h2>
+    <div class="stats">
+      <div class="stat"><div class="n">FastAPI</div><div class="l">后端框架</div></div>
+      <div class="stat"><div class="n">LiteLLM</div><div class="l">统一调所有 LLM</div></div>
+      <div class="stat"><div class="n">React+Vite</div><div class="l">前端</div></div>
+      <div class="stat"><div class="n">Docker</div><div class="l">沙箱</div></div>
+      <div class="stat"><div class="n">Playwright</div><div class="l">浏览器</div></div>
+      <div class="stat"><div class="n">SQLAlchemy</div><div class="l">DB (PG)</div></div>
+      <div class="stat"><div class="n">Redis</div><div class="l">缓存/队列</div></div>
+      <div class="stat"><div class="n">Poetry/uv</div><div class="l">依赖管理</div></div>
+    </div>
+    <p style="margin-top:14px">LLM 接入层用 <code>litellm==1.84.1</code>（精确钉死，升级需显式改），
+    因此 OpenAI / Anthropic / Gemini / Vertex / 本地 ollama 都能即插即用。
+    依赖里还钉了不少安全补丁版本（如 aiohttp 修 CVE、protobuf 修 CVE），说明维护者对供应链安全很较真。</p>
+  </div>
+
+  <!-- ============ ⑨ SKILLS ============ -->
+  <div class="panel dark" id="skills">
+    <span class="tag">SKILLS</span>
+    <h2>⑨ Skills / Microagents</h2>
+    <p>仓库根目录的 <code>skills/</code> 是一堆 Markdown「技能卡」，agent 在合适场景会自动加载，
+    相当于给模型注入领域 SOP。例如：</p>
+    <ul class="b">
+      <li><code>code-review.md</code> / <code>codereview-roasted.md</code> —— 代码评审（后者是吐槽风 😈）</li>
+      <li><code>github.md</code> / <code>gitlab.md</code> / <code>bitbucket.md</code> / <code>azure_devops.md</code> —— 各平台操作</li>
+      <li><code>agent-builder.md</code> / <code>add_agent.md</code> —— 让 agent 自己造子 agent</li>
+      <li><code>agent_memory.md</code> —— 长期记忆用法</li>
+      <li><code>docker.md</code> / <code>kubernetes.md</code> / <code>ssh.md</code> / <code>swift-linux.md</code> —— 环境相关</li>
+      <li><code>fix_test.md</code> / <code>fix-py-line-too-long.md</code> / <code>update_pr_description.md</code> —— 工程杂活</li>
+    </ul>
+    <p>还有 <b>microagents</b> 概念：仓库级 <code>.openhands/microagents/</code> 放「这个仓库的上下文」，
+    任务级 microagent 放「这个具体任务的指令」，agent 启动时自动召回，等于把 RAG 塞进了事件流。</p>
+  </div>
+
+  <!-- ============ ⑩ RUN ============ -->
+  <div class="panel" id="run">
+    <span class="tag">RUN IT</span>
+    <h2>⑩ 怎么跑起来</h2>
+    <p><b>方式一：Docker 沙箱（最推荐，隔离最干净）</b></p>
+    <pre>export PROJECTS_PATH=<span class="str">"$HOME/projects"</span>
+docker run -it --rm -p 8000:8000 \
+  -v <span class="str">"$HOME/.openhands:/home/openhands/.openhands"</span> \
+  -v <span class="str">"${PROJECTS_PATH}:/projects"</span> \
+  ghcr.io/openhands/agent-canvas:1.0.0-rc.11</pre>
+    <p><b>方式二：免沙箱直跑（⚠️ agent 能碰你整台机器的文件系统！）</b></p>
+    <pre>npm install -g @openhands/agent-canvas
+agent-canvas            <span class="cm"># 完整本地栈</span>
+<span class="cm"># 也可拆开：</span>
+agent-canvas --frontend-only
+agent-canvas --backend-only</pre>
+    <p><b>方式三：从源码（Vite 前端 + Python 后端）</b></p>
+    <pre>git clone https://github.com/OpenHands/agent-canvas.git
+cd agent-canvas &amp;&amp; npm install &amp;&amp; npm run dev</pre>
+    <p>跑起来后访问 <code>http://localhost:8000</code>，在 UI 里加 LLM key、选 backend 即可开聊。</p>
+  </div>
+
+  <!-- ============ FOOTER ============ -->
+  <div class="panel purple" style="text-align:center">
+    <h2 style="color:var(--yellow)">★ 一句话总结 ★</h2>
+    <p>OpenHands = <b>事件流总线</b> + <b>CodeAct 式 agent 循环</b> + <b>Docker 沙箱执行器</b>，
+    用「一切皆事件」把模型、环境、UI 彻底解耦；如今它正裂变成 <b>Agent Canvas 控制面板 + 独立 SDK 内核</b>，
+    朝着「自托管的、永远在线的 AI 工程小队」演进。<span class="blink">▮</span></p>
+    <p class="legend">数据抓取于 2026-07-13 · stars/forks 为实时值 · 架构解读综合自 arXiv:2407.16741 与仓库源码</p>
+  </div>
+
+  <footer>made with ♥ — <span class="pf" style="font-size:9px">OpenHands 深度解读</span></footer>
+</div>
+<a href="tp.html" style="position:fixed;left:18px;bottom:18px;z-index:90;display:inline-flex;align-items:center;gap:7px;font:600 14px/1 system-ui,sans-serif;color:#fff;text-decoration:none;background:linear-gradient(120deg,#ff6b5e,#7c5cff);padding:11px 17px;border-radius:12px;box-shadow:0 8px 30px rgba(124,92,255,.4)">← 返回 TP 中心</a>
+<script>
+/* Theme button icon sync */
+(function(){
+  var btn=document.querySelector('.theme-btn');
+  if(!btn)return;
+  function sync(){btn.textContent=document.documentElement.dataset.theme==='dark'?'☀️':'🌙';}
+  sync();
+  btn.addEventListener('click',function(){setTimeout(sync,0);});
+})();
+</script>
+<script>
+/* Auto-collapse TOC: only expand the section containing the current page */
+(function(){
+  var details=document.querySelectorAll('aside.toc details.toc-sec');
+  if(details.length<2)return;
+  var current=location.pathname.replace(/\/$/,'');
+  var activeLink=null;
+  document.querySelectorAll('aside.toc a').forEach(function(a){
+    var href=a.getAttribute('href')||'';
+    if(href && !href.startsWith('http') && !href.startsWith('#')){
+      var path=href.replace(/^https?:\/\/[^\/]+/,'').replace(/\/$/,'');
+      if(current===path || current.indexOf(path)>-1 || path.indexOf(current)>-1){
+        activeLink=a;
+      }
+    }
+  });
+  details.forEach(function(d){
+    if(activeLink && d.contains(activeLink)){d.setAttribute('open','');}
+    else{d.removeAttribute('open');}
+  });
+})();
+</script>
+</body>
+</html>

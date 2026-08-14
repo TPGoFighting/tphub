@@ -1,0 +1,11 @@
+# TPvibe robots.txt
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://tphub.tpgofighting.top/tpvibe/sitemap.xml
+
+# Block crawl temp directories
+Disallow: /tpvibe/_crawl/
+Disallow: /tpvibe/__pycache__/
+Disallow: /tpvibe/archive/

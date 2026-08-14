@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="geo.region" content="CN">
+<meta name="geo.placename" content="China">
+<meta name="geo.position" content="39.9042;116.4074">
+<meta name="ICBM" content="39.9042, 116.4074">
+<link rel="icon" href="/tpvibe/images/tp_logo.jpg" type="image/png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Docker 应用 | TPvibe</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/tpvibe/style.css">
+<!-- SEO:tphub -->
+<meta name="description" content="Docker 应用 — TPvibe 中文 AI 学习与实战教程，从零基础到进阶，边学边做。">
+<link rel="canonical" href="https://tphub.tpgofighting.top/tpvibe/Advanced/ch14/03-1-docker-apps.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="TPvibe">
+<meta property="og:title" content="Docker 应用 | TPvibe">
+<meta property="og:description" content="Docker 应用 — TPvibe 中文 AI 学习与实战教程，从零基础到进阶，边学边做。">
+<meta property="og:url" content="https://tphub.tpgofighting.top/tpvibe/Advanced/ch14/03-1-docker-apps.html">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://tphub.tpgofighting.top/tpvibe/images/tp_logo.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Docker 应用 | TPvibe">
+<meta name="twitter:description" content="Docker 应用 — TPvibe 中文 AI 学习与实战教程，从零基础到进阶，边学边做。">
+<meta name="twitter:image" content="https://tphub.tpgofighting.top/tpvibe/images/tp_logo.jpg">
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "name": "Docker 应用",
+  "url": "https://tphub.tpgofighting.top/tpvibe/Advanced/ch14/03-1-docker-apps.html",
+  "description": "TPvibe 中文 AI 学习与实战教程：从零基础到进阶，边学边做，附可运行示例与实战项目。",
+  "inLanguage": "zh-CN",
+  "isPartOf": {"@type": "WebSite", "name": "TPvibe", "url": "https://tphub.tpgofighting.top/tpvibe/"}
+}</script>
+<!-- GEO:v2 -->
+<!-- LOGOFIX:v2 -->
+</head>
+<body>
+<aside class="toc" id="toc">
+<button class="toc-toggle" id="tocToggle" aria-label="收起目录">«</button>
+<div class="toc-inner">
+<a class="toc-home" href="/tpvibe/index.html">TPvibe 首页</a>
+<details class="toc-sec">
+<summary>基础篇</summary>
+<ul class="toc-tree">
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Basic/lecture-1.html">00 序言</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Basic/lecture-1/0.1-start-here.html">开始之前</a></li>
+<li><a href="/tpvibe/Basic/lecture-1/0.2-what-you-will-build.html">你要做什么</a></li>
+<li><a href="/tpvibe/Basic/lecture-1/0.3-who-this-is-for.html">适合谁学</a></li>
+<li><a href="/tpvibe/Basic/lecture-1/0.4-how-to-learn.html">怎么学</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Basic/lecture-2.html">01 觉醒</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Basic/lecture-2/1.1-coder-to-commander.html">从程序员到指挥官</a></li>
+<li><a href="/tpvibe/Basic/lecture-2/1.2-breaking-myths.html">打破误区</a></li>
+<li><a href="/tpvibe/Basic/lecture-2/1.3-tools-guide.html">工具选择指南</a></li>
+<li><a href="/tpvibe/Basic/lecture-2/1.4-vibe-vs-spec.html">Vibe Coding vs 规格驱动</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Basic/lecture-3.html">02 心智</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Basic/lecture-3/2.1-thinking-upgrade.html">思维升级</a></li>
+<li><a href="/tpvibe/Basic/lecture-3/2.2-inversion-thinking.html">逆向思维</a></li><li><a href="/tpvibe/Basic/lecture-3/2.3-subtraction-thinking.html">减法思维</a></li>
+<li><a href="/tpvibe/Basic/lecture-3/2.4-story-thinking.html">故事思维</a></li>
+
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Basic/lecture-4.html">03 技法</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Basic/lecture-4/3.1-prompt-basics.html">提示词基础</a></li>
+<li><a href="/tpvibe/Basic/lecture-4/3.2-structured-frameworks.html">结构化框架</a></li>
+<li><a href="/tpvibe/Basic/lecture-4/3.3-advanced-techniques.html">进阶技巧</a></li>
+<li><a href="/tpvibe/Basic/lecture-4/3.4-first-prd.html">第一份 PRD</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Basic/lecture-5.html">04 从0到1</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Basic/lecture-5/4.1-before-start.html">搭建前准备</a></li>
+<li><a href="/tpvibe/Basic/lecture-5/4.2-build-page.html">搭建页面</a></li>
+<li><a href="/tpvibe/Basic/lecture-5/4.3-core-features.html">核心功能</a></li>
+<li><a href="/tpvibe/Basic/lecture-5/4.4-data-storage.html">数据存储</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Basic/appendix-a.html">05 进阶</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Basic/appendix-a/5.1-version-control.html">版本控制</a></li>
+<li><a href="/tpvibe/Basic/appendix-a/5.2-deployment.html">部署上线</a></li>
+<li><a href="/tpvibe/Basic/appendix-a/5.3-security.html">安全防护</a></li>
+<li><a href="/tpvibe/Basic/appendix-a/5.4-iteration.html">迭代优化</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Basic/appendix-b.html">06 上线</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Basic/appendix-b/6.1-preflight.html">发布前检查</a></li>
+<li><a href="/tpvibe/Basic/appendix-b/6.2-deploy.html">发布流程</a></li>
+<li><a href="/tpvibe/Basic/appendix-b/6.3-feedback.html">收集反馈</a></li>
+<li><a href="/tpvibe/Basic/appendix-b/6.4-wrap-up.html">总结回顾</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Basic/appendix-c.html">99 附录</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Basic/appendix-c/a-prompt-cheatsheet.html">提示词速查表</a></li>
+<li><a href="/tpvibe/Basic/appendix-c/b-errors-and-asking-ai.html">常见错误与求助</a></li>
+<li><a href="/tpvibe/Basic/appendix-c/c-ui-cheatsheet.html">UI 速查表</a></li>
+<li><a href="/tpvibe/Basic/appendix-c/d-git-minimal-card.html">Git 最小知识卡</a></li>
+<li><a href="/tpvibe/Basic/appendix-c/e-api-key-env-security.html">API Key 与环境安全</a></li>
+<li><a href="/tpvibe/Basic/appendix-c/f-vibe-coding-can-and-cannot.html">Vibe Coding 能做与不能做</a></li>
+<li><a href="/tpvibe/Basic/appendix-c/g-advanced-jump-map.html">进阶跳转地图</a></li>
+</ul>
+</li>
+<li class="toc-chapter">
+<a href="/tpvibe/Basic/conclusion.html">100 结语</a>
+</li>
+</ul>
+</details>
+<details class="toc-sec">
+<summary>进阶篇</summary>
+<ul class="toc-tree">
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch01.html">01 环境搭建</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch01/00-quick-start.html">快速上手</a></li>
+<li><a href="/tpvibe/Advanced/ch01/01-code-formats.html">代码格式与编辑器</a></li>
+<li><a href="/tpvibe/Advanced/ch01/02-tech-stack.html">技术栈选择</a></li>
+<li><a href="/tpvibe/Advanced/ch01/03-browser-server.html">浏览器与服务器</a></li>
+<li><a href="/tpvibe/Advanced/ch01/04-terminal-basics.html">终端基础操作</a></li>
+<li><a href="/tpvibe/Advanced/ch01/05-package-manager-and-config.html">包管理与配置文件</a></li>
+<li><a href="/tpvibe/Advanced/ch01/06-models-and-tools.html">AI 模型与工具选择</a></li>
+<li><a href="/tpvibe/Advanced/ch01/07-creating-project.html">创建你的第一个项目</a></li>
+<li><a href="/tpvibe/Advanced/ch01/08-localhost-and-ports.html">本地服务器与端口</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch02.html">02 开发工具与AI调优</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch02/01-ai-economics.html">AI 经济学</a></li>
+<li><a href="/tpvibe/Advanced/ch02/02-vibecoding-workflow.html">Vibe Coding 工作流</a></li>
+<li><a href="/tpvibe/Advanced/ch02/03-mcp-and-skills.html">MCP 与 Skills</a></li>
+<li><a href="/tpvibe/Advanced/ch02/04-project-config.html">项目配置</a></li>
+<li><a href="/tpvibe/Advanced/ch02/05-debugging-tips.html">调试技巧</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch03.html">03 产品验证</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch03/01-product-validation.html">产品验证</a></li>
+<li><a href="/tpvibe/Advanced/ch03/02-discuss-with-ai.html">与 AI 讨论</a></li>
+<li><a href="/tpvibe/Advanced/ch03/03-prd-template-guide.html">PRD 模板指南</a></li>
+<li><a href="/tpvibe/Advanced/ch03/04-coding-agents.html">编码代理</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch04.html">04 编程基础</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch04/00-build-basics.html">构建基础</a></li>
+<li><a href="/tpvibe/Advanced/ch04/01-tech-stack-decision.html">技术栈决策</a></li>
+<li><a href="/tpvibe/Advanced/ch04/03-programming-basics.html">编程基础</a></li>
+<li><a href="/tpvibe/Advanced/ch04/02-prd-and-tech-docs.html">PRD 与技术文档</a></li>
+<li><a href="/tpvibe/Advanced/ch04/04-api-and-http.html">API 与 HTTP</a></li>
+<li><a href="/tpvibe/Advanced/ch04/05-frontend-backend-separation.html">前后端分离</a></li>
+<li><a href="/tpvibe/Advanced/ch04/06-config-formats.html">配置格式</a></li>
+<li><a href="/tpvibe/Advanced/ch04/07-api-integration.html">API 集成</a></li>
+<li><a href="/tpvibe/Advanced/ch04/08-readme-structure.html">README 结构</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch05.html">05 好看好用的界面</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch05/03-animation-libraries.html">动画库</a></li>
+</ul>
+</li>
+<li class="toc-chapter">
+<a href="/tpvibe/Advanced/ch06.html">06 数据存哪里</a>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch07.html">07 连接前后端</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch07/00-crud-example.html">CRUD 示例</a></li>
+<li><a href="/tpvibe/Advanced/ch07/02-when-things-go-wrong.html">出错处理</a></li>
+<li><a href="/tpvibe/Advanced/ch07/03-api-as-product.html">API 即产品</a></li>
+<li><a href="/tpvibe/Advanced/ch07/01-api-growing-pains.html">API 成长烦恼</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch08.html">08 谁能访问数据</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch08/00-user-system-example.html">用户系统示例</a></li>
+<li><a href="/tpvibe/Advanced/ch08/01-env-and-secrets.html">环境变量与密钥</a></li>
+<li><a href="/tpvibe/Advanced/ch08/03-route-protection.html">路由保护</a></li>
+<li><a href="/tpvibe/Advanced/ch08/04-security-checklist.html">安全清单</a></li>
+<li><a href="/tpvibe/Advanced/ch08/05-advanced-security.html">高级安全</a></li>
+<li><a href="/tpvibe/Advanced/ch08/02-auth-methods.html">认证方式</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch09.html">09 功能测试</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch09/01-testing-strategy.html">测试策略</a></li>
+<li><a href="/tpvibe/Advanced/ch09/02-api-and-e2e-testing.html">API 与 E2E 测试</a></li>
+<li><a href="/tpvibe/Advanced/ch09/03-automation-workflow.html">自动化工作流</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch10.html">10 公网访问</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch10/01-network-layers.html">网络分层</a></li>
+<li><a href="/tpvibe/Advanced/ch10/02-tunneling.html">隧道穿透</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch11.html">11 协作开发</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch11/01-why-git.html">为什么用 Git</a></li>
+<li><a href="/tpvibe/Advanced/ch11/02-remote-and-collaboration.html">远程与协作</a></li>
+<li><a href="/tpvibe/Advanced/ch11/03-branch-and-workflow.html">分支与工作流</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch12.html">12 无服务器部署</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch12/01-deploy-edgeone.html">EdgeOne 部署</a></li>
+<li><a href="/tpvibe/Advanced/ch12/02-deploy-vercel-platforms.html">Vercel 等平台部署</a></li>
+<li><a href="/tpvibe/Advanced/ch12/03-cicd-automation.html">CI/CD 自动化</a></li>
+<li><a href="/tpvibe/Advanced/ch12/04-operations-cost.html">运维成本</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch13.html">13 域名解析</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch13/01-domain-setup.html">域名设置</a></li>
+<li><a href="/tpvibe/Advanced/ch13/02-compliance-access.html">合规接入</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch14.html">14 部署到服务器</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch14/01-vps-selection.html">VPS 选择</a></li>
+<li><a href="/tpvibe/Advanced/ch14/02-vps-setup.html">VPS 配置</a></li>
+<li><a href="/tpvibe/Advanced/ch14/03-1-docker-apps.html" class="active">Docker 应用</a></li>
+<li><a href="/tpvibe/Advanced/ch14/03-2-deploy-nextjs.html">部署 Next.js</a></li>
+<li><a href="/tpvibe/Advanced/ch14/03-4-deploy-fullstack.html">部署全栈应用</a></li>
+<li><a href="/tpvibe/Advanced/ch14/05-cool-apps.html">酷应用</a></li>
+<li><a href="/tpvibe/Advanced/ch14/03-3-deploy-static.html">部署静态站点</a></li>
+<li><a href="/tpvibe/Advanced/ch14/04-domain-ssl.html">域名与 SSL</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch15.html">15 SEO与统计</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch15/01-opengraph-sharing.html">OpenGraph 分享</a></li>
+<li><a href="/tpvibe/Advanced/ch15/02-seo-guide.html">SEO 指南</a></li>
+<li><a href="/tpvibe/Advanced/ch15/03-umami.html">Umami 统计</a></li>
+<li><a href="/tpvibe/Advanced/ch15/04-legal.html">法律合规</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch16.html">16 反馈与迭代</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch16/01-facing-real-users.html">面向真实用户</a></li>
+<li><a href="/tpvibe/Advanced/ch16/02-feedback-prioritization.html">反馈优先级</a></li>
+<li><a href="/tpvibe/Advanced/ch16/03-understanding-users.html">理解用户</a></li>
+<li><a href="/tpvibe/Advanced/ch16/04-iteration-and-growth.html">迭代与增长</a></li>
+</ul>
+</li>
+<li class="toc-chapter">
+<a href="/tpvibe/Advanced/next-level.html">进阶实战</a>
+</li>
+</ul>
+</details>
+<details class="toc-sec">
+<summary>文章</summary>
+<ul class="toc-tree">
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Articles/core-concepts.html">核心概念</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Articles/core-concepts/what-are-ai-agents-why-do-they-matter.html">AI Agent 是什么</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Articles/architecture.html">技术架构</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Articles/architecture/how-claude-code-works.html">Claude Code 如何工作</a></li>
+<li><a href="/tpvibe/Articles/architecture/mcp-what-it-is-and-why-it-matters.html">MCP 是什么及为何重要</a></li>
+<li><a href="/tpvibe/Articles/architecture/build-agents-with-filesystems-and-bash.html">用文件系统和 Bash 构建 Agent</a></li>
+<li><a href="/tpvibe/Articles/architecture/testing-bash-vs-sql.html">Bash vs SQL 测试</a></li>
+<li><a href="/tpvibe/Articles/architecture/multi-agent-systems-ai-native-engineering.html">多 Agent 系统与 AI 原生工程</a></li>
+<li><a href="/tpvibe/Articles/architecture/self-improving-coding-agents.html">自我改进的编码 Agent</a></li>
+<li><a href="/tpvibe/Articles/architecture/nvidia-ai-5-layer-cake.html">NVIDIA AI 五层架构</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Articles/tools.html">工具链</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Articles/tools/how-to-write-good-spec-for-ai-agents.html">如何为 AI Agent 写 Spec</a></li>
+<li><a href="/tpvibe/Articles/tools/ai-driven-prototyping-v0-bolt-and-lovable-compared.html">AI 原型工具对比</a></li>
+<li><a href="/tpvibe/Articles/tools/why-i-use-cline-for-ai-engineering.html">为什么用 Cline 做 AI 工程</a></li>
+<li><a href="/tpvibe/Articles/tools/agents-md-vs-skills.html">AGENTS.md 与 Skills 对比</a></li>
+<li><a href="/tpvibe/Articles/tools/complete-guide-to-building-skills-for-claude.html">Claude Skills 构建指南</a></li>
+<li><a href="/tpvibe/Articles/tools/we-removed-80-percent-tools.html">我们移除了 80% 的工具</a></li>
+<li><a href="/tpvibe/Articles/tools/claude-code-swarms.html">Claude Code 集群</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Articles/engineering.html">工程实践</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Articles/engineering/ai-writes-code-faster-your-job-is-to-prove-it-works.html">AI 写代码更快，你要证明它有效</a></li>
+<li><a href="/tpvibe/Articles/engineering/beyond-the-70-maximizing-the-human-30-of-ai-assisted-coding.html">超越 70%：最大化人类 30%</a></li>
+<li><a href="/tpvibe/Articles/engineering/avoiding-skill-atrophy-in-the-age-of-ai.html">AI 时代的技能退化</a></li>
+<li><a href="/tpvibe/Articles/engineering/how-to-write-a-good-spec-for-ai-agents.html">如何为 AI Agent 写好 Spec</a></li>
+<li><a href="/tpvibe/Articles/engineering/leading-effective-engineering-teams-in-the-age-of-genai.html">GenAI 时代的工程团队领导</a></li>
+<li><a href="/tpvibe/Articles/engineering/your-ai-coding-agents-need-a-manager.html">AI 编码 Agent 需要管理者</a></li>
+<li><a href="/tpvibe/Articles/engineering/ai-code-review-implementation.html">AI 代码审查实现</a></li>
+<li><a href="/tpvibe/Articles/engineering/react-best-practices.html">React 最佳实践</a></li>
+<li><a href="/tpvibe/Articles/engineering/vercel-aeo-tracking.html">Vercel AEO 追踪</a></li>
+<li><a href="/tpvibe/Articles/engineering/my-llm-coding-workflow-going-into-2026.html">2026 年我的 LLM 工作流</a></li>
+<li><a href="/tpvibe/Articles/engineering/stop-using-init-for-agents.html">停止对 Agent 使用 init</a></li>
+<li><a href="/tpvibe/Articles/engineering/video-generation-with-ai-gateway.html">AI 网关视频生成</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Articles/security.html">安全合规</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Articles/security/ai-agents-threats-and-mitigations.html">AI Agent 威胁与缓解</a></li>
+<li><a href="/tpvibe/Articles/security/security-boundaries-in-agentic-architectures.html">Agent 架构安全边界</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Articles/business.html">商业趋势</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Articles/business/the-next-two-years-of-software-engineering.html">软件工程的未来两年</a></li>
+<li><a href="/tpvibe/Articles/business/how-openevidence-built-healthcare-ai-physicians-trust.html">OpenEvidence 医疗 AI</a></li>
+<li><a href="/tpvibe/Articles/business/keeping-community-human-while-scaling-with-agents.html">用 Agent 扩展时保持人性</a></li>
+</ul>
+</li>
+</ul>
+</details>
+<details class="toc-sec">
+<summary>实践案例</summary>
+<ul class="toc-tree">
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Practice/index.html">实践案例</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Practice/index/vibe-coding-methodology.html">Vibe Coding 方法论</a></li>
+<li><a href="/tpvibe/Practice/index/ai-canvas-vibecoding-journey.html">AI Canvas 之旅</a></li>
+<li><a href="/tpvibe/Practice/index/ai-picture-book-generator.html">AI 绘本生成器</a></li>
+<li><a href="/tpvibe/Practice/index/ai-resume-saas.html">AI 简历 SaaS</a></li>
+<li><a href="/tpvibe/Practice/index/full-stack-21-day-thinking-habit-game.html">21 天思维习惯游戏</a></li>
+</ul>
+</li>
+</ul>
+</details>
+</div>
+</aside>
+<script>
+(function(){
+  /* Move toc-toggle to body to avoid overflow/transform clipping */
+  var tocToggle=document.getElementById('tocToggle');
+  var toc=document.getElementById('toc');
+  if(tocToggle&&toc){
+    document.body.appendChild(tocToggle);
+    tocToggle.style.position='fixed';
+    tocToggle.style.top='70px';
+    tocToggle.style.left='254px';
+    tocToggle.style.zIndex='41';
+    tocToggle.style.width='28px';
+    tocToggle.style.height='28px';
+    tocToggle.style.borderRadius='50%';
+    tocToggle.style.border='1px solid var(--line)';
+    tocToggle.style.background='var(--card)';
+    tocToggle.style.color='var(--muted)';
+    tocToggle.style.cursor='pointer';
+    tocToggle.style.display='grid';
+    tocToggle.style.placeItems='center';
+    tocToggle.style.boxShadow='0 4px 14px var(--shadow)';
+    tocToggle.style.fontSize='14px';
+    tocToggle.style.fontWeight='700';
+    tocToggle.style.transition='left .35s cubic-bezier(.34,1.3,.64,1), background .2s, color .2s, border-color .2s';
+    tocToggle.addEventListener('mouseenter',function(){
+      this.style.background='var(--soft)';
+      this.style.color='var(--accent)';
+      this.style.borderColor='var(--accent)';
+    });
+    tocToggle.addEventListener('mouseleave',function(){
+      this.style.background='var(--card)';
+      this.style.color='var(--muted)';
+      this.style.borderColor='var(--line)';
+    });
+    tocToggle.addEventListener('click',function(){
+      toc.classList.toggle('collapsed');
+      var c=toc.classList.contains('collapsed');
+      this.style.left=c?'8px':'254px';
+      this.textContent=c?'»':'«';
+      this.setAttribute('aria-label',c?'展开目录':'收起目录');
+    });
+  }
+  /* Mobile scrim click to close */
+  var scrim=document.querySelector('.toc-scrim');
+  if(scrim){
+    scrim.addEventListener('click',function(){
+      var cb=document.getElementById('tocToggleMobile');
+      if(cb)cb.checked=false;
+    });
+  }
+  /* Chapter expand/collapse (L1) */
+  document.querySelectorAll('.toc-chapter-toggle').forEach(function(btn){
+    btn.addEventListener('click',function(e){
+      e.preventDefault();
+      e.stopPropagation();
+      var li=this.closest('.toc-chapter');
+      if(li)li.classList.toggle('expanded');
+    });
+  });
+  /* Auto-expand: find active link and open its section + chapter */
+  var currentRaw=location.pathname.replace(/\/$/,'');
+  var activeLink=null;
+  document.querySelectorAll('aside.toc a[href]').forEach(function(a){
+    var href=a.getAttribute('href')||'';
+    if(!href||href.startsWith('http')||href.startsWith('#'))return;
+    var path=href.replace(/^https?:\/\/[^\/]+/,'').replace(/\/$/,'');
+    /* Skip home link for active matching */
+    if(path.indexOf('/index.html')>=0&&currentRaw.indexOf('/index.html')<0)return;
+    if(currentRaw===path){activeLink=a;return;}
+    /* Also check if currentRaw contains the path (for sub-pages) */
+    if(path.length>5&&currentRaw.indexOf(path)>=0){activeLink=a;}
+  });
+  /* Open the section (L0) containing active link, close others */
+  var sections=document.querySelectorAll('aside.toc details.toc-sec');
+  if(sections.length>0){
+    sections.forEach(function(d){
+      if(activeLink&&d.contains(activeLink)){d.setAttribute('open','');}
+      else{d.removeAttribute('open');}
+    });
+  }
+  /* Expand the chapter (L1) containing active link */
+  if(activeLink){
+    var chap=activeLink.closest('.toc-chapter.has-children');
+    if(chap)chap.classList.add('expanded');
+  }
+  /* If no active link found (e.g. index page), open first section and first chapter */
+  if(!activeLink&&sections.length>0){
+    sections[0].setAttribute('open','');
+    var firstChapter=sections[0].querySelector('.toc-chapter.has-children');
+    if(firstChapter)firstChapter.classList.add('expanded');
+  }
+})();
+</script>
+
+<div id="progress"></div>
+<header class="site-header">
+<div class="header-inner">
+  <a href="/tpvibe/index.html" class="logo"><img src="/tpvibe/images/tp_logo.jpg" alt="TPvibe" width="200" height="200"> TPvibe</a>
+  <input type="checkbox" id="nav-toggle-cb" class="nav-toggle-cb" aria-hidden="true">
+  <label for="nav-toggle-cb" class="nav-toggle" aria-label="打开菜单">&#9776;</label>
+  <nav><ul class="nav-links"><li><a href="/tpvibe/index.html">TPvibe</a></li><li><a href="/tpvibe/index.html">首页</a></li><li><a href="/tpvibe/Basic/lecture-1.html">基础篇</a></li><li><a href="/tpvibe/Advanced/ch01.html">进阶篇</a></li><li><a href="/tpvibe/Articles/core-concepts.html">文章</a></li><li><a href="/tpvibe/Practice/index.html">实践案例</a></li></ul>
+</nav>
+<button class="theme-btn" aria-label="切换主题" onclick="document.documentElement.dataset.theme=document.documentElement.dataset.theme==='dark'?'light':'dark';localStorage.setItem('tpvibe-theme',document.documentElement.dataset.theme)">🌙</button>
+</div>
+</header>
+<main class="container">
+<h1 class="page-title">Docker 应用</h1>
+
+<!-- Docker Container Animation Demo -->
+<div style="background:linear-gradient(135deg,#0db7ed 0%,#0d6efd 100%);border-radius:var(--radius);padding:2.5rem;margin:2rem 0;text-align:center;">
+  <h3 style="color:#fff;font-size:1.1rem;margin-bottom:1.5rem;font-family:'Space Grotesk';">Docker 容器部署流程</h3>
+  <div id="docker-demo" style="display:flex;justify-content:center;gap:1.2rem;flex-wrap:wrap;">
+    <div class="docker-box" style="background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);border-radius:10px;padding:1rem 1.5rem;color:#fff;font-size:.85rem;opacity:0;transform:translateY(30px);">📦 镜像构建</div>
+    <div class="docker-box" style="background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);border-radius:10px;padding:1rem 1.5rem;color:#fff;font-size:.85rem;opacity:0;transform:translateY(30px);">🐳 容器启动</div>
+    <div class="docker-box" style="background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);border-radius:10px;padding:1rem 1.5rem;color:#fff;font-size:.85rem;opacity:0;transform:translateY(30px);">🌐 端口映射</div>
+    <div class="docker-box" style="background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);border-radius:10px;padding:1rem 1.5rem;color:#fff;font-size:.85rem;opacity:0;transform:translateY(30px);">✅ 健康检查</div>
+  </div>
+  <div style="margin-top:1.5rem;height:4px;background:rgba(255,255,255,.2);border-radius:2px;overflow:hidden;max-width:400px;margin-left:auto;margin-right:auto;">
+    <div id="docker-progress" style="height:100%;width:0;background:#fff;border-radius:2px;transition:width 2s ease;"></div>
+  </div>
+</div>
+<script>
+(function(){
+  const boxes=document.querySelectorAll('.docker-box');
+  const bar=document.getElementById('docker-progress');
+  let i=0;
+  function showNext(){
+    if(i<boxes.length){
+      boxes[i].style.transition='all .5s ease';
+      boxes[i].style.opacity='1';
+      boxes[i].style.transform='translateY(0)';
+      bar.style.width=((i+1)/boxes.length*100)+'%';
+      i++;
+      setTimeout(showNext,600);
+    } else {
+      setTimeout(()=>{
+        boxes.forEach(b=>{b.style.opacity='0';b.style.transform='translateY(30px)';});
+        bar.style.width='0';
+        i=0;
+        setTimeout(showNext,800);
+      },2500);
+    }
+  }
+  const obs=new IntersectionObserver(e=>{if(e[0].isIntersecting){showNext();obs.disconnect();}});
+  obs.observe(document.getElementById('docker-demo'));
+})();
+</script>
+<div class="page-cover reveal">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400" preserveAspectRatio="xMidYMid slice" style="width:100%;height:100%;display:block;">
+  <defs>
+    <linearGradient id="bg-2970139670" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0f172a"/>
+      <stop offset="100%" style="stop-color:#1e3a8a"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="400" fill="url(#bg-2970139670)"/>
+  <polygon points="29,67 0,84 -29,67 -29,33 -0,16 29,33" fill="white" opacity="0.04"/>
+<polygon points="189,67 160,83 131,67 131,33 160,17 189,33" fill="white" opacity="0.03"/>
+<polygon points="348,66 320,83 292,66 292,34 320,17 348,34" fill="white" opacity="0.03"/>
+<polygon points="508,66 480,82 452,66 452,34 480,18 508,34" fill="white" opacity="0.03"/>
+<polygon points="668,66 640,82 612,66 612,34 640,18 668,34" fill="white" opacity="0.11"/>
+<polygon points="827,66 800,82 773,66 773,34 800,18 827,34" fill="white" opacity="0.11"/>
+<polygon points="987,66 960,81 933,66 933,34 960,19 987,34" fill="white" opacity="0.11"/>
+<polygon points="1147,65 1120,81 1093,65 1093,35 1120,19 1147,35" fill="white" opacity="0.10"/>
+<polygon points="106,165 80,180 54,165 54,135 80,120 106,135" fill="white" opacity="0.10"/>
+<polygon points="283,175 240,200 197,175 197,125 240,100 283,125" fill="white" opacity="0.10"/>
+<polygon points="443,175 400,199 357,175 357,125 400,101 443,125" fill="white" opacity="0.10"/>
+<polygon points="602,174 560,199 518,174 518,126 560,101 602,126" fill="white" opacity="0.10"/>
+<polygon points="762,174 720,198 678,174 678,126 720,102 762,126" fill="white" opacity="0.10"/>
+<polygon points="922,174 880,198 838,174 838,126 880,102 922,126" fill="white" opacity="0.09"/>
+<polygon points="1081,174 1040,198 999,174 999,126 1040,102 1081,126" fill="white" opacity="0.09"/>
+<polygon points="1241,174 1200,197 1159,174 1159,126 1200,103 1241,126" fill="white" opacity="0.09"/>
+<polygon points="40,273 0,297 -40,273 -40,227 -0,203 40,227" fill="white" opacity="0.09"/>
+<polygon points="200,273 160,296 120,273 120,227 160,204 200,227" fill="white" opacity="0.09"/>
+<polygon points="360,273 320,296 280,273 280,227 320,204 360,227" fill="white" opacity="0.08"/>
+<polygon points="519,273 480,295 441,273 441,227 480,205 519,227" fill="white" opacity="0.08"/>
+<polygon points="679,272 640,295 601,272 601,228 640,205 679,228" fill="white" opacity="0.08"/>
+<polygon points="839,272 800,294 761,272 761,228 800,206 839,228" fill="white" opacity="0.08"/>
+<polygon points="998,272 960,294 922,272 922,228 960,206 998,228" fill="white" opacity="0.08"/>
+<polygon points="1158,272 1120,294 1082,272 1082,228 1120,206 1158,228" fill="white" opacity="0.08"/>
+<polygon points="117,372 80,393 43,372 43,328 80,307 117,328" fill="white" opacity="0.07"/>
+<polygon points="277,371 240,393 203,371 203,329 240,307 277,329" fill="white" opacity="0.07"/>
+<polygon points="437,371 400,392 363,371 363,329 400,308 437,329" fill="white" opacity="0.07"/>
+<polygon points="596,371 560,392 524,371 524,329 560,308 596,329" fill="white" opacity="0.07"/>
+<polygon points="756,371 720,391 684,371 684,329 720,309 756,329" fill="white" opacity="0.07"/>
+<polygon points="915,370 880,391 845,370 845,330 880,309 915,330" fill="white" opacity="0.07"/>
+<polygon points="1075,370 1040,390 1005,370 1005,330 1040,310 1075,330" fill="white" opacity="0.06"/>
+<polygon points="1235,370 1200,390 1165,370 1165,330 1200,310 1235,330" fill="white" opacity="0.06"/>
+
+  
+  <text x="60" y="340" font-family="system-ui, -apple-system, sans-serif" font-size="36" font-weight="700" fill="white">Docker 应用</text>
+  <rect x="60" y="355" width="60" height="4" rx="2" fill="#06b6d4"/>
+</svg>
+</div>
+
+<div class="content reveal">
+<blockquote><p><strong>本节目标</strong>：理解 Docker 的核心概念，学会用 1Panel 应用商店一键安装和管理各种服务。</p></blockquote><p>小明打开 1Panel 的应用商店，看到数据库、Web 服务器、监控工具整整齐齐地排列着——&quot;这不就是手机应用商店吗？点一下就装好了。&quot;</p><h2>Docker 到底是什么？ </h2><p>老师傅说：&quot;你手机上的 App 都是从应用商店下载的安装包，点一下就装好了。Docker 也是这个思路，只不过是给服务器用的。&quot;</p><ul><li><strong>镜像（Image）</strong>：就像应用商店里的安装包。&quot;PostgreSQL 18 镜像&quot;就是一个打包好的数据库安装包，里面包含了所有需要的文件和配置。</li><li><strong>容器（Container）</strong>：就像你手机上运行的 App。不同的是，在这里同一个安装包可以装多次，每个都是独立运行的，互不影响。</li><li><strong>仓库（Registry）</strong>：就像应用商店。Docker Hub 是最大的&quot;服务器应用商店&quot;，里面有几十万个现成的应用安装包。</li></ul><div class="callout"><p><strong>为什么用 Docker？</strong></p><p>不用 Docker 的话，你要在服务器上手动安装 PostgreSQL、配置 Redis、调 OpenResty……每个软件的安装方式都不一样，版本冲突、依赖缺失是家常便饭。有了 Docker，每个应用都在自己的&quot;集装箱&quot;里运行，互不干扰，装错了直接删掉重来，不会弄脏你的服务器系统。</p></div><h2>1Panel 应用商店 </h2><p>1Panel 把 Docker 的操作封装成了图形界面。打开面板的「应用商店」，你会看到各种常用软件，点一下就能安装。</p><p><img src="/tpvibe/images/Advanced_ch14/subs/03-1-docker-apps/14-3-1-appstore-01.png" alt="1Panel 应用商店页面" width="800" height="600"></p><p>常用应用一览：</p><table tabindex="0"><thead><tr><th>应用</th><th>用途</th><th>安装建议</th></tr></thead><tbody><tr><td>PostgreSQL</td><td>关系型数据库</td><td>项目必装，设置好密码</td></tr><tr><td>Redis</td><td>缓存数据库</td><td>需要缓存或会话管理时安装</td></tr><tr><td>OpenResty</td><td>Web 服务器/反向代理</td><td>绑定域名时必装</td></tr><tr><td>Node.js</td><td>运行 Node.js 项目</td><td>部署 Next.js 等项目时需要</td></tr></tbody></table><div class="callout"><p><strong>OpenResty 是什么？</strong></p><p><strong>OpenResty</strong> 是一个高性能的 Web 服务器，基于 Nginx 构建。它的作用是：</p><ol><li><strong>处理 HTTP 请求</strong>：接收用户的访问请求</li><li><strong>提供静态文件</strong>：返回 HTML、CSS、JS、图片等</li><li><strong>反向代理</strong>：把 API 请求转发给后端服务</li><li><strong>绑定域名</strong>：让你的网站通过域名访问</li></ol><p>简单来说，OpenResty 就是你网站的&quot;门面&quot;——用户访问你的域名时，第一个接待他们的就是 OpenResty。如果你要绑定域名（如 <code>yourdomain.com</code>），就必须安装 OpenResty。</p></div><p>小明在应用商店里搜索 PostgreSQL，点击「安装」进入应用详情页。弹出的配置页面让他填端口号、管理员用户名和密码。在「高级设置」中还可以选择是否暴露外部端口、设置资源限制等。他按照提示填好，点确认——弹出安装日志界面，进度条跑了十几秒，状态变成了&quot;运行中&quot;。整个过程比他想象的简单得多。安装完成后，可以在「应用商店 - 已安装」页面看到这个应用。</p><p><img src="/tpvibe/images/Advanced_ch14/subs/03-1-docker-apps/14-3-1-app-install-02.png" alt="1Panel 安装 PostgreSQL 配置页面" width="800" height="600"></p><p>安装过程中，1Panel 会让你填写一些配置（端口、密码等）。老师傅提醒：&quot;<strong>安装时设置的密码一定要记下来</strong>，后面配置环境变量要用。&quot;</p><div class="callout"><p><strong>镜像拉取失败？配置镜像加速</strong></p><p>如果安装应用时镜像拉取超时，可以在「容器 &gt; 配置」页面检查镜像加速地址是否已配置。安装 Docker 时如果选择了自动配置加速，这里通常已经填好了。</p></div><details class="details custom-block"><summary>应用安装示例：以 Halo 博客系统为例</summary><p>Halo 是一个开源的博客系统，在 1Panel 应用商店中可以一键安装。以下展示完整的安装和初始化流程，帮助你理解应用商店的工作方式。</p><p><strong>数据库选择</strong>：安装时需要选择数据库类型（PostgreSQL 或 MySQL） <img src="/tpvibe/images/Advanced_ch14/subs/03-1-docker-apps/14-3-1-halo-db-04.png" alt="Halo 数据库选择" width="800" height="600"></p><p><strong>初始化配置</strong>：首次访问时进入初始化向导 <img src="/tpvibe/images/Advanced_ch14/subs/03-1-docker-apps/14-3-1-halo-init-05.png" alt="Halo 初始化界面" width="800" height="600"></p><p><strong>用户设置</strong>：创建管理员账号 <img src="/tpvibe/images/Advanced_ch14/subs/03-1-docker-apps/14-3-1-halo-user-06.png" alt="Halo 用户初始化" width="800" height="600"></p><p><strong>管理后台</strong>：安装完成后的管理界面 <img src="/tpvibe/images/Advanced_ch14/subs/03-1-docker-apps/14-3-1-halo-admin-07.png" alt="Halo 管理后台" width="800" height="600"></p><p><strong>前台效果</strong>：博客的访客视图 <img src="/tpvibe/images/Advanced_ch14/subs/03-1-docker-apps/14-3-1-halo-frontend-08.png" alt="Halo 前台页面" width="800" height="600"></p><p><strong>插件生态</strong>：支持通过插件扩展功能 <img src="/tpvibe/images/Advanced_ch14/subs/03-1-docker-apps/14-3-1-halo-plugin-09.png" alt="Halo 插件管理" width="800" height="600"></p><p>这个流程展示了应用商店安装的典型步骤：选择配置 → 等待安装 → 初始化设置 → 开始使用。其他应用（如 Umami、n8n）的安装流程类似。</p></details><h3>DBMS vs Database：装完数据库后的第一步 </h3><p>小明装完 PostgreSQL 后，老师傅让他去面板左侧菜单的「数据库 - PostgreSQL」页面新建一个具体的数据库（如 <code>my_app_db</code>）。</p><p>&quot;等等，我不是刚装了数据库吗？怎么还要再建一个？&quot;</p><p>老师傅解释：&quot;你装的是<strong>数据库软件（DBMS）</strong>，就像安装了 Excel 软件。但你还没有创建 <code>.xlsx</code> 文件。安装一次 PostgreSQL，可以创建无数个独立的数据库供不同项目使用。&quot;</p><p>小明在「数据库 - PostgreSQL」页面点击「创建数据库」，填了数据库名、用户名、密码，选择了访问权限，几秒钟就创建好了。点击列表上方的「连接信息」按钮，他看到了地址、端口、管理员用户名和密码——这些就是后面配 <code>.env</code> 时要用的。</p><div class="callout"><p><strong>DBMS vs Database</strong></p><ul><li><strong>DBMS</strong>（数据库管理系统）：如 PostgreSQL、MySQL，是管理数据的软件</li><li><strong>Database</strong>（数据库）：DBMS 里创建的具体数据库，如 <code>myapp_db</code></li></ul><p>比喻：DBMS 是一栋楼，Database 是楼里的房间。你在 1Panel 应用商店安装的是&quot;楼&quot;（DBMS），然后在里面创建&quot;房间&quot;（Database）给你的应用用。</p><p><strong>详细的数据库设计和操作，详见第 6 章《数据持久化与数据库》。</strong></p></div><p><img src="/tpvibe/images/Advanced/14-vps-ops-deploy/14-3-1-db-conn-03.png" alt="1Panel 数据库连接信息" width="800" height="600"></p><div class="warning custom-block"><p><strong>容器化数据库的连接地址</strong></p><p>1Panel 通过 Docker 安装的数据库采用容器化方式运行，连接信息页面会提示不同场景对应不同的连接地址。从容器内连接用容器名，从主机连接用 <code>127.0.0.1</code>——后面「容器网络基础」会详细解释。</p></div><h2>容器管理 </h2><p>安装完应用后，有两个地方可以管理容器：</p><ul><li><strong>「应用商店 - 已安装」</strong>：管理通过应用商店安装的应用，支持重建、重启、启动、停止、卸载、查看参数等操作。点击「参数」按钮可以查看和修改应用的配置参数。</li><li><strong>「容器」</strong>：管理所有 Docker 容器（包括应用商店安装的和手动创建的）。每个容器一行，行内有「终端」「日志」按钮，以及「更多」菜单（编辑、升级、监控、制作镜像、删除、重命名）。</li></ul><p>小明点进「容器」页面，看到 PostgreSQL、OpenResty 都在跑，每个容器旁边有绿色的&quot;运行中&quot;标识。</p><p><img src="/tpvibe/images/Advanced_ch14/subs/03-1-docker-apps/14-3-1-container-list-20.png" alt="1Panel 容器列表页面" width="800" height="600"></p><p>常用操作：</p><table tabindex="0"><thead><tr><th>操作</th><th>在哪里操作</th><th>说明</th><th>对应命令</th></tr></thead><tbody><tr><td>启动/停止/重启</td><td>「已安装」或「容器」</td><td>控制容器运行状态</td><td><code>docker start/stop/restart 容器名</code></td></tr><tr><td>查看日志</td><td>「容器」→ 容器行 → 日志</td><td>支持按时间段筛选、实时追踪、下载</td><td><code>docker logs 容器名</code></td></tr><tr><td>进入终端</td><td>「容器」→ 容器行 → 终端</td><td>选择命令（如 /bin/bash）和用户后连接</td><td><code>docker exec -it 容器名 bash</code></td></tr><tr><td>查看监控</td><td>「容器」→ 容器行 → 更多 → 监控</td><td>CPU、内存、磁盘 IO、网络使用情况</td><td><code>docker stats 容器名</code></td></tr><tr><td>重建</td><td>「已安装」→ 重建</td><td>删除容器并基于当前配置重新创建，持久化数据保留</td><td>—</td></tr></tbody></table><p>小明在「已安装」页面看到了刚装的 PostgreSQL，状态是绿色的&quot;运行中&quot;。他试着点了&quot;停止&quot;，状态变成红色；再点&quot;启动&quot;，几秒钟就恢复了。这种掌控感让他觉得 Docker 确实好用——应用就像手机上的 App，随时开关。</p><div class="callout"><p><strong>日志是你最好的朋友</strong></p><p>应用出问题时,第一反应不是去搜索引擎，而是<strong>先看日志</strong>。在「容器」页面点击目标容器，选择「日志」，就能看到实时输出——支持按最近一天、4 小时、1 小时、10 分钟筛选，还能开启「追踪」实时刷新。日志就是应用的实时自言自语——它会告诉你&quot;我在找数据库但找不到&quot;&quot;我缺了一个环境变量&quot;，比你自己猜的准得多。90% 的问题，日志里都有答案。</p><p><img src="/tpvibe/images/Advanced_ch14/subs/03-1-docker-apps/14-3-1-container-log-11.png" alt="容器日志查看" width="800" height="600"></p></div><h2>数据持久化：Volume 挂载 </h2><p>小明好奇：&quot;容器删了，我的数据会不会丢？&quot;</p><p>答案是：<strong>如果配置了 Volume 挂载，数据不会丢</strong>。</p><p>老师傅解释：&quot;容器就像一个临时工位，你走了工位就清空了。但 Volume 是你的<strong>专属文件柜</strong>，不管你换多少次工位，文件柜里的东西一直在。&quot;</p><p>1Panel 安装的应用默认都会配置 Volume，数据存储在服务器的 <code>/opt/1panel/</code> 目录下。你可以在「容器 - 存储卷」页面查看和管理所有 Volume。所以你可以放心地删除、重建容器，数据不会丢失。</p><p>小明试了一下：停掉 PostgreSQL 容器，再重新启动，数据库里的数据还在。&quot;就像换了个工位，但文件柜没动。&quot;</p><div class="language-bash vp-adaptive-theme"><button title="Copy Code" class="copy" aria-label="复制代码"></button><span class="lang">bash</span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"># 查看所有 Volume</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">docker</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> volume</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> ls</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"># 查看某个 Volume 的详细信息</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">docker</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> volume</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> inspect</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> 1panel-postgresql-data</span></span></code></pre></div><div class="warning custom-block"><p><strong>备份 Volume 才是真保险</strong></p><p>虽然 Volume 不会因为删容器而丢失，但如果服务器硬盘坏了，数据照样没了。定期备份 Volume 数据到本地或云存储，才是真正的保险。1Panel 提供了计划任务功能，可以设置自动备份。</p></div><h2>容器网络基础 </h2><p>这是新手最容易踩坑的地方。小明配 <code>DATABASE_URL</code> 时填了 <code>localhost</code>，连接失败——报错 <code>Connection refused</code>，看起来像是数据库没启动，但数据库明明在跑。</p><p>核心规则：<strong><code>localhost</code> 在容器里指的是容器自己，不是服务器主机</strong>。</p><p>你在家喊&quot;妈&quot;，你妈会应。你在朋友家喊&quot;妈&quot;，应的是朋友的妈。容器里的 <code>localhost</code> 也一样——每个容器的 <code>localhost</code> 都是它自己，不是服务器主机。</p><div class="network-container" data-v-4388186c><div class="network-header" data-v-4388186c><h3>🐳 容器网络架构</h3><button class="connect-btn" data-v-4388186c>🔗 模拟通信</button></div><div class="mode-selector" data-v-4388186c><!--[--><button class="active mode-btn" data-v-4388186c><span class="mode-icon" data-v-4388186c>🌉</span><span class="mode-name" data-v-4388186c>Bridge 网络</span></button><button class="mode-btn" data-v-4388186c><span class="mode-icon" data-v-4388186c>🖥️</span><span class="mode-name" data-v-4388186c>Host 网络</span></button><button class="mode-btn" data-v-4388186c><span class="mode-icon" data-v-4388186c>🚫</span><span class="mode-name" data-v-4388186c>None 网络</span></button><!--]--></div><div class="network-content" data-v-4388186c><div class="mode-info" data-v-4388186c><div class="mode-header" data-v-4388186c><span class="mode-icon-large" data-v-4388186c>🌉</span><div class="mode-details" data-v-4388186c><div class="mode-title" data-v-4388186c>Bridge 网络</div><div class="mode-desc" data-v-4388186c>默认网络模式，容器间可通信</div></div></div><div class="features-list" data-v-4388186c><div class="features-title" data-v-4388186c>✨ 特性</div><div class="features-grid" data-v-4388186c><!--[--><span class="feature-tag" data-v-4388186c>容器间互通</span><span class="feature-tag" data-v-4388186c>端口映射</span><span class="feature-tag" data-v-4388186c>网络隔离</span><span class="feature-tag" data-v-4388186c>NAT 转换</span><!--]--></div></div></div><div class="containers-section" data-v-4388186c><div class="section-title" data-v-4388186c>📦 容器列表</div><div class="containers-grid" data-v-4388186c><!--[--><div class="container-card" style="--container-color:#007aff;" data-v-4388186c><div class="container-header" data-v-4388186c><div class="container-icon" style="background:#007aff;" data-v-4388186c>🌐</div><div class="container-info" data-v-4388186c><div class="container-name" data-v-4388186c>Web 服务</div><div class="container-status" data-v-4388186c><span class="running status-dot" data-v-4388186c></span> 运行中</div></div></div><div class="container-details" data-v-4388186c><div class="detail-row" data-v-4388186c><span class="detail-label" data-v-4388186c>IP 地址</span><span class="detail-value" data-v-4388186c>172.17.0.2</span></div><div class="detail-row" data-v-4388186c><span class="detail-label" data-v-4388186c>端口</span><span class="detail-value" data-v-4388186c>3000</span></div></div><!----></div><div class="container-card" style="--container-color:#5856d6;" data-v-4388186c><div class="container-header" data-v-4388186c><div class="container-icon" style="background:#5856d6;" data-v-4388186c>⚙️</div><div class="container-info" data-v-4388186c><div class="container-name" data-v-4388186c>API 服务</div><div class="container-status" data-v-4388186c><span class="running status-dot" data-v-4388186c></span> 运行中</div></div></div><div class="container-details" data-v-4388186c><div class="detail-row" data-v-4388186c><span class="detail-label" data-v-4388186c>IP 地址</span><span class="detail-value" data-v-4388186c>172.17.0.3</span></div><div class="detail-row" data-v-4388186c><span class="detail-label" data-v-4388186c>端口</span><span class="detail-value" data-v-4388186c>8080</span></div></div><!----></div><div class="container-card" style="--container-color:#34c759;" data-v-4388186c><div class="container-header" data-v-4388186c><div class="container-icon" style="background:#34c759;" data-v-4388186c>💾</div><div class="container-info" data-v-4388186c><div class="container-name" data-v-4388186c>数据库</div><div class="container-status" data-v-4388186c><span class="running status-dot" data-v-4388186c></span> 运行中</div></div></div><div class="container-details" data-v-4388186c><div class="detail-row" data-v-4388186c><span class="detail-label" data-v-4388186c>IP 地址</span><span class="detail-value" data-v-4388186c>172.17.0.4</span></div><div class="detail-row" data-v-4388186c><span class="detail-label" data-v-4388186c>端口</span><span class="detail-value" data-v-4388186c>5432</span></div></div><!----></div><!--]--></div></div><div class="network-diagram" data-v-4388186c><div class="diagram-title" data-v-4388186c>🌉 Bridge 网络拓扑</div><div class="diagram-content" data-v-4388186c><div class="host-box" data-v-4388186c><div class="host-label" data-v-4388186c>宿主机</div><div class="host-ip" data-v-4388186c>192.168.1.100</div></div><div class="bridge-line" data-v-4388186c><div class="bridge-label" data-v-4388186c>docker0 网桥</div><div class="bridge-ip" data-v-4388186c>172.17.0.1</div></div><div class="containers-row" data-v-4388186c><!--[--><div class="diagram-container" style="--container-color:#007aff;" data-v-4388186c><div class="diagram-icon" data-v-4388186c>🌐</div><div class="diagram-name" data-v-4388186c>Web 服务</div><div class="diagram-ip" data-v-4388186c>172.17.0.2</div></div><div class="diagram-container" style="--container-color:#5856d6;" data-v-4388186c><div class="diagram-icon" data-v-4388186c>⚙️</div><div class="diagram-name" data-v-4388186c>API 服务</div><div class="diagram-ip" data-v-4388186c>172.17.0.3</div></div><div class="diagram-container" style="--container-color:#34c759;" data-v-4388186c><div class="diagram-icon" data-v-4388186c>💾</div><div class="diagram-name" data-v-4388186c>数据库</div><div class="diagram-ip" data-v-4388186c>172.17.0.4</div></div><!--]--></div></div></div></div></div><table tabindex="0"><thead><tr><th>场景</th><th>连接地址</th><th>原因</th></tr></thead><tbody><tr><td>容器 A 连接容器 B</td><td>用<strong>容器名</strong>（如 <code>1Panel-postgresql-ukow</code>）</td><td>同一 Docker 网络内，容器名就是主机名</td></tr><tr><td>服务器主机连接容器</td><td>用 <code>127.0.0.1</code> 或 <code>localhost</code></td><td>容器端口映射到了主机</td></tr><tr><td>外部浏览器访问</td><td>用<strong>服务器公网 IP</strong> + 映射端口</td><td>通过端口映射转发</td></tr></tbody></table><div class="callout"><p><strong>1Panel 容器命名规则</strong></p><p>1Panel 创建的数据库容器名遵循 <code>1Panel-{数据库类型}-{随机4位字母}</code> 的格式：</p><ul><li><code>1Panel-postgresql-ukow</code></li><li><code>1Panel-redis-w94p</code></li><li><code>1Panel-mysql-abcd</code></li></ul><p>你可以在「容器」页面查看实际的容器名。</p></div><p>小明把 <code>.env</code> 里的 <code>localhost</code> 改成 <code>1Panel-postgresql-ukow</code>（PostgreSQL 容器的实际名字），重启应用——连接成功了。&quot;原来就差一个词。&quot;他感叹，这个坑虽然小，但不知道的话能卡你半天。</p><p>举个例子：你的 Node.js 应用跑在容器里，PostgreSQL 也跑在容器里。在 <code>.env</code> 中配置 <code>DATABASE_URL</code> 时：</p><div class="language-bash vp-adaptive-theme"><button title="Copy Code" class="copy" aria-label="复制代码"></button><span class="lang">bash</span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"># 正确：用 1Panel 创建的实际容器名</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">DATABASE_URL</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;postgresql://用户名:密码@1Panel-postgresql-ukow:5432/数据库名&quot;</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"># 错误：用 localhost（容器里的 localhost 是它自己，找不到数据库）</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">DATABASE_URL</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;postgresql://用户名:密码@localhost:5432/数据库名&quot;</span></span></code></pre></div><p><strong>Redis 连接示例</strong>：</p><div class="language-bash vp-adaptive-theme"><button title="Copy Code" class="copy" aria-label="复制代码"></button><span class="lang">bash</span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"># 有密码的情况（注意 : 后面是密码）</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">REDIS_URL</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;redis://:你的密码@1Panel-redis-w94p:6379&quot;</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"># 无密码的情况</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">REDIS_URL</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;redis://1Panel-redis-w94p:6379&quot;</span></span></code></pre></div><div class="callout"><p><strong>如何获取数据库用户名和密码？</strong></p><p>在 1Panel 的「数据库」页面，点击对应数据库的「详情」或「连接信息」，可以看到：</p><ul><li>用户名（可能是 <code>postgres</code>、<code>root</code> 或你自定义的用户名）</li><li>密码（安装时设置的密码）</li><li>容器名（在「容器」页面也能看到）</li></ul></div><div class="warning custom-block"><p><strong>这个坑会浪费你几个小时</strong></p><p>填错连接地址是新手部署失败的头号原因。报错信息通常是 <code>Connection refused</code> 或 <code>ECONNREFUSED</code>，看起来像是数据库没启动，但其实只是地址填错了。记住：<strong>容器找邻居用名字，主机找容器用 localhost</strong>。</p></div><hr><div class="info custom-block"><p><strong>下一步</strong></p><p>Docker 基础搞定了。接下来实战部署——<a href="./03-2-deploy-nextjs.html">14.3.2 部署 Next.js 应用</a>，把你的项目真正跑在服务器上。</p></div></div></div>
+</div>
+
+
+</main>
+
+<footer class="site-footer">
+<p>© 2026 TPvibe · 内部预览版</p>
+<p style="margin-top:8px;">
+<a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer">蜀ICP备2024097797号-3</a>
+</p>
+</footer>
+<!-- THEME:tpvibe -->
+<script>
+/* Theme toggle */
+(function(){
+  var r=document.documentElement;
+  var saved=localStorage.getItem('tpvibe-theme');r.dataset.theme=saved||'light';
+  
+  /* sync button icon */
+  
+})();
+/* Reveal on scroll */
+(function(){
+  var obs=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');obs.unobserve(e.target);}});},{threshold:.15});
+  document.querySelectorAll('.reveal').forEach(function(el){obs.observe(el);});
+})();
+/* Progress bar */
+(function(){
+  var bar=document.getElementById('progress');
+  if(!bar)return;
+  window.addEventListener('scroll',function(){
+    var h=document.documentElement.scrollHeight-window.innerHeight;
+    bar.style.width=(h>0?(window.scrollY/h*100):0)+'%';
+  });
+})();
+</script>
+<script>
+/* Theme button icon sync */
+(function(){
+  var btn=document.querySelector('.theme-btn');
+  if(!btn)return;
+  function sync(){btn.textContent=document.documentElement.dataset.theme==='dark'?'☀️':'🌙';}
+  sync();
+  btn.addEventListener('click',function(){setTimeout(sync,0);});
+})();
+</script>
+
+<nav class="mobile-bottom-tabs"><ul><li><a href="/tpvibe/index.html"><svg viewBox="0 0 24 24"><path d="M3 12L12 3l9 9M5 10v10h4v-6h6v6h4V10"/></svg><span>首页</span></a></li><li><a href="/tpvibe/Basic/lecture-1.html"><svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg><span>基础篇</span></a></li><li><a href="/tpvibe/Advanced/ch01.html"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg><span>进阶篇</span></a></li><li><a href="/tpvibe/Articles/core-concepts.html"><svg viewBox="0 0 24 24"><path d="M4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zM8 7h8M8 11h8M8 15h6"/></svg><span>文章</span></a></li><li><a href="/tpvibe/Practice/index.html"><svg viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg><span>实践</span></a></li></ul></nav>
+<script>
+(function(){
+  // 判断当前页面，高亮对应的 tab（目录前缀匹配）
+  var path=location.pathname.replace(/\/index\.html$/,'/').replace(/\/$/,'');
+  var tabs=document.querySelectorAll('.mobile-bottom-tabs a');
+  var bestMatch=null;
+  var bestMatchLen=0;
+  tabs.forEach(function(a){
+    var href=a.getAttribute('href')||'';
+    if(!href)return;
+    var hrefPath=href.replace(/https?:\/\/[^\/]+/,'').replace(/\/index\.html$/,'/').replace(/\/$/,'');
+    if(path===hrefPath){bestMatch=a;return;}
+    // 目录前缀匹配：当前路径以 tab 路径开头
+    if(hrefPath.length>2&&path.indexOf(hrefPath)>=0&&hrefPath.length>bestMatchLen){bestMatch=a;bestMatchLen=hrefPath.length;}
+  });
+  if(bestMatch)bestMatch.classList.add('active');
+})();
+</script>
+
+
+<script src="/tpvibe/toc-sheet.js"></script>
+</body>
+</html>

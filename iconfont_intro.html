@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Iconfont · 深度解读</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#ffffff; --grid:#edeff4; --glow:#fff5f0;
+    --ink:#14151a; --muted:#60667a; --line:#e6e8ef;
+    --accent:#c2892b; --accent-2:#cf5b3e;
+    --green:#1f9d6b; --yellow:#e0a200; --pink:#e0457f;
+    --card:#ffffff; --soft:#f7f8fb; --shadow:rgba(20,21,26,.08);
+    --radius:18px;
+  }
+  [data-theme="dark"]{
+    --bg:#0e0f14; --grid:#1a1c25; --glow:#1a1410;
+    --ink:#f1f2f6; --muted:#9aa0b4; --line:#262936;
+    --card:#15171f; --soft:#191b24; --shadow:rgba(0,0,0,.5);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0; color:var(--ink); font-family:'Inter','Noto Sans SC',system-ui,sans-serif;
+    background:var(--bg);
+    background-image:
+      linear-gradient(var(--grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+    background-size:34px 34px;
+    background-attachment:fixed;
+    line-height:1.65; -webkit-font-smoothing:antialiased;
+  }
+  body::before{
+    content:""; position:fixed; inset:0; pointer-events:none; z-index:0;
+    background:radial-gradient(60% 50% at 50% -10%, var(--glow), transparent 70%);
+  }
+  h1,h2,h3,.display{font-family:'Space Grotesk','Noto Sans SC',sans-serif; letter-spacing:-.02em;}
+  a{color:var(--accent); text-decoration:none;}
+  code,.mono{font-family:'JetBrains Mono',monospace;}
+  .wrap{max-width:1080px; margin:0 auto; padding:0 22px; position:relative; z-index:1;}
+
+  /* progress + nav */
+  #progress{position:fixed; top:0; left:0; height:3px; width:0; z-index:100;
+    background:linear-gradient(90deg,var(--accent),var(--accent-2)); transition:width .1s;}
+  nav{position:sticky; top:0; z-index:50; backdrop-filter:blur(14px);
+    background:color-mix(in srgb, var(--bg) 78%, transparent);
+    border-bottom:1px solid var(--line);}
+  .nav-in{max-width:1080px; margin:0 auto; padding:13px 22px; display:flex; align-items:center; gap:18px;}
+  .logo{font-family:'Space Grotesk'; font-weight:700; font-size:20px; display:flex; align-items:center; gap:9px;}
+  .logo .dot{width:13px;height:13px;border-radius:4px;background:linear-gradient(135deg,var(--accent),var(--accent-2)); box-shadow:0 0 0 4px color-mix(in srgb,var(--accent) 18%,transparent);}
+  .nav-links{display:flex; gap:6px; margin-left:auto; flex-wrap:wrap;}
+  .nav-links a{color:var(--muted); font-size:14px; font-weight:500; padding:7px 11px; border-radius:9px; transition:.2s;}
+  .nav-links a:hover{color:var(--ink); background:var(--soft);}
+  .toggle{cursor:pointer; border:1px solid var(--line); background:var(--card); border-radius:10px;
+    width:40px; height:36px; display:grid; place-items:center; font-size:16px; transition:.2s;}
+  .toggle:hover{border-color:var(--accent);}
+  .ghost-btn{border:1px solid var(--line); background:var(--card); color:var(--ink); padding:8px 13px;
+    border-radius:10px; font-size:14px; font-weight:600; transition:.2s; cursor:pointer;}
+  .ghost-btn:hover{border-color:var(--accent); transform:translateY(-1px);}
+
+  /* hero */
+  .hero{padding:70px 0 40px; text-align:center;}
+  .eyebrow{display:inline-flex; align-items:center; gap:8px; font-size:13px; font-weight:600; color:var(--accent);
+    background:color-mix(in srgb,var(--accent) 10%,transparent); padding:6px 13px; border-radius:99px; border:1px solid color-mix(in srgb,var(--accent) 25%,transparent);}
+  .hero h1{font-size:clamp(40px,8vw,82px); margin:18px 0 8px; line-height:1; font-weight:700;}
+  .hero h1 .grad{background:linear-gradient(120deg,var(--accent),var(--accent-2)); -webkit-background-clip:text; background-clip:text; color:transparent;}
+  .hero p.sub{font-size:clamp(16px,2.4vw,21px); color:var(--muted); max-width:680px; margin:10px auto 0;}
+  .cta{display:flex; gap:12px; justify-content:center; margin-top:26px; flex-wrap:wrap;}
+  .btn{display:inline-flex; align-items:center; gap:8px; padding:13px 22px; border-radius:12px; font-weight:600; font-size:15px; transition:.22s; cursor:pointer; border:1px solid transparent;}
+  .btn.primary{background:linear-gradient(120deg,var(--accent),var(--accent-2)); color:#fff; box-shadow:0 10px 26px color-mix(in srgb,var(--accent) 35%,transparent);}
+  .btn.primary:hover{transform:translateY(-2px); box-shadow:0 16px 34px color-mix(in srgb,var(--accent) 45%,transparent);}
+  .btn.sec{background:var(--card); border-color:var(--line); color:var(--ink);}
+  .btn.sec:hover{border-color:var(--accent); transform:translateY(-2px);}
+
+  /* stats */
+  .stats{display:grid; grid-template-columns:repeat(6,1fr); gap:14px; margin:40px 0 10px;}
+  .stat{background:var(--card); border:1px solid var(--line); border-radius:var(--radius); padding:18px 12px; text-align:center; box-shadow:0 6px 20px var(--shadow); transition:.25s;}
+  .stat:hover{transform:translateY(-3px); border-color:var(--accent);}
+  .stat .n{font-family:'Space Grotesk'; font-weight:700; font-size:clamp(20px,3vw,28px); color:var(--ink);}
+  .stat .l{font-size:12.5px; color:var(--muted); margin-top:3px;}
+
+  /* sections */
+  section{padding:54px 0; scroll-margin-top:74px;}
+  .sec-head{margin-bottom:26px;}
+  .sec-head .k{font-size:13px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--accent);}
+  .sec-head h2{font-size:clamp(26px,4vw,38px); margin:8px 0 6px;}
+  .sec-head p{color:var(--muted); max-width:720px; margin:0;}
+
+  .card{background:var(--card); border:1px solid var(--line); border-radius:var(--radius); padding:22px; box-shadow:0 6px 22px var(--shadow); transition:.25s;}
+  .card:hover{transform:translateY(-3px); box-shadow:0 14px 34px var(--shadow); border-color:color-mix(in srgb,var(--accent) 40%,var(--line));}
+  .grid{display:grid; gap:16px;}
+  .g2{grid-template-columns:repeat(2,1fr);} .g3{grid-template-columns:repeat(3,1fr);} .g4{grid-template-columns:repeat(4,1fr);}
+  .pillar .ic{width:44px;height:44px;border-radius:12px; display:grid; place-items:center; font-size:22px; margin-bottom:12px;
+    background:color-mix(in srgb,var(--accent) 12%,transparent); border:1px solid color-mix(in srgb,var(--accent) 22%,transparent);}
+  .pillar h3{font-size:18px; margin:0 0 6px;} .pillar p{color:var(--muted); font-size:14.5px; margin:0;}
+
+  .chips{display:flex; gap:10px; flex-wrap:wrap;}
+  .chip{display:inline-flex; align-items:center; gap:8px; padding:10px 15px; border-radius:12px; border:1px solid var(--line);
+    background:var(--card); font-weight:600; font-size:14.5px; transition:.2s;}
+  .chip:hover{border-color:var(--accent-2); transform:translateY(-2px); box-shadow:0 8px 20px var(--shadow);}
+  .chip .d{width:9px;height:9px;border-radius:50%; background:linear-gradient(135deg,var(--accent),var(--accent-2));}
+
+  /* flow */
+  .flow{display:flex; align-items:stretch; justify-content:center; gap:0; flex-wrap:wrap; margin:10px 0;}
+  .node{flex:1 1 200px; min-width:180px; background:var(--card); border:1px solid var(--line);
+    padding:16px; text-align:center; box-shadow:0 6px 20px var(--shadow); margin:6px; border-radius:var(--radius);}
+  .node h3{font-size:16px; color:var(--accent); margin:6px 0;}
+  .node .d{font-size:14.5px; color:var(--muted);}
+  .arrow{align-self:center; font-family:'Space Grotesk'; color:var(--accent-2); font-size:20px; padding:0 6px;}
+
+  /* tabs */
+  .tabs{display:flex; gap:6px; flex-wrap:wrap; margin-bottom:18px; border-bottom:1px solid var(--line); padding-bottom:12px;}
+  .tab{border:1px solid var(--line); background:var(--card); color:var(--muted); padding:9px 15px; border-radius:11px; font-weight:600; font-size:14px; cursor:pointer; transition:.2s;}
+  .tab:hover{color:var(--ink);}
+  .tab.active{background:linear-gradient(120deg,var(--accent),var(--accent-2)); color:#fff; border-color:transparent; box-shadow:0 8px 20px color-mix(in srgb,var(--accent) 35%,transparent);}
+  .panel-box{display:none;} .panel-box.active{display:block; animation:fade .35s ease;}
+  @keyframes fade{from{opacity:0; transform:translateY(8px);} to{opacity:1; transform:none;}}
+
+  /* code */
+  .code{background:var(--ink); color:#e7e9f2; border-radius:14px; padding:16px 18px; overflow:auto; box-shadow:0 10px 30px var(--shadow);}
+  .code pre{margin:0; font-family:'JetBrains Mono'; font-size:13.5px; line-height:1.7;}
+  .code .c{color:#7c8499;} .code .s{color:#9be8b0;} .code .p{color:#ffae8a;} .code .b{color:#8db4ff;}
+  .copy{float:right; cursor:pointer; font-size:12px; color:#aeb4c8; border:1px solid #2c2f3a; background:#1b1d26; padding:4px 9px; border-radius:8px;}
+  .copy:hover{color:#fff;}
+
+  .callout{border-left:4px solid var(--accent); background:color-mix(in srgb,var(--accent) 7%,var(--card)); padding:14px 17px; border-radius:0 12px 12px 0; font-size:14.5px; color:var(--muted); margin:16px 0;}
+  .callout b{color:var(--ink);}
+
+  /* accordion (FAQ) */
+  .acc{border:1px solid var(--line); border-radius:14px; overflow:hidden; background:var(--card); margin-bottom:11px; box-shadow:0 4px 16px var(--shadow);}
+  .acc-h{display:flex; align-items:center; gap:13px; padding:17px 19px; cursor:pointer; transition:.2s; user-select:none;}
+  .acc-h:hover{background:var(--soft);}
+  .acc-h .num{font-family:'Space Grotesk'; font-weight:700; color:var(--accent); font-size:15px; min-width:30px;}
+  .acc-h h3{font-size:17px; margin:0; flex:1;}
+  .acc-h .ar{transition:.3s; color:var(--muted); font-size:18px;}
+  .acc.open .acc-h .ar{transform:rotate(45deg); color:var(--accent);}
+  .acc-b{max-height:0; overflow:hidden; transition:max-height .35s ease;}
+  .acc-b-in{padding:0 19px 19px 62px; color:var(--muted); font-size:15px;}
+  .acc-b-in ul{margin:8px 0 0; padding-left:18px;} .acc-b-in li{margin:5px 0;}
+
+  /* timeline */
+  .tl{position:relative; margin-left:14px; padding-left:30px; border-left:2px solid var(--line);}
+  .tl-item{position:relative; padding:0 0 28px 0;}
+  .tl-item::before{content:""; position:absolute; left:-39px; top:4px; width:15px; height:15px; border-radius:50%; background:var(--card); border:3px solid var(--accent);}
+  .tl-item .v{font-family:'Space Grotesk'; font-weight:700; color:var(--accent); font-size:15px;}
+  .tl-item .t{font-weight:700; font-size:17px; margin:2px 0 5px;}
+  .tl-item p{color:var(--muted); margin:0; font-size:14.5px;}
+
+  /* list */
+  ul.b{list-style:none; padding-left:0; margin:10px 0;}
+  ul.b li{padding:6px 0 6px 26px; position:relative; color:var(--muted); font-size:15px;}
+  ul.b li::before{content:"▸"; position:absolute; left:4px; color:var(--accent); font-weight:bold;}
+
+  footer{border-top:1px solid var(--line); padding:36px 0 60px; text-align:center; color:var(--muted); font-size:14px;}
+  .reveal{opacity:0; transform:translateY(22px); transition:opacity .7s ease, transform .7s ease;}
+  .reveal.in{opacity:1; transform:none;}
+  @media(max-width:760px){.stats{grid-template-columns:repeat(3,1fr);} .g2,.g3,.g4{grid-template-columns:1fr;} .nav-links{display:none;}}
+</style>
+</head>
+<body>
+<div id="progress"></div>
+<nav>
+  <div class="nav-in">
+    <div class="logo"><span class="dot"></span>Iconfont</div>
+    <div class="nav-links">
+      <a href="#overview">概览</a>
+      <a href="#deep">深读</a>
+      <a href="#faq">FAQ</a>
+      <a href="#start">快速开始</a>
+    </div>
+    <button class="toggle" id="themeBtn" title="切换明暗">◐</button>
+    <a class="ghost-btn" href="tp.html">← 返回 TP 中心</a>
+  </div>
+</nav>
+
+<div class="wrap">
+
+  <!-- HERO -->
+  <header class="hero">
+    <span class="eyebrow">矢量图标 · 阿里资源</span>
+    <h1><span class="grad">Iconfont</span></h1>
+    <p class="sub">国内最大的矢量图标资源平台，由阿里巴巴 UX 团队维护，库内图标超过 3356 万枚。一枚图标从搜索到落地进项目，最快只要几分钟。</p>
+    <div class="cta">
+      <a class="btn primary" href="https://www.iconfont.cn" target="_blank" rel="noopener">⚡ 访问官网 ↗</a>
+      <a class="btn sec" href="#overview">🔍 深入了解</a>
+    </div>
+    <div class="stats">
+      <div class="stat reveal"><div class="n" data-to="3356" data-suf="万">0</div><div class="l">矢量图标</div></div>
+      <div class="stat reveal"><div class="n" data-to="4" data-suf="">0</div><div class="l">导出格式</div></div>
+      <div class="stat reveal"><div class="n" data-to="4" data-suf="">0</div><div class="l">引入方式</div></div>
+      <div class="stat reveal"><div class="n" data-to="100" data-suf="%">0</div><div class="l">矢量无损缩放</div></div>
+      <div class="stat reveal"><div class="n" data-to="13" data-suf="年">0</div><div class="l">平台运营</div></div>
+      <div class="stat reveal"><div class="n" data-to="1" data-suf="">0</div><div class="l">阿里 UX 维护</div></div>
+    </div>
+    <div class="callout" style="text-align:left; max-width:760px; margin:18px auto 0;">
+      ⚠️ 数据说明：图标总数 3356 万来自 Tabbit 报告对官网的抓取（2026-07）。「13 年运营」按 Iconfont 约 2012 年上线推算，为估算值，未在本次会话中独立核验；具体格式/协议以官网「我的项目」实际选项为准。
+    </div>
+  </header>
+
+  <!-- OVERVIEW -->
+  <section id="overview">
+    <div class="sec-head reveal">
+      <div class="k">Overview</div>
+      <h2>为什么 Web 开发绕不开它</h2>
+      <p>对国内前端来说，Iconfont 不只是「图标网站」——它是把零散 SVG 收拢成可管理、可主题化、可商用交付的资源中枢。</p>
+    </div>
+    <div class="grid g3">
+      <div class="card pillar reveal"><div class="ic">📦</div><h3>海量资源</h3><p>库内超过 3356 万枚矢量图标，中文关键词即可命中，几乎能找到任意业务所需的图形。</p></div>
+      <div class="card pillar reveal"><div class="ic">📐</div><h3>矢量无损</h3><p>SVG / Icon Font 均为矢量，任意缩放不糊，适配从手表到 4K 屏的全设备分辨率。</p></div>
+      <div class="card pillar reveal"><div class="ic">⚡</div><h3>Icon Font 性能</h3><p>整套图标打包成一个字体文件，比多张 PNG 精灵图更小、请求更少，首屏加载更快。</p></div>
+      <div class="card pillar reveal"><div class="ic">🎨</div><h3>CSS 可控</h3><p>图标颜色、大小、阴影、旋转全部交给 CSS 控制，告别为换色再导一张图的重复劳动。</p></div>
+      <div class="card pillar reveal"><div class="ic">🔍</div><h3>中文搜索</h3><p>直接输入「分享」「购物车」「下载」就能搜到对应图标，比英文关键词检索更贴合国内场景。</p></div>
+      <div class="card pillar reveal"><div class="ic">✅</div><h3>商用授权</h3><p>每个图标都标注授权协议，可筛选可商用资源，规避项目上线后的版权风险。</p></div>
+    </div>
+  </section>
+
+  <!-- DEEP DIVE -->
+  <section id="deep">
+    <div class="sec-head reveal">
+      <div class="k">Deep Dive</div>
+      <h2>三种引入方式，怎么选</h2>
+      <p>同一个图标项目可同时导出四种形态。选哪种，取决于你对「动态性 / 多色 / 体积」的取舍。</p>
+    </div>
+
+    <div class="grid g3 reveal">
+      <div class="card"><h3 style="margin-top:0; font-size:17px">🅰 Font class</h3><p style="color:var(--muted); font-size:14.5px">最常用。在线 link 引入 CSS，用 <code>&lt;i class="iconfont icon-xxx"&gt;</code> 调用。单色、改色靠 <code>color</code>，体积小。</p></div>
+      <div class="card"><h3 style="margin-top:0; font-size:17px">🅱 Symbol</h3><p style="color:var(--muted); font-size:14.5px">引入一段 JS + SVG sprite，<code>&lt;use&gt;</code> 引用。支持多色图标，适合复杂图形与主题切换。</p></div>
+      <div class="card"><h3 style="margin-top:0; font-size:17px">🅲 Unicode</h3><p style="color:var(--muted); font-size:14.5px">最轻量，直接用字体编码 <code>&amp;#xe601;</code>。兼容性最好，但无法用语义类名、不利维护。</p></div>
+    </div>
+
+    <div class="callout reveal" style="text-align:left;">💡 <b>结论</b>：新项目默认选 <b>Font class</b>（简单、可控）；需要渐变/多色图标时切到 <b>Symbol</b>；纯静态展示且追求极致兼容再考虑 <b>Unicode</b>。SVG 源码下载则用于设计稿二次编辑。</div>
+
+    <div class="chips reveal" style="margin-top:18px">
+      <span class="chip"><span class="d"></span>SVG</span>
+      <span class="chip"><span class="d"></span>PNG</span>
+      <span class="chip"><span class="d"></span>Icon Font</span>
+      <span class="chip"><span class="d"></span>AI（源文件）</span>
+      <span class="chip"><span class="d"></span>Font class</span>
+      <span class="chip"><span class="d"></span>Symbol</span>
+      <span class="chip"><span class="d"></span>Unicode</span>
+    </div>
+  </section>
+
+  <section id="deep-code">
+    <div class="sec-head reveal">
+      <div class="k">Code</div>
+      <h2>真实可跑的引入代码</h2>
+      <p>下面三段都取自 Iconfont「我的项目 → 下载/生成代码」产出的真实形态（font 编号与项目名以你自己的为准）。</p>
+    </div>
+
+    <div class="tabs reveal" id="tabs">
+      <button class="tab active" data-t="font">🅰 Font class</button>
+      <button class="tab" data-t="symbol">🅱 Symbol</button>
+      <button class="tab" data-t="unicode">🅲 Unicode</button>
+    </div>
+
+    <div class="panel-box active" data-p="font">
+      <div class="code reveal"><button class="copy" data-c="font">复制</button><pre><span class="c">&lt;!-- 1) 在 &lt;head&gt; 引入在线 CSS（编号换成你项目的） --&gt;</span>
+&lt;link rel=<span class="s">"stylesheet"</span> href=<span class="s">"//at.alicdn.com/t/font_1234567_abcdef.css"</span>&gt;
+
+<span class="c">&lt;!-- 2) 在 HTML 里用语义类名调用图标 --&gt;</span>
+&lt;i class=<span class="s">"iconfont icon-gouwuche"</span>&gt;&lt;/i&gt;
+
+<span class="c">&lt;!-- 3) 用 CSS 控制颜色 / 大小（无需再导出图片） --&gt;</span>
+<span class="p">.iconfont</span> {
+  <span class="b">color</span>: #c2892b;          <span class="c">/* 图标颜色 */</span>
+  <span class="b">font-size</span>: 24px;          <span class="c">/* 图标大小 */</span>
+}</pre></div>
+      <div class="callout reveal" style="text-align:left">⚠️ 在线 link 依赖阿里 CDN（at.alicdn.com）。生产环境建议把下载的 <code>iconfont.css</code> 与字体文件本地化，避免外链抖动影响图标渲染。</div>
+    </div>
+
+    <div class="panel-box" data-p="symbol">
+      <div class="code reveal"><button class="copy" data-c="symbol">复制</button><pre><span class="c">&lt;!-- 1) 引入 Symbol JS（单个项目一份即可） --&gt;</span>
+&lt;script src=<span class="s">"//at.alicdn.com/t/font_1234567_abcdef.js"</span>&gt;&lt;/script&gt;
+
+<span class="c">&lt;!-- 2) 用 &lt;svg&gt; + &lt;use&gt; 引用，支持多色图标 --&gt;</span>
+&lt;svg class=<span class="s">"icon"</span> aria-hidden=<span class="s">"true"</span>&gt;
+  &lt;use xlink:href=<span class="s">"#icon-gouwuche"</span>&gt;&lt;/use&gt;
+&lt;/svg&gt;
+
+<span class="c">&lt;!-- 3) 给 svg 设尺寸；多色由图标自身 path 决定 --&gt;</span>
+<span class="p">.icon</span> { <span class="b">width</span>: 1.4em; <span class="b">height</span>: 1.4em; <span class="b">fill</span>: currentColor; }</pre></div>
+      <div class="callout reveal" style="text-align:left">💡 Symbol 方式把整组图标塞进一个 SVG sprite，多色、渐变都能保留，是复杂视觉方案（如品牌插画图标）的首选。</div>
+    </div>
+
+    <div class="panel-box" data-p="unicode">
+      <div class="code reveal"><button class="copy" data-c="unicode">复制</button><pre><span class="c">&lt;!-- 1) 先声明字体族 --&gt;</span>
+<span class="p">.iconfont</span> {
+  <span class="b">font-family</span>: <span class="s">"iconfont"</span> !important;
+  <span class="b">font-style</span>: normal;
+  <span class="b">-webkit-font-smoothing</span>: antialiased;
+}
+
+<span class="c">&lt;!-- 2) 直接写 Unicode 实体，最轻量 --&gt;</span>
+&lt;i class=<span class="s">"iconfont"</span>&gt;<span class="b">&amp;#xe601;</span>&lt;/i&gt;
+&lt;i class=<span class="s">"iconfont"</span>&gt;<span class="b">&amp;#xe602;</span>&lt;/i&gt;</pre></div>
+      <div class="callout reveal" style="text-align:left">⚠️ Unicode 方式没有语义类名，后期维护靠记编码，团队项目不推荐；适合一次性静态展示页。</div>
+    </div>
+  </section>
+
+  <section id="deep-flow">
+    <div class="sec-head reveal">
+      <div class="k">Workflow</div>
+      <h2>从搜图标到上线的标准流程</h2>
+      <p>Iconfont 的核心价值不在「下载」，而在「我的项目」这套可版本化、可协作的资源管理。</p>
+    </div>
+
+    <div class="flow reveal">
+      <div class="node"><h3>① 搜索</h3><div class="d">中/英文关键词检索，筛可商用</div></div>
+      <div class="arrow">→</div>
+      <div class="node"><h3>② 收藏</h3><div class="d">加入购物车，批量收拢图标</div></div>
+      <div class="arrow">→</div>
+      <div class="node"><h3>③ 建项目</h3><div class="d">「我的项目」新建图标集合</div></div>
+      <div class="arrow">→</div>
+      <div class="node"><h3>④ 选格式</h3><div class="d">Font class/Symbol/Unicode/SVG</div></div>
+      <div class="arrow">→</div>
+      <div class="node"><h3>⑤ 引入</h3><div class="d">贴 link 或 CSS，调 color/size</div></div>
+    </div>
+
+    <div class="tl reveal" style="margin-top:26px">
+      <div class="tl-item"><div class="v">Tip 1</div><div class="t">同一项目统一一种引入方式</div><p>别把 Font class 和 Symbol 混用在同一套 UI 里，否则类名与 sprite 互相覆盖，样式难以收口。</p></div>
+      <div class="tl-item"><div class="v">Tip 2</div><div class="t">本地化字体文件</div><p>把生成好的 iconfont.css + 字体文件随代码仓库提交，避免外部 CDN 抖动导致图标空白。</p></div>
+      <div class="tl-item"><div class="v">Tip 3</div><div class="t">靠授权筛选规避风险</div><p>商用项目在搜索时勾选「可商用」协议，确认每个图标的授权类型后再进生产。</p></div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq">
+    <div class="sec-head reveal">
+      <div class="k">FAQ</div>
+      <h2>高频问题</h2>
+    </div>
+    <div class="reveal">
+      <div class="acc">
+        <div class="acc-h"><span class="num">01</span><h3>Iconfont 和直接放 SVG 有什么区别？</h3><span class="ar">＋</span></div>
+        <div class="acc-b"><div class="acc-b-in">直接内联 SVG 可控性最强、能多色，但每个图标占一份 DOM、难以统一管理。Iconfont 把图标收进字体 / sprite，用统一类名调用，体积更小、换色改尺寸只动 CSS。要单图精细控制时用 SVG 源码，要成体系图标系统时用 Iconfont。</div></div>
+      </div>
+      <div class="acc">
+        <div class="acc-h"><span class="num">02</span><h3>Font class、Symbol、Unicode 怎么选？</h3><span class="ar">＋</span></div>
+        <div class="acc-b"><div class="acc-b-in">三者取舍：
+          <ul><li><b>Font class</b>：单色图标、要改色、求简单——默认选它</li>
+          <li><b>Symbol</b>：需要多色 / 渐变 / 主题切换——功能最全</li>
+          <li><b>Unicode</b>：极端追求兼容与体积、不计维护性——最后考虑</li></ul></div></div>
+      </div>
+      <div class="acc">
+        <div class="acc-h"><span class="num">03</span><h3>图标能商用吗？会不会有版权风险？</h3><span class="ar">＋</span></div>
+        <div class="acc-b"><div class="acc-b-in">每个图标在详情页都标注授权协议。搜索时勾选「可商用」筛选，只采这类资源即可规避风险。但要注意：平台资源授权 ≠ 商标权，涉及品牌 LOGO、特定企业标识的图标仍需另行确认。</div></div>
+      </div>
+      <div class="acc">
+        <div class="acc-h"><span class="num">04</span><h3>为什么图标显示成方框 / 空白？</h3><span class="ar">＋</span></div>
+        <div class="acc-b"><div class="acc-b-in">常见三类原因：
+          <ul><li>在线 link 的 CDN（at.alicdn.com）加载失败或被墙——把字体文件本地化</li>
+          <li>类名写错，未匹配项目里实际生成的 <code>icon-xxx</code></li>
+          <li>字体文件 404，<code>@font-face</code> 路径与部署目录不符</li></ul></div></div>
+      </div>
+      <div class="acc">
+        <div class="acc-h"><span class="num">05</span><h3>团队协作时怎么管理图标？</h3><span class="ar">＋</span></div>
+        <div class="acc-b"><div class="acc-b-in">用「我的项目」建集合并邀请成员协作；每次增删图标后重新生成代码、随仓库提交。把 <code>iconfont.css</code> 和字体文件纳入版本管理，就能像管依赖一样管图标，避免各端各引一份。</div></div>
+      </div>
+      <div class="acc">
+        <div class="acc-h"><span class="num">06</span><h3>和 iconify、Font Awesome 比，Iconfont 强在哪？</h3><span class="ar">＋</span></div>
+        <div class="acc-b"><div class="acc-b-in">Iconfont 的优势是<b>中文搜索</b>与<b>海量本土化图标</b>（3356 万级），很多国内业务专属图形在外文库里找不到。iconify / Font Awesome 胜在 npm 生态与框架集成。混合方案：通用图标用 Font Awesome，本土化图标从 Iconfont 抓取后转 SVG 并入。</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- START -->
+  <section id="start">
+    <div class="sec-head reveal">
+      <div class="k">Quick Start</div>
+      <h2>五分钟接入你的第一个项目</h2>
+      <p>从注册到页面出现图标，只需要「搜 → 收 → 建项目 → 选格式 → 引代码」五步。下面是三种引入方式的真实落地代码，默认展开最通用的 Font class。</p>
+    </div>
+
+    <div class="tabs reveal" id="tabs2">
+      <button class="tab active" data-t="font">🅰 Font class（推荐）</button>
+      <button class="tab" data-t="symbol">🅱 Symbol</button>
+      <button class="tab" data-t="unicode">🅲 Unicode</button>
+    </div>
+
+    <div class="panel-box active" data-p="font">
+      <div class="code reveal"><button class="copy" data-c="font-start">复制</button><pre><span class="c">// 1) 在 iconfont.cn 搜图标 → 加购物车 → 我的项目 → 新建项目</span>
+<span class="c">// 2) 项目里「生成 Font class 代码」，复制在线链接</span>
+
+<span class="c">&lt;!-- index.html 的 &lt;head&gt; 中 --&gt;</span>
+&lt;link rel=<span class="s">"stylesheet"</span> href=<span class="s">"//at.alicdn.com/t/font_1234567_abcdef.css"</span>&gt;
+
+<span class="c">&lt;!-- 任意位置调用 --&gt;</span>
+&lt;button&gt;&lt;i class=<span class="s">"iconfont icon-gouwuche"</span>&gt;&lt;/i&gt; 购物车&lt;/button&gt;
+
+<span class="c">// 3) 在样式里控制外观</span>
+<span class="p">.icon-gouwuche</span> { <span class="b">color</span>: #cf5b3e; <span class="b">font-size</span>: 20px; }</pre></div>
+      <div class="callout reveal" style="text-align:left">✅ 跑通标志：页面出现彩色/单色购物车图标，改 <code>color</code> 即时变色。下一步把 CSS 与字体文件下载到本地，提交进仓库。</div>
+    </div>
+
+    <div class="panel-box" data-p="symbol">
+      <div class="code reveal"><button class="copy" data-c="symbol-start">复制</button><pre><span class="c">// 项目里「生成 Symbol 代码」，复制 JS 链接</span>
+
+<span class="c">&lt;!-- 引入一次 Symbol JS --&gt;</span>
+&lt;script src=<span class="s">"//at.alicdn.com/t/font_1234567_abcdef.js"</span>&gt;&lt;/script&gt;
+
+<span class="c">&lt;!-- 多色图标用 &lt;svg&gt;&lt;use&gt; 引用 --&gt;</span>
+&lt;svg class=<span class="s">"icon"</span> aria-hidden=<span class="s">"true"</span>&gt;
+  &lt;use xlink:href=<span class="s">"#icon-gouwuche"</span>&gt;&lt;/use&gt;
+&lt;/svg&gt;
+
+<span class="c">// 尺寸样式</span>
+<span class="p">.icon</span> { <span class="b">width</span>: 1.4em; <span class="b">height</span>: 1.4em; <span class="b">fill</span>: currentColor; }</pre></div>
+    </div>
+
+    <div class="panel-box" data-p="unicode">
+      <div class="code reveal"><button class="copy" data-c="unicode-start">复制</button><pre><span class="c">// 项目里「生成 Unicode 代码」，复制字体声明</span>
+
+<span class="c">// 在 CSS 中声明字体</span>
+<span class="p">.iconfont</span> {
+  <span class="b">font-family</span>: <span class="s">"iconfont"</span> !important;
+  <span class="b">font-style</span>: normal;
+  <span class="b">-webkit-font-smoothing</span>: antialiased;
+}
+
+<span class="c">&lt;!-- HTML 直接写实体 --&gt;</span>
+&lt;i class=<span class="s">"iconfont"</span>&gt;<span class="b">&amp;#xe601;</span>&lt;/i&gt;</pre></div>
+    </div>
+
+    <div class="grid g3 reveal" style="margin-top:22px">
+      <div class="card"><h3 style="margin-top:0; font-size:17px">🔎 中文搜索</h3><p style="color:var(--muted); font-size:14px">输入「分享 / 设置 / 消息」直接命中，比英文检索更贴合国内业务语境。</p></div>
+      <div class="card"><h3 style="margin-top:0; font-size:17px">🗂️ 我的项目</h3><p style="color:var(--muted); font-size:14px">图标集合可协作、可版本化，增删后重新生成代码随仓库提交。</p></div>
+      <div class="card"><h3 style="margin-top:0; font-size:17px">📥 多格式导出</h3><p style="color:var(--muted); font-size:14px">同个项目可同时产 Font class / Symbol / Unicode / SVG 代码，按场景取用。</p></div>
+    </div>
+  </section>
+
+  <footer>made with ♥ &amp; a white grid — <b>Iconfont 深度解读</b><div style="margin-top:6px;font-size:13px">数据抓取于 2026-07-14 · 内容综合自官网与 Tabbit 报告</div></footer>
+</div>
+
+<script>
+/* theme */
+const root=document.documentElement, tb=document.getElementById('themeBtn');
+tb.onclick=()=>{root.dataset.theme=root.dataset.theme==='light'?'dark':'light';};
+/* progress bar */
+const prog=document.getElementById('progress');
+addEventListener('scroll',()=>{const h=document.documentElement;
+  prog.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+'%';});
+/* reveal */
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in');}),{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+/* counters */
+function animateCounters(){
+  document.querySelectorAll('.stat .n').forEach(el=>{
+    const to=parseFloat(el.dataset.to), suf=el.dataset.suf||'';
+    let cur=0; const step=to/46;
+    const t=setInterval(()=>{cur+=step; if(cur>=to){cur=to; clearInterval(t);}
+      el.textContent=(to%1?cur.toFixed(1):Math.round(cur))+suf;},22);
+  });
+}
+const heroIO=new IntersectionObserver((es,o)=>{es.forEach(e=>{if(e.isIntersecting){animateCounters();o.disconnect();}});},{threshold:.4});
+heroIO.observe(document.querySelector('.hero'));
+/* tabs */
+document.querySelectorAll('.tabs').forEach(wrap=>{
+  const boxes=Array.from(wrap.parentElement.children).filter(c=>c.classList.contains('panel-box'));
+  wrap.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{
+    wrap.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
+    b.classList.add('active');
+    const t=b.dataset.t;
+    boxes.forEach(p=>p.classList.toggle('active',p.dataset.p===t));
+  });
+});
+/* accordion */
+document.querySelectorAll('.acc-h').forEach(h=>h.onclick=()=>{
+  const acc=h.parentElement, b=acc.querySelector('.acc-b');
+  const open=acc.classList.toggle('open');
+  b.style.maxHeight=open?b.scrollHeight+'px':'0';
+});
+/* copy */
+document.querySelectorAll('.copy').forEach(b=>b.onclick=()=>{
+  const pre=b.parentElement.querySelector('pre');
+  navigator.clipboard.writeText(pre.innerText).then(()=>{const t=b.textContent;b.textContent='已复制 ✓';setTimeout(()=>b.textContent=t,1400);});
+});
+</script>
+<a href="tp.html" style="position:fixed;left:18px;bottom:18px;z-index:90;display:inline-flex;align-items:center;gap:7px;font:600 14px/1 system-ui,sans-serif;color:#fff;text-decoration:none;background:linear-gradient(120deg,var(--accent),var(--accent-2));padding:11px 17px;border-radius:12px;box-shadow:0 8px 30px rgba(0,0,0,.3)">← 返回 TP 中心</a>
+<script>
+/* Theme button icon sync */
+(function(){
+  var btn=document.querySelector('.theme-btn');
+  if(!btn)return;
+  function sync(){btn.textContent=document.documentElement.dataset.theme==='dark'?'☀️':'🌙';}
+  sync();
+  btn.addEventListener('click',function(){setTimeout(sync,0);});
+})();
+</script>
+<script>
+/* Auto-collapse TOC: only expand the section containing the current page */
+(function(){
+  var details=document.querySelectorAll('aside.toc details.toc-sec');
+  if(details.length<2)return;
+  var current=location.pathname.replace(/\/$/,'');
+  var activeLink=null;
+  document.querySelectorAll('aside.toc a').forEach(function(a){
+    var href=a.getAttribute('href')||'';
+    if(href && !href.startsWith('http') && !href.startsWith('#')){
+      var path=href.replace(/^https?:\/\/[^\/]+/,'').replace(/\/$/,'');
+      if(current===path || current.indexOf(path)>-1 || path.indexOf(current)>-1){
+        activeLink=a;
+      }
+    }
+  });
+  details.forEach(function(d){
+    if(activeLink && d.contains(activeLink)){d.setAttribute('open','');}
+    else{d.removeAttribute('open');}
+  });
+})();
+</script>
+</body>
+</html>

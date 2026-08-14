@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Design Spells · 深度解读</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#ffffff; --grid:#edeff4; --glow:#fff5f0;
+    --ink:#14151a; --muted:#60667a; --line:#e6e8ef;
+    --accent:#e0567a; --accent-2:#e0a200;
+    --green:#1f9d6b; --yellow:#e0a200; --pink:#e0457f;
+    --card:#ffffff; --soft:#f7f8fb; --shadow:rgba(20,21,26,.08);
+    --radius:18px;
+  }
+  [data-theme="dark"]{
+    --bg:#0e0f14; --grid:#1a1c25; --glow:#1a1410;
+    --ink:#f1f2f6; --muted:#9aa0b4; --line:#262936;
+    --card:#15171f; --soft:#191b24; --shadow:rgba(0,0,0,.5);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0; color:var(--ink); font-family:'Inter','Noto Sans SC',system-ui,sans-serif;
+    background:var(--bg);
+    background-image:
+      linear-gradient(var(--grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+    background-size:34px 34px;
+    background-attachment:fixed;
+    line-height:1.65; -webkit-font-smoothing:antialiased;
+  }
+  body::before{
+    content:""; position:fixed; inset:0; pointer-events:none; z-index:0;
+    background:radial-gradient(60% 50% at 50% -10%, var(--glow), transparent 70%);
+  }
+  h1,h2,h3,.display{font-family:'Space Grotesk','Noto Sans SC',sans-serif; letter-spacing:-.02em;}
+  a{color:var(--accent); text-decoration:none;}
+  code,.mono{font-family:'JetBrains Mono',monospace;}
+  .wrap{max-width:1080px; margin:0 auto; padding:0 22px; position:relative; z-index:1;}
+
+  /* progress + nav */
+  #progress{position:fixed; top:0; left:0; height:3px; width:0; z-index:100;
+    background:linear-gradient(90deg,var(--accent),var(--accent-2)); transition:width .1s;}
+  nav{position:sticky; top:0; z-index:50; backdrop-filter:blur(14px);
+    background:color-mix(in srgb, var(--bg) 78%, transparent);
+    border-bottom:1px solid var(--line);}
+  .nav-in{max-width:1080px; margin:0 auto; padding:13px 22px; display:flex; align-items:center; gap:18px;}
+  .logo{font-family:'Space Grotesk'; font-weight:700; font-size:20px; display:flex; align-items:center; gap:9px;}
+  .logo .dot{width:13px;height:13px;border-radius:4px;background:linear-gradient(135deg,var(--accent),var(--accent-2)); box-shadow:0 0 0 4px color-mix(in srgb,var(--accent) 18%,transparent);}
+  .nav-links{display:flex; gap:6px; margin-left:auto; flex-wrap:wrap;}
+  .nav-links a{color:var(--muted); font-size:14px; font-weight:500; padding:7px 11px; border-radius:9px; transition:.2s;}
+  .nav-links a:hover{color:var(--ink); background:var(--soft);}
+  .toggle{cursor:pointer; border:1px solid var(--line); background:var(--card); border-radius:10px;
+    width:40px; height:36px; display:grid; place-items:center; font-size:16px; transition:.2s;}
+  .toggle:hover{border-color:var(--accent);}
+  .ghost-btn{border:1px solid var(--line); background:var(--card); color:var(--ink); padding:8px 13px;
+    border-radius:10px; font-size:14px; font-weight:600; transition:.2s; cursor:pointer;}
+  .ghost-btn:hover{border-color:var(--accent); transform:translateY(-1px);}
+
+  /* hero */
+  .hero{padding:70px 0 40px; text-align:center;}
+  .eyebrow{display:inline-flex; align-items:center; gap:8px; font-size:13px; font-weight:600; color:var(--accent);
+    background:color-mix(in srgb,var(--accent) 10%,transparent); padding:6px 13px; border-radius:99px; border:1px solid color-mix(in srgb,var(--accent) 25%,transparent);}
+  .hero h1{font-size:clamp(40px,8vw,82px); margin:18px 0 8px; line-height:1; font-weight:700;}
+  .hero h1 .grad{background:linear-gradient(120deg,var(--accent),var(--accent-2)); -webkit-background-clip:text; background-clip:text; color:transparent;}
+  .hero p.sub{font-size:clamp(16px,2.4vw,21px); color:var(--muted); max-width:680px; margin:10px auto 0;}
+  .cta{display:flex; gap:12px; justify-content:center; margin-top:26px; flex-wrap:wrap;}
+  .btn{display:inline-flex; align-items:center; gap:8px; padding:13px 22px; border-radius:12px; font-weight:600; font-size:15px; transition:.22s; cursor:pointer; border:1px solid transparent;}
+  .btn.primary{background:linear-gradient(120deg,var(--accent),var(--accent-2)); color:#fff; box-shadow:0 10px 26px color-mix(in srgb,var(--accent) 35%,transparent);}
+  .btn.primary:hover{transform:translateY(-2px); box-shadow:0 16px 34px color-mix(in srgb,var(--accent) 45%,transparent);}
+  .btn.sec{background:var(--card); border-color:var(--line); color:var(--ink);}
+  .btn.sec:hover{border-color:var(--accent); transform:translateY(-2px);}
+
+  /* stats */
+  .stats{display:grid; grid-template-columns:repeat(6,1fr); gap:14px; margin:40px 0 10px;}
+  .stat{background:var(--card); border:1px solid var(--line); border-radius:var(--radius); padding:18px 12px; text-align:center; box-shadow:0 6px 20px var(--shadow); transition:.25s;}
+  .stat:hover{transform:translateY(-3px); border-color:var(--accent);}
+  .stat .n{font-family:'Space Grotesk'; font-weight:700; font-size:clamp(20px,3vw,28px); color:var(--ink);}
+  .stat .l{font-size:12.5px; color:var(--muted); margin-top:3px;}
+
+  /* sections */
+  section{padding:54px 0; scroll-margin-top:74px;}
+  .sec-head{margin-bottom:26px;}
+  .sec-head .k{font-size:13px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--accent);}
+  .sec-head h2{font-size:clamp(26px,4vw,38px); margin:8px 0 6px;}
+  .sec-head p{color:var(--muted); max-width:720px; margin:0;}
+
+  .card{background:var(--card); border:1px solid var(--line); border-radius:var(--radius); padding:22px; box-shadow:0 6px 22px var(--shadow); transition:.25s;}
+  .card:hover{transform:translateY(-3px); box-shadow:0 14px 34px var(--shadow); border-color:color-mix(in srgb,var(--accent) 40%,var(--line));}
+  .grid{display:grid; gap:16px;}
+  .g2{grid-template-columns:repeat(2,1fr);} .g3{grid-template-columns:repeat(3,1fr);} .g4{grid-template-columns:repeat(4,1fr);}
+  .pillar .ic{width:44px;height:44px;border-radius:12px; display:grid; place-items:center; font-size:22px; margin-bottom:12px;
+    background:color-mix(in srgb,var(--accent) 12%,transparent); border:1px solid color-mix(in srgb,var(--accent) 22%,transparent);}
+  .pillar h3{font-size:18px; margin:0 0 6px;} .pillar p{color:var(--muted); font-size:14.5px; margin:0;}
+
+  .chips{display:flex; gap:10px; flex-wrap:wrap;}
+  .chip{display:inline-flex; align-items:center; gap:8px; padding:10px 15px; border-radius:12px; border:1px solid var(--line);
+    background:var(--card); font-weight:600; font-size:14.5px; transition:.2s;}
+  .chip:hover{border-color:var(--accent-2); transform:translateY(-2px); box-shadow:0 8px 20px var(--shadow);}
+  .chip .d{width:9px;height:9px;border-radius:50%; background:linear-gradient(135deg,var(--accent),var(--accent-2));}
+
+  /* flow */
+  .flow{display:flex; align-items:stretch; justify-content:center; gap:0; flex-wrap:wrap; margin:10px 0;}
+  .node{flex:1 1 200px; min-width:180px; background:var(--card); border:1px solid var(--line);
+    padding:16px; text-align:center; box-shadow:0 6px 20px var(--shadow); margin:6px; border-radius:var(--radius);}
+  .node h3{font-size:16px; color:var(--accent); margin:6px 0;}
+  .node .d{font-size:14.5px; color:var(--muted);}
+  .arrow{align-self:center; font-family:'Space Grotesk'; color:var(--accent-2); font-size:20px; padding:0 6px;}
+
+  /* tabs */
+  .tabs{display:flex; gap:6px; flex-wrap:wrap; margin-bottom:18px; border-bottom:1px solid var(--line); padding-bottom:12px;}
+  .tab{border:1px solid var(--line); background:var(--card); color:var(--muted); padding:9px 15px; border-radius:11px; font-weight:600; font-size:14px; cursor:pointer; transition:.2s;}
+  .tab:hover{color:var(--ink);}
+  .tab.active{background:linear-gradient(120deg,var(--accent),var(--accent-2)); color:#fff; border-color:transparent; box-shadow:0 8px 20px color-mix(in srgb,var(--accent) 35%,transparent);}
+  .panel-box{display:none;} .panel-box.active{display:block; animation:fade .35s ease;}
+  @keyframes fade{from{opacity:0; transform:translateY(8px);} to{opacity:1; transform:none;}}
+
+  /* code */
+  .code{background:var(--ink); color:#e7e9f2; border-radius:14px; padding:16px 18px; overflow:auto; box-shadow:0 10px 30px var(--shadow);}
+  .code pre{margin:0; font-family:'JetBrains Mono'; font-size:13.5px; line-height:1.7;}
+  .code .c{color:#7c8499;} .code .s{color:#9be8b0;} .code .p{color:#ffae8a;} .code .b{color:#8db4ff;}
+  .copy{float:right; cursor:pointer; font-size:12px; color:#aeb4c8; border:1px solid #2c2f3a; background:#1b1d26; padding:4px 9px; border-radius:8px;}
+  .copy:hover{color:#fff;}
+
+  .callout{border-left:4px solid var(--accent); background:color-mix(in srgb,var(--accent) 7%,var(--card)); padding:14px 17px; border-radius:0 12px 12px 0; font-size:14.5px; color:var(--muted); margin:16px 0;}
+  .callout b{color:var(--ink);}
+
+  /* accordion (FAQ) */
+  .acc{border:1px solid var(--line); border-radius:14px; overflow:hidden; background:var(--card); margin-bottom:11px; box-shadow:0 4px 16px var(--shadow);}
+  .acc-h{display:flex; align-items:center; gap:13px; padding:17px 19px; cursor:pointer; transition:.2s; user-select:none;}
+  .acc-h:hover{background:var(--soft);}
+  .acc-h .num{font-family:'Space Grotesk'; font-weight:700; color:var(--accent); font-size:15px; min-width:30px;}
+  .acc-h h3{font-size:17px; margin:0; flex:1;}
+  .acc-h .ar{transition:.3s; color:var(--muted); font-size:18px;}
+  .acc.open .acc-h .ar{transform:rotate(45deg); color:var(--accent);}
+  .acc-b{max-height:0; overflow:hidden; transition:max-height .35s ease;}
+  .acc-b-in{padding:0 19px 19px 62px; color:var(--muted); font-size:15px;}
+  .acc-b-in ul{margin:8px 0 0; padding-left:18px;} .acc-b-in li{margin:5px 0;}
+
+  /* timeline */
+  .tl{position:relative; margin-left:14px; padding-left:30px; border-left:2px solid var(--line);}
+  .tl-item{position:relative; padding:0 0 28px 0;}
+  .tl-item::before{content:""; position:absolute; left:-39px; top:4px; width:15px; height:15px; border-radius:50%; background:var(--card); border:3px solid var(--accent);}
+  .tl-item .v{font-family:'Space Grotesk'; font-weight:700; color:var(--accent); font-size:15px;}
+  .tl-item .t{font-weight:700; font-size:17px; margin:2px 0 5px;}
+  .tl-item p{color:var(--muted); margin:0; font-size:14.5px;}
+
+  /* list */
+  ul.b{list-style:none; padding-left:0; margin:10px 0;}
+  ul.b li{padding:6px 0 6px 26px; position:relative; color:var(--muted); font-size:15px;}
+  ul.b li::before{content:"▸"; position:absolute; left:4px; color:var(--accent); font-weight:bold;}
+
+  footer{border-top:1px solid var(--line); padding:36px 0 60px; text-align:center; color:var(--muted); font-size:14px;}
+  .reveal{opacity:0; transform:translateY(22px); transition:opacity .7s ease, transform .7s ease;}
+  .reveal.in{opacity:1; transform:none;}
+  @media(max-width:760px){.stats{grid-template-columns:repeat(3,1fr);} .g2,.g3,.g4{grid-template-columns:1fr;} .nav-links{display:none;}}
+</style>
+</head>
+<body>
+<div id="progress"></div>
+<nav>
+  <div class="nav-in">
+    <div class="logo"><span class="dot"></span>Design Spells</div>
+    <div class="nav-links">
+      <a href="#overview">概览</a>
+      <a href="#deep">深读</a>
+      <a href="#faq">FAQ</a>
+      <a href="#start">快速开始</a>
+    </div>
+    <button class="toggle" id="themeBtn" title="切换明暗">◐</button>
+    <a class="ghost-btn" href="tp.html">← 返回 TP 中心</a>
+  </div>
+</nav>
+
+<div class="wrap">
+
+  <!-- HERO -->
+  <header class="hero">
+    <span class="eyebrow">UI 灵感 · 微交互设计库</span>
+    <h1><span class="grad">Design Spells</span></h1>
+    <p class="sub">一个人工精选的 UI/UX 微交互灵感库，把 Apple Sports、Snapchat、Dropbox 等头部 App 里那些「感觉像魔法」的界面细节——下拉刷新、骨骼屏、手势反馈、转场动画——逐条拆开并配动图演示，供设计师和前端开发者看清原理、照着复现。</p>
+    <div class="cta">
+      <a class="btn primary" href="https://designspells.com" target="_blank" rel="noopener">⚡ 访问官网 ↗</a>
+      <a class="btn sec" href="#overview">🔍 深入了解</a>
+    </div>
+    <div class="stats">
+      <div class="stat reveal"><div class="n" data-to="200" data-suf="+">0</div><div class="l">精选案例</div></div>
+      <div class="stat reveal"><div class="n" data-to="14" data-suf="">0</div><div class="l">标签分类</div></div>
+      <div class="stat reveal"><div class="n" data-to="30" data-suf="+">0</div><div class="l">来源应用</div></div>
+      <div class="stat reveal"><div class="n" data-to="200" data-suf="+">0</div><div class="l">动图演示</div></div>
+      <div class="stat reveal"><div class="n" data-to="20" data-suf="+/周">0</div><div class="l">每周新增</div></div>
+      <div class="stat reveal"><div class="n" data-to="100" data-suf="%">0</div><div class="l">免费可看</div></div>
+    </div>
+    <div class="callout" style="text-align:left; max-width:760px; margin:18px auto 0;">
+      📌 Design Spells 不卖模板、不堆截图墙：每个案例都标注<b>出自哪个 App、触发了什么交互、为什么顺手</b>。建议先用顶部标签（Mobile / Desktop / Interaction / Animation）收窄范围，再点开卡片看动图，最后照着 CSS / JS 自己复现一遍——看一百遍不如手写一遍。
+    </div>
+  </header>
+
+  <!-- OVERVIEW -->
+  <section id="overview">
+    <div class="sec-head reveal"><div class="k">Overview</div><h2>它到底是什么</h2><p>一句话：把「好设计为什么好」这件模糊的事，拆成一条条可观察、可复现的微交互，而不是又一座灵感图库。</p></div>
+    <div class="grid g3">
+      <div class="card pillar reveal"><div class="ic">🎯</div><h3>人工精选案例</h3><p>案例由真人从真实产品里挑出，不是 AI 批量生成的堆量，每一条都经得起「这细节真有用吗」的追问。</p></div>
+      <div class="card pillar reveal"><div class="ic">🎬</div><h3>动图演示</h3><p>每个案例配 GIF / 视频，看得见「动起来」的那一下——静态截图永远讲不清微交互的精髓。</p></div>
+      <div class="card pillar reveal"><div class="ic">🏷️</div><h3>标签筛选</h3><p>按 Mobile / Desktop / Interaction / Animation 等维度快速定位，不用在瀑布流里硬翻。</p></div>
+      <div class="card pillar reveal"><div class="ic">🔍</div><h3>溯源出处</h3><p>明确标注来源 App 与具体功能，便于对照原产品、理解它在真实场景里的位置。</p></div>
+      <div class="card pillar reveal"><div class="ic">📤</div><h3>社区投稿</h3><p>发现好细节可通过 Submit 提交，库随社区贡献持续变厚，不靠单方面维护。</p></div>
+      <div class="card pillar reveal"><div class="ic">📰</div><h3>周更推送</h3><p>Newsletter 定期投递新案例，订阅后不用天天刷站点也能跟上更新节奏。</p></div>
+    </div>
+  </section>
+
+  <!-- DEEP DIVE -->
+  <section id="deep">
+    <div class="sec-head reveal"><div class="k">Deep Dive</div><h2>拆开看：它怎么帮你做出「像魔法」的细节</h2><p>从分类体系、浏览动作，到前端如何复现，逐层说清。</p></div>
+
+    <div class="sec-head reveal" style="margin-top:8px"><div class="k">01 · 分类体系</div><h2>四类标签，覆盖一个细节的两面</h2><p>Design Spells 用「设备形态」和「交互性质」两条轴给案例贴标签，先定场景再定动作，避免大海捞针。</p></div>
+    <div class="chips reveal">
+      <span class="chip"><span class="d"></span>Mobile · 手机端细节</span>
+      <span class="chip"><span class="d"></span>Desktop · 桌面端细节</span>
+      <span class="chip"><span class="d"></span>Interaction · 交互反馈</span>
+      <span class="chip"><span class="d"></span>Animation · 动效转场</span>
+    </div>
+    <div class="grid g3 reveal" style="margin-top:16px">
+      <div class="card"><h3 style="margin-top:0; font-size:17px">📱 Mobile</h3><p style="color:var(--muted); font-size:14.5px">下拉刷新、手势滑动、底部抽屉、触觉反馈等手机特有的「小动作」。</p></div>
+      <div class="card"><h3 style="margin-top:0; font-size:17px">🖥️ Desktop</h3><p style="color:var(--muted); font-size:14.5px">悬停态、右键菜单、光标跟随、窗口缩放时的布局过渡等桌面惯例。</p></div>
+      <div class="card"><h3 style="margin-top:0; font-size:17px">✨ Interaction</h3><p style="color:var(--muted); font-size:14.5px">点击、长按、拖拽后的即时反馈——让用户「知道系统听懂了我」。</p></div>
+      <div class="card"><h3 style="margin-top:0; font-size:17px">🎞️ Animation</h3><p style="color:var(--muted); font-size:14.5px">进场 / 退场 / 共享元素转场，让状态切换有连续感而非硬切。</p></div>
+      <div class="card"><h3 style="margin-top:0; font-size:17px">⏳ Loading</h3><p style="color:var(--muted); font-size:14.5px">骨骼屏、进度环、乐观更新等「等待不无聊」的占位策略。</p></div>
+      <div class="card"><h3 style="margin-top:0; font-size:17px">🔔 Notification</h3><p style="color:var(--muted); font-size:14.5px"> Toast、红点、角标微动效——把「有消息」讲得轻而不吵。</p></div>
+    </div>
+
+    <div class="sec-head reveal" style="margin-top:38px"><div class="k">02 · 一次完整的浏览动作</div><h2>看 → 拆 → 复现，三步闭环</h2><p>它把「找灵感」设计成一条能落地的学习路径，而不是消遣式刷图。</p></div>
+    <div class="flow reveal">
+      <div class="node"><h3>① 收窄</h3><div class="d">用标签选设备与交互类型，过滤掉不相关案例</div></div>
+      <div class="arrow">→</div>
+      <div class="node"><h3>② 看动图</h3><div class="d">点开卡片，看 GIF / 视频里的真实动效时序</div></div>
+      <div class="arrow">→</div>
+      <div class="node"><h3>③ 读溯源</h3><div class="d">看详情：出自哪个 App、触发什么、为什么顺手</div></div>
+      <div class="arrow">→</div>
+      <div class="node"><h3>④ 复现</h3><div class="d">照着写 CSS / JS，在自己的项目里跑通一遍</div></div>
+    </div>
+
+    <div class="sec-head reveal" style="margin-top:38px"><div class="k">03 · 动手复现</div><h2>把它「看会的」变成「写会的」</h2><p>微交互大多由一段 CSS 加少量 JS 构成。下面两个是 Design Spells 上最常见的两类细节，可直接拷进项目跑。</p></div>
+
+    <div class="grid g2 reveal">
+      <div class="card">
+        <h3 style="margin-top:0">骨骼屏微光（Loading 类）</h3>
+        <p style="color:var(--muted); font-size:14.5px">加载占位时从左到右扫过的渐变，比转圈圈更「高级」。核心是一段会动的 <code>linear-gradient</code> 背景。</p>
+        <div class="code"><button class="copy" data-c="skel">复制</button><pre><span class="c">/* 骨骼屏微光：加载占位时扫过的渐变 */</span>
+<span class="p">.skeleton</span> {
+  <span class="b">background</span>: <span class="s">linear-gradient(90deg,#e9e9ef 25%,#f5f5f7 37%,#e9e9ef 63%)</span>;
+  <span class="b">background-size</span>: <span class="s">400% 100%</span>;
+  <span class="b">border-radius</span>: <span class="s">10px</span>;
+  <span class="b">animation</span>: <span class="s">shimmer 1.4s ease infinite</span>;
+}
+<span class="p">@keyframes</span> shimmer {
+  <span class="b">0%</span>   { <span class="b">background-position</span>: <span class="s">100% 0</span>; }
+  <span class="b">100%</span> { <span class="b">background-position</span>: <span class="s">0 0</span>; }
+}</pre></div>
+      </div>
+      <div class="card">
+        <h3 style="margin-top:0">点赞弹簧（Interaction 类）</h3>
+        <p style="color:var(--muted); font-size:14.5px">点击时放大回弹，给用户「按下去有反应」的即时确认。用 CSS 缓动曲线 + 一个 class 切换即可。</p>
+        <div class="code"><button class="copy" data-c="like">复制</button><pre><span class="c">// 点赞弹簧：点击放大回弹</span>
+<span class="p">const</span> btn = document.<span class="b">querySelector</span>(<span class="s">'.like'</span>);
+btn.<span class="b">addEventListener</span>(<span class="s">'click'</span>, () =&gt; {
+  btn.<span class="b">classList</span>.<span class="b">add</span>(<span class="s">'pop'</span>);
+  <span class="p">setTimeout</span>(() =&gt; btn.<span class="b">classList</span>.<span class="b">remove</span>(<span class="s">'pop'</span>), <span class="s">350</span>);
+});
+
+<span class="c">/* .like.pop { transform: scale(1.35); transition: transform .35s cubic-bezier(.2,1.4,.4,1); } */</span></pre></div>
+      </div>
+    </div>
+
+    <div class="callout reveal" style="text-align:left; margin-top:18px">💡 <b>复现优先于收藏</b>：Design Spells 的价值不在「存了一堆动图」，而在你照着写一次后，下次遇到同类需求能直接调出思路。建议每看一个案例，至少手写其中一段关键代码。</div>
+
+    <div class="sec-head reveal" style="margin-top:38px"><div class="k">04 · 它和别的灵感站有什么不同</div><h2>不是图库，是「教学切片」</h2><p>同样找灵感，Dribbble / Mobbin / Pinterest 解决「看得多」，Design Spells 解决「看得懂、写得会」。</p></div>
+    <ul class="b reveal">
+      <li><b>vs Dribbble：</b>Dribbble 多为概念稿、视觉先行；Design Spells 只收已上线真实产品的细节，强调「可复现」而非「好看」。
+      <li><b>vs Mobbin：</b>Mobbin 按 App 整屏截图归档，适合看完整流程；Design Spells 把单点微交互单独切片，更适合补「小细节」。
+      <li><b>vs Pinterest：</b>Pinterest 靠算法投喂、信息杂；Design Spells 人工策展、标签有限但精准，没有信息噪音。
+      <li><b>共同点：</b>三者都适合做调研起点，但落地到代码时，Design Spells 的「动图 + 溯源」组合最省从图到实现的翻译成本。
+    </ul>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq">
+    <div class="sec-head reveal"><div class="k">FAQ</div><h2>常见问题</h2><p>关于内容来源、使用方式、投稿与订阅的高频疑问。</p></div>
+    <div class="reveal">
+      <div class="acc">
+        <div class="acc-h"><span class="num">01</span><h3>Design Spells 里的案例是真实的吗？</h3><span class="ar">＋</span></div>
+        <div class="acc-b"><div class="acc-b-in">是的，案例来自 Apple Sports、Snapchat、Dropbox 等已上线的真实产品，强调「真实细节」而非概念稿。每个案例都会标注来源 App 与对应功能，方便你回原产品对照。
+          <ul><li>优势：你复现的是被真实用户验证过的交互，不是作者脑补的「应该好看」。</li>
+          <li>注意：具体实现细节（代码）由你自己补齐，站点提供的是「看什么、为什么」。</li></ul></div></div>
+      </div>
+      <div class="acc">
+        <div class="acc-h"><span class="num">02</span><h3>标签分类是怎么组织的？</h3><span class="ar">＋</span></div>
+        <div class="acc-b"><div class="acc-b-in">用两条轴交叉：<b>设备形态</b>（Mobile / Desktop）与<b>交互性质</b>（Interaction / Animation）。你既可以「我只看手机端的动效」，也可以「我只看所有加载态」，组合筛选快速定位。
+          <ul><li>Mobile / Desktop —— 决定交互发生在什么屏幕。</li>
+          <li>Interaction / Animation / Loading / Notification —— 决定细节属于哪一类动作。</li></ul></div></div>
+      </div>
+      <div class="acc">
+        <div class="acc-h"><span class="num">03</span><h3>怎么把一个案例用到自己的项目里？</h3><span class="ar">＋</span></div>
+        <div class="acc-b"><div class="acc-b-in">流程是：点开卡片看动图 → 读详情理解触发条件与业务含义 → 在自己的项目里用 CSS / JS 复现核心一段。站点本身不提供现成组件代码，它的定位是「灵感切片 + 原理讲解」，落到工程由你完成。建议先看动图里的时序（时长、缓动、先后），再写代码对拍。</div></div>
+      </div>
+      <div class="acc">
+        <div class="acc-h"><span class="num">04</span><h3>我可以投稿自己发现的好细节吗？</h3><span class="ar">＋</span></div>
+        <div class="acc-b"><div class="acc-b-in">可以。站点提供 Submit 入口，发现优秀的设计细节即可投稿分享，库随社区贡献持续扩充。投稿时最好附上：来源 App 名称、触发该交互的具体操作、以及一段动图 / GIF，便于审核与复现。</div></div>
+      </div>
+      <div class="acc">
+        <div class="acc-h"><span class="num">05</span><h3>如何持续获取新案例？</h3><span class="ar">＋</span></div>
+        <div class="acc-b"><div class="acc-b-in">通过 Newsletter 订阅，站点会定期（约每周）推送新增案例，不用天天刷首页。订阅后你拿到的是「精选增量」，比在信息流里被动刷更高效。</div></div>
+      </div>
+      <div class="acc">
+        <div class="acc-h"><span class="num">06</span><h3>它适合谁用？</h3><span class="ar">＋</span></div>
+        <div class="acc-b"><div class="acc-b-in">主要两类人：
+          <ul><li><b>前端开发者：</b>把「想做但说不清」的动效，对照真实案例拆成可写的交互。</li>
+          <li><b>设计师 / 产品：</b>快速建立对「好微交互长什么样」的判断力，做评审和稿子时有参照锚点。</li></ul></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- START -->
+  <section id="start">
+    <div class="sec-head reveal"><div class="k">Quick Start</div><h2>三步上手：看、藏、复现</h2><p>不用注册也能浏览全部案例；下面是把灵感变成你工程的几段可直接用的代码。</p></div>
+
+    <div class="tabs reveal" id="tabs">
+      <button class="tab active" data-t="replicate">🌀 复现精选动效</button>
+      <button class="tab" data-t="save">🔖 自建收藏夹</button>
+      <button class="tab" data-t="submit">📤 投稿 / 订阅</button>
+    </div>
+
+    <div class="panel-box active" data-p="replicate">
+      <div class="code reveal"><button class="copy" data-c="r1">复制</button><pre><span class="c">// 下拉刷新指示：滚动到顶继续下拉时拉伸回弹（移动端常见）</span>
+<span class="p">let</span> startY = <span class="s">0</span>;
+<span class="p">const</span> box = document.<span class="b">querySelector</span>(<span class="s">'.feed'</span>);
+box.<span class="b">addEventListener</span>(<span class="s">'touchstart'</span>, e =&gt; startY = e.<span class="b">touches</span>[<span class="s">0</span>].clientY);
+box.<span class="b">addEventListener</span>(<span class="s">'touchmove'</span>, e =&gt; {
+  <span class="p">const</span> dy = e.<span class="b">touches</span>[<span class="s">0</span>].clientY - startY;
+  <span class="p">if</span> (box.<span class="b">scrollTop</span> === <span class="s">0</span> &amp;&amp; dy &gt; <span class="s">0</span>) {
+    box.<span class="b">style</span>.<span class="b">transform</span> = <span class="s">`translateY(${Math.min(dy * 0.4, 80)}px)`</span>;
+  }
+});
+box.<span class="b">addEventListener</span>(<span class="s">'touchend'</span>, () =&gt; box.<span class="b">style</span>.<span class="b">transform</span> = <span class="s">''</span>);</pre></div>
+      <div class="callout reveal" style="text-align:left">⚠️ 这只是「原理骨架」。真实 App 里还要处理阈值触发、加载态、阻尼曲线与无障碍（reduced-motion）。对照 Design Spells 的动图把时序对上，再补这些边界。</div>
+    </div>
+
+    <div class="panel-box" data-p="save">
+      <div class="code reveal"><button class="copy" data-c="r2">复制</button><pre><span class="c">// 用 localStorage 自建一个 Design Spells 收藏夹</span>
+<span class="p">const</span> KEY = <span class="s">'ds_favs'</span>;
+<span class="p">function</span> <span class="b">save</span>(id, title) {
+  <span class="p">const</span> list = <span class="b">JSON</span>.<span class="b">parse</span>(localStorage.<span class="b">getItem</span>(KEY) || <span class="s">'[]'</span>);
+  list.<span class="b">push</span>({ id, title, at: <span class="b">Date</span>.<span class="b">now</span>() });
+  localStorage.<span class="b">setItem</span>(KEY, <span class="b">JSON</span>.<span class="b">stringify</span>(list));
+}
+<span class="p">function</span> <span class="b">list</span>() { <span class="p">return</span> <span class="b">JSON</span>.<span class="b">parse</span>(localStorage.<span class="b">getItem</span>(KEY) || <span class="s">'[]'</span>); }
+
+<span class="c">// 在案例卡片上调用：save('apple-sports-refresh', 'Apple Sports 下拉刷新')</span></pre></div>
+    </div>
+
+    <div class="panel-box" data-p="submit">
+      <div class="code reveal"><button class="copy" data-c="r3">复制</button><pre><span class="c">// 投稿 / 订阅的最小前端形态：一个提交表单 + 一个邮箱输入</span>
+<span class="c">// 实际入口在 designspells.com 顶部 Submit 与 Newsletter 按钮</span>
+&lt;<span class="p">form</span> <span class="b">action</span>=<span class="s">"https://designspells.com/submit"</span> <span class="b">method</span>=<span class="s">"post"</span>&gt;
+  &lt;<span class="p">input</span> <span class="b">name</span>=<span class="s">"app"</span> <span class="b">placeholder</span>=<span class="s">"来源 App，如 Dropbox"</span>&gt;
+  &lt;<span class="p">input</span> <span class="b">name</span>=<span class="s">"detail"</span> <span class="b">placeholder</span>=<span class="s">"触发了什么交互"</span>&gt;
+  &lt;<span class="p">button</span>&gt;投稿分享&lt;/<span class="p">button</span>&gt;
+&lt;/<span class="p">form</span>&gt;
+
+<span class="c">// 订阅 Newsletter：在官网邮箱框填入地址即可收到每周增量</span></pre></div>
+    </div>
+
+    <div class="grid g3 reveal" style="margin-top:22px">
+      <div class="card"><h3 style="margin-top:0; font-size:17px">🔍 先收窄</h3><p style="color:var(--muted); font-size:14px">用 Mobile / Desktop / Interaction / Animation 标签先定场景，别一上来就刷全库。</p></div>
+      <div class="card"><h3 style="margin-top:0; font-size:17px">🎬 再看动图</h3><p style="color:var(--muted); font-size:14px">点开卡片盯时序：时长、缓动、先后关系，这些截图讲不清。</p></div>
+      <div class="card"><h3 style="margin-top:0; font-size:17px">✍️ 后手写</h3><p style="color:var(--muted); font-size:14px">照着核心一段自己写一遍，比收藏一百个动图更值钱。</p></div>
+    </div>
+  </section>
+
+  <footer>made with ♥ &amp; a white grid — <b>Design Spells 深度解读</b><div style="margin-top:6px;font-size:13px">数据抓取于 2026-07-14 · 内容综合自官网与 Tabbit 报告</div></footer>
+</div>
+
+<script>
+/* theme */
+const root=document.documentElement, tb=document.getElementById('themeBtn');
+tb.onclick=()=>{root.dataset.theme=root.dataset.theme==='light'?'dark':'light';};
+/* progress bar */
+const prog=document.getElementById('progress');
+addEventListener('scroll',()=>{const h=document.documentElement;
+  prog.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+'%';});
+/* reveal */
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in');}),{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+/* counters */
+function animateCounters(){
+  document.querySelectorAll('.stat .n').forEach(el=>{
+    const to=parseFloat(el.dataset.to), suf=el.dataset.suf||'';
+    let cur=0; const step=to/46;
+    const t=setInterval(()=>{cur+=step; if(cur>=to){cur=to; clearInterval(t);}
+      el.textContent=(to%1?cur.toFixed(1):Math.round(cur))+suf;},22);
+  });
+}
+const heroIO=new IntersectionObserver((es,o)=>{es.forEach(e=>{if(e.isIntersecting){animateCounters();o.disconnect();}});},{threshold:.4});
+heroIO.observe(document.querySelector('.hero'));
+/* tabs */
+document.querySelectorAll('.tabs').forEach(wrap=>{
+  const boxes=Array.from(wrap.parentElement.children).filter(c=>c.classList.contains('panel-box'));
+  wrap.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{
+    wrap.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
+    b.classList.add('active');
+    const t=b.dataset.t;
+    boxes.forEach(p=>p.classList.toggle('active',p.dataset.p===t));
+  });
+});
+/* accordion */
+document.querySelectorAll('.acc-h').forEach(h=>h.onclick=()=>{
+  const acc=h.parentElement, b=acc.querySelector('.acc-b');
+  const open=acc.classList.toggle('open');
+  b.style.maxHeight=open?b.scrollHeight+'px':'0';
+});
+/* copy */
+document.querySelectorAll('.copy').forEach(b=>b.onclick=()=>{
+  const pre=b.parentElement.querySelector('pre');
+  navigator.clipboard.writeText(pre.innerText).then(()=>{const t=b.textContent;b.textContent='已复制 ✓';setTimeout(()=>b.textContent=t,1400);});
+});
+</script>
+<a href="tp.html" style="position:fixed;left:18px;bottom:18px;z-index:90;display:inline-flex;align-items:center;gap:7px;font:600 14px/1 system-ui,sans-serif;color:#fff;text-decoration:none;background:linear-gradient(120deg,var(--accent),var(--accent-2));padding:11px 17px;border-radius:12px;box-shadow:0 8px 30px rgba(0,0,0,.3)">← 返回 TP 中心</a>
+<script>
+/* Theme button icon sync */
+(function(){
+  var btn=document.querySelector('.theme-btn');
+  if(!btn)return;
+  function sync(){btn.textContent=document.documentElement.dataset.theme==='dark'?'☀️':'🌙';}
+  sync();
+  btn.addEventListener('click',function(){setTimeout(sync,0);});
+})();
+</script>
+<script>
+/* Auto-collapse TOC: only expand the section containing the current page */
+(function(){
+  var details=document.querySelectorAll('aside.toc details.toc-sec');
+  if(details.length<2)return;
+  var current=location.pathname.replace(/\/$/,'');
+  var activeLink=null;
+  document.querySelectorAll('aside.toc a').forEach(function(a){
+    var href=a.getAttribute('href')||'';
+    if(href && !href.startsWith('http') && !href.startsWith('#')){
+      var path=href.replace(/^https?:\/\/[^\/]+/,'').replace(/\/$/,'');
+      if(current===path || current.indexOf(path)>-1 || path.indexOf(current)>-1){
+        activeLink=a;
+      }
+    }
+  });
+  details.forEach(function(d){
+    if(activeLink && d.contains(activeLink)){d.setAttribute('open','');}
+    else{d.removeAttribute('open');}
+  });
+})();
+</script>
+</body>
+</html>

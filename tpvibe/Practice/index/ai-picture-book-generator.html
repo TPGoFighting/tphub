@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="geo.region" content="CN">
+<meta name="geo.placename" content="China">
+<meta name="geo.position" content="39.9042;116.4074">
+<meta name="ICBM" content="39.9042, 116.4074">
+<link rel="icon" href="/tpvibe/images/tp_logo.jpg" type="image/png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 绘本生成器 | TPvibe</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/tpvibe/style.css">
+<!-- SEO:tphub -->
+<meta name="description" content="AI 绘本生成器 — TPvibe 中文 AI 学习与实战教程，从零基础到进阶，边学边做。">
+<link rel="canonical" href="https://tphub.tpgofighting.top/tpvibe/Practice/index/ai-picture-book-generator.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="TPvibe">
+<meta property="og:title" content="AI 绘本生成器 | TPvibe">
+<meta property="og:description" content="AI 绘本生成器 — TPvibe 中文 AI 学习与实战教程，从零基础到进阶，边学边做。">
+<meta property="og:url" content="https://tphub.tpgofighting.top/tpvibe/Practice/index/ai-picture-book-generator.html">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://tphub.tpgofighting.top/tpvibe/images/tp_logo.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="AI 绘本生成器 | TPvibe">
+<meta name="twitter:description" content="AI 绘本生成器 — TPvibe 中文 AI 学习与实战教程，从零基础到进阶，边学边做。">
+<meta name="twitter:image" content="https://tphub.tpgofighting.top/tpvibe/images/tp_logo.jpg">
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "name": "AI 绘本生成器",
+  "url": "https://tphub.tpgofighting.top/tpvibe/Practice/index/ai-picture-book-generator.html",
+  "description": "TPvibe 中文 AI 学习与实战教程：从零基础到进阶，边学边做，附可运行示例与实战项目。",
+  "inLanguage": "zh-CN",
+  "isPartOf": {"@type": "WebSite", "name": "TPvibe", "url": "https://tphub.tpgofighting.top/tpvibe/"}
+}</script>
+<!-- GEO:v2 -->
+<!-- LOGOFIX:v2 -->
+</head>
+<body>
+<aside class="toc" id="toc">
+<button class="toc-toggle" id="tocToggle" aria-label="收起目录">«</button>
+<div class="toc-inner">
+<a class="toc-home" href="/tpvibe/index.html">TPvibe 首页</a>
+<details class="toc-sec">
+<summary>基础篇</summary>
+<ul class="toc-tree">
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Basic/lecture-1.html">00 序言</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Basic/lecture-1/0.1-start-here.html">开始之前</a></li>
+<li><a href="/tpvibe/Basic/lecture-1/0.2-what-you-will-build.html">你要做什么</a></li>
+<li><a href="/tpvibe/Basic/lecture-1/0.3-who-this-is-for.html">适合谁学</a></li>
+<li><a href="/tpvibe/Basic/lecture-1/0.4-how-to-learn.html">怎么学</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Basic/lecture-2.html">01 觉醒</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Basic/lecture-2/1.1-coder-to-commander.html">从程序员到指挥官</a></li>
+<li><a href="/tpvibe/Basic/lecture-2/1.2-breaking-myths.html">打破误区</a></li>
+<li><a href="/tpvibe/Basic/lecture-2/1.3-tools-guide.html">工具选择指南</a></li>
+<li><a href="/tpvibe/Basic/lecture-2/1.4-vibe-vs-spec.html">Vibe Coding vs 规格驱动</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Basic/lecture-3.html">02 心智</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Basic/lecture-3/2.1-thinking-upgrade.html">思维升级</a></li>
+<li><a href="/tpvibe/Basic/lecture-3/2.2-inversion-thinking.html">逆向思维</a></li><li><a href="/tpvibe/Basic/lecture-3/2.3-subtraction-thinking.html">减法思维</a></li>
+<li><a href="/tpvibe/Basic/lecture-3/2.4-story-thinking.html">故事思维</a></li>
+
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Basic/lecture-4.html">03 技法</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Basic/lecture-4/3.1-prompt-basics.html">提示词基础</a></li>
+<li><a href="/tpvibe/Basic/lecture-4/3.2-structured-frameworks.html">结构化框架</a></li>
+<li><a href="/tpvibe/Basic/lecture-4/3.3-advanced-techniques.html">进阶技巧</a></li>
+<li><a href="/tpvibe/Basic/lecture-4/3.4-first-prd.html">第一份 PRD</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Basic/lecture-5.html">04 从0到1</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Basic/lecture-5/4.1-before-start.html">搭建前准备</a></li>
+<li><a href="/tpvibe/Basic/lecture-5/4.2-build-page.html">搭建页面</a></li>
+<li><a href="/tpvibe/Basic/lecture-5/4.3-core-features.html">核心功能</a></li>
+<li><a href="/tpvibe/Basic/lecture-5/4.4-data-storage.html">数据存储</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Basic/appendix-a.html">05 进阶</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Basic/appendix-a/5.1-version-control.html">版本控制</a></li>
+<li><a href="/tpvibe/Basic/appendix-a/5.2-deployment.html">部署上线</a></li>
+<li><a href="/tpvibe/Basic/appendix-a/5.3-security.html">安全防护</a></li>
+<li><a href="/tpvibe/Basic/appendix-a/5.4-iteration.html">迭代优化</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Basic/appendix-b.html">06 上线</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Basic/appendix-b/6.1-preflight.html">发布前检查</a></li>
+<li><a href="/tpvibe/Basic/appendix-b/6.2-deploy.html">发布流程</a></li>
+<li><a href="/tpvibe/Basic/appendix-b/6.3-feedback.html">收集反馈</a></li>
+<li><a href="/tpvibe/Basic/appendix-b/6.4-wrap-up.html">总结回顾</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Basic/appendix-c.html">99 附录</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Basic/appendix-c/a-prompt-cheatsheet.html">提示词速查表</a></li>
+<li><a href="/tpvibe/Basic/appendix-c/b-errors-and-asking-ai.html">常见错误与求助</a></li>
+<li><a href="/tpvibe/Basic/appendix-c/c-ui-cheatsheet.html">UI 速查表</a></li>
+<li><a href="/tpvibe/Basic/appendix-c/d-git-minimal-card.html">Git 最小知识卡</a></li>
+<li><a href="/tpvibe/Basic/appendix-c/e-api-key-env-security.html">API Key 与环境安全</a></li>
+<li><a href="/tpvibe/Basic/appendix-c/f-vibe-coding-can-and-cannot.html">Vibe Coding 能做与不能做</a></li>
+<li><a href="/tpvibe/Basic/appendix-c/g-advanced-jump-map.html">进阶跳转地图</a></li>
+</ul>
+</li>
+<li class="toc-chapter">
+<a href="/tpvibe/Basic/conclusion.html">100 结语</a>
+</li>
+</ul>
+</details>
+<details class="toc-sec">
+<summary>进阶篇</summary>
+<ul class="toc-tree">
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch01.html">01 环境搭建</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch01/00-quick-start.html">快速上手</a></li>
+<li><a href="/tpvibe/Advanced/ch01/01-code-formats.html">代码格式与编辑器</a></li>
+<li><a href="/tpvibe/Advanced/ch01/02-tech-stack.html">技术栈选择</a></li>
+<li><a href="/tpvibe/Advanced/ch01/03-browser-server.html">浏览器与服务器</a></li>
+<li><a href="/tpvibe/Advanced/ch01/04-terminal-basics.html">终端基础操作</a></li>
+<li><a href="/tpvibe/Advanced/ch01/05-package-manager-and-config.html">包管理与配置文件</a></li>
+<li><a href="/tpvibe/Advanced/ch01/06-models-and-tools.html">AI 模型与工具选择</a></li>
+<li><a href="/tpvibe/Advanced/ch01/07-creating-project.html">创建你的第一个项目</a></li>
+<li><a href="/tpvibe/Advanced/ch01/08-localhost-and-ports.html">本地服务器与端口</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch02.html">02 开发工具与AI调优</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch02/01-ai-economics.html">AI 经济学</a></li>
+<li><a href="/tpvibe/Advanced/ch02/02-vibecoding-workflow.html">Vibe Coding 工作流</a></li>
+<li><a href="/tpvibe/Advanced/ch02/03-mcp-and-skills.html">MCP 与 Skills</a></li>
+<li><a href="/tpvibe/Advanced/ch02/04-project-config.html">项目配置</a></li>
+<li><a href="/tpvibe/Advanced/ch02/05-debugging-tips.html">调试技巧</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch03.html">03 产品验证</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch03/01-product-validation.html">产品验证</a></li>
+<li><a href="/tpvibe/Advanced/ch03/02-discuss-with-ai.html">与 AI 讨论</a></li>
+<li><a href="/tpvibe/Advanced/ch03/03-prd-template-guide.html">PRD 模板指南</a></li>
+<li><a href="/tpvibe/Advanced/ch03/04-coding-agents.html">编码代理</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch04.html">04 编程基础</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch04/00-build-basics.html">构建基础</a></li>
+<li><a href="/tpvibe/Advanced/ch04/01-tech-stack-decision.html">技术栈决策</a></li>
+<li><a href="/tpvibe/Advanced/ch04/03-programming-basics.html">编程基础</a></li>
+<li><a href="/tpvibe/Advanced/ch04/02-prd-and-tech-docs.html">PRD 与技术文档</a></li>
+<li><a href="/tpvibe/Advanced/ch04/04-api-and-http.html">API 与 HTTP</a></li>
+<li><a href="/tpvibe/Advanced/ch04/05-frontend-backend-separation.html">前后端分离</a></li>
+<li><a href="/tpvibe/Advanced/ch04/06-config-formats.html">配置格式</a></li>
+<li><a href="/tpvibe/Advanced/ch04/07-api-integration.html">API 集成</a></li>
+<li><a href="/tpvibe/Advanced/ch04/08-readme-structure.html">README 结构</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch05.html">05 好看好用的界面</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch05/03-animation-libraries.html">动画库</a></li>
+</ul>
+</li>
+<li class="toc-chapter">
+<a href="/tpvibe/Advanced/ch06.html">06 数据存哪里</a>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch07.html">07 连接前后端</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch07/00-crud-example.html">CRUD 示例</a></li>
+<li><a href="/tpvibe/Advanced/ch07/02-when-things-go-wrong.html">出错处理</a></li>
+<li><a href="/tpvibe/Advanced/ch07/03-api-as-product.html">API 即产品</a></li>
+<li><a href="/tpvibe/Advanced/ch07/01-api-growing-pains.html">API 成长烦恼</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch08.html">08 谁能访问数据</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch08/00-user-system-example.html">用户系统示例</a></li>
+<li><a href="/tpvibe/Advanced/ch08/01-env-and-secrets.html">环境变量与密钥</a></li>
+<li><a href="/tpvibe/Advanced/ch08/03-route-protection.html">路由保护</a></li>
+<li><a href="/tpvibe/Advanced/ch08/04-security-checklist.html">安全清单</a></li>
+<li><a href="/tpvibe/Advanced/ch08/05-advanced-security.html">高级安全</a></li>
+<li><a href="/tpvibe/Advanced/ch08/02-auth-methods.html">认证方式</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch09.html">09 功能测试</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch09/01-testing-strategy.html">测试策略</a></li>
+<li><a href="/tpvibe/Advanced/ch09/02-api-and-e2e-testing.html">API 与 E2E 测试</a></li>
+<li><a href="/tpvibe/Advanced/ch09/03-automation-workflow.html">自动化工作流</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch10.html">10 公网访问</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch10/01-network-layers.html">网络分层</a></li>
+<li><a href="/tpvibe/Advanced/ch10/02-tunneling.html">隧道穿透</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch11.html">11 协作开发</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch11/01-why-git.html">为什么用 Git</a></li>
+<li><a href="/tpvibe/Advanced/ch11/02-remote-and-collaboration.html">远程与协作</a></li>
+<li><a href="/tpvibe/Advanced/ch11/03-branch-and-workflow.html">分支与工作流</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch12.html">12 无服务器部署</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch12/01-deploy-edgeone.html">EdgeOne 部署</a></li>
+<li><a href="/tpvibe/Advanced/ch12/02-deploy-vercel-platforms.html">Vercel 等平台部署</a></li>
+<li><a href="/tpvibe/Advanced/ch12/03-cicd-automation.html">CI/CD 自动化</a></li>
+<li><a href="/tpvibe/Advanced/ch12/04-operations-cost.html">运维成本</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch13.html">13 域名解析</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch13/01-domain-setup.html">域名设置</a></li>
+<li><a href="/tpvibe/Advanced/ch13/02-compliance-access.html">合规接入</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch14.html">14 部署到服务器</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch14/01-vps-selection.html">VPS 选择</a></li>
+<li><a href="/tpvibe/Advanced/ch14/02-vps-setup.html">VPS 配置</a></li>
+<li><a href="/tpvibe/Advanced/ch14/03-1-docker-apps.html">Docker 应用</a></li>
+<li><a href="/tpvibe/Advanced/ch14/03-2-deploy-nextjs.html">部署 Next.js</a></li>
+<li><a href="/tpvibe/Advanced/ch14/03-4-deploy-fullstack.html">部署全栈应用</a></li>
+<li><a href="/tpvibe/Advanced/ch14/05-cool-apps.html">酷应用</a></li>
+<li><a href="/tpvibe/Advanced/ch14/03-3-deploy-static.html">部署静态站点</a></li>
+<li><a href="/tpvibe/Advanced/ch14/04-domain-ssl.html">域名与 SSL</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch15.html">15 SEO与统计</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch15/01-opengraph-sharing.html">OpenGraph 分享</a></li>
+<li><a href="/tpvibe/Advanced/ch15/02-seo-guide.html">SEO 指南</a></li>
+<li><a href="/tpvibe/Advanced/ch15/03-umami.html">Umami 统计</a></li>
+<li><a href="/tpvibe/Advanced/ch15/04-legal.html">法律合规</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch16.html">16 反馈与迭代</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch16/01-facing-real-users.html">面向真实用户</a></li>
+<li><a href="/tpvibe/Advanced/ch16/02-feedback-prioritization.html">反馈优先级</a></li>
+<li><a href="/tpvibe/Advanced/ch16/03-understanding-users.html">理解用户</a></li>
+<li><a href="/tpvibe/Advanced/ch16/04-iteration-and-growth.html">迭代与增长</a></li>
+</ul>
+</li>
+<li class="toc-chapter">
+<a href="/tpvibe/Advanced/next-level.html">进阶实战</a>
+</li>
+</ul>
+</details>
+<details class="toc-sec">
+<summary>文章</summary>
+<ul class="toc-tree">
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Articles/core-concepts.html">核心概念</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Articles/core-concepts/what-are-ai-agents-why-do-they-matter.html">AI Agent 是什么</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Articles/architecture.html">技术架构</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Articles/architecture/how-claude-code-works.html">Claude Code 如何工作</a></li>
+<li><a href="/tpvibe/Articles/architecture/mcp-what-it-is-and-why-it-matters.html">MCP 是什么及为何重要</a></li>
+<li><a href="/tpvibe/Articles/architecture/build-agents-with-filesystems-and-bash.html">用文件系统和 Bash 构建 Agent</a></li>
+<li><a href="/tpvibe/Articles/architecture/testing-bash-vs-sql.html">Bash vs SQL 测试</a></li>
+<li><a href="/tpvibe/Articles/architecture/multi-agent-systems-ai-native-engineering.html">多 Agent 系统与 AI 原生工程</a></li>
+<li><a href="/tpvibe/Articles/architecture/self-improving-coding-agents.html">自我改进的编码 Agent</a></li>
+<li><a href="/tpvibe/Articles/architecture/nvidia-ai-5-layer-cake.html">NVIDIA AI 五层架构</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Articles/tools.html">工具链</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Articles/tools/how-to-write-good-spec-for-ai-agents.html">如何为 AI Agent 写 Spec</a></li>
+<li><a href="/tpvibe/Articles/tools/ai-driven-prototyping-v0-bolt-and-lovable-compared.html">AI 原型工具对比</a></li>
+<li><a href="/tpvibe/Articles/tools/why-i-use-cline-for-ai-engineering.html">为什么用 Cline 做 AI 工程</a></li>
+<li><a href="/tpvibe/Articles/tools/agents-md-vs-skills.html">AGENTS.md 与 Skills 对比</a></li>
+<li><a href="/tpvibe/Articles/tools/complete-guide-to-building-skills-for-claude.html">Claude Skills 构建指南</a></li>
+<li><a href="/tpvibe/Articles/tools/we-removed-80-percent-tools.html">我们移除了 80% 的工具</a></li>
+<li><a href="/tpvibe/Articles/tools/claude-code-swarms.html">Claude Code 集群</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Articles/engineering.html">工程实践</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Articles/engineering/ai-writes-code-faster-your-job-is-to-prove-it-works.html">AI 写代码更快，你要证明它有效</a></li>
+<li><a href="/tpvibe/Articles/engineering/beyond-the-70-maximizing-the-human-30-of-ai-assisted-coding.html">超越 70%：最大化人类 30%</a></li>
+<li><a href="/tpvibe/Articles/engineering/avoiding-skill-atrophy-in-the-age-of-ai.html">AI 时代的技能退化</a></li>
+<li><a href="/tpvibe/Articles/engineering/how-to-write-a-good-spec-for-ai-agents.html">如何为 AI Agent 写好 Spec</a></li>
+<li><a href="/tpvibe/Articles/engineering/leading-effective-engineering-teams-in-the-age-of-genai.html">GenAI 时代的工程团队领导</a></li>
+<li><a href="/tpvibe/Articles/engineering/your-ai-coding-agents-need-a-manager.html">AI 编码 Agent 需要管理者</a></li>
+<li><a href="/tpvibe/Articles/engineering/ai-code-review-implementation.html">AI 代码审查实现</a></li>
+<li><a href="/tpvibe/Articles/engineering/react-best-practices.html">React 最佳实践</a></li>
+<li><a href="/tpvibe/Articles/engineering/vercel-aeo-tracking.html">Vercel AEO 追踪</a></li>
+<li><a href="/tpvibe/Articles/engineering/my-llm-coding-workflow-going-into-2026.html">2026 年我的 LLM 工作流</a></li>
+<li><a href="/tpvibe/Articles/engineering/stop-using-init-for-agents.html">停止对 Agent 使用 init</a></li>
+<li><a href="/tpvibe/Articles/engineering/video-generation-with-ai-gateway.html">AI 网关视频生成</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Articles/security.html">安全合规</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Articles/security/ai-agents-threats-and-mitigations.html">AI Agent 威胁与缓解</a></li>
+<li><a href="/tpvibe/Articles/security/security-boundaries-in-agentic-architectures.html">Agent 架构安全边界</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Articles/business.html">商业趋势</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Articles/business/the-next-two-years-of-software-engineering.html">软件工程的未来两年</a></li>
+<li><a href="/tpvibe/Articles/business/how-openevidence-built-healthcare-ai-physicians-trust.html">OpenEvidence 医疗 AI</a></li>
+<li><a href="/tpvibe/Articles/business/keeping-community-human-while-scaling-with-agents.html">用 Agent 扩展时保持人性</a></li>
+</ul>
+</li>
+</ul>
+</details>
+<details class="toc-sec">
+<summary>实践案例</summary>
+<ul class="toc-tree">
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Practice/index.html">实践案例</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Practice/index/vibe-coding-methodology.html">Vibe Coding 方法论</a></li>
+<li><a href="/tpvibe/Practice/index/ai-canvas-vibecoding-journey.html">AI Canvas 之旅</a></li>
+<li><a href="/tpvibe/Practice/index/ai-picture-book-generator.html" class="active">AI 绘本生成器</a></li>
+<li><a href="/tpvibe/Practice/index/ai-resume-saas.html">AI 简历 SaaS</a></li>
+<li><a href="/tpvibe/Practice/index/full-stack-21-day-thinking-habit-game.html">21 天思维习惯游戏</a></li>
+</ul>
+</li>
+</ul>
+</details>
+</div>
+</aside>
+<script>
+(function(){
+  /* Move toc-toggle to body to avoid overflow/transform clipping */
+  var tocToggle=document.getElementById('tocToggle');
+  var toc=document.getElementById('toc');
+  if(tocToggle&&toc){
+    document.body.appendChild(tocToggle);
+    tocToggle.style.position='fixed';
+    tocToggle.style.top='70px';
+    tocToggle.style.left='254px';
+    tocToggle.style.zIndex='41';
+    tocToggle.style.width='28px';
+    tocToggle.style.height='28px';
+    tocToggle.style.borderRadius='50%';
+    tocToggle.style.border='1px solid var(--line)';
+    tocToggle.style.background='var(--card)';
+    tocToggle.style.color='var(--muted)';
+    tocToggle.style.cursor='pointer';
+    tocToggle.style.display='grid';
+    tocToggle.style.placeItems='center';
+    tocToggle.style.boxShadow='0 4px 14px var(--shadow)';
+    tocToggle.style.fontSize='14px';
+    tocToggle.style.fontWeight='700';
+    tocToggle.style.transition='left .35s cubic-bezier(.34,1.3,.64,1), background .2s, color .2s, border-color .2s';
+    tocToggle.addEventListener('mouseenter',function(){
+      this.style.background='var(--soft)';
+      this.style.color='var(--accent)';
+      this.style.borderColor='var(--accent)';
+    });
+    tocToggle.addEventListener('mouseleave',function(){
+      this.style.background='var(--card)';
+      this.style.color='var(--muted)';
+      this.style.borderColor='var(--line)';
+    });
+    tocToggle.addEventListener('click',function(){
+      toc.classList.toggle('collapsed');
+      var c=toc.classList.contains('collapsed');
+      this.style.left=c?'8px':'254px';
+      this.textContent=c?'»':'«';
+      this.setAttribute('aria-label',c?'展开目录':'收起目录');
+    });
+  }
+  /* Mobile scrim click to close */
+  var scrim=document.querySelector('.toc-scrim');
+  if(scrim){
+    scrim.addEventListener('click',function(){
+      var cb=document.getElementById('tocToggleMobile');
+      if(cb)cb.checked=false;
+    });
+  }
+  /* Chapter expand/collapse (L1) */
+  document.querySelectorAll('.toc-chapter-toggle').forEach(function(btn){
+    btn.addEventListener('click',function(e){
+      e.preventDefault();
+      e.stopPropagation();
+      var li=this.closest('.toc-chapter');
+      if(li)li.classList.toggle('expanded');
+    });
+  });
+  /* Auto-expand: find active link and open its section + chapter */
+  var currentRaw=location.pathname.replace(/\/$/,'');
+  var activeLink=null;
+  document.querySelectorAll('aside.toc a[href]').forEach(function(a){
+    var href=a.getAttribute('href')||'';
+    if(!href||href.startsWith('http')||href.startsWith('#'))return;
+    var path=href.replace(/^https?:\/\/[^\/]+/,'').replace(/\/$/,'');
+    /* Skip home link for active matching */
+    if(path.indexOf('/index.html')>=0&&currentRaw.indexOf('/index.html')<0)return;
+    if(currentRaw===path){activeLink=a;return;}
+    /* Also check if currentRaw contains the path (for sub-pages) */
+    if(path.length>5&&currentRaw.indexOf(path)>=0){activeLink=a;}
+  });
+  /* Open the section (L0) containing active link, close others */
+  var sections=document.querySelectorAll('aside.toc details.toc-sec');
+  if(sections.length>0){
+    sections.forEach(function(d){
+      if(activeLink&&d.contains(activeLink)){d.setAttribute('open','');}
+      else{d.removeAttribute('open');}
+    });
+  }
+  /* Expand the chapter (L1) containing active link */
+  if(activeLink){
+    var chap=activeLink.closest('.toc-chapter.has-children');
+    if(chap)chap.classList.add('expanded');
+  }
+  /* If no active link found (e.g. index page), open first section and first chapter */
+  if(!activeLink&&sections.length>0){
+    sections[0].setAttribute('open','');
+    var firstChapter=sections[0].querySelector('.toc-chapter.has-children');
+    if(firstChapter)firstChapter.classList.add('expanded');
+  }
+})();
+</script>
+
+<div id="progress"></div>
+<header class="site-header">
+<div class="header-inner">
+  <a href="/tpvibe/index.html" class="logo"><img src="/tpvibe/images/tp_logo.jpg" alt="TPvibe" width="200" height="200"> TPvibe</a>
+  <input type="checkbox" id="nav-toggle-cb" class="nav-toggle-cb" aria-hidden="true">
+  <label for="nav-toggle-cb" class="nav-toggle" aria-label="打开菜单">&#9776;</label>
+  <nav><ul class="nav-links"><li><a href="/tpvibe/index.html">TPvibe</a></li><li><a href="/tpvibe/index.html">首页</a></li><li><a href="/tpvibe/Basic/lecture-1.html">基础篇</a></li><li><a href="/tpvibe/Advanced/ch01.html">进阶篇</a></li><li><a href="/tpvibe/Articles/core-concepts.html">文章</a></li><li><a href="/tpvibe/Practice/index.html">实践案例</a></li></ul>
+</nav>
+<button class="theme-btn" aria-label="切换主题" onclick="document.documentElement.dataset.theme=document.documentElement.dataset.theme==='dark'?'light':'dark';localStorage.setItem('tpvibe-theme',document.documentElement.dataset.theme)">🌙</button>
+</div>
+</header>
+<main class="container">
+<h1 class="page-title">AI 绘本生成器</h1>
+<div class="page-cover reveal">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400" preserveAspectRatio="xMidYMid slice" style="width:100%;height:100%;display:block;">
+  <defs>
+    <linearGradient id="bg-293158856" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#059669"/>
+      <stop offset="100%" style="stop-color:#10b981"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="400" fill="url(#bg-293158856)"/>
+  <path d="M0,70 Q300,31 600,70 T1200,70" fill="none" stroke="white" stroke-width="2" opacity="0.16"/>
+<path d="M0,140 Q300,118 600,140 T1200,140" fill="none" stroke="white" stroke-width="2" opacity="0.11"/>
+<path d="M0,210 Q300,175 600,210 T1200,210" fill="none" stroke="white" stroke-width="2" opacity="0.15"/>
+<path d="M0,280 Q300,232 600,280 T1200,280" fill="none" stroke="white" stroke-width="2" opacity="0.10"/>
+<path d="M0,350 Q300,319 600,350 T1200,350" fill="none" stroke="white" stroke-width="2" opacity="0.14"/>
+
+  
+  <text x="60" y="340" font-family="system-ui, -apple-system, sans-serif" font-size="36" font-weight="700" fill="white">AI 绘本生成器</text>
+  <rect x="60" y="355" width="60" height="4" rx="2" fill="#34d399"/>
+</svg>
+</div>
+
+<div class="content reveal">
+<blockquote><p><strong>面向人群</strong>：无编程基础的纯小白<br><strong>项目周期</strong>：约 2 周（边学边做）<br><strong>最终成果</strong>：一个能把任意文档自动转换成儿童绘本的 AI 应用</p></blockquote><h2>🖼️ 效果展示 </h2><p><img src="/tpvibe/images/Practice_index/subs/ai-picture-book-generator/11.01-20260106012640_47_179.jpg" alt="AI绘本效果图" width="800" height="600"></p><p><em>上图展示了一本由 AI 自动生成的儿童绘本《狐狸大冒险》，包含封面、内容页、互动页、角色参考图等完整内容。</em></p><hr><h2>📚 学习路线图 </h2><table tabindex="0"><thead><tr><th>阶段</th><th>目标</th><th>时间</th><th>难度</th></tr></thead><tbody><tr><td><strong>🎯 Demo 阶段</strong></td><td>5 分钟跑通第一个 AI 应用</td><td>5 分钟</td><td>⭐</td></tr><tr><td><strong>🚀 上手阶段</strong></td><td>完成完整的绘本生成器</td><td>1-2 天</td><td>⭐⭐</td></tr><tr><td><strong>⚡ 优化阶段</strong></td><td>解决实际问题，提升质量</td><td>持续</td><td>⭐⭐⭐</td></tr><tr><td><strong>🌊 深水区</strong></td><td>理解原理，举一反三</td><td>进阶</td><td>⭐⭐⭐⭐</td></tr></tbody></table><hr><h1>🎯 第一阶段：Demo（5 分钟看到效果） </h1><blockquote><p><strong>核心理念</strong>：别看理论，先动手！5 分钟内让你看到效果。</p></blockquote><h2>Step 1：下载 AI 编辑器（2 分钟） </h2><ol><li>打开浏览器，搜索 <strong>&quot;Cursor 下载&quot;</strong> 或 <strong>&quot;Windsurf 下载&quot;</strong></li><li>下载安装包，双击安装</li><li>用邮箱注册账号</li></ol><h3>Step 2：创建项目文件夹 </h3><p>在电脑上随便找个地方，新建一个文件夹：<code>我的AI绘本</code></p><h3>Step 3：复制这段话给 AI </h3><p>打开 Windsurf/Cursor，按 <code>Cmd+L</code>（Mac）或 <code>Ctrl+L</code>（Windows）打开 AI 对话框。</p><p><strong>复制粘贴这段话：</strong></p><div class="language- vp-adaptive-theme"><button title="Copy Code" class="copy" aria-label="复制代码"></button><span class="lang"></span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span>我想做一个 AI 绘本生成器。</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>请帮我创建一个最简单的版本：</span></span>
+<span class="line"><span>1. 用 Python + Gradio 做界面</span></span>
+<span class="line"><span>2. 用户输入一段文字描述</span></span>
+<span class="line"><span>3. 调用 AI 生成一张绘本风格的图片</span></span>
+<span class="line"><span>4. 显示出来</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>先帮我创建项目结构和必要的文件。</span></span></code></pre></div><h3>Step 4：跟着 AI 做（2 分钟） </h3><p>AI 会告诉你：</p><ul><li>创建哪些文件</li><li>安装什么依赖</li><li>怎么运行</li></ul><p><strong>你只需要</strong>：点击 AI 给的&quot;Apply&quot;按钮，它会自动帮你创建文件。</p><h3>Step 5：接入 Nano Banana Pro API </h3><p>Nano Banana Pro 是一个强大的 AI 图片生成服务，用于生成绘本插图。</p><h4>1. 申请 API Key </h4><ol><li>打开 <a href="https://grsai.com" target="_blank" rel="noreferrer">https://grsai.com</a> (注: 这个网站目前是我用着相对性价比感觉比较高的nano banana pro模型服务商, 如果有其他更好的模型服务商, 欢迎在评论区分享)</li></ol><p><img src="/tpvibe/images/Practice_index/subs/ai-picture-book-generator/11.01-image-20.png" alt="alt text" width="800" height="600"></p><ol start="2"><li>注册账号并登录</li><li>进入控制台，创建 API Key(按需购买积分, 按照我的经验来说, 10 元以内对于测试项目是完全够用的, 非广告推销, 只是为了测试与接入nano banana pro做图片生成功能使用) <img src="/tpvibe/images/Practice_index/subs/ai-picture-book-generator/11.01-image-21.png" alt="alt text" width="800" height="600"></li><li><strong>重要</strong>：妥善保存你的 API Key，不要泄露！</li></ol><h4>2. 配置环境变量 </h4><p>在项目根目录创建 <code>.env</code> 文件（如果没有的话），添加以下配置：</p><div class="language-bash vp-adaptive-theme"><button title="Copy Code" class="copy" aria-label="复制代码"></button><span class="lang">bash</span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"># Nano Banana Pro API（用于 AI 图片生成）</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">NANO_BANANA_API_KEY</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">sk-7832cba5ad4e4119bbd1bf756ea721ab</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">这里提供一个可直接用来做测试的</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> api_key,</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> 有额度限制,</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> 建议实践的同学后续换成自己的</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> api_key，注意不要泄露，避免被他人使用</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">)</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">NANO_BANANA_API_BASE</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">https://grsai.com</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">NANO_BANANA_MODEL</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">nano-banana-pro</span></span></code></pre></div><table tabindex="0"><thead><tr><th>配置项</th><th>说明</th><th>默认值</th></tr></thead><tbody><tr><td><code>NANO_BANANA_API_KEY</code></td><td>你的 API 密钥</td><td>必填</td></tr><tr><td><code>NANO_BANANA_API_BASE</code></td><td>API 服务地址</td><td><code>https://grsai.com</code></td></tr><tr><td><code>NANO_BANANA_MODEL</code></td><td>使用的模型</td><td><code>nano-banana-pro</code></td></tr></tbody></table><p><strong>可选模型：</strong></p><ul><li><code>nano-banana-fast</code> - 快速生成，质量一般</li><li><code>nano-banana-pro</code> - 专业版（推荐）</li></ul><h4>3. 让 AI 帮你接入 </h4><p>把下面这段话复制给 AI：</p><div class="language- vp-adaptive-theme"><button title="Copy Code" class="copy" aria-label="复制代码"></button><span class="lang"></span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span>请帮我接入 Nano Banana Pro 图片生成 API。</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>API 信息：</span></span>
+<span class="line"><span>- 基础 URL: https://grsai.com</span></span>
+<span class="line"><span>- 绘画接口: POST /v1/draw/nano-banana</span></span>
+<span class="line"><span>- 结果查询: POST /v1/draw/result</span></span>
+<span class="line"><span>- 认证方式: Bearer Token (放在 Authorization header)</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>请求参数：</span></span>
+<span class="line"><span>- model: 模型名称，如 &quot;nano-banana-pro&quot;</span></span>
+<span class="line"><span>- prompt: 图片描述</span></span>
+<span class="line"><span>- aspectRatio: 图片比例，如 &quot;16:9&quot;</span></span>
+<span class="line"><span>- imageSize: 图片大小，如 &quot;2k&quot;</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>返回结果是异步的，需要轮询 /v1/draw/result 接口获取生成结果。</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>请帮我：</span></span>
+<span class="line"><span>1. 创建一个 image_service.py 服务类</span></span>
+<span class="line"><span>2. 从 .env 读取 API Key</span></span>
+<span class="line"><span>3. 实现生成图片和等待结果的逻辑</span></span></code></pre></div><p>AI 会帮你生成完整的接入代码！</p><p>如果AI生成的代码有错误, 可以打开接入文档:<a href="https://grsai.com/dashboard/documents/nano-banana" target="_blank" rel="noreferrer">https://grsai.com/dashboard/documents/nano-banana</a>, 然后把所有的 api 调用信息copy 过来, 让AI帮你实现具体的接入逻辑, 而你只需要配置下 Token 就可以了。 <img src="/tpvibe/images/Practice_index/subs/ai-picture-book-generator/11.01-image-22.png" alt="alt text" width="800" height="600"></p><h3>Step 6：运行看效果！ </h3><p>AI 会告诉你运行命令，通常是：</p><div class="language-bash vp-adaptive-theme"><button title="Copy Code" class="copy" aria-label="复制代码"></button><span class="lang">bash</span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">pip</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> install</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> gradio</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> openai</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">python</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> app.py</span></span></code></pre></div><p>然后打开浏览器，访问 <code>http://localhost:7860</code>，你就能看到一个简单的界面了！</p><p><strong>🎉 恭喜！你已经做出了第一个 AI 应用！</strong></p><h3>Demo 阶段小结 </h3><table tabindex="0"><thead><tr><th>你学到了什么</th><th>说明</th></tr></thead><tbody><tr><td><strong>AI 编辑器</strong></td><td>Cursor/Windsurf 是你的&quot;程序员朋友&quot;</td></tr><tr><td><strong>对话式开发</strong></td><td>用自然语言描述需求，AI 帮你写代码</td></tr><tr><td><strong>快速验证</strong></td><td>先做最小版本，看到效果再继续</td></tr></tbody></table><hr><h1>🚀 第二阶段：上手（1-2 天完成完整项目） </h1><blockquote><p>上面的 Demo 只是开胃菜，下面是完整的项目开发过程。</p></blockquote><h2>📖 什么是 Vibecoding？ </h2><p><strong>Vibecoding</strong> = 用自然语言告诉 AI 你想要什么，让 AI 帮你写代码。</p><p>你不需要懂编程语法，只需要：</p><ol><li><strong>清晰描述你的想法</strong></li><li><strong>和 AI 对话迭代</strong></li><li><strong>测试并反馈问题</strong></li></ol><p>就像和一个程序员朋友聊天，告诉他你想做什么，他帮你实现。</p><hr><h2>🎯 项目目标 </h2><h3>痛点 </h3><ul><li>幼儿园老师想把教案变成绘本给小朋友看，但不会画画</li><li>家长想把孩子喜欢的故事做成图文并茂的绘本</li><li>培训机构想把枯燥的知识点变成有趣的图画书</li></ul><h3>解决方案 </h3><p><strong>上传一个文档 → AI 自动生成一本完整的绘本</strong></p><p>包含：故事大纲、角色设计、每页插图、最终 PPT/PDF</p><hr><h2>🛠️ 完整实战过程 </h2><h3>第一轮对话：从零开始 </h3><p><strong>我对 AI 说：</strong></p><blockquote><p>&quot;我想做一个 AI 绘本生成器。用户上传一个 PDF 文档，系统自动把它变成一本儿童绘本。需要有：文档解析、大纲生成、图片生成、导出 PDF 这几个功能。用 Python Flask 做后端。&quot;</p></blockquote><p><strong>AI 帮我生成了：</strong></p><ul><li>项目目录结构</li><li>Flask 应用入口文件</li><li>数据库模型（存储绘本信息）</li><li>基础 API 接口</li></ul><h3>第二轮对话：完善文档解析 </h3><p><strong>我对 AI 说：</strong></p><blockquote><p>&quot;文档解析这块，我想支持 PDF、Word、TXT 格式。PDF 可能有图片，需要用 OCR 识别。帮我接入mineru 这个 OCR 服务。&quot;</p></blockquote><p><strong>AI 帮我实现了：</strong></p><ul><li>文件上传接口</li><li>根据文件类型选择不同解析方式</li><li>调用 mineru API 解析 PDF</li><li>提取文档中的图片并生成描述</li></ul><h4>如何申请与接入 mineru API呢？ </h4><p><a href="https://mineru.net/" target="_blank" rel="noreferrer">https://mineru.net/</a></p><p>全能的文档解析神器全能的文档解析神器</p><p>精准解析 高效提取 全面助力AI Ready数据自由</p><p>打开网址, 注册账号, 进入首页. <img src="/tpvibe/images/Practice_index/subs/ai-picture-book-generator/11.01-image-14.png" alt="alt text" width="800" height="600"></p><p>点击 &#39;API&#39;，先进行 API 申请, &quot;MinerU API 申请问卷&quot;, 提交后很快就会收到通过的申请.</p><p><img src="/tpvibe/images/Practice_index/subs/ai-picture-book-generator/11.01-image-16.png" alt="alt text" width="800" height="600"></p><p>申请通过后，就可以创建 API Token 了(注意, 该 Token 要保存好，后面要用到, 且不要轻易泄漏)。 <img src="/tpvibe/images/Practice_index/subs/ai-picture-book-generator/11.01-image-17.png" alt="alt text" width="800" height="600"></p><p>mineru当前每天支持 10000 次的免费调用，基本可以满足我们的测试需求!</p><p>在接入阶段, 将API文档页中关于如何接入 API 的全部内容 copy 过来, 让AI帮我实现具体的接入逻辑, 而你只需要配置下 Token 就可以了。 <img src="/tpvibe/images/Practice_index/subs/ai-picture-book-generator/11.01-image-19.png" alt="alt text" width="800" height="600"></p><h3>第三轮对话：设计 Prompt（最关键！） </h3><p><strong>我对 AI 说：</strong></p><blockquote><p>&quot;大纲生成的 Prompt 不太好，生成的内容太像 AI 写的，没有童趣。我想要：</p><ol><li>让 AI 扮演&#39;世界级儿童绘本设计师&#39;</li><li>每页要有叙事目标、关键内容、视觉画面、布局结构</li><li>避免 AI 废话，比如&#39;不仅仅是 X，而是 Y&#39;这种</li><li>封面要有冲击力，封底要有仪式感&quot;</li></ol></blockquote><p><strong>AI 帮我优化了 Prompt：</strong></p><div class="language- vp-adaptive-theme"><button title="Copy Code" class="copy" aria-label="复制代码"></button><span class="lang"></span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span>你是一位世界级的儿童绘本设计师和故事讲述者。</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>你制作的绘本能根据源素材和目标受众进行调整。</span></span>
+<span class="line"><span>凡事皆有故事，而你要找到最佳的讲述方式。</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>每一页必须包含以下 4 个部分：</span></span>
+<span class="line"><span>// NARRATIVE GOAL (叙事目标)</span></span>
+<span class="line"><span>// KEY CONTENT (关键内容)  </span></span>
+<span class="line"><span>// VISUAL (视觉画面)</span></span>
+<span class="line"><span>// LAYOUT (布局结构)</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>**至关重要 (CRITICAL):**</span></span>
+<span class="line"><span>- 避免&quot;标题：副标题&quot;格式，这很 AI 感</span></span>
+<span class="line"><span>- 禁止&quot;不仅仅是 [X]，而是 [Y]&quot;这种废话</span></span>
+<span class="line"><span>- 封底不要用&quot;谢谢观看&quot;，要有设计感的结束语</span></span></code></pre></div><h3>第四轮对话：解决角色一致性问题 </h3><p><strong>我发现的问题：</strong></p><blockquote><p>&quot;生成的绘本里，同一个小狐狸在不同页面长得不一样！第一页是橙色的，第三页变成红色了。&quot;</p></blockquote><p><strong>我对 AI 说：</strong></p><blockquote><p>&quot;怎么让角色在每一页都保持一致？&quot;</p></blockquote><p><strong>AI 给出的方案：</strong></p><ol><li>先生成一张&quot;角色设定图&quot;（正面、侧面、不同表情）</li><li>生成每一页时，把角色设定图作为参考传给 AI</li><li>在 Prompt 里强调&quot;必须和参考图保持一致&quot;</li></ol><p><img src="/tpvibe/images/Practice_index/subs/ai-picture-book-generator/11.01-20260106012659_49_179.jpg" alt="角色设定图效果" width="800" height="600"></p><p><em>角色设定图示例：包含全身姿势（站立、挥手、坐下、行走）、面部表情（开心、好奇、惊讶、坚定）、关键特征标注（发型、眼睛、服装）</em></p><div class="language- vp-adaptive-theme"><button title="Copy Code" class="copy" aria-label="复制代码"></button><span class="lang"></span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span>## 🎭 Character Consistency (CRITICAL)</span></span>
+<span class="line"><span>You MUST maintain character consistency with the reference image.</span></span>
+<span class="line"><span>- Keep the same: face shape, eye color, hair style, clothing</span></span>
+<span class="line"><span>- Only change: pose, expression, and interaction with the scene</span></span></code></pre></div><h3>第五轮对话：添加实时进度 </h3><p><strong>我对 AI 说：</strong></p><blockquote><p>&quot;生成一本绘本要好几分钟，用户干等着体验很差。能不能实时显示进度？比如&#39;正在解析文档...&#39;、&#39;正在生成第 3 页...&#39;这样。&quot;</p></blockquote><p><strong>AI 帮我实现了 SSE（服务器推送事件）：</strong></p><ul><li>用户创建任务后，获得一个 task_id</li><li>前端通过 SSE 订阅进度</li><li>后端每完成一步就推送进度更新</li><li>每生成一张图就实时显示出来</li></ul><h3>第六轮对话：支持用户上传照片 </h3><p><strong>我对 AI 说：</strong></p><blockquote><p>&quot;有个新需求：用户可以上传自己的照片（比如孩子的照片），让 AI 把照片融入到绘本插图里。比如画一个卡通场景，但里面有真实的照片。&quot;</p></blockquote><p><strong>AI 帮我设计了 Mixed Media 方案：</strong></p><div class="language- vp-adaptive-theme"><button title="Copy Code" class="copy" aria-label="复制代码"></button><span class="lang"></span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span>🖼️ Reality Layer (真实照片层)</span></span>
+<span class="line"><span>   └── 用户上传的照片，保持 100% 真实质感</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>🦊 Illustration Layer (插画层)</span></span>
+<span class="line"><span>   └── AI 生成的卡通角色和场景</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>🌓 The Glue (融合层)</span></span>
+<span class="line"><span>   └── 光影统一、边缘交互</span></span></code></pre></div><h3>上手阶段小结 </h3><table tabindex="0"><thead><tr><th>你学到了什么</th><th>说明</th></tr></thead><tbody><tr><td><strong>迭代开发</strong></td><td>一轮对话解决一个问题，逐步完善</td></tr><tr><td><strong>Prompt 设计</strong></td><td>好的提示词决定 AI 输出质量</td></tr><tr><td><strong>问题描述</strong></td><td>遇到问题要描述现象，不要猜原因</td></tr></tbody></table><hr><h1>⚡ 第三阶段：优化（解决实际问题） </h1><blockquote><p>项目跑起来了，但会遇到各种问题。这一节教你怎么解决。</p></blockquote><h2>💡 Vibecoding 的关键技巧 </h2><h3>1. 先描述&quot;做什么&quot;，再说&quot;怎么做&quot; </h3><p>❌ 错误示范：</p><blockquote><p>&quot;帮我写一个 Flask 路由，用 POST 方法，接收 multipart/form-data...&quot;</p></blockquote><p>✅ 正确示范：</p><blockquote><p>&quot;我需要一个文件上传功能，用户可以上传 PDF 文件，系统保存后返回一个任务 ID&quot;</p></blockquote><h3>2. 遇到问题，描述现象而非猜测原因 </h3><p>❌ 错误示范：</p><blockquote><p>&quot;数据库连接池是不是有问题？&quot;</p></blockquote><p>✅ 正确示范：</p><blockquote><p>&quot;上传文件后，有时候会报错&#39;connection timeout&#39;，大概 10 次里有 2 次&quot;</p></blockquote><h3>3. 用具体例子说明期望 </h3><p>❌ 错误示范：</p><blockquote><p>&quot;生成的内容不够好&quot;</p></blockquote><p>✅ 正确示范：</p><blockquote><p>&quot;现在生成的标题是&#39;狐狸的故事：一个关于友谊的冒险&#39;，我想要更有童趣的，比如&#39;嘿！这就是你要找的狐狸入门指南&#39;&quot;</p></blockquote><h3>4. 分步骤迭代，不要一次说太多 </h3><p>❌ 错误示范：</p><blockquote><p>&quot;帮我做一个完整的绘本系统，要有用户登录、文件上传、AI 生成、导出 PDF、分享到微信...&quot;</p></blockquote><p>✅ 正确示范：</p><blockquote><p>&quot;我们先做文件上传功能。用户上传一个 PDF，系统保存到本地，返回文件路径。&quot;</p></blockquote><hr><h2>🚨 踩坑指南：我遇到的问题和解决方案 </h2><blockquote><p>这些坑我都踩过，分享出来让你少走弯路。</p></blockquote><h3>坑 1：API Key 泄露 </h3><p><strong>问题</strong>：把 API Key 写在代码里，上传到 GitHub，被人盗用，一夜之间扣了 500 块。</p><p><strong>解决</strong>：</p><div class="language-python vp-adaptive-theme"><button title="Copy Code" class="copy" aria-label="复制代码"></button><span class="lang">python</span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"># ❌ 错误：直接写在代码里</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">api_key </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> &quot;sk-xxxxxxxxxxxxx&quot;</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"># ✅ 正确：写在 .env 文件里</span></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"># .env 文件（不要上传到 GitHub）</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">OPENAI_API_KEY</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">sk</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">-</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">xxxxxxxxxxxxx</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"># 代码里这样读取</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">import</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> os</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">api_key </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> os.getenv(</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;OPENAI_API_KEY&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">)</span></span></code></pre></div><p><strong>记住</strong>：创建 <code>.gitignore</code> 文件，把 <code>.env</code> 加进去。</p><h3>坑 2：生成的图片风格不统一 </h3><p><strong>问题</strong>：第一页是卡通风格，第二页变成写实风格了。</p><p><strong>解决</strong>：在每个图片生成的 Prompt 里，都加上风格描述。</p><div class="language-python vp-adaptive-theme"><button title="Copy Code" class="copy" aria-label="复制代码"></button><span class="lang">python</span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"># ❌ 错误：只描述内容</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">prompt </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> &quot;画一只狐狸在森林里&quot;</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"># ✅ 正确：内容 + 风格</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">prompt </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> &quot;&quot;&quot;</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">画一只狐狸在森林里。</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">风格要求：</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">- 迪士尼皮克斯 3D 动画风格</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">- 明亮温暖的色调</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">- 角色有大眼睛、圆润的线条</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">- 背景简洁，有柔和的光线</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;&quot;&quot;</span></span></code></pre></div><h3>坑 3：角色长得不一样 </h3><p><strong>问题</strong>：同一个角色，每一页长得都不一样。</p><p><strong>解决</strong>：</p><ol><li>先生成一张角色参考图</li><li>每次生成页面时，把参考图传给 AI</li><li>在 Prompt 里强调&quot;必须和参考图一致&quot;</li></ol><h3>坑 4：生成太慢，用户以为卡死了 </h3><p><strong>问题</strong>：生成一本绘本要 5 分钟，用户盯着白屏。</p><p><strong>解决</strong>：</p><ol><li>加进度条</li><li>每完成一步就更新状态</li><li>每生成一张图就立刻显示</li></ol><h3>坑 5：Prompt 太长，AI 忘记前面的要求 </h3><p><strong>问题</strong>：Prompt 写了 2000 字，AI 只记住了最后几句。</p><p><strong>解决</strong>：</p><ol><li>把最重要的要求放在 Prompt 的<strong>开头和结尾</strong></li><li>用 <code>**加粗**</code> 或 <code>⚠️ 重要</code> 标记关键要求</li><li>把长 Prompt 拆成多个短 Prompt</li></ol><h2>🎯 Prompt 模板：拿来就用 </h2><blockquote><p>这些是我调试好的 Prompt，直接复制使用。</p></blockquote><h3>模板 1：大纲生成 Prompt </h3><div class="language- vp-adaptive-theme"><button title="Copy Code" class="copy" aria-label="复制代码"></button><span class="lang"></span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span>你是一位世界级的儿童绘本设计师和故事讲述者。</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>## 任务</span></span>
+<span class="line"><span>根据以下文档内容，设计一本 10-15 页的儿童绘本大纲。</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>## 文档内容</span></span>
+<span class="line"><span>{这里粘贴文档内容}</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>## 输出要求</span></span>
+<span class="line"><span>为每一页提供：</span></span>
+<span class="line"><span>1. **标题**：叙事性标题（不是&quot;标题：副标题&quot;格式）</span></span>
+<span class="line"><span>2. **叙事目标**：这一页在故事中的作用</span></span>
+<span class="line"><span>3. **关键内容**：要展示的文字</span></span>
+<span class="line"><span>4. **视觉画面**：场景、角色动作、表情</span></span>
+<span class="line"><span>5. **布局**：构图建议</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>## 禁止事项</span></span>
+<span class="line"><span>- 禁止使用&quot;让我们一起...&quot;、&quot;小朋友们...&quot;等说教语气</span></span>
+<span class="line"><span>- 禁止&quot;不仅仅是X，而是Y&quot;等 AI 味道的句式</span></span>
+<span class="line"><span>- 禁止以&quot;谢谢观看&quot;结尾</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>## 输出格式</span></span>
+<span class="line"><span>JSON 格式，便于程序解析</span></span></code></pre></div><h3>模板 2：图片生成 Prompt </h3><div class="language- vp-adaptive-theme"><button title="Copy Code" class="copy" aria-label="复制代码"></button><span class="lang"></span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span>你是一位专业的儿童绘本插画师。</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>## 任务</span></span>
+<span class="line"><span>为绘本的第 {页码} 页绘制插图。</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>## 页面内容</span></span>
+<span class="line"><span>标题：{标题}</span></span>
+<span class="line"><span>文字：{内容}</span></span>
+<span class="line"><span>场景：{视觉描述}</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>## 风格要求</span></span>
+<span class="line"><span>- 迪士尼皮克斯 3D 动画风格</span></span>
+<span class="line"><span>- 明亮温暖的色调，主色调为橙色、绿色、蓝色</span></span>
+<span class="line"><span>- 角色有大眼睛、圆润的线条</span></span>
+<span class="line"><span>- 背景简洁，有柔和的光线</span></span>
+<span class="line"><span>- 16:9 比例，4K 分辨率</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>## 角色一致性（重要！）</span></span>
+<span class="line"><span>主角必须和参考图保持一致：</span></span>
+<span class="line"><span>- 相同的：脸型、眼睛颜色、发型、服装</span></span>
+<span class="line"><span>- 可以变化的：姿势、表情、与场景的互动</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>## 禁止</span></span>
+<span class="line"><span>- 禁止出现 Markdown 符号（# * 等）</span></span>
+<span class="line"><span>- 禁止文字模糊不清</span></span>
+<span class="line"><span>- 禁止风格突变</span></span></code></pre></div><h3>模板 3：角色设定图 Prompt </h3><div class="language- vp-adaptive-theme"><button title="Copy Code" class="copy" aria-label="复制代码"></button><span class="lang"></span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span>创建一张角色设定图（Character Reference Sheet）。</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>## 角色信息</span></span>
+<span class="line"><span>名称：{角色名}</span></span>
+<span class="line"><span>描述：{外观描述}</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>## 设定图要求</span></span>
+<span class="line"><span>1. 展示角色的 3 个角度：正面、3/4 侧面、侧面</span></span>
+<span class="line"><span>2. 展示 3-4 种表情：开心、好奇、惊讶、思考</span></span>
+<span class="line"><span>3. 展示全身和面部特写</span></span>
+<span class="line"><span>4. 使用干净的白色背景</span></span>
+<span class="line"><span>5. 标注关键特征（发色、眼睛颜色、服装细节）</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>## 风格</span></span>
+<span class="line"><span>{风格描述，如&quot;迪士尼皮克斯 3D 动画风格&quot;}</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>## 布局</span></span>
+<span class="line"><span>横向 16:9，像专业的角色设计稿一样排列</span></span></code></pre></div><h3>优化阶段小结 </h3><table tabindex="0"><thead><tr><th>你学到了什么</th><th>说明</th></tr></thead><tbody><tr><td><strong>沟通技巧</strong></td><td>怎么和 AI 高效沟通</td></tr><tr><td><strong>踩坑经验</strong></td><td>常见问题的解决方案</td></tr><tr><td><strong>Prompt 模板</strong></td><td>可复用的提示词模板</td></tr></tbody></table><hr><h1>🌊 第四阶段：深水区（理解原理，举一反三） </h1><blockquote><p>这一节帮你理解&quot;为什么&quot;，而不只是&quot;怎么做&quot;。理解了设计思路，你就能举一反三，做出自己的 AI 应用。</p></blockquote><h2>📊 项目成果展示 </h2><h3>功能清单 </h3><table tabindex="0"><thead><tr><th>功能</th><th>描述</th><th>状态</th></tr></thead><tbody><tr><td>📄 文档解析</td><td>支持 PDF/Word/TXT，自动提取文字和图片</td><td>✅</td></tr><tr><td>🎨 风格选择</td><td>疯狂动物城、吉卜力、皮克斯等多种风格</td><td>✅</td></tr><tr><td>📝 大纲生成</td><td>AI 自动规划绘本结构和每页内容</td><td>✅</td></tr><tr><td>🦊 角色一致性</td><td>生成角色参考图，确保全书角色统一</td><td>✅</td></tr><tr><td>🖼️ 图片生成</td><td>并行生成所有页面插图</td><td>✅</td></tr><tr><td>📸 照片融合</td><td>支持将真实照片融入插画场景</td><td>✅</td></tr><tr><td>📚 导出 PPT</td><td>一键导出可编辑的 PPTX 文件</td><td>✅</td></tr><tr><td>🎬 动画生成</td><td>可选生成绘本动画视频（带旁白）</td><td>✅</td></tr></tbody></table><h3>技术栈（你不需要懂，AI 帮你选的） </h3><ul><li><strong>后端</strong>：Python Flask</li><li><strong>数据库</strong>：SQLite（开发）/ PostgreSQL（生产）</li><li><strong>文档解析</strong>：MinerU OCR</li><li><strong>AI 模型</strong>：GPT-4o（文本）+ GPT-Image-1 / Gemini（图片）</li><li><strong>动画生成</strong>：可灵 AI / AI 助手万象</li></ul><hr><h2>🏗️ 项目架构 </h2><h3>小白版（快速理解） </h3><div class="language- vp-adaptive-theme"><button title="Copy Code" class="copy" aria-label="复制代码"></button><span class="lang"></span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span>你上传一个 PDF/Word 文档</span></span>
+<span class="line"><span>        ↓</span></span>
+<span class="line"><span>   ┌─────────────────────────────────────┐</span></span>
+<span class="line"><span>   │  第 1 步：文档解析                    │</span></span>
+<span class="line"><span>   │  把文档里的文字和图片提取出来          │</span></span>
+<span class="line"><span>   └─────────────────────────────────────┘</span></span>
+<span class="line"><span>        ↓</span></span>
+<span class="line"><span>   ┌─────────────────────────────────────┐</span></span>
+<span class="line"><span>   │  第 2 步：AI 生成绘本大纲             │</span></span>
+<span class="line"><span>   │  决定分几页、每页讲什么、画什么        │</span></span>
+<span class="line"><span>   └─────────────────────────────────────┘</span></span>
+<span class="line"><span>        ↓</span></span>
+<span class="line"><span>   ┌─────────────────────────────────────┐</span></span>
+<span class="line"><span>   │  第 3 步：AI 生成角色参考图           │</span></span>
+<span class="line"><span>   │  确保主角在每一页长得一样             │</span></span>
+<span class="line"><span>   └─────────────────────────────────────┘</span></span>
+<span class="line"><span>        ↓</span></span>
+<span class="line"><span>   ┌─────────────────────────────────────┐</span></span>
+<span class="line"><span>   │  第 4 步：AI 批量生成每页插图         │</span></span>
+<span class="line"><span>   │  根据大纲，一页一页画出来             │</span></span>
+<span class="line"><span>   └─────────────────────────────────────┘</span></span>
+<span class="line"><span>        ↓</span></span>
+<span class="line"><span>   ┌─────────────────────────────────────┐</span></span>
+<span class="line"><span>   │  第 5 步：导出成品                    │</span></span>
+<span class="line"><span>   │  打包成 PPT/PDF，还能生成动画视频！   │</span></span>
+<span class="line"><span>   └─────────────────────────────────────┘</span></span>
+<span class="line"><span>        ↓</span></span>
+<span class="line"><span>   一本完整的 AI 绘本诞生！🎉</span></span></code></pre></div><h3>系统架构图 </h3><p><img src="/tpvibe/images/Practice_index/subs/ai-picture-book-generator/11.01-AI_E7_BB_98_E6_9C_AC_E6_95_B4_E4_BD_93_E6_9E_B6_E6_9E_84_E5_9B_BE.jpg" alt="AI绘本整体架构图" width="800" height="600"></p><p><strong>架构说明：</strong></p><table tabindex="0"><thead><tr><th>层级</th><th>组件</th><th>说明</th></tr></thead><tbody><tr><td><strong>前端</strong></td><td>React + Vite + TypeScript</td><td>Upload PDF、OCR 预览、大纲编辑、绘本预览/导出</td></tr><tr><td><strong>后端 Controllers</strong></td><td>storybook / page / export / task</td><td>4 个 Blueprint 路由模块</td></tr><tr><td><strong>Services 层</strong></td><td>FileParser / AIService / ExportSvc / FileService</td><td>核心业务逻辑 + TaskManager 异步任务队列</td></tr><tr><td><strong>AI Providers</strong></td><td>TextProvider / ImageProvider</td><td>可插拔的 AI 模型适配层</td></tr><tr><td><strong>数据库</strong></td><td>SQLAlchemy + SQLite</td><td>Storybook / StorybookPage / Task / CharacterReference</td></tr><tr><td><strong>外部服务</strong></td><td>MinerU / Qwen / Gemini / WebSearch / Nano Banana Pro</td><td>PDF 解析、内容分析、联网搜索、图像生成</td></tr></tbody></table><hr><h3>完整技术流程（进阶版） </h3><div class="language- vp-adaptive-theme"><button title="Copy Code" class="copy" aria-label="复制代码"></button><span class="lang"></span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span>┌─────────────────────────────────────────────────────────────────────────────┐</span></span>
+<span class="line"><span>│                           AI 绘本生成完整流程                                │</span></span>
+<span class="line"><span>└─────────────────────────────────────────────────────────────────────────────┘</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>用户输入</span></span>
+<span class="line"><span>├── 主题/文档内容 (parsed_content)</span></span>
+<span class="line"><span>├── 风格关键词 (style_keyword): &quot;疯狂动物城&quot;、&quot;宫崎骏&quot;</span></span>
+<span class="line"><span>├── 参考图片 (reference_images): 风格参考图</span></span>
+<span class="line"><span>└── 素材图片 (source_images): 需要嵌入绘本的真实照片</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>        ↓</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>┌─────────────────────────────────────────────────────────────────────────────┐</span></span>
+<span class="line"><span>│  Stage 1: 风格生成 (Style Generator)                                        │</span></span>
+<span class="line"><span>├─────────────────────────────────────────────────────────────────────────────┤</span></span>
+<span class="line"><span>│  输入:                                                                      │</span></span>
+<span class="line"><span>│  - theme (主题)                                                             │</span></span>
+<span class="line"><span>│  - style_keyword (风格关键词)                                               │</span></span>
+<span class="line"><span>│  - reference_images (参考图片) ← 多模态 LLM 分析图片风格                     │</span></span>
+<span class="line"><span>│  - target_audience (目标受众)                                               │</span></span>
+<span class="line"><span>│                                                                             │</span></span>
+<span class="line"><span>│  输出:                                                                      │</span></span>
+<span class="line"><span>│  - style_config JSON (设计美学、配色、字体、视觉元素、角色风格)              │</span></span>
+<span class="line"><span>└─────────────────────────────────────────────────────────────────────────────┘</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>        ↓ style_config</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>┌─────────────────────────────────────────────────────────────────────────────┐</span></span>
+<span class="line"><span>│  Stage 2: 大纲生成 (Outline Generator)                                      │</span></span>
+<span class="line"><span>├─────────────────────────────────────────────────────────────────────────────┤</span></span>
+<span class="line"><span>│  输入:                                                                      │</span></span>
+<span class="line"><span>│  - parsed_content (文档内容)                                                │</span></span>
+<span class="line"><span>│  - background_knowledge (联网搜索的背景知识)                                │</span></span>
+<span class="line"><span>│  - style_config (来自 Stage 1)                                              │</span></span>
+<span class="line"><span>│  - source_images (素材图片列表) ← 告知 LLM 有多少张图片可用                  │</span></span>
+<span class="line"><span>│  - user_prompt, target_audience, subject, theme_character                   │</span></span>
+<span class="line"><span>│                                                                             │</span></span>
+<span class="line"><span>│  输出:                                                                      │</span></span>
+<span class="line"><span>│  - 完整绘本大纲 JSON                                                        │</span></span>
+<span class="line"><span>│    - title, style_config, sections                                          │</span></span>
+<span class="line"><span>│    - 每页 slide: title, narrative_goal, content, visual_description,        │</span></span>
+<span class="line"><span>│                  layout, embedded_images (如 [&quot;IMG_1&quot;, &quot;IMG_2&quot;])            │</span></span>
+<span class="line"><span>└─────────────────────────────────────────────────────────────────────────────┘</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>        ↓ 大纲 + embedded_images</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>┌─────────────────────────────────────────────────────────────────────────────┐</span></span>
+<span class="line"><span>│  Stage 3: 图片生成 (Image Generator)                                        │</span></span>
+<span class="line"><span>├─────────────────────────────────────────────────────────────────────────────┤</span></span>
+<span class="line"><span>│  对每个 slide 执行:                                                         │</span></span>
+<span class="line"><span>│                                                                             │</span></span>
+<span class="line"><span>│  1. 检查 embedded_images 是否为空                                           │</span></span>
+<span class="line"><span>│     ├── 有图片 → 使用 REALITY_PATCH_TEMPLATE                                │</span></span>
+<span class="line"><span>│     └── 无图片 → 使用 STANDARD_TEMPLATE                                     │</span></span>
+<span class="line"><span>│                                                                             │</span></span>
+<span class="line"><span>│  2. 拼接视觉指令:                                                           │</span></span>
+<span class="line"><span>│     - style_config.design_aesthetic                                         │</span></span>
+<span class="line"><span>│     - slide.visual_description                                              │</span></span>
+<span class="line"><span>│     - Reality Layer / Illustration Layer / The Glue (如有图片)              │</span></span>
+<span class="line"><span>│                                                                             │</span></span>
+<span class="line"><span>│  3. 调用多模态 API:                                                         │</span></span>
+<span class="line"><span>│     - prompt: 拼接后的视觉指令                                              │</span></span>
+<span class="line"><span>│     - images: source_images 中对应的真实图片 (IMG_1 → source_images[0])     │</span></span>
+<span class="line"><span>│                                                                             │</span></span>
+<span class="line"><span>│  输出:                                                                      │</span></span>
+<span class="line"><span>│  - 每页的生成图片 (Mixed Media: 插画 + 真实照片融合)                        │</span></span>
+<span class="line"><span>└─────────────────────────────────────────────────────────────────────────────┘</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>        ↓</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>最终绘本 (图片 + 文字)</span></span></code></pre></div><hr><h2>🧠 核心设计原则 </h2><h4>原则 1：流水线思维 —— 把大问题拆成小步骤 </h4><p><strong>问题</strong>：直接让 AI &quot;把文档变成绘本&quot; 太模糊，AI 不知道从哪下手。</p><p><strong>解决</strong>：拆成 5 个清晰的步骤，每一步只做一件事。</p><div class="language- vp-adaptive-theme"><button title="Copy Code" class="copy" aria-label="复制代码"></button><span class="lang"></span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span>❌ 错误思路：一步到位</span></span>
+<span class="line"><span>   &quot;AI，把这个 PDF 变成绘本&quot;</span></span>
+<span class="line"><span>   → AI 懵了，不知道要做什么</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>✅ 正确思路：流水线</span></span>
+<span class="line"><span>   步骤1：提取文字 → 步骤2：生成大纲 → 步骤3：画角色 → 步骤4：画每页 → 步骤5：打包</span></span>
+<span class="line"><span>   → 每一步都很清晰，AI 能精准执行</span></span></code></pre></div><h4>原则 2：Prompt 是灵魂 —— 好的提示词决定一切 </h4><p><strong>类比</strong>：Prompt 就像你给厨师的菜谱</p><ul><li>菜谱写&quot;做一道好吃的菜&quot; → 厨师随便做</li><li>菜谱写&quot;用鸡胸肉、西兰花、蒜末，先煎后炒，少盐多蒜&quot; → 厨师精准执行</li></ul><table tabindex="0"><thead><tr><th>技巧</th><th>说明</th><th>示例</th></tr></thead><tbody><tr><td><strong>角色扮演</strong></td><td>让 AI 进入专业角色</td><td>&quot;你是世界级儿童绘本设计师&quot;</td></tr><tr><td><strong>结构化输出</strong></td><td>规定输出格式</td><td>&quot;每页必须包含：叙事目标、关键内容、视觉画面、布局&quot;</td></tr><tr><td><strong>负面约束</strong></td><td>告诉 AI 不要做什么</td><td>&quot;禁止使用&#39;不仅仅是X，而是Y&#39;这种句式&quot;</td></tr></tbody></table><h4>原则 3：分层架构 —— 让代码像乐高积木 </h4><div class="language- vp-adaptive-theme"><button title="Copy Code" class="copy" aria-label="复制代码"></button><span class="lang"></span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span>┌─────────────────────────────────────────────────────────────┐</span></span>
+<span class="line"><span>│  🎨 界面层 (Gradio) - 用户看到的界面                          │</span></span>
+<span class="line"><span>└─────────────────────────────────────────────────────────────┘</span></span>
+<span class="line"><span>                              ↓</span></span>
+<span class="line"><span>┌─────────────────────────────────────────────────────────────┐</span></span>
+<span class="line"><span>│  🔧 服务层 (Services) - 具体的业务逻辑                        │</span></span>
+<span class="line"><span>└─────────────────────────────────────────────────────────────┘</span></span>
+<span class="line"><span>                              ↓</span></span>
+<span class="line"><span>┌─────────────────────────────────────────────────────────────┐</span></span>
+<span class="line"><span>│  🤖 AI 层 (Providers) - 和各种 AI 模型通信                    │</span></span>
+<span class="line"><span>└─────────────────────────────────────────────────────────────┘</span></span>
+<span class="line"><span>                              ↓</span></span>
+<span class="line"><span>┌─────────────────────────────────────────────────────────────┐</span></span>
+<span class="line"><span>│  💾 数据层 (Database) - 存储绘本信息                          │</span></span>
+<span class="line"><span>└─────────────────────────────────────────────────────────────┘</span></span></code></pre></div><p><strong>好处</strong>：想换一个 AI 模型？只改 AI 层，其他层不用动。</p><h4>原则 4：异步处理 —— 别让用户干等 </h4><div class="language- vp-adaptive-theme"><button title="Copy Code" class="copy" aria-label="复制代码"></button><span class="lang"></span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span>❌ 同步处理：点击&quot;生成&quot; → 白屏 5 分钟 → 突然全部出来</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>✅ 异步处理：点击&quot;生成&quot; → &quot;正在解析文档...&quot; → &quot;正在生成大纲...&quot;</span></span>
+<span class="line"><span>   → &quot;第 1 页生成完成 ✓&quot; [显示图片] → &quot;第 2 页生成完成 ✓&quot; [显示图片]</span></span></code></pre></div><hr><h2>📊 项目文件结构（参考） </h2><div class="language- vp-adaptive-theme"><button title="Copy Code" class="copy" aria-label="复制代码"></button><span class="lang"></span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span>AI绘本/</span></span>
+<span class="line"><span>├── backend/                    # 后端代码</span></span>
+<span class="line"><span>│   ├── app.py                 # Flask 应用入口</span></span>
+<span class="line"><span>│   ├── config.py              # 配置文件</span></span>
+<span class="line"><span>│   ├── requirements.txt       # Python 依赖</span></span>
+<span class="line"><span>│   ├── .env                   # 环境变量（API Key 放这里）</span></span>
+<span class="line"><span>│   │</span></span>
+<span class="line"><span>│   ├── controllers/           # API 接口</span></span>
+<span class="line"><span>│   ├── services/              # 业务逻辑</span></span>
+<span class="line"><span>│   ├── models/                # 数据模型</span></span>
+<span class="line"><span>│   ├── prompts/               # Prompt 模板</span></span>
+<span class="line"><span>│   └── utils/                 # 工具函数</span></span>
+<span class="line"><span>│</span></span>
+<span class="line"><span>├── uploads/                   # 上传的文件</span></span>
+<span class="line"><span>├── outputs/                   # 生成的绘本</span></span>
+<span class="line"><span>└── docs/                      # 文档</span></span></code></pre></div><table tabindex="0"><thead><tr><th>文件/文件夹</th><th>作用</th><th>小白理解</th></tr></thead><tbody><tr><td><code>app.py</code></td><td>程序入口</td><td>双击运行的那个文件</td></tr><tr><td><code>.env</code></td><td>密钥</td><td>API Key 放这里，不要上传</td></tr><tr><td><code>services/</code></td><td>逻辑</td><td>真正干活的代码</td></tr><tr><td><code>prompts/</code></td><td>提示词</td><td>给 AI 的指令模板</td></tr></tbody></table><hr><h2>📝 常见问题 </h2><h3>Q: 我完全不懂代码，真的能做出来吗？ </h3><p><strong>A:</strong> 可以！关键是：把需求描述清楚、遇到问题及时问 AI、不要怕报错。</p><h3>Q: 需要花多少钱？ </h3><p><strong>A:</strong> AI 编辑器免费版够用，API 测试阶段大概几十块，开发阶段用本地电脑免费。</p><h3>Q: 生成一本绘本要多久？ </h3><p><strong>A:</strong> 文档解析 10-30 秒 + 大纲生成 20-40 秒 + 图片生成 2-5 分钟 = 总计约 3-6 分钟</p><hr><h2>🔗 相关资源 </h2><ul><li><strong>项目代码</strong>：就在这个文件夹里</li><li><strong>API 文档</strong>：<code>docs/API文档-文件上传与解析.md</code></li><li><strong>SSE 文档</strong>：<code>docs/SSE-API文档.md</code></li><li><strong>Prompt 设计</strong>：<code>docs/AIPromot-AI 绘本生成完整流程.md</code></li></ul><hr><h2>🌟 进阶方向 </h2><table tabindex="0"><thead><tr><th>方向</th><th>说明</th><th>难度</th></tr></thead><tbody><tr><td><strong>多轮对话</strong></td><td>让用户和 AI 对话修改绘本</td><td>⭐⭐⭐</td></tr><tr><td><strong>更多导出格式</strong></td><td>视频（带旁白）、电子书（ePub）</td><td>⭐⭐</td></tr><tr><td><strong>模板市场</strong></td><td>预设多种绘本模板</td><td>⭐⭐⭐</td></tr><tr><td><strong>商业化</strong></td><td>用户系统、付费功能</td><td>⭐⭐⭐⭐</td></tr></tbody></table><h3>深水区小结 </h3><table tabindex="0"><thead><tr><th>你学到了什么</th><th>说明</th></tr></thead><tbody><tr><td><strong>架构思维</strong></td><td>怎么设计一个可扩展的系统</td></tr><tr><td><strong>设计原则</strong></td><td>流水线、分层、异步处理</td></tr><tr><td><strong>进阶方向</strong></td><td>做完之后还能往哪走</td></tr></tbody></table><hr><h2>💬 最后的话 </h2><p>Vibecoding 不是让你变成程序员，而是让你<strong>不需要成为程序员也能创造软件</strong>。</p><p>这个 AI 绘本项目，从想法到成品，全程都是和 AI 对话完成的。</p><p><strong>你也可以。</strong></p><hr><p><em>本文档由 Vibecoding 生成，用 AI 写关于 AI 的故事 🤖</em></p></div></div>
+</div>
+</main>
+
+
+<footer class="site-footer">
+<p>© 2026 TPvibe · 内部预览版</p>
+<p style="margin-top:8px;">
+<a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer">蜀ICP备2024097797号-3</a>
+</p>
+</footer>
+<!-- THEME:tpvibe -->
+<script>
+/* Theme toggle */
+(function(){
+  var r=document.documentElement;
+  var saved=localStorage.getItem('tpvibe-theme');r.dataset.theme=saved||'light';
+  
+  /* sync button icon */
+  
+})();
+/* Reveal on scroll */
+(function(){
+  var obs=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');obs.unobserve(e.target);}});},{threshold:.15});
+  document.querySelectorAll('.reveal').forEach(function(el){obs.observe(el);});
+})();
+/* Progress bar */
+(function(){
+  var bar=document.getElementById('progress');
+  if(!bar)return;
+  window.addEventListener('scroll',function(){
+    var h=document.documentElement.scrollHeight-window.innerHeight;
+    bar.style.width=(h>0?(window.scrollY/h*100):0)+'%';
+  });
+})();
+</script>
+<script>
+/* Theme button icon sync */
+(function(){
+  var btn=document.querySelector('.theme-btn');
+  if(!btn)return;
+  function sync(){btn.textContent=document.documentElement.dataset.theme==='dark'?'☀️':'🌙';}
+  sync();
+  btn.addEventListener('click',function(){setTimeout(sync,0);});
+})();
+</script>
+
+<nav class="mobile-bottom-tabs"><ul><li><a href="/tpvibe/index.html"><svg viewBox="0 0 24 24"><path d="M3 12L12 3l9 9M5 10v10h4v-6h6v6h4V10"/></svg><span>首页</span></a></li><li><a href="/tpvibe/Basic/lecture-1.html"><svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg><span>基础篇</span></a></li><li><a href="/tpvibe/Advanced/ch01.html"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg><span>进阶篇</span></a></li><li><a href="/tpvibe/Articles/core-concepts.html"><svg viewBox="0 0 24 24"><path d="M4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zM8 7h8M8 11h8M8 15h6"/></svg><span>文章</span></a></li><li><a href="/tpvibe/Practice/index.html"><svg viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg><span>实践</span></a></li></ul></nav>
+<script>
+(function(){
+  // 判断当前页面，高亮对应的 tab（目录前缀匹配）
+  var path=location.pathname.replace(/\/index\.html$/,'/').replace(/\/$/,'');
+  var tabs=document.querySelectorAll('.mobile-bottom-tabs a');
+  var bestMatch=null;
+  var bestMatchLen=0;
+  tabs.forEach(function(a){
+    var href=a.getAttribute('href')||'';
+    if(!href)return;
+    var hrefPath=href.replace(/https?:\/\/[^\/]+/,'').replace(/\/index\.html$/,'/').replace(/\/$/,'');
+    if(path===hrefPath){bestMatch=a;return;}
+    // 目录前缀匹配：当前路径以 tab 路径开头
+    if(hrefPath.length>2&&path.indexOf(hrefPath)>=0&&hrefPath.length>bestMatchLen){bestMatch=a;bestMatchLen=hrefPath.length;}
+  });
+  if(bestMatch)bestMatch.classList.add('active');
+})();
+</script>
+
+
+<script src="/tpvibe/toc-sheet.js"></script>
+</body>
+</html>

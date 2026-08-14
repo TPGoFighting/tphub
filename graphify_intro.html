@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Graphify 深度解读</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#fdfdfb; --grid:#ececf2;
+    --ink:#1a1a2e; --line:#55557a;
+    --panel:#ffffff; --border:#1a1a2e;
+    --blue:#2b6cb0; --green:#2f9e44; --pink:#e8596f; --yellow:#f0a000;
+    --purple:#8e44ad; --cyan:#0b8a8a; --shadow:#1a1a2e;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0; padding:0; background:var(--bg);
+    background-image: radial-gradient(var(--grid) 1px, transparent 1px);
+    background-size:18px 18px;
+    color:var(--ink);
+    font-family:'VT323', monospace; font-size:21px; line-height:1.5;
+    image-rendering:pixelated;
+  }
+  h1,h2,h3,.pf{font-family:'Press Start 2P', monospace; line-height:1.5;}
+  a{color:var(--blue); text-decoration:none;}
+  a:hover{color:var(--pink);}
+
+  .wrap{max-width:1000px; margin:0 auto; padding:24px 16px 80px;}
+
+  /* white pixel panel */
+  .panel{
+    background:var(--panel);
+    border:4px solid var(--border);
+    box-shadow:8px 8px 0 var(--shadow);
+    padding:22px 22px 26px; margin:28px 0; position:relative;
+  }
+  .panel.blue{border-color:var(--blue);} .panel.green{border-color:var(--green);}
+  .panel.pink{border-color:var(--pink);} .panel.yellow{border-color:var(--yellow);}
+  .panel.purple{border-color:var(--purple);} .panel.cyan{border-color:var(--cyan);}
+  .tag{display:inline-block; background:var(--border); color:#fff;
+    padding:4px 8px; font-family:'Press Start 2P'; font-size:10px; margin:0 6px 8px 0;}
+  .tag.blue{background:var(--blue);} .tag.green{background:var(--green);}
+  .tag.pink{background:var(--pink);} .tag.yellow{background:var(--yellow);}
+  .tag.purple{background:var(--purple);} .tag.cyan{background:var(--cyan);}
+
+  .hero{text-align:center; padding:30px 10px 10px;}
+  .hero h1{font-size:28px; color:var(--ink); text-shadow:3px 3px 0 #d8d8e8; margin-bottom:4px;}
+  .hero .sub{color:var(--blue); font-size:22px;}
+  .robot{font-size:60px; margin:6px;}
+  .badge-row{margin-top:14px; display:flex; gap:10px; justify-content:center; flex-wrap:wrap;}
+  .badge{background:#fff; border:3px solid var(--border); padding:6px 10px;
+    font-family:'Press Start 2P'; font-size:10px; color:var(--ink); box-shadow:4px 4px 0 var(--shadow);}
+
+  .stats{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:14px; margin-top:10px;}
+  .stat{background:#fff; border:3px solid var(--border); padding:14px; text-align:center; box-shadow:5px 5px 0 var(--shadow);}
+  .stat .n{font-family:'Press Start 2P'; font-size:16px; color:var(--pink);}
+  .stat .l{color:var(--line); font-size:18px;}
+
+  pre{background:#1a1a2e; color:#d6ecff; border:3px solid #000; padding:14px 16px; overflow:auto;
+    font-family:'VT323', monospace; font-size:18px; line-height:1.35; box-shadow:inset 0 0 0 2px #444;}
+  code{color:var(--cyan);}
+  .kw{color:#ff9ec4;} .fn{color:#9cdcff;} .str{color:#8be58b;} .cm{color:#8a8aa8;}
+
+  .flow{display:flex; align-items:stretch; justify-content:center; flex-wrap:wrap; gap:0; margin:10px 0;}
+  .node{flex:1 1 120px; min-width:115px; background:#fff; border:3px solid var(--border);
+    padding:10px 8px; text-align:center; box-shadow:4px 4px 0 var(--shadow); margin:5px;}
+  .node h3{font-size:9px; color:var(--blue); margin:4px 0;}
+  .node .d{font-size:16px; color:var(--line);}
+  .arrow{align-self:center; font-family:'Press Start 2P'; color:var(--pink); font-size:14px; padding:0 2px;}
+
+  ul.b{list-style:none; padding-left:0;}
+  ul.b li{padding:4px 0 4px 26px; position:relative;}
+  ul.b li::before{content:"▸"; position:absolute; left:4px; color:var(--green); font-weight:bold;}
+
+  .note{border-left:6px solid var(--yellow); background:#fffaf0; padding:10px 14px; margin:14px 0; font-size:19px;}
+
+  .legend{font-size:18px; color:var(--line);}
+  .pill{display:inline-block; padding:2px 8px; border:2px solid var(--border); margin:2px; font-size:16px;}
+  .pill.e{background:var(--green); color:#fff;}
+  .pill.i{background:var(--blue); color:#fff;}
+  .pill.a{background:var(--yellow); color:#1a1a2e;}
+
+  .toc{columns:2; font-size:19px;}
+  .toc a{display:block; padding:3px 0;}
+
+  footer{text-align:center; color:var(--line); font-size:18px; padding:20px;}
+  .blink{animation:bl 1s steps(2) infinite;} @keyframes bl{50%{opacity:0;}}
+  .hl{background:#fff4d6; padding:0 3px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- ===== HERO ===== -->
+  <div class="hero">
+    <div class="robot">🕸️</div>
+    <h1>Graphify</h1>
+    <div class="sub">~ 把任意文件夹变成「可查询的知识图谱」的 AI 技能 ~</div>
+    <div class="badge-row">
+      <span class="badge">★ 83.5k STARS</span>
+      <span class="badge">⑂ 8.2k FORKS</span>
+      <span class="badge">PY 3.10+</span>
+      <span class="badge">MIT</span>
+      <span class="badge">v0.9.13</span>
+      <span class="badge">multi-agent</span>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="toc">
+      <a href="#what">① 它到底是什么</a>
+      <a href="#stats">② 仓库数据一览</a>
+      <a href="#pipe">③ 七段流水线</a>
+      <a href="#extract">④ 抽取层深读</a>
+      <a href="#graph">⑤ 建图 + 社区发现</a>
+      <a href="#analyze">⑥ 分析层</a>
+      <a href="#export">⑦ 输出与导出</a>
+      <a href="#incr">⑧ 增量/缓存/watch</a>
+      <a href="#sec">⑨ 安全</a>
+      <a href="#skill">⑩ 多宿主技能</a>
+      <a href="#stack">⑪ 技术栈</a>
+      <a href="#run">⑫ 怎么跑</a>
+    </div>
+  </div>
+
+  <!-- ===== ① ===== -->
+  <div class="panel pink" id="what">
+    <span class="tag pink">INTRO</span>
+    <h2>① 它到底是什么？</h2>
+    <p>Graphify 是一个 <b>Claude Code 技能（skill）</b>，同时也兼容 Codex、OpenCode、Cursor、Gemini CLI、
+    Aider、Kilo、Devin、Kiro 等一大票 coding agent。你只要在任何目录里打一句
+    <code>/graphify .</code>，它就读遍该目录下的代码、SQL、R 脚本、shell、文档、论文、截图、白板照片，
+    甚至<span class="hl">其他国家语言的图片</span>，用 Claude 视觉 + AST 抽取出「概念」与「关系」，连成一张图。</p>
+    <p>本质是 <b>GraphRAG（图谱增强检索）</b>：把非结构化/多模态语料压成一张知识图谱，之后用
+    <code>query / path / explain</code> 去查，而不是每次把原始文件全塞进上下文。官方基准：
+    混合语料（代码+论文+图片）下，<b>每次查询比直接读原文件省 71.5 倍 token</b>。</p>
+    <div class="note">💡 关键卖点不是"画图好看"，而是「<b>诚实</b>」：每条边都打标
+    <code>EXTRACTED / INFERRED / AMBIGUOUS</code>，让你一眼看出这是"原文实锤"还是"模型猜的"。</div>
+  </div>
+
+  <!-- ===== ② ===== -->
+  <div class="panel" id="stats">
+    <span class="tag blue">STATS</span>
+    <h2>② 仓库数据一览</h2>
+    <div class="stats">
+      <div class="stat"><div class="n">83,522</div><div class="l">Stars</div></div>
+      <div class="stat"><div class="n">8,240</div><div class="l">Forks</div></div>
+      <div class="stat"><div class="n">480</div><div class="l">Open Issues</div></div>
+      <div class="stat"><div class="n">2026-04</div><div class="l">创建于</div></div>
+      <div class="stat"><div class="n">7 MB</div><div class="l">仓库体积</div></div>
+      <div class="stat"><div class="n">Python</div><div class="l">主语言</div></div>
+      <div class="stat"><div class="n">v0.9.13</div><div class="l">版本</div></div>
+      <div class="stat"><div class="n">v8</div><div class="l">默认分支</div></div>
+    </div>
+    <p class="legend">* star/fork 为抓取时 GitHub API 返回值。PyPI 包名暂叫 <code>graphifyy</code>（在抢回 <code>graphify</code> 名），CLI 与 skill 命令仍是 <code>graphify</code>。</p>
+  </div>
+
+  <!-- ===== ③ PIPELINE ===== -->
+  <div class="panel blue" id="pipe">
+    <span class="tag blue">ARCH</span>
+    <h2>③ 七段流水线</h2>
+    <p>整个流程是一条<b>纯函数管道</b>（来自 <code>ARCHITECTURE.md</code>）：每个阶段是独立模块里的单个函数，
+    通过普通 Python dict 和 NetworkX 图通信，<b>没有共享可变状态</b>，副作用只落在 <code>graphify-out/</code>。</p>
+    <div class="flow">
+      <div class="node"><h3>detect</h3><div class="d">collect_files</div></div>
+      <div class="arrow">»</div>
+      <div class="node"><h3>extract</h3><div class="d">每文件→节点+边</div></div>
+      <div class="arrow">»</div>
+      <div class="node"><h3>build</h3><div class="d">→ nx.Graph</div></div>
+      <div class="arrow">»</div>
+      <div class="node"><h3>cluster</h3><div class="d">社区发现</div></div>
+    </div>
+    <div class="flow">
+      <div class="node"><h3>analyze</h3><div class="d">god节点/惊喜</div></div>
+      <div class="arrow">»</div>
+      <div class="node"><h3>report</h3><div class="d">GRAPH_REPORT</div></div>
+      <div class="arrow">»</div>
+      <div class="node"><h3>export</h3><div class="d">html/obsidian/…</div></div>
+    </div>
+    <p class="legend">这条"无状态函数链"的设计很干净——便于单测（每个模块一个 test 文件，<code>pytest tests/ -q</code> 全纯单测，不碰网络、不写临时盘以外的文件），也便于增量更新时只重跑某几段。</p>
+  </div>
+
+  <!-- ===== ④ EXTRACT ===== -->
+  <div class="panel green" id="extract">
+    <span class="tag green">DEEP DIVE</span>
+    <h2>④ 抽取层 extract.py 深读</h2>
+    <p><code>extract.py</code> 是这个项目里最大的文件（约 <b>218KB</b>），核心是<b>每种类型一个抽取器 + 一个调度分发</b>。
+    每种代码语言写 <code>extract_&lt;lang&gt;(path) -&gt; dict</code>，统一返回如下 schema：</p>
+    <pre>{
+  <span class="str">"nodes"</span>: [
+    {<span class="str">"id"</span>: <span class="str">"unique_string"</span>, <span class="str">"label"</span>: <span class="str">"human name"</span>,
+     <span class="str">"source_file"</span>: <span class="str">"path"</span>, <span class="str">"source_location"</span>: <span class="str">"L42"</span>}
+  ],
+  <span class="str">"edges"</span>: [
+    {<span class="str">"source"</span>: <span class="str">"id_a"</span>, <span class="str">"target"</span>: <span class="str">"id_b"</span>,
+     <span class="str">"relation"</span>: <span class="str">"calls|imports|uses|..."</span>,
+     <span class="str">"confidence"</span>: <span class="str">"EXTRACTED|INFERRED|AMBIGUOUS"</span>}
+  ]
+}</pre>
+    <p>关键点：</p>
+    <ul class="b">
+      <li><b>代码走 tree-sitter AST</b>：pyproject 里钉了一长串 <code>tree-sitter-*</code> 语言（py/js/ts/go/rust/java/c/cpp/ruby/c#/kotlin/scala/php/swift/lua/zig/powershell/elixir/objc/julia/verilog/fortran/bash/json…），解析出函数、类、import。</li>
+      <li><b>调用图第二遍（call-graph 2nd pass）</b>：先抽显式 import/定义，再做一遍跨文件推理，把推断出的 <code>calls</code> 边标成 <code>INFERRED</code>——这就是"猜"的来源，但被如实标注。</li>
+      <li><b>多模态</b>：文档(.md/.txt/.rst)与论文(.pdf，做引文挖掘)走 Claude 抽概念；图片(.png/.jpg/…)走 <b>Claude 视觉</b>，截图、架构图、甚至外语手写白板都能抽。代码改动走 AST <b>不用 LLM</b>，只有文档/图片才进 LLM 重抽。</li>
+      <li><b>schema 校验</b>：<code>validate.py</code> 在 <code>build_graph()</code> 消费前强制校验格式，错的直接 raise，保证下游拿到的是合法图。</li>
+      <li><b>去重</b>：<code>dedup.py</code> + <code>_minhash.py</code>（MinHash）做语义级去重，避免把同一概念的不同表述变成一堆碎节点。</li>
+    </ul>
+    <div class="note">🧩 置信标签三档：<span class="pill e">EXTRACTED</span> 原文显式（如 import 语句）；
+    <span class="pill i">INFERRED</span> 合理推断（调用图第二遍、共现）；
+    <span class="pill a">AMBIGUOUS</span> 不确定，在报告里单独标给你人工审。</div>
+  </div>
+
+  <!-- ===== ⑤ GRAPH ===== -->
+  <div class="panel purple" id="graph">
+    <span class="tag purple">DEEP DIVE</span>
+    <h2>⑤ 建图 + 社区发现</h2>
+    <p><code>build.py</code>（约 52KB）把一堆抽取 dict 拼成 <code>nx.Graph</code>，处理节点合并、边去重、关系归一。
+    之后 <code>cluster.py</code> 做<b>社区发现</b>：用 <b>Leiden 算法</b>（graspologic 实现）给每个节点挂上
+    <code>community</code> 属性。</p>
+    <p>为什么是 Leiden 而不是 Louvain？Leiden 保证社区<b>连通、不碎裂</b>，更适合后面"按社区生成 Wiki 文章"——
+    每个社区 = 一个知识主题 = 一篇 Wikipedia 风格条目。这对 GraphRAG 的检索质量很关键：agent 查图时可以先定位社区再读局部，而不是在全局里捞针。</p>
+    <ul class="b">
+      <li>节点带 <code>source_file / source_location</code>，所以图谱是可<b>溯源</b>的——点开节点能跳回源码行。</li>
+      <li>支持 <b>SCIP 索引</b>导入（<code>scip_ingest.py</code>）、<b>Postgres schema</b> 内省（<code>pg_introspect.py</code>）、
+      <b>Google Workspace</b> 文件——把"数据库 schema + 应用代码 + 基础设施"放进同一张图（README 的卖点）。</li>
+      <li>兼容多图：<code>multigraph_compat.py</code> 处理平行边。</li>
+    </ul>
+  </div>
+
+  <!-- ===== ⑥ ANALYZE ===== -->
+  <div class="panel cyan" id="analyze">
+    <span class="tag cyan">DEEP DIVE</span>
+    <h2>⑥ 分析层 analyze.py</h2>
+    <p>图建好后，<code>analyze.py</code>（约 28KB）产出三样"人话"洞察，写进 <code>GRAPH_REPORT.md</code>：</p>
+    <ul class="b">
+      <li><b>God nodes（枢纽节点）</b>：度数最高的概念——所有东西都绕着它连，往往是系统的核心抽象。</li>
+      <li><b>Surprising connections（意外连接）</b>：按复合评分排序，<span class="hl">跨模态边（代码↔论文）权重高于代码↔代码</span>，每条都附一句英文"为什么连"。这是 Graphify 最出彩处——跨文件/跨模态的隐藏关系。</li>
+      <li><b>Suggested questions（建议问题）</b>：4–5 个"这张图最擅长回答"的问题，引导你用它。</li>
+    </ul>
+    <p>此外还有 <code>affected.py</code>（改动某个文件会影响哪些）、<code>reflect.py</code>（反思/补全）、
+    <code>global_graph.py</code>（跨语料全局图）——偏向"agent 辅助导航"的能力。</p>
+  </div>
+
+  <!-- ===== ⑦ EXPORT ===== -->
+  <div class="panel" id="export">
+    <span class="tag">OUTPUT</span>
+    <h2>⑦ 输出与导出</h2>
+    <p><code>export.py</code> + <code>callflow_html.py</code> 一把梭产出整个 <code>graphify-out/</code>：</p>
+    <pre>graphify-out/
+├── graph.html       <span class="cm"># 交互图（vis.js）：点节点/搜/按社区过滤</span>
+├── obsidian/        <span class="cm"># 当 Obsidian 库打开</span>
+├── wiki/            <span class="cm"># 每社区一篇 Wiki 文 + index.md（--wiki）</span>
+├── GRAPH_REPORT.md  <span class="cm"># god节点/意外连接/建议问题</span>
+├── graph.json       <span class="cm"># 持久图，几周后再查不用重读原文件</span>
+└── cache/           <span class="cm"># SHA256 缓存，只重处理改动文件</span></pre>
+    <p>支持的额外导出格式（CLI flag）：</p>
+    <ul class="b">
+      <li><code>--svg</code> → graph.svg（matplotlib）</li>
+      <li><code>--graphml</code> → graph.graphml（Gephi / yEd 可视化）</li>
+      <li><code>--neo4j</code> → cypher.txt（导入 Neo4j；但默认<b>不需要</b> Neo4j，纯本地 NetworkX 就够）</li>
+      <li><code>--mcp</code> → 起 <b>MCP stdio server</b>（<code>serve.py</code>），让别的 agent 通过 MCP 直接查这张图</li>
+      <li><code>callflow_html.py</code> → Mermaid 架构/调用流 HTML，给 agent 当"代码地图"</li>
+    </ul>
+  </div>
+
+  <!-- ===== ⑧ INCREMENTAL ===== -->
+  <div class="panel yellow" id="incr">
+    <span class="tag yellow">SYNC</span>
+    <h2>⑧ 增量更新 / 缓存 / watch</h2>
+    <ul class="b">
+      <li><b><code>--update</code></b>：只重抽改动文件，合并进已有图。<code>cache.py</code> 用 <b>SHA256</b>（语义缓存）判断哪些文件变了，未变的直接复用。</li>
+      <li><b><code>--watch</code></b>：后台常驻，文件一变就同步。代码保存→<b>即时重建（只跑 AST，不调 LLM）</b>；文档/图片改动→通知你跑 <code>--update</code> 做 LLM 重抽。多 agent 并行写代码时图能自动保持最新。</li>
+      <li><b>Git hook</b>：<code>graphify hook install</code> 装一个 post-commit 钩子，每次 commit 后自动重建图。无需常驻进程，跟任何编辑器兼容，能和已有 hook 共存。</li>
+      <li><code>benchmark.py</code>：跑 corpus vs subgraph 的 token 对比，自动打印压缩倍数。</li>
+    </ul>
+  </div>
+
+  <!-- ===== ⑨ SECURITY ===== -->
+  <div class="panel pink" id="sec">
+    <span class="tag pink">SECURITY</span>
+    <h2>⑨ 安全</h2>
+    <p>所有外部输入先过 <code>security.py</code> 再使用（对应有 <code>SECURITY.md</code> 威胁模型）：</p>
+    <ul class="b">
+      <li><b>URL</b> → <code>validate_url()</code> 只允许 http/https + <code>_NoFileRedirectHandler</code> 阻断 <code>file://</code> 重定向（防 SSRF 把图导出成读本地文件）。</li>
+      <li><b>抓取内容</b> → <code>safe_fetch()/safe_fetch_text()</code> 有大小上限和超时。</li>
+      <li><b>图文件路径</b> → <code>validate_graph_path()</code> 必须解析在 <code>graphify-out/</code> 内，防路径穿越。</li>
+      <li><b>节点标签</b> → <code>sanitize_label()</code> 去控制字符、截 256 字符、HTML 转义（防导出 HTML 里注入）。</li>
+    </ul>
+    <p class="legend">这让 Graphify 能安全地对"任意文件夹 + 任意 URL"做功，而不把用户机器暴露给恶意输入。</p>
+  </div>
+
+  <!-- ===== ⑩ SKILL ===== -->
+  <div class="panel blue" id="skill">
+    <span class="tag blue">SKILLS</span>
+    <h2>⑩ 多宿主技能（它的杀手锏）</h2>
+    <p>仓库里有一堆 <code>skill-*.md</code>：<code>skill-claude / skill-codex / skill-opencode / skill-kilo /
+    skill-aider / skill-amp / skill-agents / skill-copilot / skill-claw / skill-droid / skill-devin /
+    skill-kiro / skill-vscode / skill-pi / skill-trae …</code>。每个是对应 coding agent 的"技能说明书"，
+    <code>graphify install</code> 会按你用的宿主复制对应的进去。</p>
+    <p>意思是：<b>同一套图谱引擎，能插进几乎所有主流 coding agent</b>。你用 Claude Code 就 <code>/graphify</code>，
+    用 Codex/Cursor/Gemini 也各有一份等效技能。它本身就是"agent 的 agent 工具"。</p>
+    <p>还有 <code>always_on/</code> 常驻注入块、<code>skills/&lt;host&gt;/references/</code> 渐进式披露参考，
+    让图谱在 agent 会话里始终可用。</p>
+  </div>
+
+  <!-- ===== ⑪ STACK ===== -->
+  <div class="panel purple" id="stack">
+    <span class="tag purple">TECH</span>
+    <h2>⑪ 技术栈</h2>
+    <div class="stats">
+      <div class="stat"><div class="n">NetworkX</div><div class="l">图结构</div></div>
+      <div class="stat"><div class="n">Leiden</div><div class="l">社区发现</div></div>
+      <div class="stat"><div class="n">tree-sitter</div><div class="l">AST 抽取</div></div>
+      <div class="stat"><div class="n">Claude</div><div class="l">视觉/概念</div></div>
+      <div class="stat"><div class="n">vis.js</div><div class="l">交互图</div></div>
+      <div class="stat"><div class="n">MCP</div><div class="l">对外服务</div></div>
+      <div class="stat"><div class="n">PyPI</div><div class="l">graphifyy</div></div>
+      <div class="stat"><div class="n">本地</div><div class="l">无服务器</div></div>
+    </div>
+    <p style="margin-top:14px">README 一句话总结技术栈：<b>NetworkX + Leiden(graspologic) + tree-sitter + Claude + vis.js。
+    不需要 Neo4j、不需要服务器，完全本地跑。</b> LLM 适配在 <code>llm.py</code>（约 117KB）里，可选接
+    OpenAI / Anthropic / Gemini / Ollama / Bedrock / Kimi，还能跑 <code>faster-whisper</code> 抽视频字幕、<code>jieba</code> 切中文。</p>
+  </div>
+
+  <!-- ===== ⑫ RUN ===== -->
+  <div class="panel green" id="run">
+    <span class="tag green">RUN IT</span>
+    <h2>⑫ 怎么跑起来</h2>
+    <pre>pip install graphifyy &amp;&amp; graphify install   <span class="cm"># PyPI 暂用 graphifyy</span>
+<span class="cm"># macOS 若报错 externally-managed，改用：</span>
+pipx install graphifyy</pre>
+    <p>然后在任意目录打开 coding agent，输入：</p>
+    <pre>/graphify .                 <span class="cm"># 处理当前目录</span>
+/graphify ./raw --mode deep     <span class="cm"># 更激进的 INFERRED 边</span>
+/graphify ./raw --update        <span class="cm"># 只重抽改动</span>
+/graphify query <span class="str">"attention 和 optimizer 怎么连？"</span>
+/graphify path <span class="str">"DigestAuth"</span> <span class="str">"Response"</span>
+/graphify ./raw --watch         <span class="cm"># 文件变就自动同步</span>
+/graphify ./raw --wiki          <span class="cm"># 生成 agent 可读 Wiki</span>
+/graphify ./raw --mcp           <span class="cm"># 起 MCP server</span>
+graphify hook install           <span class="cm"># 装 post-commit 钩子</span></pre>
+    <p>支持的文件类型：代码(.py/.ts/.js/.go/.rs/.java/.c/.cpp/.rb/.cs/.kt/.scala/.php…)、
+    文档(.md/.txt/.rst)、论文(.pdf)、图片(.png/.jpg/.webp/.gif，外加 URL 抓取与 Postgres schema。</p>
+  </div>
+
+  <!-- ===== FOOTER ===== -->
+  <div class="panel" style="text-align:center; border-color:var(--ink)">
+    <h2 style="color:var(--pink)">★ 一句话总结 ★</h2>
+    <p>Graphify = <b>tree-sitter/视觉多模态抽取</b> + <b>NetworkX 图谱</b> + <b>Leiden 社区发现</b> +
+    <b>诚实的 EXTRACTED/INFERRED/AMBIGUOUS 标注</b>，把"代码+论文+图片+数据库 schema"压成一张可溯源、可查询、
+    可导出成 Obsidian/Wiki/MCP 的知识图谱，且能作为 skill 插进几乎所有主流 coding agent。
+    它解决的是 Karpathy 那种 <code>/raw</code> 杂烩文件夹的"我到底存了啥"问题。<span class="blink">▮</span></p>
+    <p class="legend">数据抓取于 2026-07-13 · 架构解读综合自仓库 ARCHITECTURE.md / README / pyproject.toml</p>
+  </div>
+
+  <footer>made with ♥ — <span class="pf" style="font-size:9px">Graphify 深度解读</span></footer>
+</div>
+<a href="tp.html" style="position:fixed;left:18px;bottom:18px;z-index:90;display:inline-flex;align-items:center;gap:7px;font:600 14px/1 system-ui,sans-serif;color:#fff;text-decoration:none;background:linear-gradient(120deg,#ff6b5e,#7c5cff);padding:11px 17px;border-radius:12px;box-shadow:0 8px 30px rgba(124,92,255,.4)">← 返回 TP 中心</a>
+<script>
+/* Theme button icon sync */
+(function(){
+  var btn=document.querySelector('.theme-btn');
+  if(!btn)return;
+  function sync(){btn.textContent=document.documentElement.dataset.theme==='dark'?'☀️':'🌙';}
+  sync();
+  btn.addEventListener('click',function(){setTimeout(sync,0);});
+})();
+</script>
+<script>
+/* Auto-collapse TOC: only expand the section containing the current page */
+(function(){
+  var details=document.querySelectorAll('aside.toc details.toc-sec');
+  if(details.length<2)return;
+  var current=location.pathname.replace(/\/$/,'');
+  var activeLink=null;
+  document.querySelectorAll('aside.toc a').forEach(function(a){
+    var href=a.getAttribute('href')||'';
+    if(href && !href.startsWith('http') && !href.startsWith('#')){
+      var path=href.replace(/^https?:\/\/[^\/]+/,'').replace(/\/$/,'');
+      if(current===path || current.indexOf(path)>-1 || path.indexOf(current)>-1){
+        activeLink=a;
+      }
+    }
+  });
+  details.forEach(function(d){
+    if(activeLink && d.contains(activeLink)){d.setAttribute('open','');}
+    else{d.removeAttribute('open');}
+  });
+})();
+</script>
+</body>
+</html>

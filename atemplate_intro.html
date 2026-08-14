@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ATemplate · 深度解读</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#ffffff; --grid:#edeff4; --glow:#fff5f0;
+    --ink:#14151a; --muted:#60667a; --line:#e6e8ef;
+    --accent:#d9a521; --accent-2:#cf5b3e;
+    --green:#1f9d6b; --yellow:#e0a200; --pink:#e0457f;
+    --card:#ffffff; --soft:#f7f8fb; --shadow:rgba(20,21,26,.08);
+    --radius:18px;
+  }
+  [data-theme="dark"]{
+    --bg:#0e0f14; --grid:#1a1c25; --glow:#1a1410;
+    --ink:#f1f2f6; --muted:#9aa0b4; --line:#262936;
+    --card:#15171f; --soft:#191b24; --shadow:rgba(0,0,0,.5);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0; color:var(--ink); font-family:'Inter','Noto Sans SC',system-ui,sans-serif;
+    background:var(--bg);
+    background-image:
+      linear-gradient(var(--grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+    background-size:34px 34px;
+    background-attachment:fixed;
+    line-height:1.65; -webkit-font-smoothing:antialiased;
+  }
+  body::before{
+    content:""; position:fixed; inset:0; pointer-events:none; z-index:0;
+    background:radial-gradient(60% 50% at 50% -10%, var(--glow), transparent 70%);
+  }
+  h1,h2,h3,.display{font-family:'Space Grotesk','Noto Sans SC',sans-serif; letter-spacing:-.02em;}
+  a{color:var(--accent); text-decoration:none;}
+  code,.mono{font-family:'JetBrains Mono',monospace;}
+  .wrap{max-width:1080px; margin:0 auto; padding:0 22px; position:relative; z-index:1;}
+
+  /* progress + nav */
+  #progress{position:fixed; top:0; left:0; height:3px; width:0; z-index:100;
+    background:linear-gradient(90deg,var(--accent),var(--accent-2)); transition:width .1s;}
+  nav{position:sticky; top:0; z-index:50; backdrop-filter:blur(14px);
+    background:color-mix(in srgb, var(--bg) 78%, transparent);
+    border-bottom:1px solid var(--line);}
+  .nav-in{max-width:1080px; margin:0 auto; padding:13px 22px; display:flex; align-items:center; gap:18px;}
+  .logo{font-family:'Space Grotesk'; font-weight:700; font-size:20px; display:flex; align-items:center; gap:9px;}
+  .logo .dot{width:13px;height:13px;border-radius:4px;background:linear-gradient(135deg,var(--accent),var(--accent-2)); box-shadow:0 0 0 4px color-mix(in srgb,var(--accent) 18%,transparent);}
+  .nav-links{display:flex; gap:6px; margin-left:auto; flex-wrap:wrap;}
+  .nav-links a{color:var(--muted); font-size:14px; font-weight:500; padding:7px 11px; border-radius:9px; transition:.2s;}
+  .nav-links a:hover{color:var(--ink); background:var(--soft);}
+  .toggle{cursor:pointer; border:1px solid var(--line); background:var(--card); border-radius:10px;
+    width:40px; height:36px; display:grid; place-items:center; font-size:16px; transition:.2s;}
+  .toggle:hover{border-color:var(--accent);}
+  .ghost-btn{border:1px solid var(--line); background:var(--card); color:var(--ink); padding:8px 13px;
+    border-radius:10px; font-size:14px; font-weight:600; transition:.2s; cursor:pointer;}
+  .ghost-btn:hover{border-color:var(--accent); transform:translateY(-1px);}
+
+  /* hero */
+  .hero{padding:70px 0 40px; text-align:center;}
+  .eyebrow{display:inline-flex; align-items:center; gap:8px; font-size:13px; font-weight:600; color:var(--accent);
+    background:color-mix(in srgb,var(--accent) 10%,transparent); padding:6px 13px; border-radius:99px; border:1px solid color-mix(in srgb,var(--accent) 25%,transparent);}
+  .hero h1{font-size:clamp(40px,8vw,82px); margin:18px 0 8px; line-height:1; font-weight:700;}
+  .hero h1 .grad{background:linear-gradient(120deg,var(--accent),var(--accent-2)); -webkit-background-clip:text; background-clip:text; color:transparent;}
+  .hero p.sub{font-size:clamp(16px,2.4vw,21px); color:var(--muted); max-width:680px; margin:10px auto 0;}
+  .cta{display:flex; gap:12px; justify-content:center; margin-top:26px; flex-wrap:wrap;}
+  .btn{display:inline-flex; align-items:center; gap:8px; padding:13px 22px; border-radius:12px; font-weight:600; font-size:15px; transition:.22s; cursor:pointer; border:1px solid transparent;}
+  .btn.primary{background:linear-gradient(120deg,var(--accent),var(--accent-2)); color:#fff; box-shadow:0 10px 26px color-mix(in srgb,var(--accent) 35%,transparent);}
+  .btn.primary:hover{transform:translateY(-2px); box-shadow:0 16px 34px color-mix(in srgb,var(--accent) 45%,transparent);}
+  .btn.sec{background:var(--card); border-color:var(--line); color:var(--ink);}
+  .btn.sec:hover{border-color:var(--accent); transform:translateY(-2px);}
+
+  /* stats */
+  .stats{display:grid; grid-template-columns:repeat(6,1fr); gap:14px; margin:40px 0 10px;}
+  .stat{background:var(--card); border:1px solid var(--line); border-radius:var(--radius); padding:18px 12px; text-align:center; box-shadow:0 6px 20px var(--shadow); transition:.25s;}
+  .stat:hover{transform:translateY(-3px); border-color:var(--accent);}
+  .stat .n{font-family:'Space Grotesk'; font-weight:700; font-size:clamp(20px,3vw,28px); color:var(--ink);}
+  .stat .l{font-size:12.5px; color:var(--muted); margin-top:3px;}
+
+  /* sections */
+  section{padding:54px 0; scroll-margin-top:74px;}
+  .sec-head{margin-bottom:26px;}
+  .sec-head .k{font-size:13px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--accent);}
+  .sec-head h2{font-size:clamp(26px,4vw,38px); margin:8px 0 6px;}
+  .sec-head p{color:var(--muted); max-width:720px; margin:0;}
+
+  .card{background:var(--card); border:1px solid var(--line); border-radius:var(--radius); padding:22px; box-shadow:0 6px 22px var(--shadow); transition:.25s;}
+  .card:hover{transform:translateY(-3px); box-shadow:0 14px 34px var(--shadow); border-color:color-mix(in srgb,var(--accent) 40%,var(--line));}
+  .grid{display:grid; gap:16px;}
+  .g2{grid-template-columns:repeat(2,1fr);} .g3{grid-template-columns:repeat(3,1fr);} .g4{grid-template-columns:repeat(4,1fr);}
+  .pillar .ic{width:44px;height:44px;border-radius:12px; display:grid; place-items:center; font-size:22px; margin-bottom:12px;
+    background:color-mix(in srgb,var(--accent) 12%,transparent); border:1px solid color-mix(in srgb,var(--accent) 22%,transparent);}
+  .pillar h3{font-size:18px; margin:0 0 6px;} .pillar p{color:var(--muted); font-size:14.5px; margin:0;}
+
+  .chips{display:flex; gap:10px; flex-wrap:wrap;}
+  .chip{display:inline-flex; align-items:center; gap:8px; padding:10px 15px; border-radius:12px; border:1px solid var(--line);
+    background:var(--card); font-weight:600; font-size:14.5px; transition:.2s;}
+  .chip:hover{border-color:var(--accent-2); transform:translateY(-2px); box-shadow:0 8px 20px var(--shadow);}
+  .chip .d{width:9px;height:9px;border-radius:50%; background:linear-gradient(135deg,var(--accent),var(--accent-2));}
+
+  /* flow */
+  .flow{display:flex; align-items:stretch; justify-content:center; gap:0; flex-wrap:wrap; margin:10px 0;}
+  .node{flex:1 1 200px; min-width:180px; background:var(--card); border:1px solid var(--line);
+    padding:16px; text-align:center; box-shadow:0 6px 20px var(--shadow); margin:6px; border-radius:var(--radius);}
+  .node h3{font-size:16px; color:var(--accent); margin:6px 0;}
+  .node .d{font-size:14.5px; color:var(--muted);}
+  .arrow{align-self:center; font-family:'Space Grotesk'; color:var(--accent-2); font-size:20px; padding:0 6px;}
+
+  /* tabs */
+  .tabs{display:flex; gap:6px; flex-wrap:wrap; margin-bottom:18px; border-bottom:1px solid var(--line); padding-bottom:12px;}
+  .tab{border:1px solid var(--line); background:var(--card); color:var(--muted); padding:9px 15px; border-radius:11px; font-weight:600; font-size:14px; cursor:pointer; transition:.2s;}
+  .tab:hover{color:var(--ink);}
+  .tab.active{background:linear-gradient(120deg,var(--accent),var(--accent-2)); color:#fff; border-color:transparent; box-shadow:0 8px 20px color-mix(in srgb,var(--accent) 35%,transparent);}
+  .panel-box{display:none;} .panel-box.active{display:block; animation:fade .35s ease;}
+  @keyframes fade{from{opacity:0; transform:translateY(8px);} to{opacity:1; transform:none;}}
+
+  /* code */
+  .code{background:var(--ink); color:#e7e9f2; border-radius:14px; padding:16px 18px; overflow:auto; box-shadow:0 10px 30px var(--shadow);}
+  .code pre{margin:0; font-family:'JetBrains Mono'; font-size:13.5px; line-height:1.7;}
+  .code .c{color:#7c8499;} .code .s{color:#9be8b0;} .code .p{color:#ffae8a;} .code .b{color:#8db4ff;}
+  .copy{float:right; cursor:pointer; font-size:12px; color:#aeb4c8; border:1px solid #2c2f3a; background:#1b1d26; padding:4px 9px; border-radius:8px;}
+  .copy:hover{color:#fff;}
+
+  .callout{border-left:4px solid var(--accent); background:color-mix(in srgb,var(--accent) 7%,var(--card)); padding:14px 17px; border-radius:0 12px 12px 0; font-size:14.5px; color:var(--muted); margin:16px 0;}
+  .callout b{color:var(--ink);}
+
+  /* accordion (FAQ) */
+  .acc{border:1px solid var(--line); border-radius:14px; overflow:hidden; background:var(--card); margin-bottom:11px; box-shadow:0 4px 16px var(--shadow);}
+  .acc-h{display:flex; align-items:center; gap:13px; padding:17px 19px; cursor:pointer; transition:.2s; user-select:none;}
+  .acc-h:hover{background:var(--soft);}
+  .acc-h .num{font-family:'Space Grotesk'; font-weight:700; color:var(--accent); font-size:15px; min-width:30px;}
+  .acc-h h3{font-size:17px; margin:0; flex:1;}
+  .acc-h .ar{transition:.3s; color:var(--muted); font-size:18px;}
+  .acc.open .acc-h .ar{transform:rotate(45deg); color:var(--accent);}
+  .acc-b{max-height:0; overflow:hidden; transition:max-height .35s ease;}
+  .acc-b-in{padding:0 19px 19px 62px; color:var(--muted); font-size:15px;}
+  .acc-b-in ul{margin:8px 0 0; padding-left:18px;} .acc-b-in li{margin:5px 0;}
+
+  /* timeline */
+  .tl{position:relative; margin-left:14px; padding-left:30px; border-left:2px solid var(--line);}
+  .tl-item{position:relative; padding:0 0 28px 0;}
+  .tl-item::before{content:""; position:absolute; left:-39px; top:4px; width:15px; height:15px; border-radius:50%; background:var(--card); border:3px solid var(--accent);}
+  .tl-item .v{font-family:'Space Grotesk'; font-weight:700; color:var(--accent); font-size:15px;}
+  .tl-item .t{font-weight:700; font-size:17px; margin:2px 0 5px;}
+  .tl-item p{color:var(--muted); margin:0; font-size:14.5px;}
+
+  /* list */
+  ul.b{list-style:none; padding-left:0; margin:10px 0;}
+  ul.b li{padding:6px 0 6px 26px; position:relative; color:var(--muted); font-size:15px;}
+  ul.b li::before{content:"▸"; position:absolute; left:4px; color:var(--accent); font-weight:bold;}
+
+  footer{border-top:1px solid var(--line); padding:36px 0 60px; text-align:center; color:var(--muted); font-size:14px;}
+  .reveal{opacity:0; transform:translateY(22px); transition:opacity .7s ease, transform .7s ease;}
+  .reveal.in{opacity:1; transform:none;}
+  @media(max-width:760px){.stats{grid-template-columns:repeat(3,1fr);} .g2,.g3,.g4{grid-template-columns:1fr;} .nav-links{display:none;}}
+</style>
+</head>
+<body>
+<div id="progress"></div>
+<nav>
+  <div class="nav-in">
+    <div class="logo"><span class="dot"></span>ATemplate</div>
+    <div class="nav-links">
+      <a href="#overview">概览</a>
+      <a href="#deep">深读</a>
+      <a href="#faq">FAQ</a>
+      <a href="#start">快速开始</a>
+    </div>
+    <button class="toggle" id="themeBtn" title="切换明暗">◐</button>
+    <a class="ghost-btn" href="tp.html">← 返回 TP 中心</a>
+  </div>
+</nav>
+
+<div class="wrap">
+
+  <!-- HERO -->
+  <header class="hero">
+    <span class="eyebrow">网站模板 · 免费资源</span>
+    <h1><span class="grad">ATemplate</span></h1>
+    <p class="sub">ATemplate.com 是收录 1000+ 套免费网站模板的资源库，覆盖企业官网、作品集、博客、电商、SaaS 等场景，全部可下载、可商用。按技术栈挑选 Bootstrap / Tailwind / React / Vue 模板，在线预览后一键拿到完整源码包。</p>
+    <div class="cta">
+      <a class="btn primary" href="https://atemplate.com" target="_blank" rel="noopener">⚡ 访问官网 ↗</a>
+      <a class="btn sec" href="#overview">🔍 深入了解</a>
+    </div>
+    <div class="stats">
+      <div class="stat reveal"><div class="n" data-to="1000" data-suf="+">0</div><div class="l">免费模板</div></div>
+      <div class="stat reveal"><div class="n" data-to="5" data-suf="+">0</div><div class="l">模板分类</div></div>
+      <div class="stat reveal"><div class="n" data-to="4" data-suf="+">0</div><div class="l">前端框架</div></div>
+      <div class="stat reveal"><div class="n" data-to="100" data-suf="%">0</div><div class="l">免费可商用</div></div>
+      <div class="stat reveal"><div class="n" data-to="5" data-suf="">0</div><div class="l">源码文件类型</div></div>
+      <div class="stat reveal"><div class="n" data-to="100" data-suf="%">0</div><div class="l">移动端适配</div></div>
+    </div>
+    <div class="callout" style="text-align:left; max-width:760px; margin:18px auto 0;">
+      ⚠️ 数据说明：模板数「1000+」、分类与框架清单均取自官网与 Tabbit 报告自述，本次未对在线模板逐条独立核验。所有模板标注免费且可商用，具体授权以每个模板下载包内的 LICENSE 文件为准。
+    </div>
+  </header>
+
+  <!-- OVERVIEW -->
+  <section id="overview">
+    <div class="sec-head reveal">
+      <div class="k">Overview</div>
+      <h2>它解决了「从空白页到能看的网站」这段最贵的路</h2>
+      <p>不是又一个「灵感画廊」，而是把成品 HTML/CSS/JS 源码直接给你。对非设计背景的开发者、做原型的创业者、练手的前端学习者，都是省时利器。</p>
+    </div>
+    <div class="grid g3">
+      <div class="card pillar reveal"><div class="ic">📦</div><h3>海量免费模板库</h3><p>1000+ 套模板，覆盖企业官网、作品集、个人博客、电商 landing、SaaS 产品页等常见建站场景。</p></div>
+      <div class="card pillar reveal"><div class="ic">🧩</div><h3>多技术栈可选</h3><p>同一类页面往往同时提供 Bootstrap、Tailwind、React、Vue 版本，按你熟悉的技术栈挑，不必被迫学新框架。</p></div>
+      <div class="card pillar reveal"><div class="ic">🔎</div><h3>分类 + 技术栈检索</h3><p>按 Business / Portfolio / Blog / E-commerce / SaaS 等分类，叠加框架筛选，快速收敛到想要的版式。</p></div>
+      <div class="card pillar reveal"><div class="ic">👁️</div><h3>在线预览</h3><p>下载前先看真实交互与响应式表现，确认导航、轮播、表单等细节符合要求再下手，避免下错。</p></div>
+      <div class="card pillar reveal"><div class="ic">📂</div><h3>完整源码包</h3><p>一键下载拿到 HTML / CSS / JS / 图片资源的完整文件，本地直接打开即可运行，不绑定任何托管平台。</p></div>
+      <div class="card pillar reveal"><div class="ic">🆓</div><h3>免费且可商用</h3><p>模板标注免费下载，明确允许商业项目使用，省去从零设计视觉方案与法律授权的成本。</p></div>
+    </div>
+  </section>
+
+  <!-- DEEP DIVE -->
+  <section id="deep">
+    <div class="sec-head reveal">
+      <div class="k">Deep Dive</div>
+      <h2>拆开看：怎么挑、里面长什么样、怎么改成自己的</h2>
+      <p>下面三步对应你使用 ATemplate 的真实路径：先按场景和技术栈定位，再看源码结构，最后做二次开发上线。</p>
+    </div>
+
+    <div class="chips reveal" style="margin-bottom:18px;">
+      <span class="chip"><span class="d"></span>Business 企业官网</span>
+      <span class="chip"><span class="d"></span>Portfolio 作品集</span>
+      <span class="chip"><span class="d"></span>Blog 个人博客</span>
+      <span class="chip"><span class="d"></span>E-commerce 电商</span>
+      <span class="chip"><span class="d"></span>SaaS 产品页</span>
+    </div>
+
+    <div class="flow reveal">
+      <div class="node"><h3>① 选场景</h3><div class="d">企业 / 作品集 / 博客 / 电商 / SaaS</div></div>
+      <div class="arrow">→</div>
+      <div class="node"><h3>② 选技术栈</h3><div class="d">Bootstrap / Tailwind / React / Vue</div></div>
+      <div class="arrow">→</div>
+      <div class="node"><h3>③ 在线预览</h3><div class="d">先看交互与响应式效果</div></div>
+      <div class="arrow">→</div>
+      <div class="node"><h3>④ 一键下载</h3><div class="d">拿完整源码包</div></div>
+    </div>
+
+    <div class="grid g4 reveal" style="margin-top:18px;">
+      <div class="card pillar"><div class="ic">🅱️</div><h3>Bootstrap</h3><p>栅格 + 组件现成，改 class 即可，适合快速交付。</p></div>
+      <div class="card pillar"><div class="ic">🆃</div><h3>Tailwind</h3><p>原子化类名，主题色集中在 config，改造灵活。</p></div>
+      <div class="card pillar"><div class="ic">⚛️</div><h3>React</h3><p>组件化结构，方便接进现有 React 应用。</p></div>
+      <div class="card pillar"><div class="ic">🟢</div><h3>Vue</h3><p>单文件组件，适合 Vue 技术栈团队。</p></div>
+    </div>
+  </section>
+
+  <section id="struct">
+    <div class="sec-head reveal">
+      <div class="k">Inside The Zip</div>
+      <h2>下载下来的源码包，内部结构长这样</h2>
+      <p>绝大多数模板都是「静态站」结构：一个 index.html 牵头，assets 下分 css / js / img。看懂这棵树，二次开发就有了地图。</p>
+    </div>
+
+    <div class="code reveal"><button class="copy">复制</button><pre><span class="c"># 典型模板解压后的目录结构</span>
+my-site/
+├─ index.html          <span class="c"># 主页面：导航 / hero / 特性 / footer 结构都在这里</span>
+├─ about.html          <span class="c"># 多页模板会带二级页面</span>
+├─ assets/
+│  ├─ css/
+│  │  ├─ bootstrap.min.css   <span class="c"># 或 tailwind.css / 自定义 style.css</span>
+│  │  └─ style.css          <span class="c"># 主题色、间距、排版覆盖写在这</span>
+│  ├─ js/
+│  │  └─ main.js            <span class="c"># 交互：轮播、移动端菜单、表单校验</span>
+│  └─ img/                  <span class="c"># 图片资源：logo、banner、作品图</span>
+├─ LICENSE              <span class="c"># 商用授权说明</span>
+└─ README.md            <span class="c"># 使用与二次开发提示</span></pre></div>
+
+    <div class="code reveal" style="margin-top:16px;"><button class="copy">复制</button><pre><span class="c"># 1) 在 atemplate.com 找到模板，点模板页的 Download 拿 ZIP</span>
+<span class="c"># 2) 解压到本地项目目录</span>
+unzip atemplate-bootstrap-business.zip -d my-site
+cd my-site
+
+<span class="c"># 3) 本地预览（任选其一）</span>
+python3 -m http.server 8080     <span class="c"># 然后浏览器打开 http://localhost:8080</span>
+<span class="b"># 或</span>
+npx serve .
+
+<span class="c"># 4) 改完直接部署：把整个目录拖到任意静态托管即可</span>
+<span class="b">#</span> Netlify Drop / Vercel / GitHub Pages / 对象存储 都支持</pre></div>
+
+    <div class="callout reveal" style="text-align:left;">💡 <b>响应式是默认项</b>：报告明确指出「大多数模板都适配移动端」。验收时务必把浏览器窗口拉到 375px 宽（iPhone 尺寸）再扫一遍导航折叠、图片缩放和按钮点击区，避免只看桌面版。</div>
+  </section>
+
+  <section id="custom">
+    <div class="sec-head reveal">
+      <div class="k">Make It Yours</div>
+      <h2>二次开发：三步把模板变成你的品牌站</h2>
+      <p>模板只是起点。真正的价值在于用最小改动替换文案、配色、图片，再补上你自己的业务逻辑。</p>
+    </div>
+
+    <div class="code reveal"><button class="copy">复制</button><pre><span class="c">&lt;!-- 1) 改文案与图片，多数情况不用碰 JS --&gt;</span>
+<span class="p">&lt;h1</span> <span class="b">class="hero-title"</span><span class="p">&gt;</span>你的产品一句话主张<span class="p">&lt;/h1&gt;</span>
+<span class="p">&lt;img</span> <span class="b">src="assets/img/logo.png"</span> <span class="b">alt="我的品牌"</span><span class="p">&gt;</span>
+
+<span class="c">/* 2) 改主题色：Bootstrap 版在 style.css 覆盖变量，一行生效 */</span>
+<span class="p">:root</span> {
+  <span class="b">--brand:</span> #d9a521;
+  <span class="b">--brand-2:</span> #cf5b3e;
+}
+
+<span class="c">/* 3) Tailwind 版改 tailwind.config.js 的 theme.extend.colors */</span>
+<span class="p">module.exports</span> = {
+  theme: { extend: { colors: { brand: <span class="s">'#d9a521'</span>, brand2: <span class="s">'#cf5b3e'</span> } } }
+}</pre></div>
+
+    <ul class="b reveal">
+      <li><b>替换视觉资产</b>：用你的 logo、banner、作品图覆盖 assets/img 下同名文件，路径不用改。</li>
+      <li><b>收敛页面</b>：多页模板若只做单页站，删掉多余 html，把导航锚点改成本页 section id。</li>
+      <li><b>接业务逻辑</b>：表单把 action 指向你的接口或第三方表单服务；React/Vue 版直接拆组件接状态。</li>
+      <li><b>提性能</b>：压缩图片、合并多余 CSS、给图片加 loading="lazy"，首屏更快。</li>
+    </ul>
+
+    <div class="callout reveal" style="text-align:left;">⚠️ <b>授权红线</b>：免费可商用通常指「你能把模板用于商业项目」，但一般不许把模板<b>原样转售</b>或打包成「另一个模板库」再分发。上线前读一遍包内 LICENSE，确认是否要求保留署名。</div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq">
+    <div class="sec-head reveal">
+      <div class="k">FAQ</div>
+      <h2>高频疑问一次说清</h2>
+    </div>
+    <div class="reveal">
+      <div class="acc">
+        <div class="acc-h"><span class="num">01</span><h3>ATemplate 真的完全免费吗？会不会有隐藏费用？</h3><span class="ar">＋</span></div>
+        <div class="acc-b"><div class="acc-b-in">模板本身免费下载、免费使用，没有按套收费或订阅墙。需要留意的是：模板里若引用了付费字体、付费图库图片或第三方付费组件，那部分授权归原供应商，与 ATemplate 无关。建议你替换成免费可商用的素材（如 Google Fonts、Unsplash）后再商用。</div></div>
+      </div>
+      <div class="acc">
+        <div class="acc-h"><span class="num">02</span><h3>模板能用于商业项目吗？授权怎么算？</h3><span class="ar">＋</span></div>
+        <div class="acc-b"><div class="acc-b-in">报告明确写「所有模板均可免费下载和商用」。但「可商用」通常不等于「可再分发」：
+          <ul><li>可以做：用模板搭公司官网、客户项目、卖货落地页，收钱没问题。</li>
+          <li>一般不行：把模板原样或微改后，当成「另一套模板」转卖或上传到别的模板站。</li>
+          <li>以每个模板下载包内的 LICENSE 文件为最终依据，部分模板可能要求保留作者署名。</li></ul></div></div>
+      </div>
+      <div class="acc">
+        <div class="acc-h"><span class="num">03</span><h3>我不会 Bootstrap / Tailwind，能直接改吗？</h3><span class="ar">＋</span></div>
+        <div class="acc-b"><div class="acc-b-in">能。最省事的做法是改 HTML 里的文字和 assets/img 里的图片，配色集中在 style.css 的 <code>:root</code> 变量或 Tailwind 的 config 里，改几行就生效。真正要动交互逻辑才需要懂 JS。建议先用「换文案 + 换图 + 换主题色」三板斧，足够覆盖 80% 的落地需求。</div></div>
+      </div>
+      <div class="acc">
+        <div class="acc-h"><span class="num">04</span><h3>下载的模板能在 React / Vue 项目里用吗？</h3><span class="ar">＋</span></div>
+        <div class="acc-b"><div class="acc-b-in">分两种情况：ATemplate 上本身就提供 React / Vue 技术栈的模板，这类天然是组件结构，直接并进你的工程即可。若你下载的是纯 HTML/CSS/JS 版，把它当「设计稿 + 静态实现」来用——照着它的结构在 React/Vue 里重写组件，比从零画页面快得多，但做不到直接 import 一个 .html 文件。</div></div>
+      </div>
+      <div class="acc">
+        <div class="acc-h"><span class="num">05</span><h3>模板响应式适配到什么程度？</h3><span class="ar">＋</span></div>
+        <div class="acc-b"><div class="acc-b-in">报告称「大多数模板都适配移动端」。实战验收建议：把视口拉到 375px（iPhone SE/13 mini 宽度）和 768px（iPad 竖屏）各扫一遍，重点看导航是否折叠成汉堡菜单、图片是否等比缩放、按钮点击区是否够大。遇到个别断点错位，调一下对应 media query 的 max-width 规则即可修。</div></div>
+      </div>
+      <div class="acc">
+        <div class="acc-h"><span class="num">06</span><h3>和用 AI 从零生成页面比，用模板有什么优势？</h3><span class="ar">＋</span></div>
+        <div class="acc-b"><div class="acc-b-in">模板给的是<b>已验证、能跑、视觉过关</b>的成品，你拿到的就是真实可上线的代码，改起来心里有底；AI 生成更适合做「独一无二」的结构或补业务逻辑。两者不冲突：很多人的工作流是「ATemplate 找版式打底 → AI 帮改结构/写组件 → 自己接管细节」。报告把 ATemplate 归为「极速启动项目」和「学习最佳实践」的资源，正是这个定位。</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- START -->
+  <section id="start">
+    <div class="sec-head reveal">
+      <div class="k">Quick Start</div>
+      <h2>十分钟跑起第一个站点</h2>
+      <p>路径很直：下载 → 本地预览 → 改文案配色 → 部署。下面三段命令对应前三步，第一个标签已默认展开。</p>
+    </div>
+
+    <div class="tabs reveal" id="tabsStart">
+      <button class="tab active" data-t="dl">⬇️ 下载即用</button>
+      <button class="tab" data-t="run">🖥️ 本地预览运行</button>
+      <button class="tab" data-t="deploy">🚀 二次开发 / 部署</button>
+    </div>
+
+    <div class="panel-box active" data-p="dl">
+      <div class="code reveal"><button class="copy">复制</button><pre><span class="c"># 在 atemplate.com 按分类 + 技术栈筛出模板，进模板详情页点 Download</span>
+<span class="c"># 假设拿到 ZIP，解压即可——无需 npm install，纯静态站</span>
+unzip atemplate-tailwind-saas.zip -d my-saas
+cd my-saas
+ls            <span class="c"># 应看到 index.html + assets/</span></pre></div>
+      <div class="callout reveal" style="text-align:left;">💡 没有 unzip？macOS / Linux 自带；Windows 用「解压到」右键菜单，或 <code>tar -xf xxx.zip</code> 也行。</div>
+    </div>
+
+    <div class="panel-box" data-p="run">
+      <div class="code reveal"><button class="copy">复制</button><pre><span class="c"># 方式 A：Python 内置服务器（无需任何依赖）</span>
+cd my-saas
+python3 -m http.server 8080
+<span class="c"># 浏览器打开 http://localhost:8080</span>
+
+<span class="c"># 方式 B：Node 环境，用 serve 起一个静态服务器</span>
+npx serve .
+<span class="c"># 终端会打印本地地址，默认 http://localhost:3000</span></pre></div>
+    </div>
+
+    <div class="panel-box" data-p="deploy">
+      <div class="code reveal"><button class="copy">复制</button><pre><span class="c"># 改完文案 / 配色 / 图片后，整个目录就是可部署的静态站</span>
+<span class="c"># 任选其一：</span>
+<span class="b">#</span> Netlify Drop：把 my-saas 文件夹直接拖进 app.netlify.com/drop
+<span class="b">#</span> Vercel：   <span class="p">npx vercel</span>            <span class="c"># 按提示部署当前目录</span>
+<span class="b">#</span> GitHub Pages：把目录 push 到仓库的 gh-pages 分支
+
+<span class="c"># React / Vue 版则走各自构建流程</span>
+npm install &amp;&amp; npm run build     <span class="c"># 产物进 dist/ 或 build/</span></pre></div>
+      <div class="callout reveal" style="text-align:left;">⚠️ 部署前再做一次 375px 移动端验收，并确认 LICENSE 允许你的使用方式。静态托管基本都免费额度起步，个人站和 demo 通常零成本。</div>
+    </div>
+
+    <div class="grid g3 reveal" style="margin-top:22px;">
+      <div class="card"><h3 style="margin-top:0; font-size:17px">🔎 先预览再下</h3><p style="color:var(--muted); font-size:14px">模板页都带在线预览，确认导航、轮播、表单等细节符合预期再下载，避免下错重选。</p></div>
+      <div class="card"><h3 style="margin-top:0; font-size:17px">🎨 三板斧改造</h3><p style="color:var(--muted); font-size:14px">换文案、换图片、改 <code>:root</code> 主题色，覆盖绝大多数落地需求，不必先精通框架。</p></div>
+      <div class="card"><h3 style="margin-top:0; font-size:17px">📦 不绑平台</h3><p style="color:var(--muted); font-size:14px">源码在你本地，想拖到哪家静态托管都行，随时迁移，没有供应商锁定。</p></div>
+    </div>
+  </section>
+
+  <footer>made with ♥ &amp; a white grid — <b>ATemplate 深度解读</b><div style="margin-top:6px;font-size:13px">数据抓取于 2026-07-14 · 内容综合自官网与 Tabbit 报告</div></footer>
+</div>
+
+<script>
+/* theme */
+const root=document.documentElement, tb=document.getElementById('themeBtn');
+tb.onclick=()=>{root.dataset.theme=root.dataset.theme==='light'?'dark':'light';};
+/* progress bar */
+const prog=document.getElementById('progress');
+addEventListener('scroll',()=>{const h=document.documentElement;
+  prog.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+'%';});
+/* reveal */
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in');}),{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+/* counters */
+function animateCounters(){
+  document.querySelectorAll('.stat .n').forEach(el=>{
+    const to=parseFloat(el.dataset.to), suf=el.dataset.suf||'';
+    let cur=0; const step=to/46;
+    const t=setInterval(()=>{cur+=step; if(cur>=to){cur=to; clearInterval(t);}
+      el.textContent=(to%1?cur.toFixed(1):Math.round(cur))+suf;},22);
+  });
+}
+const heroIO=new IntersectionObserver((es,o)=>{es.forEach(e=>{if(e.isIntersecting){animateCounters();o.disconnect();}});},{threshold:.4});
+heroIO.observe(document.querySelector('.hero'));
+/* tabs */
+document.querySelectorAll('.tabs').forEach(wrap=>{
+  const boxes=Array.from(wrap.parentElement.children).filter(c=>c.classList.contains('panel-box'));
+  wrap.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{
+    wrap.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
+    b.classList.add('active');
+    const t=b.dataset.t;
+    boxes.forEach(p=>p.classList.toggle('active',p.dataset.p===t));
+  });
+});
+/* accordion */
+document.querySelectorAll('.acc-h').forEach(h=>h.onclick=()=>{
+  const acc=h.parentElement, b=acc.querySelector('.acc-b');
+  const open=acc.classList.toggle('open');
+  b.style.maxHeight=open?b.scrollHeight+'px':'0';
+});
+/* copy */
+document.querySelectorAll('.copy').forEach(b=>b.onclick=()=>{
+  const pre=b.parentElement.querySelector('pre');
+  navigator.clipboard.writeText(pre.innerText).then(()=>{const t=b.textContent;b.textContent='已复制 ✓';setTimeout(()=>b.textContent=t,1400);});
+});
+</script>
+<a href="tp.html" style="position:fixed;left:18px;bottom:18px;z-index:90;display:inline-flex;align-items:center;gap:7px;font:600 14px/1 system-ui,sans-serif;color:#fff;text-decoration:none;background:linear-gradient(120deg,var(--accent),var(--accent-2));padding:11px 17px;border-radius:12px;box-shadow:0 8px 30px rgba(0,0,0,.3)">← 返回 TP 中心</a>
+<script>
+/* Theme button icon sync */
+(function(){
+  var btn=document.querySelector('.theme-btn');
+  if(!btn)return;
+  function sync(){btn.textContent=document.documentElement.dataset.theme==='dark'?'☀️':'🌙';}
+  sync();
+  btn.addEventListener('click',function(){setTimeout(sync,0);});
+})();
+</script>
+<script>
+/* Auto-collapse TOC: only expand the section containing the current page */
+(function(){
+  var details=document.querySelectorAll('aside.toc details.toc-sec');
+  if(details.length<2)return;
+  var current=location.pathname.replace(/\/$/,'');
+  var activeLink=null;
+  document.querySelectorAll('aside.toc a').forEach(function(a){
+    var href=a.getAttribute('href')||'';
+    if(href && !href.startsWith('http') && !href.startsWith('#')){
+      var path=href.replace(/^https?:\/\/[^\/]+/,'').replace(/\/$/,'');
+      if(current===path || current.indexOf(path)>-1 || path.indexOf(current)>-1){
+        activeLink=a;
+      }
+    }
+  });
+  details.forEach(function(d){
+    if(activeLink && d.contains(activeLink)){d.setAttribute('open','');}
+    else{d.removeAttribute('open');}
+  });
+})();
+</script>
+</body>
+</html>

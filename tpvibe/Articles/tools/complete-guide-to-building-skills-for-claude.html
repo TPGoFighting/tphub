@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="geo.region" content="CN">
+<meta name="geo.placename" content="China">
+<meta name="geo.position" content="39.9042;116.4074">
+<meta name="ICBM" content="39.9042, 116.4074">
+<link rel="icon" href="/tpvibe/images/tp_logo.jpg" type="image/png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Claude Skills 构建指南 | TPvibe</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/tpvibe/style.css">
+<!-- SEO:tphub -->
+<meta name="description" content="Claude Skills 构建指南 — TPvibe 中文 AI 学习与实战教程，从零基础到进阶，边学边做。">
+<link rel="canonical" href="https://tphub.tpgofighting.top/tpvibe/Articles/tools/complete-guide-to-building-skills-for-claude.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="TPvibe">
+<meta property="og:title" content="Claude Skills 构建指南 | TPvibe">
+<meta property="og:description" content="Claude Skills 构建指南 — TPvibe 中文 AI 学习与实战教程，从零基础到进阶，边学边做。">
+<meta property="og:url" content="https://tphub.tpgofighting.top/tpvibe/Articles/tools/complete-guide-to-building-skills-for-claude.html">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://tphub.tpgofighting.top/tpvibe/images/tp_logo.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Claude Skills 构建指南 | TPvibe">
+<meta name="twitter:description" content="Claude Skills 构建指南 — TPvibe 中文 AI 学习与实战教程，从零基础到进阶，边学边做。">
+<meta name="twitter:image" content="https://tphub.tpgofighting.top/tpvibe/images/tp_logo.jpg">
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "name": "Claude Skills 构建指南",
+  "url": "https://tphub.tpgofighting.top/tpvibe/Articles/tools/complete-guide-to-building-skills-for-claude.html",
+  "description": "TPvibe 中文 AI 学习与实战教程：从零基础到进阶，边学边做，附可运行示例与实战项目。",
+  "inLanguage": "zh-CN",
+  "isPartOf": {"@type": "WebSite", "name": "TPvibe", "url": "https://tphub.tpgofighting.top/tpvibe/"}
+}</script>
+<!-- GEO:v2 -->
+<!-- LOGOFIX:v2 -->
+</head>
+<body>
+<aside class="toc" id="toc">
+<button class="toc-toggle" id="tocToggle" aria-label="收起目录">«</button>
+<div class="toc-inner">
+<a class="toc-home" href="/tpvibe/index.html">TPvibe 首页</a>
+<details class="toc-sec">
+<summary>基础篇</summary>
+<ul class="toc-tree">
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Basic/lecture-1.html">00 序言</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Basic/lecture-1/0.1-start-here.html">开始之前</a></li>
+<li><a href="/tpvibe/Basic/lecture-1/0.2-what-you-will-build.html">你要做什么</a></li>
+<li><a href="/tpvibe/Basic/lecture-1/0.3-who-this-is-for.html">适合谁学</a></li>
+<li><a href="/tpvibe/Basic/lecture-1/0.4-how-to-learn.html">怎么学</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Basic/lecture-2.html">01 觉醒</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Basic/lecture-2/1.1-coder-to-commander.html">从程序员到指挥官</a></li>
+<li><a href="/tpvibe/Basic/lecture-2/1.2-breaking-myths.html">打破误区</a></li>
+<li><a href="/tpvibe/Basic/lecture-2/1.3-tools-guide.html">工具选择指南</a></li>
+<li><a href="/tpvibe/Basic/lecture-2/1.4-vibe-vs-spec.html">Vibe Coding vs 规格驱动</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Basic/lecture-3.html">02 心智</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Basic/lecture-3/2.1-thinking-upgrade.html">思维升级</a></li>
+<li><a href="/tpvibe/Basic/lecture-3/2.2-inversion-thinking.html">逆向思维</a></li><li><a href="/tpvibe/Basic/lecture-3/2.3-subtraction-thinking.html">减法思维</a></li>
+<li><a href="/tpvibe/Basic/lecture-3/2.4-story-thinking.html">故事思维</a></li>
+
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Basic/lecture-4.html">03 技法</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Basic/lecture-4/3.1-prompt-basics.html">提示词基础</a></li>
+<li><a href="/tpvibe/Basic/lecture-4/3.2-structured-frameworks.html">结构化框架</a></li>
+<li><a href="/tpvibe/Basic/lecture-4/3.3-advanced-techniques.html">进阶技巧</a></li>
+<li><a href="/tpvibe/Basic/lecture-4/3.4-first-prd.html">第一份 PRD</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Basic/lecture-5.html">04 从0到1</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Basic/lecture-5/4.1-before-start.html">搭建前准备</a></li>
+<li><a href="/tpvibe/Basic/lecture-5/4.2-build-page.html">搭建页面</a></li>
+<li><a href="/tpvibe/Basic/lecture-5/4.3-core-features.html">核心功能</a></li>
+<li><a href="/tpvibe/Basic/lecture-5/4.4-data-storage.html">数据存储</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Basic/appendix-a.html">05 进阶</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Basic/appendix-a/5.1-version-control.html">版本控制</a></li>
+<li><a href="/tpvibe/Basic/appendix-a/5.2-deployment.html">部署上线</a></li>
+<li><a href="/tpvibe/Basic/appendix-a/5.3-security.html">安全防护</a></li>
+<li><a href="/tpvibe/Basic/appendix-a/5.4-iteration.html">迭代优化</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Basic/appendix-b.html">06 上线</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Basic/appendix-b/6.1-preflight.html">发布前检查</a></li>
+<li><a href="/tpvibe/Basic/appendix-b/6.2-deploy.html">发布流程</a></li>
+<li><a href="/tpvibe/Basic/appendix-b/6.3-feedback.html">收集反馈</a></li>
+<li><a href="/tpvibe/Basic/appendix-b/6.4-wrap-up.html">总结回顾</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Basic/appendix-c.html">99 附录</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Basic/appendix-c/a-prompt-cheatsheet.html">提示词速查表</a></li>
+<li><a href="/tpvibe/Basic/appendix-c/b-errors-and-asking-ai.html">常见错误与求助</a></li>
+<li><a href="/tpvibe/Basic/appendix-c/c-ui-cheatsheet.html">UI 速查表</a></li>
+<li><a href="/tpvibe/Basic/appendix-c/d-git-minimal-card.html">Git 最小知识卡</a></li>
+<li><a href="/tpvibe/Basic/appendix-c/e-api-key-env-security.html">API Key 与环境安全</a></li>
+<li><a href="/tpvibe/Basic/appendix-c/f-vibe-coding-can-and-cannot.html">Vibe Coding 能做与不能做</a></li>
+<li><a href="/tpvibe/Basic/appendix-c/g-advanced-jump-map.html">进阶跳转地图</a></li>
+</ul>
+</li>
+<li class="toc-chapter">
+<a href="/tpvibe/Basic/conclusion.html">100 结语</a>
+</li>
+</ul>
+</details>
+<details class="toc-sec">
+<summary>进阶篇</summary>
+<ul class="toc-tree">
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch01.html">01 环境搭建</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch01/00-quick-start.html">快速上手</a></li>
+<li><a href="/tpvibe/Advanced/ch01/01-code-formats.html">代码格式与编辑器</a></li>
+<li><a href="/tpvibe/Advanced/ch01/02-tech-stack.html">技术栈选择</a></li>
+<li><a href="/tpvibe/Advanced/ch01/03-browser-server.html">浏览器与服务器</a></li>
+<li><a href="/tpvibe/Advanced/ch01/04-terminal-basics.html">终端基础操作</a></li>
+<li><a href="/tpvibe/Advanced/ch01/05-package-manager-and-config.html">包管理与配置文件</a></li>
+<li><a href="/tpvibe/Advanced/ch01/06-models-and-tools.html">AI 模型与工具选择</a></li>
+<li><a href="/tpvibe/Advanced/ch01/07-creating-project.html">创建你的第一个项目</a></li>
+<li><a href="/tpvibe/Advanced/ch01/08-localhost-and-ports.html">本地服务器与端口</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch02.html">02 开发工具与AI调优</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch02/01-ai-economics.html">AI 经济学</a></li>
+<li><a href="/tpvibe/Advanced/ch02/02-vibecoding-workflow.html">Vibe Coding 工作流</a></li>
+<li><a href="/tpvibe/Advanced/ch02/03-mcp-and-skills.html">MCP 与 Skills</a></li>
+<li><a href="/tpvibe/Advanced/ch02/04-project-config.html">项目配置</a></li>
+<li><a href="/tpvibe/Advanced/ch02/05-debugging-tips.html">调试技巧</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch03.html">03 产品验证</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch03/01-product-validation.html">产品验证</a></li>
+<li><a href="/tpvibe/Advanced/ch03/02-discuss-with-ai.html">与 AI 讨论</a></li>
+<li><a href="/tpvibe/Advanced/ch03/03-prd-template-guide.html">PRD 模板指南</a></li>
+<li><a href="/tpvibe/Advanced/ch03/04-coding-agents.html">编码代理</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch04.html">04 编程基础</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch04/00-build-basics.html">构建基础</a></li>
+<li><a href="/tpvibe/Advanced/ch04/01-tech-stack-decision.html">技术栈决策</a></li>
+<li><a href="/tpvibe/Advanced/ch04/03-programming-basics.html">编程基础</a></li>
+<li><a href="/tpvibe/Advanced/ch04/02-prd-and-tech-docs.html">PRD 与技术文档</a></li>
+<li><a href="/tpvibe/Advanced/ch04/04-api-and-http.html">API 与 HTTP</a></li>
+<li><a href="/tpvibe/Advanced/ch04/05-frontend-backend-separation.html">前后端分离</a></li>
+<li><a href="/tpvibe/Advanced/ch04/06-config-formats.html">配置格式</a></li>
+<li><a href="/tpvibe/Advanced/ch04/07-api-integration.html">API 集成</a></li>
+<li><a href="/tpvibe/Advanced/ch04/08-readme-structure.html">README 结构</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch05.html">05 好看好用的界面</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch05/03-animation-libraries.html">动画库</a></li>
+</ul>
+</li>
+<li class="toc-chapter">
+<a href="/tpvibe/Advanced/ch06.html">06 数据存哪里</a>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch07.html">07 连接前后端</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch07/00-crud-example.html">CRUD 示例</a></li>
+<li><a href="/tpvibe/Advanced/ch07/02-when-things-go-wrong.html">出错处理</a></li>
+<li><a href="/tpvibe/Advanced/ch07/03-api-as-product.html">API 即产品</a></li>
+<li><a href="/tpvibe/Advanced/ch07/01-api-growing-pains.html">API 成长烦恼</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch08.html">08 谁能访问数据</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch08/00-user-system-example.html">用户系统示例</a></li>
+<li><a href="/tpvibe/Advanced/ch08/01-env-and-secrets.html">环境变量与密钥</a></li>
+<li><a href="/tpvibe/Advanced/ch08/03-route-protection.html">路由保护</a></li>
+<li><a href="/tpvibe/Advanced/ch08/04-security-checklist.html">安全清单</a></li>
+<li><a href="/tpvibe/Advanced/ch08/05-advanced-security.html">高级安全</a></li>
+<li><a href="/tpvibe/Advanced/ch08/02-auth-methods.html">认证方式</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch09.html">09 功能测试</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch09/01-testing-strategy.html">测试策略</a></li>
+<li><a href="/tpvibe/Advanced/ch09/02-api-and-e2e-testing.html">API 与 E2E 测试</a></li>
+<li><a href="/tpvibe/Advanced/ch09/03-automation-workflow.html">自动化工作流</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch10.html">10 公网访问</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch10/01-network-layers.html">网络分层</a></li>
+<li><a href="/tpvibe/Advanced/ch10/02-tunneling.html">隧道穿透</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch11.html">11 协作开发</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch11/01-why-git.html">为什么用 Git</a></li>
+<li><a href="/tpvibe/Advanced/ch11/02-remote-and-collaboration.html">远程与协作</a></li>
+<li><a href="/tpvibe/Advanced/ch11/03-branch-and-workflow.html">分支与工作流</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch12.html">12 无服务器部署</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch12/01-deploy-edgeone.html">EdgeOne 部署</a></li>
+<li><a href="/tpvibe/Advanced/ch12/02-deploy-vercel-platforms.html">Vercel 等平台部署</a></li>
+<li><a href="/tpvibe/Advanced/ch12/03-cicd-automation.html">CI/CD 自动化</a></li>
+<li><a href="/tpvibe/Advanced/ch12/04-operations-cost.html">运维成本</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch13.html">13 域名解析</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch13/01-domain-setup.html">域名设置</a></li>
+<li><a href="/tpvibe/Advanced/ch13/02-compliance-access.html">合规接入</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch14.html">14 部署到服务器</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch14/01-vps-selection.html">VPS 选择</a></li>
+<li><a href="/tpvibe/Advanced/ch14/02-vps-setup.html">VPS 配置</a></li>
+<li><a href="/tpvibe/Advanced/ch14/03-1-docker-apps.html">Docker 应用</a></li>
+<li><a href="/tpvibe/Advanced/ch14/03-2-deploy-nextjs.html">部署 Next.js</a></li>
+<li><a href="/tpvibe/Advanced/ch14/03-4-deploy-fullstack.html">部署全栈应用</a></li>
+<li><a href="/tpvibe/Advanced/ch14/05-cool-apps.html">酷应用</a></li>
+<li><a href="/tpvibe/Advanced/ch14/03-3-deploy-static.html">部署静态站点</a></li>
+<li><a href="/tpvibe/Advanced/ch14/04-domain-ssl.html">域名与 SSL</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch15.html">15 SEO与统计</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch15/01-opengraph-sharing.html">OpenGraph 分享</a></li>
+<li><a href="/tpvibe/Advanced/ch15/02-seo-guide.html">SEO 指南</a></li>
+<li><a href="/tpvibe/Advanced/ch15/03-umami.html">Umami 统计</a></li>
+<li><a href="/tpvibe/Advanced/ch15/04-legal.html">法律合规</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch16.html">16 反馈与迭代</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch16/01-facing-real-users.html">面向真实用户</a></li>
+<li><a href="/tpvibe/Advanced/ch16/02-feedback-prioritization.html">反馈优先级</a></li>
+<li><a href="/tpvibe/Advanced/ch16/03-understanding-users.html">理解用户</a></li>
+<li><a href="/tpvibe/Advanced/ch16/04-iteration-and-growth.html">迭代与增长</a></li>
+</ul>
+</li>
+<li class="toc-chapter">
+<a href="/tpvibe/Advanced/next-level.html">进阶实战</a>
+</li>
+</ul>
+</details>
+<details class="toc-sec">
+<summary>文章</summary>
+<ul class="toc-tree">
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Articles/core-concepts.html">核心概念</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Articles/core-concepts/what-are-ai-agents-why-do-they-matter.html">AI Agent 是什么</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Articles/architecture.html">技术架构</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Articles/architecture/how-claude-code-works.html">Claude Code 如何工作</a></li>
+<li><a href="/tpvibe/Articles/architecture/mcp-what-it-is-and-why-it-matters.html">MCP 是什么及为何重要</a></li>
+<li><a href="/tpvibe/Articles/architecture/build-agents-with-filesystems-and-bash.html">用文件系统和 Bash 构建 Agent</a></li>
+<li><a href="/tpvibe/Articles/architecture/testing-bash-vs-sql.html">Bash vs SQL 测试</a></li>
+<li><a href="/tpvibe/Articles/architecture/multi-agent-systems-ai-native-engineering.html">多 Agent 系统与 AI 原生工程</a></li>
+<li><a href="/tpvibe/Articles/architecture/self-improving-coding-agents.html">自我改进的编码 Agent</a></li>
+<li><a href="/tpvibe/Articles/architecture/nvidia-ai-5-layer-cake.html">NVIDIA AI 五层架构</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Articles/tools.html">工具链</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Articles/tools/how-to-write-good-spec-for-ai-agents.html">如何为 AI Agent 写 Spec</a></li>
+<li><a href="/tpvibe/Articles/tools/ai-driven-prototyping-v0-bolt-and-lovable-compared.html">AI 原型工具对比</a></li>
+<li><a href="/tpvibe/Articles/tools/why-i-use-cline-for-ai-engineering.html">为什么用 Cline 做 AI 工程</a></li>
+<li><a href="/tpvibe/Articles/tools/agents-md-vs-skills.html">AGENTS.md 与 Skills 对比</a></li>
+<li><a href="/tpvibe/Articles/tools/complete-guide-to-building-skills-for-claude.html" class="active">Claude Skills 构建指南</a></li>
+<li><a href="/tpvibe/Articles/tools/we-removed-80-percent-tools.html">我们移除了 80% 的工具</a></li>
+<li><a href="/tpvibe/Articles/tools/claude-code-swarms.html">Claude Code 集群</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Articles/engineering.html">工程实践</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Articles/engineering/ai-writes-code-faster-your-job-is-to-prove-it-works.html">AI 写代码更快，你要证明它有效</a></li>
+<li><a href="/tpvibe/Articles/engineering/beyond-the-70-maximizing-the-human-30-of-ai-assisted-coding.html">超越 70%：最大化人类 30%</a></li>
+<li><a href="/tpvibe/Articles/engineering/avoiding-skill-atrophy-in-the-age-of-ai.html">AI 时代的技能退化</a></li>
+<li><a href="/tpvibe/Articles/engineering/how-to-write-a-good-spec-for-ai-agents.html">如何为 AI Agent 写好 Spec</a></li>
+<li><a href="/tpvibe/Articles/engineering/leading-effective-engineering-teams-in-the-age-of-genai.html">GenAI 时代的工程团队领导</a></li>
+<li><a href="/tpvibe/Articles/engineering/your-ai-coding-agents-need-a-manager.html">AI 编码 Agent 需要管理者</a></li>
+<li><a href="/tpvibe/Articles/engineering/ai-code-review-implementation.html">AI 代码审查实现</a></li>
+<li><a href="/tpvibe/Articles/engineering/react-best-practices.html">React 最佳实践</a></li>
+<li><a href="/tpvibe/Articles/engineering/vercel-aeo-tracking.html">Vercel AEO 追踪</a></li>
+<li><a href="/tpvibe/Articles/engineering/my-llm-coding-workflow-going-into-2026.html">2026 年我的 LLM 工作流</a></li>
+<li><a href="/tpvibe/Articles/engineering/stop-using-init-for-agents.html">停止对 Agent 使用 init</a></li>
+<li><a href="/tpvibe/Articles/engineering/video-generation-with-ai-gateway.html">AI 网关视频生成</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Articles/security.html">安全合规</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Articles/security/ai-agents-threats-and-mitigations.html">AI Agent 威胁与缓解</a></li>
+<li><a href="/tpvibe/Articles/security/security-boundaries-in-agentic-architectures.html">Agent 架构安全边界</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Articles/business.html">商业趋势</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Articles/business/the-next-two-years-of-software-engineering.html">软件工程的未来两年</a></li>
+<li><a href="/tpvibe/Articles/business/how-openevidence-built-healthcare-ai-physicians-trust.html">OpenEvidence 医疗 AI</a></li>
+<li><a href="/tpvibe/Articles/business/keeping-community-human-while-scaling-with-agents.html">用 Agent 扩展时保持人性</a></li>
+</ul>
+</li>
+</ul>
+</details>
+<details class="toc-sec">
+<summary>实践案例</summary>
+<ul class="toc-tree">
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Practice/index.html">实践案例</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Practice/index/vibe-coding-methodology.html">Vibe Coding 方法论</a></li>
+<li><a href="/tpvibe/Practice/index/ai-canvas-vibecoding-journey.html">AI Canvas 之旅</a></li>
+<li><a href="/tpvibe/Practice/index/ai-picture-book-generator.html">AI 绘本生成器</a></li>
+<li><a href="/tpvibe/Practice/index/ai-resume-saas.html">AI 简历 SaaS</a></li>
+<li><a href="/tpvibe/Practice/index/full-stack-21-day-thinking-habit-game.html">21 天思维习惯游戏</a></li>
+</ul>
+</li>
+</ul>
+</details>
+</div>
+</aside>
+<script>
+(function(){
+  /* Move toc-toggle to body to avoid overflow/transform clipping */
+  var tocToggle=document.getElementById('tocToggle');
+  var toc=document.getElementById('toc');
+  if(tocToggle&&toc){
+    document.body.appendChild(tocToggle);
+    tocToggle.style.position='fixed';
+    tocToggle.style.top='70px';
+    tocToggle.style.left='254px';
+    tocToggle.style.zIndex='41';
+    tocToggle.style.width='28px';
+    tocToggle.style.height='28px';
+    tocToggle.style.borderRadius='50%';
+    tocToggle.style.border='1px solid var(--line)';
+    tocToggle.style.background='var(--card)';
+    tocToggle.style.color='var(--muted)';
+    tocToggle.style.cursor='pointer';
+    tocToggle.style.display='grid';
+    tocToggle.style.placeItems='center';
+    tocToggle.style.boxShadow='0 4px 14px var(--shadow)';
+    tocToggle.style.fontSize='14px';
+    tocToggle.style.fontWeight='700';
+    tocToggle.style.transition='left .35s cubic-bezier(.34,1.3,.64,1), background .2s, color .2s, border-color .2s';
+    tocToggle.addEventListener('mouseenter',function(){
+      this.style.background='var(--soft)';
+      this.style.color='var(--accent)';
+      this.style.borderColor='var(--accent)';
+    });
+    tocToggle.addEventListener('mouseleave',function(){
+      this.style.background='var(--card)';
+      this.style.color='var(--muted)';
+      this.style.borderColor='var(--line)';
+    });
+    tocToggle.addEventListener('click',function(){
+      toc.classList.toggle('collapsed');
+      var c=toc.classList.contains('collapsed');
+      this.style.left=c?'8px':'254px';
+      this.textContent=c?'»':'«';
+      this.setAttribute('aria-label',c?'展开目录':'收起目录');
+    });
+  }
+  /* Mobile scrim click to close */
+  var scrim=document.querySelector('.toc-scrim');
+  if(scrim){
+    scrim.addEventListener('click',function(){
+      var cb=document.getElementById('tocToggleMobile');
+      if(cb)cb.checked=false;
+    });
+  }
+  /* Chapter expand/collapse (L1) */
+  document.querySelectorAll('.toc-chapter-toggle').forEach(function(btn){
+    btn.addEventListener('click',function(e){
+      e.preventDefault();
+      e.stopPropagation();
+      var li=this.closest('.toc-chapter');
+      if(li)li.classList.toggle('expanded');
+    });
+  });
+  /* Auto-expand: find active link and open its section + chapter */
+  var currentRaw=location.pathname.replace(/\/$/,'');
+  var activeLink=null;
+  document.querySelectorAll('aside.toc a[href]').forEach(function(a){
+    var href=a.getAttribute('href')||'';
+    if(!href||href.startsWith('http')||href.startsWith('#'))return;
+    var path=href.replace(/^https?:\/\/[^\/]+/,'').replace(/\/$/,'');
+    /* Skip home link for active matching */
+    if(path.indexOf('/index.html')>=0&&currentRaw.indexOf('/index.html')<0)return;
+    if(currentRaw===path){activeLink=a;return;}
+    /* Also check if currentRaw contains the path (for sub-pages) */
+    if(path.length>5&&currentRaw.indexOf(path)>=0){activeLink=a;}
+  });
+  /* Open the section (L0) containing active link, close others */
+  var sections=document.querySelectorAll('aside.toc details.toc-sec');
+  if(sections.length>0){
+    sections.forEach(function(d){
+      if(activeLink&&d.contains(activeLink)){d.setAttribute('open','');}
+      else{d.removeAttribute('open');}
+    });
+  }
+  /* Expand the chapter (L1) containing active link */
+  if(activeLink){
+    var chap=activeLink.closest('.toc-chapter.has-children');
+    if(chap)chap.classList.add('expanded');
+  }
+  /* If no active link found (e.g. index page), open first section and first chapter */
+  if(!activeLink&&sections.length>0){
+    sections[0].setAttribute('open','');
+    var firstChapter=sections[0].querySelector('.toc-chapter.has-children');
+    if(firstChapter)firstChapter.classList.add('expanded');
+  }
+})();
+</script>
+
+<div id="progress"></div>
+<header class="site-header">
+<div class="header-inner">
+  <a href="/tpvibe/index.html" class="logo"><img src="/tpvibe/images/tp_logo.jpg" alt="TPvibe" width="200" height="200"> TPvibe</a>
+  <input type="checkbox" id="nav-toggle-cb" class="nav-toggle-cb" aria-hidden="true">
+  <label for="nav-toggle-cb" class="nav-toggle" aria-label="打开菜单">&#9776;</label>
+  <nav><ul class="nav-links"><li><a href="/tpvibe/index.html">TPvibe</a></li><li><a href="/tpvibe/index.html">首页</a></li><li><a href="/tpvibe/Basic/lecture-1.html">基础篇</a></li><li><a href="/tpvibe/Advanced/ch01.html">进阶篇</a></li><li><a href="/tpvibe/Articles/core-concepts.html">文章</a></li><li><a href="/tpvibe/Practice/index.html">实践案例</a></li></ul>
+</nav>
+<button class="theme-btn" aria-label="切换主题" onclick="document.documentElement.dataset.theme=document.documentElement.dataset.theme==='dark'?'light':'dark';localStorage.setItem('tpvibe-theme',document.documentElement.dataset.theme)">🌙</button>
+</div>
+</header>
+<main class="container">
+<h1 class="page-title">Claude Skills 构建指南</h1>
+<div class="page-cover reveal">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400" preserveAspectRatio="xMidYMid slice" style="width:100%;height:100%;display:block;">
+  <defs>
+    <linearGradient id="bg-1632178884" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f97316"/>
+      <stop offset="100%" style="stop-color:#dc2626"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="400" fill="url(#bg-1632178884)"/>
+  <polygon points="832,318 799,384 865,384" fill="white" opacity="0.07" transform="rotate(155 832 351)"/>
+<polygon points="210,86 153,201 267,201" fill="white" opacity="0.12" transform="rotate(328 210 144)"/>
+<polygon points="788,305 757,368 819,368" fill="white" opacity="0.07" transform="rotate(142 788 336)"/>
+<polygon points="166,74 111,184 222,184" fill="white" opacity="0.12" transform="rotate(315 166 129)"/>
+<polygon points="745,242 665,401 824,401" fill="white" opacity="0.07" transform="rotate(129 745 322)"/>
+<polygon points="123,61 69,168 176,168" fill="white" opacity="0.12" transform="rotate(302 123 115)"/>
+<polygon points="701,230 623,385 779,385" fill="white" opacity="0.06" transform="rotate(116 701 307)"/>
+<polygon points="79,48 28,152 131,152" fill="white" opacity="0.11" transform="rotate(289 79 100)"/>
+<polygon points="657,217 582,369 733,369" fill="white" opacity="0.06" transform="rotate(102 657 293)"/>
+<polygon points="36,36 -14,135 86,135" fill="white" opacity="0.11" transform="rotate(276 36 86)"/>
+<polygon points="614,204 540,352 688,352" fill="white" opacity="0.06" transform="rotate(89 614 278)"/>
+<polygon points="1192,23 1144,119 1240,119" fill="white" opacity="0.10" transform="rotate(263 1192 71)"/>
+<polygon points="570,192 498,336 642,336" fill="white" opacity="0.05" transform="rotate(76 570 264)"/>
+<polygon points="1149,10 1102,103 1195,103" fill="white" opacity="0.10" transform="rotate(250 1149 57)"/>
+<polygon points="527,179 456,320 597,320" fill="white" opacity="0.15" transform="rotate(63 527 249)"/>
+
+  
+  <text x="60" y="340" font-family="system-ui, -apple-system, sans-serif" font-size="36" font-weight="700" fill="white">Claude Skills 构建指南</text>
+  <rect x="60" y="355" width="60" height="4" rx="2" fill="#fbbf24"/>
+</svg>
+</div>
+
+<div class="content reveal">
+<p><strong>作者：Anthropic</strong></p><p><strong>原文：<a href="https://docs.anthropic.com/en/docs/build-with-claude/skills" target="_blank" rel="noreferrer">查看原文</a></strong></p><h2>目录 </h2><ul><li><a href="#简介">简介</a></li><li><a href="#基础知识">基础知识</a></li><li><a href="#规划与设计">规划与设计</a></li><li><a href="#测试与迭代">测试与迭代</a></li><li><a href="#分发与共享">分发与共享</a></li><li><a href="#模式与故障排除">模式与故障排除</a></li><li><a href="#资源与参考">资源与参考</a></li></ul><h2>简介 </h2><p>Skill 是一组指令 ?? 打包为一个简单的文件夹 ?? 教会 Claude 如何处理特定任务或工作流。Skills 是定制 Claude 以满足特定需求的最强大方式之一。无需在每次对话中重新解释你的偏好、流程和领域专业知识，skills 让你只需教一次 Claude，就能每次受益。</p><p>当你有可重复的工作流时，Skills 非常强大：从规格生成前端设计、使用一致的方法进行研究、创建遵循团队风格指南的文档，或编排多步骤流程。它们与 Claude 的内置功能（如代码执行和文档创建）配合良好。对于那些构建 MCP 集成的人来说，skills 增加了另一个强大的层，帮助将原始工具访问转化为可靠、优化的工作流。</p><p>本指南涵盖了构建有效 skills 所需了解的一切 ?? 从规划和结构到测试和分发。无论你是为自己、团队还是社区构建 skill，你都会在整个过程中找到实用的模式和真实世界的示例。</p><h3>你将学到什么 </h3><ul><li>Skill 结构的技术要求和最佳实践</li><li>独立 skills 和 MCP 增强工作流的模式</li><li>我们在不同用例中看到的有效模式</li><li>如何测试、迭代和分发你的 skills</li></ul><h3>适合谁 </h3><ul><li>希望 Claude 始终遵循特定工作流的开发者</li><li>希望 Claude 遵循特定工作流的高级用户</li><li>希望标准化 Claude 在整个组织中工作方式的团队</li></ul><h3>本指南的两条路径 </h3><p>构建独立 skills？专注于基础知识、规划与设计以及类别 1-2。增强 MCP 集成？&quot;Skills + MCP&quot; 部分和类别 3 适合你。两条路径共享相同的技术要求，但你可以选择与你的用例相关的内容。</p><p>你将从本指南中获得什么：到最后，你将能够在一次会议中构建一个功能性 skill。使用 skill-creator 构建和测试你的第一个工作 skill 预计需要约 15-30 分钟。</p><p>让我们开始吧。</p><h2>基础知识 </h2><h3>什么是 Skill？ </h3><p>一个 skill 是一个包含以下内容的文件夹：</p><ul><li><strong>SKILL.md</strong>（必需）：带有 YAML frontmatter 的 Markdown 指令</li><li><strong>scripts/</strong>（可选）：可执行代码（Python、Bash 等）</li><li><strong>references/</strong>（可选）：按需加载的文档</li><li><strong>assets/</strong>（可选）：输出中使用的模板、字体、图标</li></ul><h3>核心设计原则 </h3><h4>渐进式披露 </h4><p>Skills 使用三级系统：</p><ul><li><p><strong>第一级（YAML frontmatter）</strong>：始终加载在 Claude 的系统提示中。提供足够的信息让 Claude 知道何时应该使用每个 skill，而无需将所有内容加载到上下文中。</p></li><li><p><strong>第二级（SKILL.md 正文）</strong>：当 Claude 认为 skill 与当前任务相关时加载。包含完整的指令和指导。</p></li><li><p><strong>第三级（链接文件）</strong>：skill 目录中捆绑的其他文件，Claude 可以选择仅在需要时导航和发现。</p></li></ul><p>这种渐进式披露最小化了 token 使用，同时保持了专业知识。</p><h4>可组合性 </h4><p>Claude 可以同时加载多个 skills。你的 skill 应该与其他 skills 配合良好，而不是假设它是唯一可用的功能。</p><h4>可移植性 </h4><p>Skills 在 Claude.ai、Claude Code 和 API 上的工作方式完全相同。创建一次 skill，它就可以在所有平台上工作而无需修改，前提是环境支持 skill 所需的任何依赖项。</p><h3>对于 MCP 构建者：Skills + 连接器 </h3><blockquote><p>💡 构建不带 MCP 的独立 skills？跳到规划与设计 ?? 你以后可以随时回到这里。</p></blockquote><p>如果你已经有一个工作的 MCP 服务器，你已经完成了困难的部分。Skills 是顶层的知识层 ?? 捕获你已经知道的工作流和最佳实践，以便 Claude 可以一致地应用它们。</p><h4>厨房类比 </h4><ul><li><strong>MCP 提供专业厨房</strong>：访问工具、食材和设备</li><li><strong>Skills 提供食谱</strong>：如何创造有价值东西的分步说明</li></ul><p>它们一起使用户能够完成复杂的任务，而无需自己弄清楚每一步。</p><h4>它们如何协同工作 </h4><table tabindex="0"><thead><tr><th>MCP（连接性）</th><th>Skills（知识）</th></tr></thead><tbody><tr><td>将 Claude 连接到你的服务（Notion、Asana、Linear 等）</td><td>教 Claude 如何有效使用你的服务</td></tr><tr><td>提供实时数据访问和工具调用</td><td>捕获工作流和最佳实践</td></tr><tr><td>Claude 能做什么</td><td>Claude 应该如何做</td></tr></tbody></table><h4>为什么这对你的 MCP 用户很重要 </h4><p><strong>没有 skills</strong>：</p><ul><li>用户连接你的 MCP 但不知道下一步该做什么</li><li>支持工单询问&quot;如何使用你的集成做 X&quot;</li><li>每次对话都从头开始</li><li>结果不一致，因为用户每次提示都不同</li><li>用户责怪你的连接器，而真正的问题是工作流指导</li></ul><p><strong>有了 skills</strong>：</p><ul><li>预构建的工作流在需要时自动激活</li><li>一致、可靠的工具使用</li><li>最佳实践嵌入在每次交互中</li><li>降低集成的学习曲线</li></ul><h2>规划与设计 </h2><h3>从用例开始 </h3><p>在编写任何代码之前，确定你的 skill 应该启用的 2-3 个具体用例。</p><h4>良好的用例定义示例 </h4><p><strong>用例：项目冲刺规划</strong></p><ul><li><strong>触发器</strong>：用户说&quot;帮我规划这个冲刺&quot;或&quot;创建冲刺任务&quot;</li><li><strong>步骤</strong>： <ol><li>从 Linear 获取当前项目状态（通过 MCP）</li><li>分析团队速度和容量</li><li>建议任务优先级</li><li>在 Linear 中创建带有适当标签和估算的任务</li></ol></li><li><strong>结果</strong>：完全规划的冲刺，任务已创建</li></ul><h4>问自己 </h4><ul><li>用户想要完成什么？</li><li>这需要哪些多步骤工作流？</li><li>需要哪些工具（内置或 MCP）？</li><li>应该嵌入哪些领域知识或最佳实践？</li></ul><h3>常见 Skill 用例类别 </h3><p>在 Anthropic，我们观察到三种常见用例：</p><h4>类别 1：文档和资产创建 </h4><p><strong>用途</strong>：创建一致、高质量的输出，包括文档、演示文稿、应用、设计、代码等。</p><p><strong>真实示例：frontend-design skill</strong>（另见 docx、pptx、xlsx 和 ppt 的 skills）</p><p>&quot;创建具有高设计质量的独特、生产级前端界面。在构建 Web 组件、页面、工件、海报或应用时使用。&quot;</p><p><strong>关键技术</strong>：</p><ul><li>嵌入式风格指南和品牌标准</li><li>一致输出的模板结构</li><li>最终确定前的质量检查清单</li><li>无需外部工具 ?? 使用 Claude 的内置功能</li></ul><h4>类别 2：工作流自动化 </h4><p><strong>用途</strong>：受益于一致方法的多步骤流程，包括跨多个 MCP 服务器的协调。</p><p><strong>真实示例：skill-creator skill</strong></p><p>&quot;创建新 skills 的交互式指南。引导用户完成用例定义、frontmatter 生成、指令编写和验证。&quot;</p><p><strong>关键技术</strong>：</p><ul><li>带验证门的分步工作流</li><li>常见结构的模板</li><li>内置审查和改进建议</li><li>迭代改进循环</li></ul><h4>类别 3：MCP 增强 </h4><p><strong>用途</strong>：工作流指导，以增强 MCP 服务器提供的工具访问。</p><p><strong>真实示例：sentry-code-review skill</strong>（来自 Sentry）</p><p>&quot;使用 Sentry 的错误监控数据通过其 MCP 服务器自动分析和修复 GitHub Pull Requests 中检测到的错误。&quot;</p><p><strong>关键技术</strong>：</p><ul><li>按顺序协调多个 MCP 调用</li><li>嵌入领域专业知识</li><li>提供用户否则需要指定的上下文</li><li>常见 MCP 问题的错误处理</li></ul><h3>定义成功标准 </h3><h4>如何知道你的 skill 是否有效？ </h4><p>这些是理想目标 ?? 粗略的基准而不是精确的阈值。追求严谨但接受会有基于感觉的评估元素。我们正在积极开发更强大的测量指导和工具。</p><h4>定量指标 </h4><p><strong>Skill 在 90% 的相关查询上触发</strong></p><ul><li>如何测量：运行 10-20 个应该触发你的 skill 的测试查询。跟踪它自动加载的次数与需要显式调用的次数。</li></ul><p><strong>在 X 次工具调用中完成工作流</strong></p><ul><li>如何测量：比较启用和不启用 skill 的相同任务。计算工具调用和消耗的总 tokens。</li></ul><p><strong>每个工作流 0 次失败的 API 调用</strong></p><ul><li>如何测量：在测试运行期间监控 MCP 服务器日志。跟踪重试率和错误代码。</li></ul><h4>定性指标 </h4><p><strong>用户无需提示 Claude 下一步</strong></p><ul><li>如何评估：在测试期间，注意你需要重定向或澄清的频率。向 beta 用户征求反馈。</li></ul><p><strong>工作流无需用户更正即可完成</strong></p><ul><li>如何评估：运行相同请求 3-5 次。比较输出的结构一致性和质量。</li></ul><p><strong>跨会话的一致结果</strong></p><ul><li>如何评估：新用户能否在第一次尝试时以最少的指导完成任务？</li></ul><h3>技术要求 </h3><h4>文件结构 </h4><div class="language- vp-adaptive-theme"><button title="Copy Code" class="copy" aria-label="复制代码"></button><span class="lang"></span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span>your-skill-name/</span></span>
+<span class="line"><span>├── SKILL.md              # 必需 - 主 skill 文件</span></span>
+<span class="line"><span>├── scripts/              # 可选 - 可执行代码</span></span>
+<span class="line"><span>│   ├── process_data.py   # 示例</span></span>
+<span class="line"><span>│   └── validate.sh       # 示例</span></span>
+<span class="line"><span>├── references/           # 可选 - 文档</span></span>
+<span class="line"><span>│   ├── api-guide.md      # 示例</span></span>
+<span class="line"><span>│   └── examples/         # 示例</span></span>
+<span class="line"><span>└── assets/               # 可选 - 模板等</span></span>
+<span class="line"><span>    └── report-template.md # 示例</span></span></code></pre></div><h4>关键规则 </h4><p><strong>SKILL.md 命名</strong>：</p><ul><li>必须完全是 SKILL.md（区分大小写）</li><li>不接受变体（SKILL.MD、skill.md 等）</li></ul><p><strong>Skill 文件夹命名</strong>：</p><ul><li>使用 kebab-case：<code>notion-project-setup</code> ✅</li><li>无空格：<code>Notion Project Setup</code> ❌</li><li>无下划线：<code>notion_project_setup</code> ❌</li><li>无大写：<code>NotionProjectSetup</code> ❌</li></ul><p><strong>无 README.md</strong>：</p><ul><li>不要在 skill 文件夹内包含 README.md</li><li>所有文档都放在 SKILL.md 或 references/ 中</li><li>注意：通过 GitHub 分发时，你仍然需要一个仓库级别的 README 供人类用户使用 ?? 请参阅分发与共享。</li></ul><h3>YAML Frontmatter：最重要的部分 </h3><p>YAML frontmatter 是 Claude 决定是否加载你的 skill 的方式。把这个做对。</p><h4>最小必需格式 </h4><div class="language-yaml vp-adaptive-theme"><button title="Copy Code" class="copy" aria-label="复制代码"></button><span class="lang">yaml</span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">---</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">name</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">your-skill-name</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">description</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: ?? </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">skill ????????????????????</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">---</span></span></code></pre></div><p>这就是你开始所需的全部。</p><h4>字段要求 </h4><p><strong>name（必需）</strong>：</p><ul><li>仅 kebab-case</li><li>无空格或大写</li><li>应与文件夹名称匹配</li></ul><p><strong>description（必需）</strong>：</p><ul><li>必须包括两者： <ul><li>skill 做什么</li><li>何时使用它（触发条件）</li></ul></li><li>少于 1024 个字符</li><li>无 XML 标签（&lt; 或 &gt;）</li><li>包括用户可能说的特定任务</li><li>如果相关，提及文件类型</li></ul><p><strong>license（可选）</strong>：</p><ul><li>如果使 skill 开源则使用</li><li>常见：MIT、Apache-2.0</li></ul><p><strong>compatibility（可选）</strong>：</p><ul><li>1-500 个字符</li><li>指示环境要求：例如预期产品、所需系统包、网络访问需求等</li></ul><p><strong>metadata（可选）</strong>：</p><ul><li>任何自定义键值对</li><li>建议：author、version、mcp-server</li><li>示例：</li></ul><div class="language-yaml vp-adaptive-theme"><button title="Copy Code" class="copy" aria-label="复制代码"></button><span class="lang">yaml</span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">metadata</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">:</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">  author</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">ProjectHub</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">  version</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">1.0.0</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">  mcp-server</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">projecthub</span></span></code></pre></div><h4>安全限制 </h4><p><strong>Frontmatter 中禁止</strong>：</p><ul><li>XML 尖括号（&lt; &gt;）</li><li>名称中带有&quot;claude&quot;或&quot;anthropic&quot;的 skills（保留）</li></ul><p>为什么：Frontmatter 出现在 Claude 的系统提示中。恶意内容可能注入指令。</p><h3>编写有效的 Skills </h3><h4>Description 字段 </h4><p>根据 Anthropic 的工程博客：&quot;这些元数据...提供足够的信息让 Claude 知道何时应该使用每个 skill，而无需将所有内容加载到上下文中。&quot; 这是渐进式披露的第一级。</p><p><strong>结构</strong>：</p><div class="language- vp-adaptive-theme"><button title="Copy Code" class="copy" aria-label="复制代码"></button><span class="lang"></span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span>[它做什么] + [何时使用它] + [关键功能]</span></span></code></pre></div><p><strong>良好描述的示例</strong>：</p><p>✅ <strong>好 ?? 具体且可操作</strong></p><div class="language-yaml vp-adaptive-theme"><button title="Copy Code" class="copy" aria-label="复制代码"></button><span class="lang">yaml</span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">description</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">分析 Figma 设计文件并生成开发者交接文档。当用户上传 .fig 文件、询问&quot;设计规格&quot;、&quot;组件文档&quot;或&quot;设计到代码交接&quot;时使用。</span></span></code></pre></div><p>✅ <strong>好 ?? 包含触发短语</strong></p><div class="language-yaml vp-adaptive-theme"><button title="Copy Code" class="copy" aria-label="复制代码"></button><span class="lang">yaml</span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">description</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">管理 Linear 项目工作流，包括冲刺规划、任务创建和状态跟踪。当用户提到&quot;冲刺&quot;、&quot;Linear 任务&quot;、&quot;项目规划&quot;或要求&quot;创建工单&quot;时使用。</span></span></code></pre></div><p>✅ <strong>好 ?? 清晰的价值主张</strong></p><div class="language-yaml vp-adaptive-theme"><button title="Copy Code" class="copy" aria-label="复制代码"></button><span class="lang">yaml</span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">description</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">PayFlow 的端到端客户入职工作流。处理账户创建、支付设置和订阅管理。当用户说&quot;入职新客户&quot;、&quot;设置订阅&quot;或&quot;创建 PayFlow 账户&quot;时使用。</span></span></code></pre></div><p><strong>不良描述的示例</strong>：</p><p>❌ <strong>太模糊</strong></p><div class="language-yaml vp-adaptive-theme"><button title="Copy Code" class="copy" aria-label="复制代码"></button><span class="lang">yaml</span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">description</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">帮助处理项目。</span></span></code></pre></div><p>❌ <strong>缺少触发器</strong></p><div class="language-yaml vp-adaptive-theme"><button title="Copy Code" class="copy" aria-label="复制代码"></button><span class="lang">yaml</span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">description</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">创建复杂的多页文档系统。</span></span></code></pre></div><p>❌ <strong>太技术化，没有用户触发器</strong></p><div class="language-yaml vp-adaptive-theme"><button title="Copy Code" class="copy" aria-label="复制代码"></button><span class="lang">yaml</span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">description</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">实现具有层次关系的 Project 实体模型。</span></span></code></pre></div><h4>编写主要指令 </h4><p>在 frontmatter 之后，用 Markdown 编写实际指令。</p><p><strong>推荐结构</strong>：</p><p>为你的 skill 调整此模板。用你的特定内容替换括号部分。</p><div class="language-markdown vp-adaptive-theme"><button title="Copy Code" class="copy" aria-label="复制代码"></button><span class="lang">markdown</span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">---</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">name</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">your-skill</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">description</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: [???????????]</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">---</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-light-font-weight:bold;--shiki-dark:#79B8FF;--shiki-dark-font-weight:bold;"># Your Skill Name</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-light-font-weight:bold;--shiki-dark:#79B8FF;--shiki-dark-font-weight:bold;">## 指令</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-light-font-weight:bold;--shiki-dark:#79B8FF;--shiki-dark-font-weight:bold;">### 步骤 1：[</span><span style="--shiki-light:#032F62;--shiki-light-text-decoration:underline;--shiki-dark:#DBEDFF;--shiki-dark-text-decoration:underline;">第一个主要步骤</span><span style="--shiki-light:#005CC5;--shiki-light-font-weight:bold;--shiki-dark:#79B8FF;--shiki-dark-font-weight:bold;">]</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">清楚解释发生了什么。</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">示例：</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">```bash</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">python</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> scripts/fetch_data.py</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;"> --project-id</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> PROJECT_ID</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">```</span></span></code></pre></div><p>预期输出：[描述成功是什么样子]</p><h3>步骤 2：[第二个主要步骤] </h3><p>（根据需要添加更多步骤）</p><h2>示例 </h2><h3>示例 1：[常见场景] </h3><p>用户说：&quot;设置新的营销活动&quot;</p><p>操作：</p><ol><li>通过 MCP 获取现有活动</li><li>使用提供的参数创建新活动</li></ol><p>结果：活动已创建，带有确认链接</p><p>（根据需要添加更多示例）</p><h2>故障排除 </h2><h3>错误：[常见错误消息] </h3><p>原因：[为什么会发生]</p><p>解决方案：[如何修复]</p><p>（根据需要添加更多错误案例）</p><div class="language- vp-adaptive-theme"><button title="Copy Code" class="copy" aria-label="复制代码"></button><span class="lang"></span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span></span></span>
+<span class="line"><span>#### 指令的最佳实践</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>**具体且可操作**</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>✅ **好**：</span></span>
+<span class="line"><span>```markdown</span></span>
+<span class="line"><span>运行 `python scripts/validate.py --input {filename}` 检查数据格式。</span></span>
+<span class="line"><span>如果验证失败，常见问题包括：</span></span>
+<span class="line"><span>- 缺少必需字段（将它们添加到 CSV）</span></span>
+<span class="line"><span>- 无效的日期格式（使用 YYYY-MM-DD）</span></span></code></pre></div><p>❌ <strong>不好</strong>：</p><div class="language-markdown vp-adaptive-theme"><button title="Copy Code" class="copy" aria-label="复制代码"></button><span class="lang">markdown</span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">在继续之前验证数据。</span></span></code></pre></div><p><strong>包含错误处理</strong></p><div class="language-markdown vp-adaptive-theme"><button title="Copy Code" class="copy" aria-label="复制代码"></button><span class="lang">markdown</span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span style="--shiki-light:#005CC5;--shiki-light-font-weight:bold;--shiki-dark:#79B8FF;--shiki-dark-font-weight:bold;">## 常见问题</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-light-font-weight:bold;--shiki-dark:#79B8FF;--shiki-dark-font-weight:bold;">### MCP 连接失败</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">如果你看到&quot;连接被拒绝&quot;：</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70;">1.</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> 验证 MCP 服务器正在运行：检查设置 &gt; 扩展</span></span>
+<span class="line"><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70;">2.</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> 确认 API 密钥有效</span></span>
+<span class="line"><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70;">3.</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> 尝试重新连接：设置 &gt; 扩展 &gt; [</span><span style="--shiki-light:#032F62;--shiki-light-text-decoration:underline;--shiki-dark:#DBEDFF;--shiki-dark-text-decoration:underline;">你的服务</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">] &gt; 重新连接</span></span></code></pre></div><p><strong>清楚地引用捆绑资源</strong></p><div class="language-markdown vp-adaptive-theme"><button title="Copy Code" class="copy" aria-label="复制代码"></button><span class="lang">markdown</span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">在编写查询之前，请查阅 </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">`references/api-patterns.md`</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> 以获取：</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70;">-</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> 速率限制指导</span></span>
+<span class="line"><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70;">-</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> 分页模式</span></span>
+<span class="line"><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70;">-</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> 错误代码和处理</span></span></code></pre></div><p><strong>使用渐进式披露</strong></p><p>保持 SKILL.md 专注于核心指令。将详细文档移至 <code>references/</code> 并链接到它。（有关三级系统如何工作，请参阅核心设计原则。）</p><h2>测试与迭代 </h2><p>Skills 可以根据你的需求在不同的严格程度上进行测试：</p><ul><li><strong>Claude.ai 中的手动测试</strong> - 直接运行查询并观察行为。快速迭代，无需设置。</li><li><strong>Claude Code 中的脚本测试</strong> - 自动化测试用例，以便在更改之间进行可重复验证。</li><li><strong>通过 skills API 进行程序化测试</strong> - 构建针对定义的测试集系统运行的评估套件。</li></ul><p>选择与你的质量要求和 skill 可见性相匹配的方法。小团队内部使用的 skill 与部署给数千企业用户的 skill 有不同的测试需求。</p><blockquote><p>💡 <strong>专业提示：在扩展之前迭代单个任务</strong></p><p>我们发现最有效的 skill 创建者会迭代单个具有挑战性的任务，直到 Claude 成功，然后将获胜的方法提取到 skill 中。这利用了 Claude 的上下文学习，并提供比广泛测试更快的信号。一旦你有了一个工作基础，就扩展到多个测试用例以获得覆盖率。</p></blockquote><h3>推荐的测试方法 </h3><p>基于早期经验，有效的 skills 测试通常涵盖三个领域：</p><h4>1. 触发测试 </h4><p><strong>目标</strong>：确保你的 skill 在正确的时间加载。</p><p><strong>测试用例</strong>：</p><ul><li>✅ 在明显任务上触发</li><li>✅ 在改述请求上触发</li><li>❌ 不在不相关主题上触发</li></ul><p><strong>示例测试套件</strong>：</p><p>应该触发：</p><ul><li>&quot;帮我设置一个新的 ProjectHub 工作区&quot;</li><li>&quot;我需要在 ProjectHub 中创建一个项目&quot;</li><li>&quot;为 Q4 规划初始化一个 ProjectHub 项目&quot;</li></ul><p>不应该触发：</p><ul><li>&quot;旧金山的天气如何？&quot;</li><li>&quot;帮我写 Python 代码&quot;</li><li>&quot;创建一个电子表格&quot;（除非 ProjectHub skill 处理表格）</li></ul><h4>2. 功能测试 </h4><p><strong>目标</strong>：验证 skill 产生正确的输出。</p><p><strong>测试用例</strong>：</p><ul><li>生成有效输出</li><li>API 调用成功</li><li>错误处理有效</li><li>覆盖边缘情况</li></ul><p><strong>示例</strong>：</p><div class="language- vp-adaptive-theme"><button title="Copy Code" class="copy" aria-label="复制代码"></button><span class="lang"></span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span>测试：创建包含 5 个任务的项目</span></span>
+<span class="line"><span>给定：项目名称&quot;Q4 规划&quot;，5 个任务描述</span></span>
+<span class="line"><span>当：Skill 执行工作流</span></span>
+<span class="line"><span>那么：</span></span>
+<span class="line"><span>- 在 ProjectHub 中创建项目</span></span>
+<span class="line"><span>- 创建 5 个具有正确属性的任务</span></span>
+<span class="line"><span>- 所有任务链接到项目</span></span>
+<span class="line"><span>- 无 API 错误</span></span></code></pre></div><h4>3. 性能比较 </h4><p><strong>目标</strong>：证明 skill 相对于基线改进了结果。</p><p>使用定义成功标准中的指标。以下是比较可能的样子。</p><p><strong>基线比较</strong>：</p><div class="language- vp-adaptive-theme"><button title="Copy Code" class="copy" aria-label="复制代码"></button><span class="lang"></span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span>没有 skill：</span></span>
+<span class="line"><span>- 用户每次都提供指令</span></span>
+<span class="line"><span>- 15 次来回消息</span></span>
+<span class="line"><span>- 3 次失败的 API 调用需要重试</span></span>
+<span class="line"><span>- 消耗 12?000 tokens</span></span></code></pre></div><div class="language- vp-adaptive-theme"><button title="Copy Code" class="copy" aria-label="复制代码"></button><span class="lang"></span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span>有 skill：</span></span>
+<span class="line"><span>- 自动工作流执行</span></span>
+<span class="line"><span>- 仅 2 个澄清问题</span></span>
+<span class="line"><span>- 0 次失败的 API 调用</span></span>
+<span class="line"><span>- 消耗 6?000 tokens</span></span></code></pre></div><h3>使用 skill-creator skill </h3><p>skill-creator skill - 可通过 Claude.ai 的插件目录获得或下载用于 Claude Code - 可以帮助你构建和迭代 skills。如果你有一个 MCP 服务器并知道你的前 2-3 个工作流，你可以在一次会议中构建和测试一个功能性 skill - 通常在 15-30 分钟内。</p><p><strong>创建 skills</strong>：</p><ul><li>从自然语言描述生成 skills</li><li>生成格式正确的带有 frontmatter 的 SKILL.md</li><li>建议触发短语和结构</li></ul><p><strong>审查 skills</strong>：</p><ul><li>标记常见问题（模糊描述、缺少触发器、结构问题）</li><li>识别潜在的过度/不足触发风险</li><li>根据 skill 的既定目的建议测试用例</li></ul><p><strong>迭代改进</strong>：</p><ul><li>使用你的 skill 并遇到边缘情况或失败后，将这些示例带回 skill-creator</li><li>示例：&quot;使用此聊天中识别的问题和解决方案来改进 skill 如何处理 [特定边缘情况]&quot;</li></ul><p><strong>使用方法</strong>：</p><div class="language- vp-adaptive-theme"><button title="Copy Code" class="copy" aria-label="复制代码"></button><span class="lang"></span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span>&quot;使用 skill-creator skill 帮我为 [你的用例] 构建一个 skill&quot;</span></span></code></pre></div><p>注意：skill-creator 帮助你设计和完善 skills，但不执行自动化测试套件或产生定量评估结果。</p><h3>基于反馈的迭代 </h3><p>Skills 是活文档。计划根据以下内容进行迭代：</p><p><strong>触发不足的信号</strong>：</p><ul><li>Skill 在应该加载时不加载</li><li>用户手动启用它</li><li>关于何时使用它的支持问题</li></ul><p>解决方案：向描述添加更多细节和细微差别 - 这可能包括关键字，特别是技术术语</p><p><strong>过度触发的信号</strong>：</p><ul><li>Skill 为不相关的查询加载</li><li>用户禁用它</li><li>对目的感到困惑</li></ul><p>解决方案：添加负面触发器，更具体</p><p><strong>执行问题</strong>：</p><ul><li>结果不一致</li><li>API 调用失败</li><li>需要用户更正</li></ul><p>解决方案：改进指令，添加错误处理</p><p>解决方案：改进指令，添加错误处理</p><h2>分发与共享 </h2><p>Skills 使你的 MCP 集成更加完整。当用户比较连接器时，那些带有 skills 的连接器提供了更快的价值路径，使你比仅 MCP 的替代方案更具优势。</p><h3>当前分发模型（2026 年 1 月） </h3><h4>个人用户如何获取 skills </h4><ol><li>下载 skill 文件夹</li><li>压缩文件夹（如果需要）</li><li>通过设置 &gt; 功能 &gt; Skills 上传到 Claude.ai</li><li>或放置在 Claude Code skills 目录中</li></ol><h4>组织级别的 skills </h4><ul><li>管理员可以在工作区范围内部署 skills（2025 年 12 月 18 日发布）</li><li>自动更新</li><li>集中管理</li></ul><h3>开放标准 </h3><p>我们已将 Agent Skills 发布为开放标准。像 MCP 一样，我们相信 skills 应该可以跨工具和平台移植 - 无论你使用 Claude 还是其他 AI 平台，相同的 skill 都应该有效。也就是说，某些 skills 旨在充分利用特定平台的功能；作者可以在 skill 的兼容性字段中注明这一点。我们一直在与生态系统成员就该标准进行合作，我们对早期采用感到兴奋。</p><h3>通过 API 使用 skills </h3><p>对于程序化用例 - 例如构建利用 skills 的应用、代理或自动化工作流 - API 提供对 skill 管理和执行的直接控制。</p><p><strong>关键功能</strong>：</p><ul><li><code>/v1/skills</code> 端点用于列出和管理 skills</li><li>通过 <code>container.skills</code> 参数将 skills 添加到 Messages API 请求</li><li>通过 Claude Console 进行版本控制和管理</li><li>与 Claude Agent SDK 配合使用以构建自定义代理</li></ul><p><strong>何时通过 API 使用 skills 与 Claude.ai</strong>：</p><table tabindex="0"><thead><tr><th>用例</th><th>最佳平台</th></tr></thead><tbody><tr><td>最终用户直接与 skills 交互</td><td>Claude.ai / Claude Code</td></tr><tr><td>开发期间的手动测试和迭代</td><td>Claude.ai / Claude Code</td></tr><tr><td>个人、临时工作流</td><td>Claude.ai / Claude Code</td></tr><tr><td>以编程方式使用 skills 的应用</td><td>API</td></tr><tr><td>大规模生产部署</td><td>API</td></tr><tr><td>自动化管道和代理系统</td><td>API</td></tr></tbody></table><p>注意：API 中的 Skills 需要代码执行工具 beta，它提供 skills 运行所需的安全环境。</p><p>有关实现详细信息，请参阅：</p><ul><li>Skills API 快速入门</li><li>创建自定义 skills</li><li>AI ??? SDK 中的 Skills</li></ul><h3>今天推荐的方法 </h3><p>首先在 GitHub 上托管你的 skill，使用公共仓库、清晰的 README（供人类访问者使用 - 这与你的 skill 文件夹分开，不应包含 README.md）和带有屏幕截图的示例用法。然后在你的 MCP 文档中添加一个部分，链接到 skill，解释为什么一起使用两者有价值，并提供快速入门指南。</p><h4>1. 在 GitHub 上托管 </h4><ul><li>开源 skills 的公共仓库</li><li>带有安装说明的清晰 README</li><li>示例用法和屏幕截图</li></ul><h4>2. 在你的 MCP 仓库中记录 </h4><ul><li>从 MCP 文档链接到 skills</li><li>解释一起使用两者的价值</li><li>提供快速入门指南</li></ul><h4>3. 创建安装指南 </h4><div class="language-markdown vp-adaptive-theme"><button title="Copy Code" class="copy" aria-label="复制代码"></button><span class="lang">markdown</span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span style="--shiki-light:#005CC5;--shiki-light-font-weight:bold;--shiki-dark:#79B8FF;--shiki-dark-font-weight:bold;">## 安装 [</span><span style="--shiki-light:#032F62;--shiki-light-text-decoration:underline;--shiki-dark:#DBEDFF;--shiki-dark-text-decoration:underline;">你的服务</span><span style="--shiki-light:#005CC5;--shiki-light-font-weight:bold;--shiki-dark:#79B8FF;--shiki-dark-font-weight:bold;">] skill</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70;">1.</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> 下载 skill：</span></span>
+<span class="line"><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70;">   -</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> 克隆仓库：</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">`git clone https://github.com/yourcompany/skills`</span></span>
+<span class="line"><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70;">   -</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> 或从 Releases 下载 ZIP</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70;">2.</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> 在 Claude 中安装：</span></span>
+<span class="line"><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70;">   -</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> 打开 Claude.ai &gt; 设置 &gt; Skills</span></span>
+<span class="line"><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70;">   -</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> 点击&quot;上传 skill&quot;</span></span>
+<span class="line"><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70;">   -</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> 选择 skill 文件夹（压缩）</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70;">3.</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> 启用 skill：</span></span>
+<span class="line"><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70;">   -</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> 打开 [</span><span style="--shiki-light:#032F62;--shiki-light-text-decoration:underline;--shiki-dark:#DBEDFF;--shiki-dark-text-decoration:underline;">你的服务</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">] skill</span></span>
+<span class="line"><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70;">   -</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> 确保你的 MCP 服务器已连接</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70;">4.</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> 测试：</span></span>
+<span class="line"><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70;">   -</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> 询问 Claude：&quot;在 [</span><span style="--shiki-light:#032F62;--shiki-light-text-decoration:underline;--shiki-dark:#DBEDFF;--shiki-dark-text-decoration:underline;">你的服务</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">] 中设置一个新项目&quot;</span></span></code></pre></div><h3>定位你的 skill </h3><p>你如何描述你的 skill 决定了用户是否理解其价值并实际尝试它。在撰写关于你的 skill 的内容时 - 在你的 README、文档或营销中 - 请记住这些原则。</p><h4>关注结果，而不是功能 </h4><p>✅ <strong>好</strong>：</p><div class="language- vp-adaptive-theme"><button title="Copy Code" class="copy" aria-label="复制代码"></button><span class="lang"></span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span>&quot;ProjectHub skill 使团队能够在几秒钟内设置完整的项目工作区 ?? 包括页面、数据库和模板 ?? 而不是花 30 分钟进行手动设置。&quot;</span></span></code></pre></div><p>❌ <strong>不好</strong>：</p><div class="language- vp-adaptive-theme"><button title="Copy Code" class="copy" aria-label="复制代码"></button><span class="lang"></span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span>&quot;ProjectHub skill 是一个包含 YAML frontmatter 和 Markdown 指令的文件夹，它调用我们的 MCP 服务器工具。&quot;</span></span></code></pre></div><h4>突出 MCP + skills 的故事 </h4><div class="language- vp-adaptive-theme"><button title="Copy Code" class="copy" aria-label="复制代码"></button><span class="lang"></span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span>&quot;我们的 MCP 服务器让 Claude 访问你的 Linear 项目。我们的 skills 教 Claude 你团队的冲刺规划工作流。它们一起实现 AI 驱动的项目管理。&quot;</span></span></code></pre></div><h2>模式与故障排除 </h2><p>这些模式来自早期采用者和内部团队创建的 skills。它们代表我们看到的有效的常见方法，而不是规定性模板。</p><h3>选择你的方法：问题优先 vs. 工具优先 </h3><p>把它想象成家得宝。你可能带着一个问题走进去 -&quot;我需要修理厨房橱柜&quot;- 员工会为你指出正确的工具。或者你可能挑选一个新钻头并询问如何将其用于你的特定工作。</p><p>Skills 以同样的方式工作：</p><ul><li><p><strong>问题优先</strong>：&quot;我需要设置一个项目工作区&quot; 你的 skill 以正确的顺序编排正确的 MCP 调用。用户描述结果；skill 处理工具。</p></li><li><p><strong>工具优先</strong>：&quot;我已连接 Notion MCP&quot; 你的 skill 教 Claude 最佳工作流和最佳实践。用户有访问权限；skill 提供专业知识。</p></li></ul><p>大多数 skills 倾向于一个方向。知道哪种框架适合你的用例有助于你选择下面的正确模式。</p><h3>模式 1：顺序工作流编排 </h3><p><strong>使用时机</strong>：你的用户需要按特定顺序执行多步骤流程。</p><p><strong>示例结构</strong>：</p><div class="language-markdown vp-adaptive-theme"><button title="Copy Code" class="copy" aria-label="复制代码"></button><span class="lang">markdown</span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span style="--shiki-light:#005CC5;--shiki-light-font-weight:bold;--shiki-dark:#79B8FF;--shiki-dark-font-weight:bold;">## 工作流：入职新客户</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-light-font-weight:bold;--shiki-dark:#79B8FF;--shiki-dark-font-weight:bold;">### 步骤 1：创建账户</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">调用 MCP 工具：</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">`create_customer`</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">参数：name、email、company</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-light-font-weight:bold;--shiki-dark:#79B8FF;--shiki-dark-font-weight:bold;">### 步骤 2：设置支付</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">调用 MCP 工具：</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">`setup_payment_method`</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">等待：支付方式验证</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-light-font-weight:bold;--shiki-dark:#79B8FF;--shiki-dark-font-weight:bold;">### 步骤 3：创建订阅</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">调用 MCP 工具：</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">`create_subscription`</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">参数：plan_id、customer_id（来自步骤 1）</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-light-font-weight:bold;--shiki-dark:#79B8FF;--shiki-dark-font-weight:bold;">### 步骤 4：发送欢迎邮件</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">调用 MCP 工具：</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">`send_email`</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">模板：welcome_email_template</span></span></code></pre></div><p><strong>关键技术</strong>：</p><ul><li>明确的步骤排序</li><li>步骤之间的依赖关系</li><li>每个阶段的验证</li><li>失败的回滚指令</li></ul><h3>模式 2：多 MCP 协调 </h3><p><strong>使用时机</strong>：工作流跨越多个服务。</p><p><strong>示例：设计到开发交接</strong></p><div class="language-markdown vp-adaptive-theme"><button title="Copy Code" class="copy" aria-label="复制代码"></button><span class="lang">markdown</span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span style="--shiki-light:#005CC5;--shiki-light-font-weight:bold;--shiki-dark:#79B8FF;--shiki-dark-font-weight:bold;">## 阶段 1：设计导出（Figma MCP）</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70;">1.</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> 从 Figma 导出设计资产</span></span>
+<span class="line"><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70;">2.</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> 生成设计规格</span></span>
+<span class="line"><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70;">3.</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> 创建资产清单</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-light-font-weight:bold;--shiki-dark:#79B8FF;--shiki-dark-font-weight:bold;">## 阶段 2：资产存储（Drive MCP）</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70;">1.</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> 在 Drive 中创建项目文件夹</span></span>
+<span class="line"><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70;">2.</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> 上传所有资产</span></span>
+<span class="line"><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70;">3.</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> 生成可共享链接</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-light-font-weight:bold;--shiki-dark:#79B8FF;--shiki-dark-font-weight:bold;">## 阶段 3：任务创建（Linear MCP）</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70;">1.</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> 创建开发任务</span></span>
+<span class="line"><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70;">2.</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> 将资产链接附加到任务</span></span>
+<span class="line"><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70;">3.</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> 分配给工程团队</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-light-font-weight:bold;--shiki-dark:#79B8FF;--shiki-dark-font-weight:bold;">## 阶段 4：通知（Slack MCP）</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70;">1.</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> 将交接摘要发布到 #engineering</span></span>
+<span class="line"><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70;">2.</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> 包括资产链接和任务引用</span></span></code></pre></div><p><strong>关键技术</strong>：</p><ul><li>清晰的阶段分离</li><li>MCP 之间的数据传递</li><li>移至下一阶段前的验证</li><li>集中式错误处理</li></ul><h3>模式 3：迭代改进 </h3><p><strong>使用时机</strong>：输出质量通过迭代改进。</p><p><strong>示例：报告生成</strong></p><div class="language-markdown vp-adaptive-theme"><button title="Copy Code" class="copy" aria-label="复制代码"></button><span class="lang">markdown</span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span style="--shiki-light:#005CC5;--shiki-light-font-weight:bold;--shiki-dark:#79B8FF;--shiki-dark-font-weight:bold;">## 迭代报告创建</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-light-font-weight:bold;--shiki-dark:#79B8FF;--shiki-dark-font-weight:bold;">### 初始草稿</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70;">1.</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> 通过 MCP 获取数据</span></span>
+<span class="line"><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70;">2.</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> 生成第一份草稿报告</span></span>
+<span class="line"><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70;">3.</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> 保存到临时文件</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-light-font-weight:bold;--shiki-dark:#79B8FF;--shiki-dark-font-weight:bold;">### 质量检查</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70;">1.</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> 运行验证脚本：</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">`scripts/check_report.py`</span></span>
+<span class="line"><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70;">2.</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> 识别问题：</span></span>
+<span class="line"><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70;">   -</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> 缺少部分</span></span>
+<span class="line"><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70;">   -</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> 格式不一致</span></span>
+<span class="line"><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70;">   -</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> 数据验证错误</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-light-font-weight:bold;--shiki-dark:#79B8FF;--shiki-dark-font-weight:bold;">### 改进循环</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70;">1.</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> 解决每个识别的问题</span></span>
+<span class="line"><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70;">2.</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> 重新生成受影响的部分</span></span>
+<span class="line"><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70;">3.</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> 重新验证</span></span>
+<span class="line"><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70;">4.</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> 重复直到达到质量阈值</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-light-font-weight:bold;--shiki-dark:#79B8FF;--shiki-dark-font-weight:bold;">### 最终确定</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70;">1.</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> 应用最终格式</span></span>
+<span class="line"><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70;">2.</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> 生成摘要</span></span>
+<span class="line"><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70;">3.</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> 保存最终版本</span></span></code></pre></div><p><strong>关键技术</strong>：</p><ul><li>明确的质量标准</li><li>迭代改进</li><li>验证脚本</li><li>知道何时停止迭代</li></ul><h3>模式 4：上下文感知工具选择 </h3><p><strong>使用时机</strong>：相同结果，根据上下文使用不同工具。</p><p><strong>示例：文件存储</strong></p><div class="language-markdown vp-adaptive-theme"><button title="Copy Code" class="copy" aria-label="复制代码"></button><span class="lang">markdown</span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span style="--shiki-light:#005CC5;--shiki-light-font-weight:bold;--shiki-dark:#79B8FF;--shiki-dark-font-weight:bold;">## 智能文件存储</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-light-font-weight:bold;--shiki-dark:#79B8FF;--shiki-dark-font-weight:bold;">### 决策树</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70;">1.</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> 检查文件类型和大小</span></span>
+<span class="line"><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70;">2.</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> 确定最佳存储位置：</span></span>
+<span class="line"><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70;">   -</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> 大文件（&gt;10MB）：使用云存储 MCP</span></span>
+<span class="line"><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70;">   -</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> 协作文档：使用 Notion/Docs MCP</span></span>
+<span class="line"><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70;">   -</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> 代码文件：使用 GitHub MCP</span></span>
+<span class="line"><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70;">   -</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> 临时文件：使用本地存储</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-light-font-weight:bold;--shiki-dark:#79B8FF;--shiki-dark-font-weight:bold;">### 执行存储</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">基于决策：</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70;">-</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> 调用适当的 MCP 工具</span></span>
+<span class="line"><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70;">-</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> 应用特定于服务的元数据</span></span>
+<span class="line"><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70;">-</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> 生成访问链接</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-light-font-weight:bold;--shiki-dark:#79B8FF;--shiki-dark-font-weight:bold;">### 向用户提供上下文</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">解释为什么选择该存储</span></span></code></pre></div><p><strong>关键技术</strong>：</p><ul><li>清晰的决策标准</li><li>后备选项</li><li>选择的透明度</li></ul><h3>模式 5：领域特定智能 </h3><p><strong>使用时机</strong>：你的 skill 添加超越工具访问的专业知识。</p><p><strong>示例：金融合规</strong></p><div class="language-markdown vp-adaptive-theme"><button title="Copy Code" class="copy" aria-label="复制代码"></button><span class="lang">markdown</span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span style="--shiki-light:#005CC5;--shiki-light-font-weight:bold;--shiki-dark:#79B8FF;--shiki-dark-font-weight:bold;">## 符合合规的支付处理</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-light-font-weight:bold;--shiki-dark:#79B8FF;--shiki-dark-font-weight:bold;">### 处理前（合规检查）</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70;">1.</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> 通过 MCP 获取交易详情</span></span>
+<span class="line"><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70;">2.</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> 应用合规规则：</span></span>
+<span class="line"><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70;">   -</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> 检查制裁名单</span></span>
+<span class="line"><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70;">   -</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> 验证管辖区许可</span></span>
+<span class="line"><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70;">   -</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> 评估风险级别</span></span>
+<span class="line"><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70;">3.</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> 记录合规决策</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-light-font-weight:bold;--shiki-dark:#79B8FF;--shiki-dark-font-weight:bold;">### 处理</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">如果合规通过：</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70;">-</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> 调用支付处理 MCP 工具</span></span>
+<span class="line"><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70;">-</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> 应用适当的欺诈检查</span></span>
+<span class="line"><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70;">-</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> 处理交易</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">否则：</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70;">-</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> 标记以供审查</span></span>
+<span class="line"><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70;">-</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> 创建合规案例</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-light-font-weight:bold;--shiki-dark:#79B8FF;--shiki-dark-font-weight:bold;">### 审计跟踪</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70;">-</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> 记录所有合规检查</span></span>
+<span class="line"><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70;">-</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> 记录处理决策</span></span>
+<span class="line"><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70;">-</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> 生成审计报告</span></span></code></pre></div><p><strong>关键技术</strong>：</p><ul><li>逻辑中嵌入的领域专业知识</li><li>行动前的合规</li><li>全面的文档</li><li>清晰的治理</li></ul><h3>故障排除 </h3><h4>Skill 无法上传 </h4><p><strong>错误：&quot;在上传的文件夹中找不到 SKILL.md&quot;</strong></p><p>原因：文件名不完全是 SKILL.md</p><p>解决方案：</p><ul><li>重命名为 SKILL.md（区分大小写）</li><li>验证：<code>ls -la</code> 应显示 SKILL.md</li></ul><p><strong>错误：&quot;无效的 frontmatter&quot;</strong></p><p>原因：YAML 格式问题</p><p>常见错误：</p><div class="language-yaml vp-adaptive-theme"><button title="Copy Code" class="copy" aria-label="复制代码"></button><span class="lang">yaml</span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"># 错误 ?? 缺少分隔符</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">name</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">my-skill</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">description</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: ???? </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">skill ?????</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"># 错误 ?? 未闭合引号</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">name</span><span style="--shiki-light:#B31D28;--shiki-light-font-style:italic;--shiki-dark:#FDAEB7;--shiki-dark-font-style:italic;">:</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> my-skill</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">description</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;???? skill ?????</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"># 正确</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">---</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">name: my-skill</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">description: ???? skill ?????</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">---</span></span></code></pre></div><p><strong>错误：&quot;无效的 skill 名称&quot;</strong></p><p>原因：名称有空格或大写</p><div class="language-yaml vp-adaptive-theme"><button title="Copy Code" class="copy" aria-label="复制代码"></button><span class="lang">yaml</span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"># 错误</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">name</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">My Cool Skill</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"># 正确</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">name</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">my-cool-skill</span></span></code></pre></div><h4>Skill 不触发 </h4><p><strong>症状</strong>：Skill 从不自动加载</p><p>修复：修改你的 description 字段。有关好/坏示例，请参阅 Description 字段。</p><p><strong>快速检查清单</strong>：</p><ul><li>是否太通用？（&quot;帮助处理项目&quot;不起作用）</li><li>是否包含用户实际会说的触发短语？</li><li>如果适用，是否提及相关文件类型？</li></ul><p><strong>调试方法</strong>： 询问 Claude：&quot;你什么时候会使用 [skill 名称] skill？&quot; Claude 会引用描述。根据缺少的内容进行调整。</p><h4>Skill 触发过于频繁 </h4><p><strong>症状</strong>：Skill 为不相关的查询加载</p><p><strong>解决方案</strong>：</p><ol><li><strong>添加负面触发器</strong></li></ol><div class="language-yaml vp-adaptive-theme"><button title="Copy Code" class="copy" aria-label="复制代码"></button><span class="lang">yaml</span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">description</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">CSV 文件的高级数据分析。用于统计建模、回归、聚类。不要用于简单的数据探索（改用 data-viz skill）。</span></span></code></pre></div><ol start="2"><li><strong>更具体</strong></li></ol><div class="language-yaml vp-adaptive-theme"><button title="Copy Code" class="copy" aria-label="复制代码"></button><span class="lang">yaml</span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"># 太宽泛</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">description</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">处理文档</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"># 更具体</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">description</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">处理 PDF 法律文档以进行合同审查</span></span></code></pre></div><ol start="3"><li><strong>澄清范围</strong></li></ol><div class="language-yaml vp-adaptive-theme"><button title="Copy Code" class="copy" aria-label="复制代码"></button><span class="lang">yaml</span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">description</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">电子商务的 PayFlow 支付处理。专门用于在线支付工作流，而不是一般财务查询。</span></span></code></pre></div><h4>MCP 连接问题 </h4><p><strong>症状</strong>：Skill 加载但 MCP 调用失败</p><p><strong>检查清单</strong>：</p><ol><li><p>验证 MCP 服务器已连接</p><ul><li>Claude.ai：设置 &gt; 扩展 &gt; [你的服务]</li><li>应显示&quot;已连接&quot;状态</li></ul></li><li><p>检查身份验证</p><ul><li>API 密钥有效且未过期</li><li>授予适当的权限/范围</li><li>OAuth tokens 已刷新</li></ul></li><li><p>独立测试 MCP</p><ul><li>要求 Claude 直接调用 MCP（不使用 skill）</li><li>&quot;使用 [服务] MCP 获取我的项目&quot;</li><li>如果失败，问题在于 MCP 而不是 skill</li></ul></li><li><p>验证工具名称</p><ul><li>Skill 引用正确的 MCP 工具名称</li><li>检查 MCP 服务器文档</li><li>工具名称区分大小写</li></ul></li></ol><h4>指令未遵循 </h4><p><strong>症状</strong>：Skill 加载但 Claude 不遵循指令</p><p><strong>常见原因</strong>：</p><ol><li><p><strong>指令过于冗长</strong></p><ul><li>保持指令简洁</li><li>使用项目符号和编号列表</li><li>将详细参考移至单独的文件</li></ul></li><li><p><strong>指令被埋没</strong></p><ul><li>将关键指令放在顶部</li><li>使用 ## 重要 或 ## 关键 标题</li><li>如果需要，重复关键点</li></ul></li><li><p><strong>模糊的语言</strong></p></li></ol><p>❌ <strong>不好</strong></p><div class="language- vp-adaptive-theme"><button title="Copy Code" class="copy" aria-label="复制代码"></button><span class="lang"></span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span>确保正确验证事物</span></span></code></pre></div><p>✅ <strong>好</strong></p><div class="language- vp-adaptive-theme"><button title="Copy Code" class="copy" aria-label="复制代码"></button><span class="lang"></span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span>关键：在调用 create_project 之前，验证：</span></span>
+<span class="line"><span>- 项目名称非空</span></span>
+<span class="line"><span>- 至少分配一名团队成员</span></span>
+<span class="line"><span>- 开始日期不在过去</span></span></code></pre></div><p>高级技术：对于关键验证，考虑捆绑一个以编程方式执行检查的脚本，而不是依赖语言指令。代码是确定性的；语言解释不是。有关此模式的示例，请参阅 Office skills。</p><ol start="4"><li><strong>模型&quot;懒惰&quot;</strong> 添加明确的鼓励：</li></ol><div class="language-markdown vp-adaptive-theme"><button title="Copy Code" class="copy" aria-label="复制代码"></button><span class="lang">markdown</span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span style="--shiki-light:#005CC5;--shiki-light-font-weight:bold;--shiki-dark:#79B8FF;--shiki-dark-font-weight:bold;">## 性能说明</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70;">-</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> 花时间彻底完成此操作</span></span>
+<span class="line"><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70;">-</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> 质量比速度更重要</span></span>
+<span class="line"><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70;">-</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> 不要跳过验证步骤</span></span></code></pre></div><p>注意：将此添加到用户提示比在 SKILL.md 中更有效</p><h4>大上下文问题 </h4><p><strong>症状</strong>：Skill 似乎很慢或响应降级</p><p><strong>原因</strong>：</p><ul><li>Skill 内容太大</li><li>同时启用太多 skills</li><li>加载所有内容而不是渐进式披露</li></ul><p><strong>解决方案</strong>：</p><ol><li><p><strong>优化 SKILL.md 大小</strong></p><ul><li>将详细文档移至 references/</li><li>链接到引用而不是内联</li><li>保持 SKILL.md 少于 5,000 字</li></ul></li><li><p><strong>减少启用的 skills</strong></p><ul><li>评估是否同时启用了超过 20-50 个 skills</li><li>建议选择性启用</li><li>考虑相关功能的 skill&quot;包&quot;</li></ul></li></ol><h2>资源与参考 </h2><p>如果你正在构建你的第一个 skill，请从最佳实践指南开始，然后根据需要参考 API 文档。</p><h3>官方文档 </h3><p><strong>Anthropic 资源</strong>：</p><ul><li>最佳实践指南</li><li>Skills 文档</li><li>API 参考</li><li>MCP 文档</li></ul><p><strong>博客文章</strong>：</p><ul><li>介绍 Agent Skills</li><li>工程博客：为现实世界装备代理</li><li>Skills 解释</li><li>如何为 Claude 创建 Skills</li><li>为 Claude Code 构建 Skills</li><li>通过 Skills 改进前端设计</li></ul><h3>示例 skills </h3><p><strong>公共 skills 仓库</strong>：</p><ul><li>GitHub: anthropics/skills</li><li>包含你可以自定义的 Anthropic 创建的 skills</li></ul><h3>工具和实用程序 </h3><p><strong>skill-creator skill</strong>：</p><ul><li>内置于 Claude.ai 并可用于 Claude Code</li><li>可以从描述生成 skills</li><li>审查并提供建议</li><li>使用：&quot;使用 skill-creator 帮我构建一个 skill&quot;</li></ul><p><strong>验证</strong>：</p><ul><li>skill-creator 可以评估你的 skills</li><li>询问：&quot;审查此 skill 并提出改进建议&quot;</li></ul><h3>获取支持 </h3><p><strong>技术问题</strong>：</p><ul><li>一般问题：Claude Developers Discord 的社区论坛</li></ul><p><strong>错误报告</strong>：</p><ul><li>GitHub Issues: anthropics/skills/issues</li><li>包括：Skill 名称、错误消息、重现步骤</li></ul><h3>参考 A：快速检查清单 </h3><p>在上传之前和之后使用此检查清单验证你的 skill。如果你想更快开始，请使用 skill-creator skill 生成你的第一个草稿，然后运行此列表以确保你没有遗漏任何内容。</p><p><strong>开始之前</strong></p><ul class="contains-task-list"><li class="task-list-item enabled"><input class="task-list-item-checkbox" type="checkbox"> 确定了 2-3 个具体用例</li><li class="task-list-item enabled"><input class="task-list-item-checkbox" type="checkbox"> 确定了工具（内置或 MCP）</li><li class="task-list-item enabled"><input class="task-list-item-checkbox" type="checkbox"> 审查了本指南和示例 skills</li><li class="task-list-item enabled"><input class="task-list-item-checkbox" type="checkbox"> 计划了文件夹结构</li></ul><p><strong>开发期间</strong></p><ul class="contains-task-list"><li class="task-list-item enabled"><input class="task-list-item-checkbox" type="checkbox"> 文件夹以 kebab-case 命名</li><li class="task-list-item enabled"><input class="task-list-item-checkbox" type="checkbox"> SKILL.md 文件存在（精确拼写）</li><li class="task-list-item enabled"><input class="task-list-item-checkbox" type="checkbox"> YAML frontmatter 有 --- 分隔符</li><li class="task-list-item enabled"><input class="task-list-item-checkbox" type="checkbox"> name 字段：kebab-case，无空格，无大写</li><li class="task-list-item enabled"><input class="task-list-item-checkbox" type="checkbox"> description 包括什么和何时</li><li class="task-list-item enabled"><input class="task-list-item-checkbox" type="checkbox"> 任何地方都没有 XML 标签（&lt; &gt;）</li><li class="task-list-item enabled"><input class="task-list-item-checkbox" type="checkbox"> 指令清晰且可操作</li><li class="task-list-item enabled"><input class="task-list-item-checkbox" type="checkbox"> 包含错误处理</li><li class="task-list-item enabled"><input class="task-list-item-checkbox" type="checkbox"> 提供了示例</li><li class="task-list-item enabled"><input class="task-list-item-checkbox" type="checkbox"> 清楚地链接了引用</li></ul><p><strong>上传前</strong></p><ul class="contains-task-list"><li class="task-list-item enabled"><input class="task-list-item-checkbox" type="checkbox"> 在明显任务上测试触发</li><li class="task-list-item enabled"><input class="task-list-item-checkbox" type="checkbox"> 在改述请求上测试触发</li><li class="task-list-item enabled"><input class="task-list-item-checkbox" type="checkbox"> 验证不在不相关主题上触发</li><li class="task-list-item enabled"><input class="task-list-item-checkbox" type="checkbox"> 功能测试通过</li><li class="task-list-item enabled"><input class="task-list-item-checkbox" type="checkbox"> 工具集成有效（如果适用）</li><li class="task-list-item enabled"><input class="task-list-item-checkbox" type="checkbox"> 压缩为 .zip 文件</li></ul><p><strong>上传后</strong></p><ul class="contains-task-list"><li class="task-list-item enabled"><input class="task-list-item-checkbox" type="checkbox"> 在真实对话中测试</li><li class="task-list-item enabled"><input class="task-list-item-checkbox" type="checkbox"> 监控触发不足/过度</li><li class="task-list-item enabled"><input class="task-list-item-checkbox" type="checkbox"> 收集用户反馈</li><li class="task-list-item enabled"><input class="task-list-item-checkbox" type="checkbox"> 迭代描述和指令</li><li class="task-list-item enabled"><input class="task-list-item-checkbox" type="checkbox"> 更新元数据中的版本</li></ul><h3>参考 B：YAML Frontmatter </h3><p><strong>必需字段</strong></p><div class="language-yaml vp-adaptive-theme"><button title="Copy Code" class="copy" aria-label="复制代码"></button><span class="lang">yaml</span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">---</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">name</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">skill-name-in-kebab-case</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">description</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: ??????????????????????</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">---</span></span></code></pre></div><p><strong>所有可选字段</strong></p><div class="language-yaml vp-adaptive-theme"><button title="Copy Code" class="copy" aria-label="复制代码"></button><span class="lang">yaml</span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">---</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">name</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">skill-name</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">description</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: [????????????]</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">license</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">MIT</span><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"> # 可选：开源许可证</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">allowed-tools</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&#39;Bash python:* Bash(npm:*) WebFetch&#39;</span><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"> # 可选：限制工具访问</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">metadata</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"># 可选：自定义字段</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">  author</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">Company Name</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">  version</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">1.0.0</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">  mcp-server</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">server-name</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">  category</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">productivity</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">  tags</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: [</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">project-management?automation</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">]</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">  documentation</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">https://example.com/docs</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">  support</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">support@example.com</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">---</span></span></code></pre></div><p><strong>安全说明</strong></p><p>允许：</p><ul><li>任何标准 YAML 类型（字符串、数字、布尔值、列表、对象）</li><li>自定义元数据字段</li><li>长描述（最多 1024 个字符）</li></ul><p>禁止：</p><ul><li>XML 尖括号（&lt; &gt;）- 安全限制</li><li>YAML 中的代码执行（使用安全 YAML 解析）</li><li>以&quot;claude&quot;或&quot;anthropic&quot;前缀命名的 Skills（保留）</li></ul><h3>参考 C：完整 Skill 示例 </h3><p>有关演示本指南中模式的完整、生产就绪的 skills：</p><ul><li>文档 Skills - PDF、DOCX、PPTX、XLSX 创建</li><li>示例 Skills - 各种工作流模式</li><li>合作伙伴 Skills 目录 - 查看来自 Asana、Atlassian、Canva、Figma、Sentry、Zapier 等各种合作伙伴的 skills</li></ul><p>这些仓库保持最新，并包含本文涵盖之外的其他示例。克隆它们，为你的用例修改它们，并将它们用作模板。</p><hr><p><strong>原文链接</strong>：<a href="https://www.anthropic.com/" target="_blank" rel="noreferrer">The Complete Guide to Building Skills for Claude</a></p><p><strong>发布日期</strong>：2026 年 1 月</p><p><strong>标签</strong>：#Claude #Skills #AI智能体 #MCP #工作流自动化</p></div></div>
+</div>
+
+
+</main>
+
+<footer class="site-footer">
+<p>© 2026 TPvibe · 内部预览版</p>
+<p style="margin-top:8px;">
+<a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer">蜀ICP备2024097797号-3</a>
+</p>
+</footer>
+<!-- THEME:tpvibe -->
+<script>
+/* Theme toggle */
+(function(){
+  var r=document.documentElement;
+  var saved=localStorage.getItem('tpvibe-theme');r.dataset.theme=saved||'light';
+  
+  /* sync button icon */
+  
+})();
+/* Reveal on scroll */
+(function(){
+  var obs=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');obs.unobserve(e.target);}});},{threshold:.15});
+  document.querySelectorAll('.reveal').forEach(function(el){obs.observe(el);});
+})();
+/* Progress bar */
+(function(){
+  var bar=document.getElementById('progress');
+  if(!bar)return;
+  window.addEventListener('scroll',function(){
+    var h=document.documentElement.scrollHeight-window.innerHeight;
+    bar.style.width=(h>0?(window.scrollY/h*100):0)+'%';
+  });
+})();
+</script>
+<script>
+/* Theme button icon sync */
+(function(){
+  var btn=document.querySelector('.theme-btn');
+  if(!btn)return;
+  function sync(){btn.textContent=document.documentElement.dataset.theme==='dark'?'☀️':'🌙';}
+  sync();
+  btn.addEventListener('click',function(){setTimeout(sync,0);});
+})();
+</script>
+
+<nav class="mobile-bottom-tabs"><ul><li><a href="/tpvibe/index.html"><svg viewBox="0 0 24 24"><path d="M3 12L12 3l9 9M5 10v10h4v-6h6v6h4V10"/></svg><span>首页</span></a></li><li><a href="/tpvibe/Basic/lecture-1.html"><svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg><span>基础篇</span></a></li><li><a href="/tpvibe/Advanced/ch01.html"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg><span>进阶篇</span></a></li><li><a href="/tpvibe/Articles/core-concepts.html"><svg viewBox="0 0 24 24"><path d="M4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zM8 7h8M8 11h8M8 15h6"/></svg><span>文章</span></a></li><li><a href="/tpvibe/Practice/index.html"><svg viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg><span>实践</span></a></li></ul></nav>
+<script>
+(function(){
+  // 判断当前页面，高亮对应的 tab（目录前缀匹配）
+  var path=location.pathname.replace(/\/index\.html$/,'/').replace(/\/$/,'');
+  var tabs=document.querySelectorAll('.mobile-bottom-tabs a');
+  var bestMatch=null;
+  var bestMatchLen=0;
+  tabs.forEach(function(a){
+    var href=a.getAttribute('href')||'';
+    if(!href)return;
+    var hrefPath=href.replace(/https?:\/\/[^\/]+/,'').replace(/\/index\.html$/,'/').replace(/\/$/,'');
+    if(path===hrefPath){bestMatch=a;return;}
+    // 目录前缀匹配：当前路径以 tab 路径开头
+    if(hrefPath.length>2&&path.indexOf(hrefPath)>=0&&hrefPath.length>bestMatchLen){bestMatch=a;bestMatchLen=hrefPath.length;}
+  });
+  if(bestMatch)bestMatch.classList.add('active');
+})();
+</script>
+
+
+<script src="/tpvibe/toc-sheet.js"></script>
+</body>
+</html>

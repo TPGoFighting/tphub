@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="geo.region" content="CN">
+<meta name="geo.placename" content="China">
+<meta name="geo.position" content="39.9042;116.4074">
+<meta name="ICBM" content="39.9042, 116.4074">
+<link rel="icon" href="/tpvibe/images/tp_logo.jpg" type="image/png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MCP 与 Skills | TPvibe</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/tpvibe/style.css">
+<!-- SEO:tphub -->
+<meta name="description" content="MCP 与 Skills — TPvibe 中文 AI 学习与实战教程，从零基础到进阶，边学边做。">
+<link rel="canonical" href="https://tphub.tpgofighting.top/tpvibe/Advanced/ch02/03-mcp-and-skills.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="TPvibe">
+<meta property="og:title" content="MCP 与 Skills | TPvibe">
+<meta property="og:description" content="MCP 与 Skills — TPvibe 中文 AI 学习与实战教程，从零基础到进阶，边学边做。">
+<meta property="og:url" content="https://tphub.tpgofighting.top/tpvibe/Advanced/ch02/03-mcp-and-skills.html">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://tphub.tpgofighting.top/tpvibe/images/tp_logo.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="MCP 与 Skills | TPvibe">
+<meta name="twitter:description" content="MCP 与 Skills — TPvibe 中文 AI 学习与实战教程，从零基础到进阶，边学边做。">
+<meta name="twitter:image" content="https://tphub.tpgofighting.top/tpvibe/images/tp_logo.jpg">
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "name": "MCP 与 Skills | TPvibe",
+  "url": "https://tphub.tpgofighting.top/tpvibe/Advanced/ch02/03-mcp-and-skills.html",
+  "description": "TPvibe 中文 AI 学习与实战教程：从零基础到进阶，边学边做，附可运行示例与实战项目。",
+  "inLanguage": "zh-CN",
+  "isPartOf": {"@type": "WebSite", "name": "TPvibe", "url": "https://tphub.tpgofighting.top/tpvibe/"}
+}</script>
+<!-- GEO:v2 -->
+<!-- LOGOFIX:v2 -->
+</head>
+<body>
+<aside class="toc" id="toc">
+<button class="toc-toggle" id="tocToggle" aria-label="收起目录">«</button>
+<div class="toc-inner">
+<a class="toc-home" href="/tpvibe/index.html">TPvibe 首页</a>
+<details class="toc-sec">
+<summary>基础篇</summary>
+<ul class="toc-tree">
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Basic/lecture-1.html">00 序言</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Basic/lecture-1/0.1-start-here.html">开始之前</a></li>
+<li><a href="/tpvibe/Basic/lecture-1/0.2-what-you-will-build.html">你要做什么</a></li>
+<li><a href="/tpvibe/Basic/lecture-1/0.3-who-this-is-for.html">适合谁学</a></li>
+<li><a href="/tpvibe/Basic/lecture-1/0.4-how-to-learn.html">怎么学</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Basic/lecture-2.html">01 觉醒</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Basic/lecture-2/1.1-coder-to-commander.html">从程序员到指挥官</a></li>
+<li><a href="/tpvibe/Basic/lecture-2/1.2-breaking-myths.html">打破误区</a></li>
+<li><a href="/tpvibe/Basic/lecture-2/1.3-tools-guide.html">工具选择指南</a></li>
+<li><a href="/tpvibe/Basic/lecture-2/1.4-vibe-vs-spec.html">Vibe Coding vs 规格驱动</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Basic/lecture-3.html">02 心智</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Basic/lecture-3/2.1-thinking-upgrade.html">思维升级</a></li>
+<li><a href="/tpvibe/Basic/lecture-3/2.2-inversion-thinking.html">逆向思维</a></li><li><a href="/tpvibe/Basic/lecture-3/2.3-subtraction-thinking.html">减法思维</a></li>
+<li><a href="/tpvibe/Basic/lecture-3/2.4-story-thinking.html">故事思维</a></li>
+
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Basic/lecture-4.html">03 技法</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Basic/lecture-4/3.1-prompt-basics.html">提示词基础</a></li>
+<li><a href="/tpvibe/Basic/lecture-4/3.2-structured-frameworks.html">结构化框架</a></li>
+<li><a href="/tpvibe/Basic/lecture-4/3.3-advanced-techniques.html">进阶技巧</a></li>
+<li><a href="/tpvibe/Basic/lecture-4/3.4-first-prd.html">第一份 PRD</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Basic/lecture-5.html">04 从0到1</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Basic/lecture-5/4.1-before-start.html">搭建前准备</a></li>
+<li><a href="/tpvibe/Basic/lecture-5/4.2-build-page.html">搭建页面</a></li>
+<li><a href="/tpvibe/Basic/lecture-5/4.3-core-features.html">核心功能</a></li>
+<li><a href="/tpvibe/Basic/lecture-5/4.4-data-storage.html">数据存储</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Basic/appendix-a.html">05 进阶</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Basic/appendix-a/5.1-version-control.html">版本控制</a></li>
+<li><a href="/tpvibe/Basic/appendix-a/5.2-deployment.html">部署上线</a></li>
+<li><a href="/tpvibe/Basic/appendix-a/5.3-security.html">安全防护</a></li>
+<li><a href="/tpvibe/Basic/appendix-a/5.4-iteration.html">迭代优化</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Basic/appendix-b.html">06 上线</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Basic/appendix-b/6.1-preflight.html">发布前检查</a></li>
+<li><a href="/tpvibe/Basic/appendix-b/6.2-deploy.html">发布流程</a></li>
+<li><a href="/tpvibe/Basic/appendix-b/6.3-feedback.html">收集反馈</a></li>
+<li><a href="/tpvibe/Basic/appendix-b/6.4-wrap-up.html">总结回顾</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Basic/appendix-c.html">99 附录</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Basic/appendix-c/a-prompt-cheatsheet.html">提示词速查表</a></li>
+<li><a href="/tpvibe/Basic/appendix-c/b-errors-and-asking-ai.html">常见错误与求助</a></li>
+<li><a href="/tpvibe/Basic/appendix-c/c-ui-cheatsheet.html">UI 速查表</a></li>
+<li><a href="/tpvibe/Basic/appendix-c/d-git-minimal-card.html">Git 最小知识卡</a></li>
+<li><a href="/tpvibe/Basic/appendix-c/e-api-key-env-security.html">API Key 与环境安全</a></li>
+<li><a href="/tpvibe/Basic/appendix-c/f-vibe-coding-can-and-cannot.html">Vibe Coding 能做与不能做</a></li>
+<li><a href="/tpvibe/Basic/appendix-c/g-advanced-jump-map.html">进阶跳转地图</a></li>
+</ul>
+</li>
+<li class="toc-chapter">
+<a href="/tpvibe/Basic/conclusion.html">100 结语</a>
+</li>
+</ul>
+</details>
+<details class="toc-sec">
+<summary>进阶篇</summary>
+<ul class="toc-tree">
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch01.html">01 环境搭建</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch01/00-quick-start.html">快速上手</a></li>
+<li><a href="/tpvibe/Advanced/ch01/01-code-formats.html">代码格式与编辑器</a></li>
+<li><a href="/tpvibe/Advanced/ch01/02-tech-stack.html">技术栈选择</a></li>
+<li><a href="/tpvibe/Advanced/ch01/03-browser-server.html">浏览器与服务器</a></li>
+<li><a href="/tpvibe/Advanced/ch01/04-terminal-basics.html">终端基础操作</a></li>
+<li><a href="/tpvibe/Advanced/ch01/05-package-manager-and-config.html">包管理与配置文件</a></li>
+<li><a href="/tpvibe/Advanced/ch01/06-models-and-tools.html">AI 模型与工具选择</a></li>
+<li><a href="/tpvibe/Advanced/ch01/07-creating-project.html">创建你的第一个项目</a></li>
+<li><a href="/tpvibe/Advanced/ch01/08-localhost-and-ports.html">本地服务器与端口</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch02.html">02 开发工具与AI调优</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch02/01-ai-economics.html">AI 经济学</a></li>
+<li><a href="/tpvibe/Advanced/ch02/02-vibecoding-workflow.html">Vibe Coding 工作流</a></li>
+<li><a href="/tpvibe/Advanced/ch02/03-mcp-and-skills.html" class="active">MCP 与 Skills</a></li>
+<li><a href="/tpvibe/Advanced/ch02/04-project-config.html">项目配置</a></li>
+<li><a href="/tpvibe/Advanced/ch02/05-debugging-tips.html">调试技巧</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch03.html">03 产品验证</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch03/01-product-validation.html">产品验证</a></li>
+<li><a href="/tpvibe/Advanced/ch03/02-discuss-with-ai.html">与 AI 讨论</a></li>
+<li><a href="/tpvibe/Advanced/ch03/03-prd-template-guide.html">PRD 模板指南</a></li>
+<li><a href="/tpvibe/Advanced/ch03/04-coding-agents.html">编码代理</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch04.html">04 编程基础</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch04/00-build-basics.html">构建基础</a></li>
+<li><a href="/tpvibe/Advanced/ch04/01-tech-stack-decision.html">技术栈决策</a></li>
+<li><a href="/tpvibe/Advanced/ch04/03-programming-basics.html">编程基础</a></li>
+<li><a href="/tpvibe/Advanced/ch04/02-prd-and-tech-docs.html">PRD 与技术文档</a></li>
+<li><a href="/tpvibe/Advanced/ch04/04-api-and-http.html">API 与 HTTP</a></li>
+<li><a href="/tpvibe/Advanced/ch04/05-frontend-backend-separation.html">前后端分离</a></li>
+<li><a href="/tpvibe/Advanced/ch04/06-config-formats.html">配置格式</a></li>
+<li><a href="/tpvibe/Advanced/ch04/07-api-integration.html">API 集成</a></li>
+<li><a href="/tpvibe/Advanced/ch04/08-readme-structure.html">README 结构</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch05.html">05 好看好用的界面</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch05/03-animation-libraries.html">动画库</a></li>
+</ul>
+</li>
+<li class="toc-chapter">
+<a href="/tpvibe/Advanced/ch06.html">06 数据存哪里</a>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch07.html">07 连接前后端</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch07/00-crud-example.html">CRUD 示例</a></li>
+<li><a href="/tpvibe/Advanced/ch07/02-when-things-go-wrong.html">出错处理</a></li>
+<li><a href="/tpvibe/Advanced/ch07/03-api-as-product.html">API 即产品</a></li>
+<li><a href="/tpvibe/Advanced/ch07/01-api-growing-pains.html">API 成长烦恼</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch08.html">08 谁能访问数据</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch08/00-user-system-example.html">用户系统示例</a></li>
+<li><a href="/tpvibe/Advanced/ch08/01-env-and-secrets.html">环境变量与密钥</a></li>
+<li><a href="/tpvibe/Advanced/ch08/03-route-protection.html">路由保护</a></li>
+<li><a href="/tpvibe/Advanced/ch08/04-security-checklist.html">安全清单</a></li>
+<li><a href="/tpvibe/Advanced/ch08/05-advanced-security.html">高级安全</a></li>
+<li><a href="/tpvibe/Advanced/ch08/02-auth-methods.html">认证方式</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch09.html">09 功能测试</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch09/01-testing-strategy.html">测试策略</a></li>
+<li><a href="/tpvibe/Advanced/ch09/02-api-and-e2e-testing.html">API 与 E2E 测试</a></li>
+<li><a href="/tpvibe/Advanced/ch09/03-automation-workflow.html">自动化工作流</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch10.html">10 公网访问</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch10/01-network-layers.html">网络分层</a></li>
+<li><a href="/tpvibe/Advanced/ch10/02-tunneling.html">隧道穿透</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch11.html">11 协作开发</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch11/01-why-git.html">为什么用 Git</a></li>
+<li><a href="/tpvibe/Advanced/ch11/02-remote-and-collaboration.html">远程与协作</a></li>
+<li><a href="/tpvibe/Advanced/ch11/03-branch-and-workflow.html">分支与工作流</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch12.html">12 无服务器部署</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch12/01-deploy-edgeone.html">EdgeOne 部署</a></li>
+<li><a href="/tpvibe/Advanced/ch12/02-deploy-vercel-platforms.html">Vercel 等平台部署</a></li>
+<li><a href="/tpvibe/Advanced/ch12/03-cicd-automation.html">CI/CD 自动化</a></li>
+<li><a href="/tpvibe/Advanced/ch12/04-operations-cost.html">运维成本</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch13.html">13 域名解析</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch13/01-domain-setup.html">域名设置</a></li>
+<li><a href="/tpvibe/Advanced/ch13/02-compliance-access.html">合规接入</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch14.html">14 部署到服务器</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch14/01-vps-selection.html">VPS 选择</a></li>
+<li><a href="/tpvibe/Advanced/ch14/02-vps-setup.html">VPS 配置</a></li>
+<li><a href="/tpvibe/Advanced/ch14/03-1-docker-apps.html">Docker 应用</a></li>
+<li><a href="/tpvibe/Advanced/ch14/03-2-deploy-nextjs.html">部署 Next.js</a></li>
+<li><a href="/tpvibe/Advanced/ch14/03-4-deploy-fullstack.html">部署全栈应用</a></li>
+<li><a href="/tpvibe/Advanced/ch14/05-cool-apps.html">酷应用</a></li>
+<li><a href="/tpvibe/Advanced/ch14/03-3-deploy-static.html">部署静态站点</a></li>
+<li><a href="/tpvibe/Advanced/ch14/04-domain-ssl.html">域名与 SSL</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch15.html">15 SEO与统计</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch15/01-opengraph-sharing.html">OpenGraph 分享</a></li>
+<li><a href="/tpvibe/Advanced/ch15/02-seo-guide.html">SEO 指南</a></li>
+<li><a href="/tpvibe/Advanced/ch15/03-umami.html">Umami 统计</a></li>
+<li><a href="/tpvibe/Advanced/ch15/04-legal.html">法律合规</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Advanced/ch16.html">16 反馈与迭代</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Advanced/ch16/01-facing-real-users.html">面向真实用户</a></li>
+<li><a href="/tpvibe/Advanced/ch16/02-feedback-prioritization.html">反馈优先级</a></li>
+<li><a href="/tpvibe/Advanced/ch16/03-understanding-users.html">理解用户</a></li>
+<li><a href="/tpvibe/Advanced/ch16/04-iteration-and-growth.html">迭代与增长</a></li>
+</ul>
+</li>
+<li class="toc-chapter">
+<a href="/tpvibe/Advanced/next-level.html">进阶实战</a>
+</li>
+</ul>
+</details>
+<details class="toc-sec">
+<summary>文章</summary>
+<ul class="toc-tree">
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Articles/core-concepts.html">核心概念</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Articles/core-concepts/what-are-ai-agents-why-do-they-matter.html">AI Agent 是什么</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Articles/architecture.html">技术架构</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Articles/architecture/how-claude-code-works.html">Claude Code 如何工作</a></li>
+<li><a href="/tpvibe/Articles/architecture/mcp-what-it-is-and-why-it-matters.html">MCP 是什么及为何重要</a></li>
+<li><a href="/tpvibe/Articles/architecture/build-agents-with-filesystems-and-bash.html">用文件系统和 Bash 构建 Agent</a></li>
+<li><a href="/tpvibe/Articles/architecture/testing-bash-vs-sql.html">Bash vs SQL 测试</a></li>
+<li><a href="/tpvibe/Articles/architecture/multi-agent-systems-ai-native-engineering.html">多 Agent 系统与 AI 原生工程</a></li>
+<li><a href="/tpvibe/Articles/architecture/self-improving-coding-agents.html">自我改进的编码 Agent</a></li>
+<li><a href="/tpvibe/Articles/architecture/nvidia-ai-5-layer-cake.html">NVIDIA AI 五层架构</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Articles/tools.html">工具链</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Articles/tools/how-to-write-good-spec-for-ai-agents.html">如何为 AI Agent 写 Spec</a></li>
+<li><a href="/tpvibe/Articles/tools/ai-driven-prototyping-v0-bolt-and-lovable-compared.html">AI 原型工具对比</a></li>
+<li><a href="/tpvibe/Articles/tools/why-i-use-cline-for-ai-engineering.html">为什么用 Cline 做 AI 工程</a></li>
+<li><a href="/tpvibe/Articles/tools/agents-md-vs-skills.html">AGENTS.md 与 Skills 对比</a></li>
+<li><a href="/tpvibe/Articles/tools/complete-guide-to-building-skills-for-claude.html">Claude Skills 构建指南</a></li>
+<li><a href="/tpvibe/Articles/tools/we-removed-80-percent-tools.html">我们移除了 80% 的工具</a></li>
+<li><a href="/tpvibe/Articles/tools/claude-code-swarms.html">Claude Code 集群</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Articles/engineering.html">工程实践</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Articles/engineering/ai-writes-code-faster-your-job-is-to-prove-it-works.html">AI 写代码更快，你要证明它有效</a></li>
+<li><a href="/tpvibe/Articles/engineering/beyond-the-70-maximizing-the-human-30-of-ai-assisted-coding.html">超越 70%：最大化人类 30%</a></li>
+<li><a href="/tpvibe/Articles/engineering/avoiding-skill-atrophy-in-the-age-of-ai.html">AI 时代的技能退化</a></li>
+<li><a href="/tpvibe/Articles/engineering/how-to-write-a-good-spec-for-ai-agents.html">如何为 AI Agent 写好 Spec</a></li>
+<li><a href="/tpvibe/Articles/engineering/leading-effective-engineering-teams-in-the-age-of-genai.html">GenAI 时代的工程团队领导</a></li>
+<li><a href="/tpvibe/Articles/engineering/your-ai-coding-agents-need-a-manager.html">AI 编码 Agent 需要管理者</a></li>
+<li><a href="/tpvibe/Articles/engineering/ai-code-review-implementation.html">AI 代码审查实现</a></li>
+<li><a href="/tpvibe/Articles/engineering/react-best-practices.html">React 最佳实践</a></li>
+<li><a href="/tpvibe/Articles/engineering/vercel-aeo-tracking.html">Vercel AEO 追踪</a></li>
+<li><a href="/tpvibe/Articles/engineering/my-llm-coding-workflow-going-into-2026.html">2026 年我的 LLM 工作流</a></li>
+<li><a href="/tpvibe/Articles/engineering/stop-using-init-for-agents.html">停止对 Agent 使用 init</a></li>
+<li><a href="/tpvibe/Articles/engineering/video-generation-with-ai-gateway.html">AI 网关视频生成</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Articles/security.html">安全合规</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Articles/security/ai-agents-threats-and-mitigations.html">AI Agent 威胁与缓解</a></li>
+<li><a href="/tpvibe/Articles/security/security-boundaries-in-agentic-architectures.html">Agent 架构安全边界</a></li>
+</ul>
+</li>
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Articles/business.html">商业趋势</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Articles/business/the-next-two-years-of-software-engineering.html">软件工程的未来两年</a></li>
+<li><a href="/tpvibe/Articles/business/how-openevidence-built-healthcare-ai-physicians-trust.html">OpenEvidence 医疗 AI</a></li>
+<li><a href="/tpvibe/Articles/business/keeping-community-human-while-scaling-with-agents.html">用 Agent 扩展时保持人性</a></li>
+</ul>
+</li>
+</ul>
+</details>
+<details class="toc-sec">
+<summary>实践案例</summary>
+<ul class="toc-tree">
+<li class="toc-chapter has-children">
+<div class="toc-chapter-head">
+<a href="/tpvibe/Practice/index.html">实践案例</a>
+<button class="toc-chapter-toggle" aria-label="展开/收起"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 1L7 5L3 9" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<ul class="toc-subtree">
+<li><a href="/tpvibe/Practice/index/vibe-coding-methodology.html">Vibe Coding 方法论</a></li>
+<li><a href="/tpvibe/Practice/index/ai-canvas-vibecoding-journey.html">AI Canvas 之旅</a></li>
+<li><a href="/tpvibe/Practice/index/ai-picture-book-generator.html">AI 绘本生成器</a></li>
+<li><a href="/tpvibe/Practice/index/ai-resume-saas.html">AI 简历 SaaS</a></li>
+<li><a href="/tpvibe/Practice/index/full-stack-21-day-thinking-habit-game.html">21 天思维习惯游戏</a></li>
+</ul>
+</li>
+</ul>
+</details>
+</div>
+</aside>
+<script>
+(function(){
+  /* Move toc-toggle to body to avoid overflow/transform clipping */
+  var tocToggle=document.getElementById('tocToggle');
+  var toc=document.getElementById('toc');
+  if(tocToggle&&toc){
+    document.body.appendChild(tocToggle);
+    tocToggle.style.position='fixed';
+    tocToggle.style.top='70px';
+    tocToggle.style.left='254px';
+    tocToggle.style.zIndex='41';
+    tocToggle.style.width='28px';
+    tocToggle.style.height='28px';
+    tocToggle.style.borderRadius='50%';
+    tocToggle.style.border='1px solid var(--line)';
+    tocToggle.style.background='var(--card)';
+    tocToggle.style.color='var(--muted)';
+    tocToggle.style.cursor='pointer';
+    tocToggle.style.display='grid';
+    tocToggle.style.placeItems='center';
+    tocToggle.style.boxShadow='0 4px 14px var(--shadow)';
+    tocToggle.style.fontSize='14px';
+    tocToggle.style.fontWeight='700';
+    tocToggle.style.transition='left .35s cubic-bezier(.34,1.3,.64,1), background .2s, color .2s, border-color .2s';
+    tocToggle.addEventListener('mouseenter',function(){
+      this.style.background='var(--soft)';
+      this.style.color='var(--accent)';
+      this.style.borderColor='var(--accent)';
+    });
+    tocToggle.addEventListener('mouseleave',function(){
+      this.style.background='var(--card)';
+      this.style.color='var(--muted)';
+      this.style.borderColor='var(--line)';
+    });
+    tocToggle.addEventListener('click',function(){
+      toc.classList.toggle('collapsed');
+      var c=toc.classList.contains('collapsed');
+      this.style.left=c?'8px':'254px';
+      this.textContent=c?'»':'«';
+      this.setAttribute('aria-label',c?'展开目录':'收起目录');
+    });
+  }
+  /* Mobile scrim click to close */
+  var scrim=document.querySelector('.toc-scrim');
+  if(scrim){
+    scrim.addEventListener('click',function(){
+      var cb=document.getElementById('tocToggleMobile');
+      if(cb)cb.checked=false;
+    });
+  }
+  /* Chapter expand/collapse (L1) */
+  document.querySelectorAll('.toc-chapter-toggle').forEach(function(btn){
+    btn.addEventListener('click',function(e){
+      e.preventDefault();
+      e.stopPropagation();
+      var li=this.closest('.toc-chapter');
+      if(li)li.classList.toggle('expanded');
+    });
+  });
+  /* Auto-expand: find active link and open its section + chapter */
+  var currentRaw=location.pathname.replace(/\/$/,'');
+  var activeLink=null;
+  document.querySelectorAll('aside.toc a[href]').forEach(function(a){
+    var href=a.getAttribute('href')||'';
+    if(!href||href.startsWith('http')||href.startsWith('#'))return;
+    var path=href.replace(/^https?:\/\/[^\/]+/,'').replace(/\/$/,'');
+    /* Skip home link for active matching */
+    if(path.indexOf('/index.html')>=0&&currentRaw.indexOf('/index.html')<0)return;
+    if(currentRaw===path){activeLink=a;return;}
+    /* Also check if currentRaw contains the path (for sub-pages) */
+    if(path.length>5&&currentRaw.indexOf(path)>=0){activeLink=a;}
+  });
+  /* Open the section (L0) containing active link, close others */
+  var sections=document.querySelectorAll('aside.toc details.toc-sec');
+  if(sections.length>0){
+    sections.forEach(function(d){
+      if(activeLink&&d.contains(activeLink)){d.setAttribute('open','');}
+      else{d.removeAttribute('open');}
+    });
+  }
+  /* Expand the chapter (L1) containing active link */
+  if(activeLink){
+    var chap=activeLink.closest('.toc-chapter.has-children');
+    if(chap)chap.classList.add('expanded');
+  }
+  /* If no active link found (e.g. index page), open first section and first chapter */
+  if(!activeLink&&sections.length>0){
+    sections[0].setAttribute('open','');
+    var firstChapter=sections[0].querySelector('.toc-chapter.has-children');
+    if(firstChapter)firstChapter.classList.add('expanded');
+  }
+})();
+</script>
+
+<div id="progress"></div>
+<header class="site-header">
+<div class="header-inner">
+  <a href="/tpvibe/index.html" class="logo"><img src="/tpvibe/images/tp_logo.jpg" alt="TPvibe" width="200" height="200"> TPvibe</a>
+  <input type="checkbox" id="nav-toggle-cb" class="nav-toggle-cb" aria-hidden="true">
+  <label for="nav-toggle-cb" class="nav-toggle" aria-label="打开菜单">&#9776;</label>
+  <nav><ul class="nav-links"><li><a href="/tpvibe/index.html">TPvibe</a></li><li><a href="/tpvibe/index.html">首页</a></li><li><a href="/tpvibe/Basic/lecture-1.html">基础篇</a></li><li><a href="/tpvibe/Advanced/ch01.html">进阶篇</a></li><li><a href="/tpvibe/Articles/core-concepts.html">文章</a></li><li><a href="/tpvibe/Practice/index.html">实践案例</a></li></ul>
+</nav>
+<button class="theme-btn" aria-label="切换主题" onclick="document.documentElement.dataset.theme=document.documentElement.dataset.theme==='dark'?'light':'dark';localStorage.setItem('tpvibe-theme',document.documentElement.dataset.theme)">🌙</button>
+</div>
+</header>
+<main class="container">
+<h1 class="page-title">MCP 与 Skills</h1>
+<div class="page-cover reveal">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400" preserveAspectRatio="xMidYMid slice" style="width:100%;height:100%;display:block;">
+  <defs>
+    <linearGradient id="bg-484372868" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0f172a"/>
+      <stop offset="100%" style="stop-color:#1e3a8a"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="400" fill="url(#bg-484372868)"/>
+  <polygon points="42,74 0,98 -42,74 -42,26 -0,2 42,26" fill="white" opacity="0.10"/>
+<polygon points="197,71 160,92 123,71 123,29 160,8 197,29" fill="white" opacity="0.07"/>
+<polygon points="351,68 320,86 289,68 289,32 320,14 351,32" fill="white" opacity="0.05"/>
+<polygon points="506,65 480,80 454,65 454,35 480,20 506,35" fill="white" opacity="0.11"/>
+<polygon points="678,72 640,94 602,72 602,28 640,6 678,28" fill="white" opacity="0.08"/>
+<polygon points="833,69 800,88 767,69 767,31 800,12 833,31" fill="white" opacity="0.06"/>
+<polygon points="988,66 960,82 932,66 932,34 960,18 988,34" fill="white" opacity="0.03"/>
+<polygon points="1160,73 1120,96 1080,73 1080,27 1120,4 1160,27" fill="white" opacity="0.09"/>
+<polygon points="115,170 80,190 45,170 45,130 80,110 115,130" fill="white" opacity="0.07"/>
+<polygon points="269,167 240,184 211,167 211,133 240,116 269,133" fill="white" opacity="0.04"/>
+<polygon points="442,174 400,198 358,174 358,126 400,102 442,126" fill="white" opacity="0.10"/>
+<polygon points="596,171 560,192 524,171 524,129 560,108 596,129" fill="white" opacity="0.07"/>
+<polygon points="751,168 720,186 689,168 689,132 720,114 751,132" fill="white" opacity="0.05"/>
+<polygon points="923,175 880,200 837,175 837,125 880,100 923,125" fill="white" opacity="0.11"/>
+<polygon points="1078,172 1040,194 1002,172 1002,128 1040,106 1078,128" fill="white" opacity="0.08"/>
+<polygon points="1233,169 1200,188 1167,169 1167,131 1200,112 1233,131" fill="white" opacity="0.06"/>
+<polygon points="28,266 0,282 -28,266 -28,234 -0,218 28,234" fill="white" opacity="0.03"/>
+<polygon points="200,273 160,296 120,273 120,227 160,204 200,227" fill="white" opacity="0.09"/>
+<polygon points="354,270 320,290 286,270 286,230 320,210 354,230" fill="white" opacity="0.06"/>
+<polygon points="509,267 480,284 451,267 451,233 480,216 509,233" fill="white" opacity="0.04"/>
+<polygon points="681,274 640,298 599,274 599,226 640,202 681,226" fill="white" opacity="0.10"/>
+<polygon points="836,271 800,292 764,271 764,229 800,208 836,229" fill="white" opacity="0.07"/>
+<polygon points="991,268 960,286 929,268 929,232 960,214 991,232" fill="white" opacity="0.05"/>
+<polygon points="1163,275 1120,300 1077,275 1077,225 1120,200 1163,225" fill="white" opacity="0.10"/>
+<polygon points="118,372 80,394 42,372 42,328 80,306 118,328" fill="white" opacity="0.08"/>
+<polygon points="273,369 240,388 207,369 207,331 240,312 273,331" fill="white" opacity="0.06"/>
+<polygon points="427,366 400,382 373,366 373,334 400,318 427,334" fill="white" opacity="0.03"/>
+<polygon points="599,373 560,396 521,373 521,327 560,304 599,327" fill="white" opacity="0.09"/>
+<polygon points="754,370 720,390 686,370 686,330 720,310 754,330" fill="white" opacity="0.06"/>
+<polygon points="909,367 880,384 851,367 851,333 880,316 909,333" fill="white" opacity="0.04"/>
+<polygon points="1081,374 1040,398 999,374 999,326 1040,302 1081,326" fill="white" opacity="0.10"/>
+<polygon points="1236,371 1200,391 1164,371 1164,329 1200,309 1236,329" fill="white" opacity="0.07"/>
+
+  
+  <text x="60" y="340" font-family="system-ui, -apple-system, sans-serif" font-size="36" font-weight="700" fill="white">MCP、插件与 Skills</text>
+  <rect x="60" y="355" width="60" height="4" rx="2" fill="#06b6d4"/>
+</svg>
+</div>
+
+<div class="content reveal">
+<blockquote><p><strong>阅读完本节后，你将会收获：</strong></p><ul><li>理解 MCP、插件、Skills 三种扩展方式的区别和使用场景，学会按需选择</li><li>掌握插件商店安装方法，了解常用插件（typescript-lsp、frontend-design、feature-dev 等）</li><li>学会 MCP 服务器配置和身份验证，能够连接数据库、API、GitHub 等外部服务</li><li>理解 Skills 的工作原理和创作要点，能够创建可复用的技能包</li><li>建立安全意识，学会为 MCP 和插件配置合理的权限限制</li></ul></blockquote><p>小明的&quot;个人豆瓣&quot;项目已经能跑了。但他发现几个问题：每次让 AI 检查代码，都得重新描述一遍检查流程；想让 AI 直接查数据库里的数据，AI 说它做不到；朋友推荐的 <code>frontend-design</code> 插件能让 AI 生成更好看的界面，但他不知道怎么装。</p><p>这一节解决的就是这三个问题。它们分别对应三种扩展方式：<strong>Skills</strong>（让 AI 记住工作流程）、<strong>MCP</strong>（让 AI 连接外部服务）、<strong>插件</strong>（一键安装前两者的整合包）。</p><blockquote><p>序言中提到的&quot;Skills 定义专属指令&quot;和&quot;MCP 让 AI 连接外部工具&quot;。大部分情况下，你只需要<strong>安装和使用现有的 MCP 服务器</strong>，不需要自己开发。</p></blockquote><div class="callout"><p><strong>🎯 Claude Code 全特性速览</strong></p><p>想了解 Claude Code 在 MCP、插件、Skills 方面的完整能力？本站 <a href="/tpvibe/Advanced/ch02.html">Claude Code 全特性章节</a> 系统梳理了 MCP 生态演进、插件系统发展与 Skills 机制完善，建议结合本章 2.1–2.4 节循序渐进学习。</p></div><div class="callout"><p><strong>新手路径建议</strong></p><p><strong>如果你是新手</strong>，建议按以下顺序学习：</p><ol><li>先了解内置能力（本章下一节）→ 大部分场景已经够用</li><li>需要外部服务时，优先安装插件（比 MCP 配置更简单）</li><li>熟悉后再根据需要配置 MCP</li><li>最后考虑创建自己的 Skills（进阶内容）</li></ol><p><strong>核心原则</strong>：能用内置的就不用扩展，能用插件的就不手动配置。</p></div><p><strong>资源导航</strong>：</p><ul><li>插件市场：<a href="https://claude-plugins.dev/" target="_blank" rel="noreferrer">claude-plugins.dev</a> - 浏览和搜索插件</li><li>Skills 市场：<a href="https://skillsmp.com/zh" target="_blank" rel="noreferrer">skillsmp.com</a> - 2300+ Skills 搜索目录</li><li>Agent Skills：<a href="https://agentskills.io/home" target="_blank" rel="noreferrer">agentskills.io</a> - Agent Skills 规范和市场</li><li>官方插件库：<a href="https://github.com/anthropics/claude-code/tree/main/plugins" target="_blank" rel="noreferrer">GitHub - anthropics/claude-code/plugins</a></li><li>官方 Skills 库：<a href="https://github.com/anthropics/skills" target="_blank" rel="noreferrer">GitHub - anthropics/skills</a></li></ul><h2>前置知识 </h2><p>小明想让 AI 查数据库，这需要一根&quot;接线&quot;把 AI 和数据库连起来——</p><div class="callout"><p><strong>什么是 MCP</strong></p><p><strong>MCP</strong> = 外部工具连接</p><p>MCP (Model Context Protocol) 让 AI 能连接外部服务（数据库、API、文件系统等）。MCP 可以独立配置，也可以打包在插件中。</p></div><p>但手动接线挺麻烦的。有没有更简单的办法？有——</p><div class="callout"><p><strong>什么是 插件</strong></p><p><strong>插件</strong> = 扩展容器（分发单位）</p><p>插件是功能包，可以包含 Skills、Commands、Agents、Hooks、MCP Servers。通过插件商店一键安装，比手动配置 MCP 更简单。</p><table tabindex="0"><thead><tr><th>需求</th><th>推荐方式</th></tr></thead><tbody><tr><td>代码智能（LSP）</td><td>安装插件</td></tr><tr><td>连接外部服务</td><td>配置 MCP 或安装包含 MCP 的插件</td></tr><tr><td>自动化工作流</td><td>创建或安装 Skills</td></tr><tr><td>一键安装多个功能</td><td>安装插件</td></tr></tbody></table><p><strong>核心原则</strong>：能用插件的就不手动配置 MCP，能用内置的就不扩展。</p></div><p>连接外部服务的问题解决了。但还有一类需求：让 AI 记住你的工作流——</p><div class="callout"><p><strong>什么是 Skills</strong></p><p><strong>Skills</strong> = AI 的可复用技能包</p><p>Skills 通过 <code>SKILL.md</code> 文件定义特定能力，Claude 根据请求内容自动判断是否使用。</p><p><strong>调用方式</strong>：</p><ul><li><strong>Skills</strong>：模型调用 —— AI 根据描述自动决定</li><li><strong>斜杠命令</strong>：用户调用 —— 用户显式输入触发</li></ul></div><p><strong>不确定该用哪个？试试这个决策引导：</strong></p><div class="mdt-root" data-v-820bd6ba><div class="mdt-progress" data-v-820bd6ba><div class="mdt-progress-bar" style="width:0%;" data-v-820bd6ba></div></div><!----><div class="mdt-question" data-v-820bd6ba><h3>你想让 AI 做什么？</h3><div class="mdt-options" data-v-820bd6ba><!--[--><button class="mdt-option" data-v-820bd6ba><span class="mdt-opt-icon" data-v-820bd6ba>🔌</span><span class="mdt-opt-label" data-v-820bd6ba>连接外部服务</span></button><button class="mdt-option" data-v-820bd6ba><span class="mdt-opt-icon" data-v-820bd6ba>🧠</span><span class="mdt-opt-label" data-v-820bd6ba>增强 AI 能力</span></button><button class="mdt-option" data-v-820bd6ba><span class="mdt-opt-icon" data-v-820bd6ba>⚡</span><span class="mdt-opt-label" data-v-820bd6ba>自动化工作流</span></button><button class="mdt-option" data-v-820bd6ba><span class="mdt-opt-icon" data-v-820bd6ba>🤔</span><span class="mdt-opt-label" data-v-820bd6ba>不确定</span></button><!--]--></div></div><!----><div class="mdt-actions" data-v-820bd6ba><!----><!----></div></div><h3>你必须知道的 AI 能力范围 </h3><p>在安装任何扩展之前，先搞清楚一件事：AI 裸跑就已经能做很多了。很多人急着装插件，其实内置能力就够用。下面这张表帮你快速判断——</p><p><strong>AI 能做的</strong>：</p><table tabindex="0"><thead><tr><th>AI 能做</th><th>AI 不能做</th></tr></thead><tbody><tr><td>读取你项目中的任何文件</td><td>访问你电脑上的任意路径</td></tr><tr><td>运行你允许的命令</td><td>执行需要图形界面的操作</td></tr><tr><td>理解代码结构和逻辑</td><td>&quot;记住&quot;上次对话的内容</td></tr><tr><td>连接你配置的外部服务</td><td>绕过系统安全限制</td></tr><tr><td>自动选择合适的工具</td><td>猜测你心里想什么（所以请明确说）</td></tr></tbody></table><div class="callout"><p><strong>关键认知</strong></p><p><strong>你只需要告诉 AI 你想做什么，AI 会自动选择合适的方法。你不需要知道 AI 用的是 Read（读取文件）、Edit（编辑文件） 、Grep（搜索内容）、Glob（查找文件） 还是 Bash（运行命令），甚至是 Python（运行复制脚本）。</strong></p></div><p><strong>你不需要记住工具细节</strong></p><table tabindex="0"><thead><tr><th>不需要记住</th><th>原因</th></tr></thead><tbody><tr><td>工具的名字（Read、Edit、Grep...）</td><td>AI 会自动选择</td></tr><tr><td>具体的配置语法</td><td>让 AI 参考官方文档帮你生成</td></tr><tr><td>所有可用的 MCP/插件服务器</td><td>按需搜索安装</td></tr></tbody></table><p><strong>你只需要用自然语言清晰地描述你想做的事情。</strong></p><h2>AI 有哪些能力 </h2><p>在配置 MCP 或 Skills 之前，记住：<strong>AI 已经有很多内置能力</strong>。</p><details class="details custom-block"><summary>查看内置工具完整列表</summary><h3>按类型分类的工具表 </h3><p><strong>1. 文件操作工具</strong> - 读写代码的基础</p><table tabindex="0"><thead><tr><th>能力</th><th>使用工具</th><th>示例</th></tr></thead><tbody><tr><td>读取文件</td><td>Read</td><td>&quot;读取 package.json&quot;</td></tr><tr><td>编辑文件</td><td>Edit</td><td>&quot;把函数名改成 xxx&quot;</td></tr><tr><td>创建文件</td><td>Write</td><td>&quot;创建新组件&quot;</td></tr></tbody></table><p><strong>2. 搜索工具</strong> - 找到需要的东西</p><table tabindex="0"><thead><tr><th>能力</th><th>使用工具</th><th>示例</th></tr></thead><tbody><tr><td>搜索代码内容</td><td>Grep</td><td>&quot;搜索所有 TODO&quot;</td></tr><tr><td>查找文件</td><td>Glob</td><td>&quot;找到所有 .ts 文件&quot;</td></tr></tbody></table><p><strong>3. 终端工具</strong> - 执行命令</p><table tabindex="0"><thead><tr><th>能力</th><th>使用工具</th><th>示例</th></tr></thead><tbody><tr><td>运行命令</td><td>Bash</td><td>&quot;运行 pnpm test&quot;</td></tr></tbody></table><p><strong>4. 代码智能</strong> - 通过插件额外支持</p><table tabindex="0"><thead><tr><th>能力</th><th>使用插件</th><th>示例</th></tr></thead><tbody><tr><td>TypeScript/JavaScript 类型检查、跳转定义</td><td>typescript-lsp</td><td>&quot;这个函数在哪里定义的？&quot;</td></tr><tr><td>Python 类型检查、代码补全</td><td>pyright-lsp</td><td>&quot;这个类的类型是什么？&quot;</td></tr></tbody></table><p>LSP（语言服务器）能力<strong>不是内置</strong>，需要通过插件额外安装：</p><div class="language-bash vp-adaptive-theme"><button title="Copy Code" class="copy" aria-label="复制代码"></button><span class="lang">bash</span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"># 打开插件管理界面</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">/plugin</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"># 搜索 typescript-lsp 或 pyright-lsp 并安装</span></span></code></pre></div><p>支持的语言包括：TypeScript、JavaScript、Python、Rust、Go、C/C++、C#、PHP、Java、Ruby、Swift 等。</p><p><strong>5. 项目理解</strong> - 自动分析</p><table tabindex="0"><thead><tr><th>能力</th><th>使用工具</th><th>示例</th></tr></thead><tbody><tr><td>分析结构、理解依赖</td><td>自动分析</td><td>&quot;分析项目结构&quot;</td></tr></tbody></table><p><strong>6. 网络能力</strong> - 需要配置 MCP/插件</p><table tabindex="0"><thead><tr><th>能力</th><th>使用工具</th><th>需要配置</th></tr></thead><tbody><tr><td>读取网页内容</td><td>Web Reader MCP</td><td>✅</td></tr><tr><td>网络搜索</td><td>Web Search MCP</td><td>✅</td></tr><tr><td>读取 GitHub 仓库</td><td>ZRead MCP</td><td>✅</td></tr></tbody></table><p><strong>AI 能读取的</strong>：</p><ul><li>✅ 公开的网页链接（通过 MCP/插件）</li><li>✅ GitHub 仓库文件（通过 ZRead MCP）</li><li>✅ 文档站点（通过 Web Reader MCP）</li></ul><p><strong>AI 不能读取的</strong>：</p><ul><li>❌ 需要登录的页面</li><li>❌ 本地文件路径（非项目目录）</li><li>❌ 被防火墙阻挡的网站</li></ul><p><strong>7. 任务管理</strong> - AI 自动使用，你只需看到效果</p><table tabindex="0"><thead><tr><th>能力</th><th>使用工具</th><th>你需要知道吗</th></tr></thead><tbody><tr><td>追踪多步骤任务进度</td><td>TodoWrite</td><td>❌ AI 自动用，你看到进度即可</td></tr><tr><td>调用通用子代理处理复杂任务</td><td>Task</td><td>❌ AI 自动调用，你不需要知道</td></tr></tbody></table><p><strong>8. 交互能力</strong> - AI 自动使用，你只需回答</p><table tabindex="0"><thead><tr><th>能力</th><th>使用工具</th><th>你需要知道吗</th></tr></thead><tbody><tr><td>向你提问获取决策</td><td>AskUserQuestion</td><td>❌ AI 自动用，你只需回答</td></tr></tbody></table><h3>判断标准：内置够用还是需要扩展？ </h3><div class="language-bash vp-adaptive-theme"><button title="Copy Code" class="copy" aria-label="复制代码"></button><span class="lang">bash</span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"># ✅ 不需要扩展的场景（内置足够）</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">&quot;读取文件并分析&quot;</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">      →</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> 用</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> Read</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> 工具</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">&quot;运行命令并处理结果&quot;</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">   →</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> 用</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> Bash</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> 工具</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">&quot;实现某个功能&quot;</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">        →</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> 直接描述任务，AI</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> 自动规划</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"># ❌ 需要扩展的场景</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">&quot;查询 PostgreSQL 数据库&quot;</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">     →</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> 需要</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> MCP/插件</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">&quot;读取 Google Drive 文档&quot;</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">     →</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> 需要</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> MCP/插件</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">&quot;调用 Slack API 发送消息&quot;</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">    →</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> 需要</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> MCP/插件</span></span></code></pre></div><p><strong>何时使用扩展</strong>：</p><table tabindex="0"><thead><tr><th>需求</th><th>使用方式</th></tr></thead><tbody><tr><td>✅ 数据库查询</td><td>MCP/插件</td></tr><tr><td>✅ 网络搜索</td><td>MCP/插件</td></tr><tr><td>✅ 读取外部 API</td><td>MCP/插件</td></tr><tr><td>✅ 重复执行复杂流程</td><td>Skills</td></tr><tr><td>❌ 一次性任务</td><td>直接用自然语言</td></tr></tbody></table><p>如果你的需求落在&quot;需要扩展&quot;一侧，最省事的方式就是装个插件。</p></details><h2>插件：最简单的扩展方式 </h2><p>小明在社区看到别人用 Claude Code 生成的前端界面特别好看，一问才知道装了 <code>frontend-design</code> 插件。他也想试试。</p><div class="callout"><p><strong>选插件还是 MCP？</strong></p><p>你想让 AI 连接 PostgreSQL 数据库。</p><p><strong>用插件</strong>：</p><div class="language-bash vp-adaptive-theme"><button title="Copy Code" class="copy" aria-label="复制代码"></button><span class="lang">bash</span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">/plugin</span></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"># 搜索 postgres，按空格选中，按 i 安装</span></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"># 完成，直接用</span></span></code></pre></div><p><strong>用 MCP</strong>：</p><div class="language-bash vp-adaptive-theme"><button title="Copy Code" class="copy" aria-label="复制代码"></button><span class="lang">bash</span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"># 找配置文档</span></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"># 编辑 .mcp.json</span></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"># 检查格式是否正确</span></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"># 重启 Claude Code</span></span></code></pre></div><p><strong>功能完全一样</strong>，但插件省 5 分钟。</p><table tabindex="0"><thead><tr><th>你的情况</th><th>选哪个</th><th>原因</th></tr></thead><tbody><tr><td>想快速试试</td><td><strong>插件</strong></td><td>一键安装，零配置</td></tr><tr><td>需要改参数</td><td>MCP</td><td>手动编辑，灵活可控</td></tr><tr><td>团队协作</td><td>都可以</td><td>插件简单，MCP 透明</td></tr></tbody></table><p><strong>建议</strong>：先用插件，发现不够用再换 MCP。</p></div><h3>安装方式 </h3><p><strong>方式 1：通过插件商店（推荐）</strong></p><div class="language-bash vp-adaptive-theme"><button title="Copy Code" class="copy" aria-label="复制代码"></button><span class="lang">bash</span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">/plugin</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> </span></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"># 打开插件管理界面，搜索需要的插件，按空格选中，按 i 安装</span></span></code></pre></div><p><strong>方式 2：通过命令安装</strong></p><div class="language-bash vp-adaptive-theme"><button title="Copy Code" class="copy" aria-label="复制代码"></button><span class="lang">bash</span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"># 示例</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">/plugin</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> install</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> frontend-design@anthropics</span></span></code></pre></div><p><strong>如果找不到你需要的插件，可以考虑添加插件所在的市场</strong></p><div class="language-bash vp-adaptive-theme"><button title="Copy Code" class="copy" aria-label="复制代码"></button><span class="lang">bash</span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"># 添加市场</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">/plugin</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> marketplace</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> add</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> your-org/claude-plugins</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"># 浏览可用插件</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">/plugin</span></span></code></pre></div><h3>常用插件推荐 </h3><div class="callout"><p><strong>推荐插件（新手必读）</strong></p><p>对于新手，推荐从这些插件开始：</p><p><strong>基础开发</strong>：</p><ul><li><code>typescript-lsp</code> - TypeScript/JavaScript 类型检查、代码补全、跳转定义</li><li><code>pyright-lsp</code> - Python 类型检查和代码智能</li><li><code>frontend-design</code> - 生成高质量前端界面</li></ul><p><strong>工作流</strong>：</p><ul><li><code>feature-dev</code> - 完整的功能开发工作流</li><li><code>pr-review-toolkit</code> - PR 审查工具包</li><li><code>commit-commands</code> - Git 提交工作流</li></ul><p><strong>安装方式</strong>：</p><div class="language-bash vp-adaptive-theme"><button title="Copy Code" class="copy" aria-label="复制代码"></button><span class="lang">bash</span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"># 打开插件管理界面，搜索上述插件并安装</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">/plugin</span></span></code></pre></div></div><details class="details custom-block"><summary>查看完整插件推荐列表</summary><h4>LSP 语言服务器（代码智能） </h4><table tabindex="0"><thead><tr><th>插件</th><th>功能</th></tr></thead><tbody><tr><td><strong>typescript-lsp</strong></td><td>TypeScript/JavaScript 类型检查、代码补全、跳转定义</td></tr><tr><td><strong>pyright-lsp</strong></td><td>Python 类型检查和代码智能</td></tr><tr><td><strong>rust-analyzer-lsp</strong></td><td>Rust 语言服务器，代码智能和分析</td></tr><tr><td><strong>gopls-lsp</strong></td><td>Go 语言服务器，代码智能和重构</td></tr><tr><td><strong>clangd-lsp</strong></td><td>C/C++ 语言服务器，代码智能</td></tr><tr><td><strong>csharp-lsp</strong></td><td>C# 语言服务器，代码智能</td></tr><tr><td><strong>php-lsp</strong></td><td>PHP 语言服务器（Intelephense），代码智能</td></tr><tr><td><strong>swift-lsp</strong></td><td>Swift 语言服务器（SourceKit-LSP），代码智能</td></tr><tr><td><strong>jdtls-lsp</strong></td><td>Java 语言服务器，代码智能</td></tr><tr><td><strong>lua-lsp</strong></td><td>Lua 语言服务器，代码智能</td></tr></tbody></table><h4>开发工作流 </h4><table tabindex="0"><thead><tr><th>插件</th><th>功能</th></tr></thead><tbody><tr><td><strong>frontend-design</strong></td><td>生成高质量前端界面，避免通用 AI 美学</td></tr><tr><td><strong>feature-dev</strong></td><td>完整的功能开发工作流（7 阶段：发现、探索、澄清、设计、实现、审查、总结）</td></tr><tr><td><strong>pr-review-toolkit</strong></td><td>PR 审查工具包，专注代码质量、测试、错误处理</td></tr><tr><td><strong>commit-commands</strong></td><td>Git 工作流简化，提交、推送、创建 PR 一键完成</td></tr><tr><td><strong>ralph-wiggum</strong></td><td>迭代式 AI 开发循环技术</td></tr></tbody></table><h4>代码质量与安全 </h4><table tabindex="0"><thead><tr><th>插件</th><th>功能</th></tr></thead><tbody><tr><td><strong>code-review</strong></td><td>自动代码审查，多专业代理并行分析，基于置信度评分过滤误报</td></tr><tr><td><strong>security-guidance</strong></td><td>安全提醒 Hook，警告命令注入、XSS、不安全代码模式</td></tr><tr><td><strong>hookify</strong></td><td>自动创建 Hooks，通过分析对话模式或明确指令防止不良行为</td></tr></tbody></table><h4>开发工具包 </h4><table tabindex="0"><thead><tr><th>插件</th><th>功能</th></tr></thead><tbody><tr><td><strong>agent-sdk-dev</strong></td><td>Agent SDK 开发工具包，创建和验证 Python/TypeScript Agent SDK 应用</td></tr><tr><td><strong>plugin-dev</strong></td><td>插件开发工具包，Hooks、MCP 集成、插件结构、市场发布指导</td></tr></tbody></table><h4>输出风格 </h4><table tabindex="0"><thead><tr><th>插件</th><th>功能</th></tr></thead><tbody><tr><td><strong>explanatory-output-style</strong></td><td>解释性输出风格，详细解释 AI 的思考和决策过程</td></tr><tr><td><strong>learning-output-style</strong></td><td>学习导向输出，结合交互式学习和教育见解</td></tr></tbody></table><h4>示例与模板 </h4><table tabindex="0"><thead><tr><th>插件</th><th>功能</th></tr></thead><tbody><tr><td><strong>example-plugin</strong></td><td>插件开发示例模板</td></tr></tbody></table><p><strong>安装方式</strong>：输入 <code>/plugin</code> 后搜索并安装所需插件。</p></details><p>装好插件之后直接用自然语言描述需求就行，不需要任何额外配置。但如果插件商店里没有你需要的功能——比如连接一个特定的数据库或 API——就需要自己配置 MCP 了。</p><h3>使用插件 </h3><p>安装后，插件会自动集成到 AI 的能力中，无需额外配置：</p><div class="language-bash vp-adaptive-theme"><button title="Copy Code" class="copy" aria-label="复制代码"></button><span class="lang">bash</span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"># 前端设计（安装 frontend-design 后）</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">&quot;创建一个用户登录页面，要求现代设计风格&quot;</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"># 功能开发（安装 feature-dev 后）</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">&quot;使用 feature-dev 工作流开发用户评论功能&quot;</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"># 代码审查（安装 pr-review-toolkit 后）</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">&quot;用 PR 审查工具检查这段代码&quot;</span></span></code></pre></div><h3>插件结构 </h3><details class="details custom-block"><summary>插件目录结构</summary><p>插件是一个包含以下组件的 npm 包：</p><div class="language- vp-adaptive-theme"><button title="Copy Code" class="copy" aria-label="复制代码"></button><span class="lang"></span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span>my-plugin/</span></span>
+<span class="line"><span>├── .claude-plugin/</span></span>
+<span class="line"><span>│   ├── plugin.json          # 插件元数据</span></span>
+<span class="line"><span>│   └── marketplace.json     # 市场清单（可选）</span></span>
+<span class="line"><span>├── commands/                 # 自定义斜杠命令（可选）</span></span>
+<span class="line"><span>│   └── hello.md</span></span>
+<span class="line"><span>├── agents/                   # 自定义代理（可选）</span></span>
+<span class="line"><span>│   └── helper.md</span></span>
+<span class="line"><span>├── skills/                   # 代理技能（可选）</span></span>
+<span class="line"><span>│   └── my-skill/</span></span>
+<span class="line"><span>│       └── SKILL.md</span></span>
+<span class="line"><span>├── hooks/                    # 事件处理程序（可选）</span></span>
+<span class="line"><span>│   └── hooks.json</span></span>
+<span class="line"><span>└── .mcp.json                # MCP 服务器配置（可选）</span></span></code></pre></div><p><strong>组件说明</strong>：</p><ul><li><strong>plugin.json</strong>：插件元数据（名称、描述、版本、作者）</li><li><strong>commands/</strong>：自定义斜杠命令（Markdown 文件）</li><li><strong>agents/</strong>：子代理定义</li><li><strong>skills/</strong>：代理技能（SKILL.md 文件）</li><li><strong>hooks/</strong>：事件处理程序（hooks.json）</li><li><strong>.mcp.json</strong>：MCP 服务器配置</li></ul></details><h3>插件管理 </h3><details class="details custom-block"><summary>管理命令</summary><div class="language-bash vp-adaptive-theme"><button title="Copy Code" class="copy" aria-label="复制代码"></button><span class="lang">bash</span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"># 查看已安装的插件</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">/plugin</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"># 启用已禁用的插件</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">/plugin</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> enable</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> plugin-name@marketplace-name</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"># 禁用而不卸载</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">/plugin</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> disable</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> plugin-name@marketplace-name</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"># 卸载插件</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">/plugin</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> uninstall</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> plugin-name@marketplace-name</span></span></code></pre></div></details><details class="details custom-block"><summary>团队协作</summary><p>在存储库级别配置插件以确保整个团队的工具一致。</p><p><strong>设置团队插件</strong>：</p><ol><li>将市场和插件配置添加到您的存储库的 <code>.claude/settings.json</code></li><li>团队成员信任存储库文件夹</li><li>为所有团队成员自动安装插件</li></ol><p><strong>配置示例</strong>（<code>.claude/settings.json</code>）：</p><div class="language-json vp-adaptive-theme"><button title="Copy Code" class="copy" aria-label="复制代码"></button><span class="lang">json</span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">{</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">  &quot;pluginMarketplaces&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: [</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">    {</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">      &quot;source&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;your-org/claude-plugins&quot;</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">    }</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">  ],</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">  &quot;plugins&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: [</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">    {</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">      &quot;name&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;formatter&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">,</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">      &quot;marketplace&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;your-org&quot;</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">    }</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">  ]</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">}</span></span></code></pre></div></details><h2>MCP：连接外部服务 </h2><p>项目做到后端了，小明需要让 AI 帮他查 PostgreSQL 里的用户数据。他试着说&quot;查一下数据库里有多少用户&quot;，AI 回复：&quot;我没有访问数据库的能力。&quot;</p><p>这就是 MCP 要解决的问题。你可以把 MCP 想象成一根<strong>数据线</strong>——一头插着 AI，一头插着外部服务（数据库、GitHub、Figma……）。没有这根线，AI 再聪明也碰不到外面的数据。</p><div class="warning custom-block"><p><strong>安装前必读</strong></p><p><strong>关于兼容性</strong>：MCP 在不同 CLI 工具间<strong>不通用</strong>，安装方式可能不同。</p><p><strong>关于安装方式</strong>：</p><ul><li><strong>IDE 内</strong>：通常有 MCP 市场，可直接安装</li><li><strong>CLI 工具</strong>：通过配置文件手动配置</li><li><strong>一键配置工具</strong>：如 GLM 配置工具，会自动预装部分 MCP</li></ul><p><strong>关于鉴权</strong>：部分 MCP 需要 API Key 才能使用（如 OpenAI、Stripe、GitHub），配置时需要提供。</p></div><div class="callout"><p><strong>GLM 一键配置工具默认包含的 MCP</strong></p><p>使用 GLM 一键配置工具时，以下 MCP 会自动安装：</p><table tabindex="0"><thead><tr><th>MCP</th><th>功能</th></tr></thead><tbody><tr><td><strong>Vision MCP</strong></td><td>图片分析（截图、设计图等）</td></tr><tr><td><strong>Web Search MCP</strong></td><td>网络搜索，获取最新信息</td></tr><tr><td><strong>Web Reader MCP</strong></td><td>读取网页链接内容</td></tr><tr><td><strong>ZRead MCP</strong></td><td>读取 GitHub 仓库文件和目录</td></tr></tbody></table><p>这些是开发中最常用的网络能力，开箱即用。</p></div><h3>热门 MCP 服务器 </h3><table tabindex="0"><thead><tr><th>分类</th><th>MCP</th><th>功能</th></tr></thead><tbody><tr><td><strong>开发调试</strong></td><td><a href="https://github.com/github/github-mcp-server" target="_blank" rel="noreferrer">GitHub MCP</a></td><td>操作代码仓库、PR、Issue 和 CI 流程</td></tr><tr><td></td><td><a href="https://github.com/ChromeDevTools/chrome-devtools-mcp" target="_blank" rel="noreferrer">Chrome DevTools MCP</a></td><td>操控浏览器进行页面调试、网络分析和自动化检查</td></tr><tr><td></td><td><a href="https://www.shadcn.com.cn/docs/mcp" target="_blank" rel="noreferrer">ShadCN MCP</a></td><td>生成可直接使用的 React + Tailwind UI 组件</td></tr><tr><td></td><td><a href="https://semgrep.dev/docs/mcp" target="_blank" rel="noreferrer">Semgrep MCP</a></td><td>代码静态安全扫描和规则检测</td></tr><tr><td><strong>数据库</strong></td><td><a href="https://github.com/crystaldba/postgres-mcp" target="_blank" rel="noreferrer">PostgreSQL MCP</a></td><td>可配置的读写访问和性能分析</td></tr><tr><td></td><td><a href="https://neon.com/docs/ai/neon-mcp-server" target="_blank" rel="noreferrer">Neon MCP</a></td><td>按需创建和管理 Serverless PostgreSQL 数据库</td></tr><tr><td></td><td><a href="https://supabase.com/docs/guides/getting-started/mcp" target="_blank" rel="noreferrer">Supabase MCP</a></td><td>认证、数据库、存储、实时能力的一体化后端</td></tr><tr><td><strong>部署托管</strong></td><td><a href="https://vercel.com/docs/mcp" target="_blank" rel="noreferrer">Vercel MCP</a></td><td>自动部署前端应用并生成预览环境</td></tr><tr><td></td><td><a href="https://github.com/cloudflare/mcp-server-cloudflare" target="_blank" rel="noreferrer">Cloudflare MCP</a></td><td>管理边缘计算资源（Workers、KV、R2）</td></tr><tr><td><strong>设计与媒体</strong></td><td><a href="https://developers.figma.com/docs/figma-mcp-server/remote-server-installation/" target="_blank" rel="noreferrer">Figma MCP</a></td><td>读取和修改 Figma 设计稿，实现设计到代码自动化</td></tr><tr><td></td><td><a href="https://mcp.replicate.com/" target="_blank" rel="noreferrer">Replicate MCP</a></td><td>调用图片生成接口，生成配图</td></tr><tr><td><strong>文档与上下文</strong></td><td><a href="https://context7.com/docs/overview" target="_blank" rel="noreferrer">Context7 MCP</a></td><td>将官方实时最新文档转化为可靠上下文</td></tr><tr><td></td><td><a href="https://ref.tools/mcp" target="_blank" rel="noreferrer">Ref MCP</a></td><td>类似 Context7，减少 AI 幻觉</td></tr><tr><td><strong>支付</strong></td><td><a href="https://docs.stripe.com/mcp" target="_blank" rel="noreferrer">Stripe MCP</a></td><td>自动化创建支付、订阅及 Webhook</td></tr></tbody></table><p><strong>注意</strong>：部分 MCP 需要 API Key 才能使用。更多 MCP 服务器请访问 <a href="https://github.com/modelcontextprotocol/servers" target="_blank" rel="noreferrer">MCP 合集</a>。</p><p>::: 由于 MCP 服务器更新频繁，建议点击上方链接或搜索官网查询最新使用方式。 :::</p><h3>使用 MCP </h3><div class="language-bash vp-adaptive-theme"><button title="Copy Code" class="copy" aria-label="复制代码"></button><span class="lang">bash</span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"># 查询数据库</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">&quot;查询 PostgreSQL：获取最近 7 天的注册用户数&quot;</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"># 读取 GitHub</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">&quot;查看仓库状态：最近 5 个 PR&quot;</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"># 网络搜索</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">&quot;搜索：Next.js 16 的新特性&quot;</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"># 读取文件</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">&quot;读取 /path/to/file.md 并总结内容&quot;</span></span></code></pre></div><p>配好 MCP 之后，AI 就能直接操作外部服务了。但你可能注意到了，MCP 解决的是&quot;连接&quot;问题——让 AI 够得着外部数据。还有一类需求它解决不了：<strong>让 AI 记住你的工作流程</strong>。每次审查代码都要重复描述一遍流程，太低效了。这就是 Skills 要解决的问题。</p><h3>其他安装方式 </h3><details class="details custom-block"><summary>从 JSON 配置添加</summary><p>如果您有 MCP 服务器的 JSON 配置，可以直接添加：</p><div class="language-bash vp-adaptive-theme"><button title="Copy Code" class="copy" aria-label="复制代码"></button><span class="lang">bash</span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"># 基本语法</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">claude</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> mcp</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> add-json</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> &lt;</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">nam</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">e</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">&gt;</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> &#39;&lt;json&gt;&#39;</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"># 示例：添加带有 JSON 配置的 HTTP 服务器</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">claude</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> mcp</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> add-json</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> weather-api</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> &#39;{&quot;type&quot;:&quot;http&quot;,&quot;url&quot;:&quot;https://api.weather.com/mcp&quot;,&quot;headers&quot;:{&quot;Authorization&quot;:&quot;Bearer token&quot;}}&#39;</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"># 示例：添加带有 JSON 配置的 stdio 服务器</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">claude</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> mcp</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> add-json</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> local-weather</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> &#39;{&quot;type&quot;:&quot;stdio&quot;,&quot;command&quot;:&quot;/path/to/weather-cli&quot;,&quot;args&quot;:[&quot;--api-key&quot;,&quot;abc123&quot;],&quot;env&quot;:{&quot;CACHE_DIR&quot;:&quot;/tmp&quot;}}&#39;</span></span></code></pre></div></details><details class="details custom-block"><summary>查看安装与配置</summary><h3>三种安装方式 </h3><h4>选项 1：添加远程 HTTP 服务器（推荐） </h4><p>HTTP 服务器是连接到远程 MCP 服务器的推荐选项。这是云服务最广泛支持的传输方式。</p><div class="language-bash vp-adaptive-theme"><button title="Copy Code" class="copy" aria-label="复制代码"></button><span class="lang">bash</span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"># 基本语法</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">claude</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> mcp</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> add</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;"> --transport</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> http</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> &lt;</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">nam</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">e</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">&gt;</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> &lt;</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">ur</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">l</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">&gt;</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"># 真实示例：连接到 Notion</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">claude</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> mcp</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> add</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;"> --transport</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> http</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> notion</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> https://mcp.notion.com/mcp</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"># 带有 Bearer 令牌的示例</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">claude</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> mcp</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> add</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;"> --transport</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> http</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> secure-api</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> https://api.example.com/mcp</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;"> \</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">  --header</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> &quot;Authorization: Bearer your-token&quot;</span></span></code></pre></div><h4>选项 2：添加本地 stdio 服务器 </h4><p>Stdio 服务器作为本地进程在您的计算机上运行。它们非常适合需要直接系统访问或自定义脚本的工具。</p><div class="language-bash vp-adaptive-theme"><button title="Copy Code" class="copy" aria-label="复制代码"></button><span class="lang">bash</span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"># 基本语法</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">claude</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> mcp</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> add</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;"> --transport</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> stdio</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> &lt;</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">nam</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">e</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">&gt;</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> &lt;</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">comman</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">d</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">&gt;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> [args...]</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"># 真实示例：添加 Airtable 服务器</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">claude</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> mcp</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> add</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;"> --transport</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> stdio</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> airtable</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;"> --env</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> AIRTABLE_API_KEY=YOUR_KEY</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;"> \</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">  --</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> npx</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;"> -y</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> airtable-mcp-server</span></span></code></pre></div><h5 id="tip-理解-参数" tabindex="-1">tip 理解 &quot;--&quot; 参数 </h5><p><code>--</code>（双破折号）将 CLI 工具的标志与传递给 MCP 服务器的命令和参数分开。<code>--</code> 之前的所有内容都是工具的选项（如 <code>--env</code>、<code>--scope</code>），<code>--</code> 之后的所有内容都是运行 MCP 服务器的实际命令。</p><p>例如：</p><ul><li><code>claude mcp add --transport stdio myserver -- npx server</code> → 运行 <code>npx server</code></li><li><code>claude mcp add --transport stdio myserver --env KEY=value -- python server.py --port 8080</code> → 运行 <code>python server.py --port 8080</code>，环境中设置 <code>KEY=value</code></li></ul><p>这可以防止工具的标志与服务器标志之间的冲突。</p><h5 id="windows-用户" tabindex="-1">Windows 用户 </h5><p>在本机 Windows（不是 WSL）上，使用 <code>npx</code> 的本地 MCP 服务器需要 <code>cmd /c</code> 包装器以确保正确执行。</p><div class="language-bash vp-adaptive-theme"><button title="Copy Code" class="copy" aria-label="复制代码"></button><span class="lang">bash</span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"># 这创建了 Windows 可以执行的 command=&quot;cmd&quot;</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">claude</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> mcp</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> add</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;"> --transport</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> stdio</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> my-server</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;"> --</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> cmd</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> /c</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> npx</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;"> -y</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> @some/package</span></span></code></pre></div><p>没有 <code>cmd /c</code> 包装器，您会遇到&quot;连接已关闭&quot;错误，因为 Windows 无法直接执行 <code>npx</code>。</p></details><h3>管理 MCP 服务器 </h3><p>直接输入 <code>/mcp</code> 后按照提示操作即可。</p><p>:::</p><h3>MCP 身份验证 </h3><details class="details custom-block"><summary>OAuth 认证配置</summary><p>许多基于云的 MCP 服务器需要身份验证。Claude Code 支持 OAuth 2.0 以实现安全连接。</p><div class="language-bash vp-adaptive-theme"><button title="Copy Code" class="copy" aria-label="复制代码"></button><span class="lang">bash</span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"># 1. 添加需要身份验证的服务器</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">claude</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> mcp</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> add</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;"> --transport</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> http</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> sentry</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> https://mcp.sentry.dev/mcp</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"># 2. 在 Claude Code 中使用 /mcp 命令</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">&gt;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> /mcp</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"># 3. 按照浏览器中的步骤登录</span></span></code></pre></div></details><ul><li>身份验证令牌存储安全且自动刷新</li><li>在 <code>/mcp</code> 菜单中使用&quot;清除身份验证&quot;撤销访问权限</li><li>如果浏览器不会自动打开，请复制提供的 URL</li><li>OAuth 身份验证适用于 HTTP 服务器 :::</li></ul><h3>MCP 提示 </h3><details class="details custom-block"><summary>@ MCP</summary><p>您可以使用 @ 提及来引用 MCP 资源，类似于引用文件的方式。</p><p><strong>引用格式</strong>：<code>@server:protocol://resource/path</code></p><div class="language-bash vp-adaptive-theme"><button title="Copy Code" class="copy" aria-label="复制代码"></button><span class="lang">bash</span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"># 引用特定资源</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">&gt;</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> &quot;您能分析 @github:issue://123 并建议修复吗？&quot;</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">&gt;</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> &quot;请查看 @docs:file://api/authentication 处的 API 文档&quot;</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"># 多个资源引用</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">&gt;</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> &quot;比较 @postgres:schema://users 和 @docs:file://database/user-model&quot;</span></span></code></pre></div><ul><li>引用时会自动获取资源并将其作为附件</li><li>资源路径在 @ 提及自动完成中可进行模糊搜索</li><li>当服务器支持时，Claude Code 会自动提供工具来列出和读取 MCP 资源</li></ul></details><details class="details custom-block"><summary>将 MCP 提示用作斜杠命令</summary><p>MCP 服务器可以暴露提示，这些提示在 Claude Code 中作为斜杠命令可用。</p><p><strong>命令格式</strong>：<code>/mcp__servername__promptname</code></p><div class="language-bash vp-adaptive-theme"><button title="Copy Code" class="copy" aria-label="复制代码"></button><span class="lang">bash</span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"># 执行不带参数的提示</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">&gt;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> /mcp__github__list_prs</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"># 执行带参数的提示</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">&gt;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> /mcp__github__pr_review 456</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">&gt;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> /mcp__jira__create_issue </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;登录流中的错误&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> high</span></span></code></pre></div></details><ul><li>MCP 提示从连接的服务器动态发现</li><li>参数根据提示的定义参数进行解析</li><li>提示结果直接注入到对话中</li><li>服务器和提示名称被规范化（空格变为下划线） :::</li></ul><h2>Skills：自定义工作流 </h2><p>小明每次让 AI 审查代码，都得重复一遍同样的要求：&quot;先跑测试，再检查类型，然后看有没有 console.log 残留，最后检查安全问题。&quot;说了十遍之后，他烦了。</p><p>更要命的是，每次开新会话，AI 就忘了这套流程。又得从头说。</p><p>想象公司来了个新实习生，能力很强，但每天早上都会失忆。你昨天教他的审查流程，今天又得重教一遍。怎么办？写一份操作清单钉在墙上——他每天来了看一眼就知道该怎么干。</p><p><strong>Skills 就是钉在墙上的那份操作清单</strong>，只不过不是给人看的，而是给 AI 看的。</p><div class="callout"><p><strong>场景：每天重复的格式</strong></p><p>你每天写日报，格式固定：日期、完成项、明日计划。每次都要描述一遍格式，很烦。</p><p><strong>Skills 就是解决这个问题的</strong>：把格式要求写成 <code>SKILL.md</code>，以后只说&quot;写日报&quot;，AI 自动按格式输出。</p><p><strong>Skills</strong> = 你的个性化指令模板</p><p><strong>两种方式使用</strong>：</p><table tabindex="0"><thead><tr><th>方式</th><th>示例</th><th>谁决定用</th></tr></thead><tbody><tr><td><strong>自动触发</strong></td><td>说&quot;写日报&quot;→AI 自动用 daily-report Skill</td><td>AI 判断</td></tr><tr><td><strong>斜杠命令</strong></td><td>输入 <code>/daily-report</code></td><td>你决定</td></tr></tbody></table><p><strong>新手建议</strong>：</p><ol><li>先用现成的（插件自带或下载）</li><li>有重复需求时，再自己创建</li><li>团队共享时，放项目目录里</li></ol></div><p><strong>为什么 Skills 对 Vibe Coder 特别重要？</strong></p><p>以前你在对话里教 AI 怎么做，说完这轮它就忘了。下次开新会话，又得从头来。Skills 改变了这个局面：<strong>你的经验不再是一次性的对话，而是可以反复使用的知识资产</strong>。你积累的工作流程不会随着会话结束而消失。</p><p>这也是 Skills 和传统自动化脚本最大的区别。脚本是刚性的——步骤 1 做完做步骤 2，遇到意外就卡住。Skills 是柔性的——它更像一套指导原则，AI 会根据实际情况灵活调整。比如你的审查 Skill 说&quot;检查测试覆盖率&quot;，但这个项目还没有测试框架，AI 不会卡住报错，它会告诉你&quot;建议先配置测试框架&quot;然后继续其他检查。</p><p><strong>何时需要创建 Skills</strong>：</p><table tabindex="0"><thead><tr><th>你的情况</th><th>解决方案</th></tr></thead><tbody><tr><td>每天重复同样格式的任务</td><td>创建 Skill，一次配置永久使用</td></tr><tr><td>跨会话需要保持一致的规则</td><td>写成 Skill，强制生效</td></tr><tr><td>团队需要统一输出格式</td><td>项目级 Skill，所有人共享</td></tr></tbody></table><p><strong>Skills 资源</strong>：</p><ul><li><a href="https://skillsmp.com/zh" target="_blank" rel="noreferrer">skillsmp.com</a> - 2300+ Skills 搜索目录（中文）</li><li><a href="https://agentskills.io/home" target="_blank" rel="noreferrer">agentskills.io</a> - Agent Skills 规范和市场</li><li><a href="https://github.com/anthropics/skills" target="_blank" rel="noreferrer">github.com/anthropics/skills</a> - 官方 Skills 库</li></ul><h3>Skills 的获取方式 </h3><p><strong>从插件获取</strong>（推荐新手）</p><p>很多插件包含 Skills，安装插件后 Skills 自动可用：</p><div class="language-bash vp-adaptive-theme"><button title="Copy Code" class="copy" aria-label="复制代码"></button><span class="lang">bash</span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"># 安装插件后，插件包含的 Skills 会自动加载</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">/plugin</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> install</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> feature-dev@anthropics</span></span></code></pre></div><p><strong>自己创建</strong>（进阶）</p><p>有两种方式：</p><table tabindex="0"><thead><tr><th>方式</th><th>适用场景</th></tr></thead><tbody><tr><td>通过对话定义</td><td>一次性需求，快速测试</td></tr><tr><td>创建 SKILL.md 文件</td><td>长期使用，多项目共享</td></tr></tbody></table><h3>创建 Skills </h3><p><strong>不需要写代码，口述就行</strong></p><p>很多人以为创建 Skills 需要编程能力。其实不需要——<code>SKILL.md</code> 本质上就是自然语言，你用中文描述工作流程，AI 就能照着执行。</p><p>而且你不需要一次写到完美。看看小明是怎么迭代创建一个代码审查 Skill 的：</p><p><strong>第一轮</strong>——小明告诉 AI：</p><div class="language- vp-adaptive-theme"><button title="Copy Code" class="copy" aria-label="复制代码"></button><span class="lang"></span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span>帮我创建一个代码审查的 Skill，要检查类型安全和测试覆盖率。</span></span></code></pre></div><p>AI 生成了初版 <code>SKILL.md</code>，小明测试了一下，发现漏了安全检查。</p><p><strong>第二轮</strong>——小明继续说：</p><div class="language- vp-adaptive-theme"><button title="Copy Code" class="copy" aria-label="复制代码"></button><span class="lang"></span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span>加上安全检查，特别是 XSS 和 SQL 注入。</span></span></code></pre></div><p>AI 更新了 Skill。再测一遍，功能对了，但输出是纯文本，不好看。</p><p><strong>第三轮</strong>——小明再补一句：</p><div class="language- vp-adaptive-theme"><button title="Copy Code" class="copy" aria-label="复制代码"></button><span class="lang"></span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span>审查结果输出成 Markdown 表格，每个问题标注严重等级。</span></span></code></pre></div><p>最终版就绪。整个过程，小明没写一行代码——全程口述，AI 帮他把自然语言转成了可执行的 Skill。</p><p><strong>关键心态</strong>：不要追求第一次就完美。先跑起来，发现不满意就告诉 AI 改。这种&quot;一边建、一边测、一边改&quot;的方式，比一上来就想设计完美的 Skill 高效得多。</p><div class="callout"><p><strong>SKILL.md 文件结构</strong></p><div class="language-yaml vp-adaptive-theme"><button title="Copy Code" class="copy" aria-label="复制代码"></button><span class="lang">yaml</span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">---</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">name</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">your-skill-name</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">description</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">Brief description of what this Skill does and when to use it</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">---</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"># Your Skill Name</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;">## Instructions</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">Provide clear, step-by-step guidance for the AI.</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;">## Examples</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">Show concrete examples of using this Skill.</span></span></code></pre></div><p><strong>字段要求</strong>：</p><ul><li><code>name</code>：必须仅使用小写字母、数字和连字符（最多 64 个字符）</li><li><code>description</code>：Skill 的简要描述及其使用时机（最多 1024 个字符）</li></ul><p><strong>创作要点</strong>：</p><table tabindex="0"><thead><tr><th>要点</th><th>说明</th></tr></thead><tbody><tr><td><strong>简洁</strong></td><td>假设 AI 已经聪明，只添加它没有的上下文</td></tr><tr><td><strong>命名</strong></td><td>使用动名词形式：<code>testing-code</code>、<code>processing-files</code></td></tr><tr><td><strong>描述</strong></td><td>第三人称，说明功能和使用时机：&quot;在...时使用&quot;</td></tr><tr><td><strong>具体性</strong></td><td>描述中包含 Skill 的功能和使用时机，以及关键术语</td></tr><tr><td><strong>自由度</strong></td><td>高（文本说明）→ 中（伪代码）→ 低（精确脚本）</td></tr></tbody></table><p><strong>使用 allowed-tools 限制工具访问</strong>：</p><div class="language-yaml vp-adaptive-theme"><button title="Copy Code" class="copy" aria-label="复制代码"></button><span class="lang">yaml</span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">---</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">name</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">safe-file-reader</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">description</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">Read files without making changes. Use when you need read-only file access.</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">allowed-tools</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">Read, Grep, Glob</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">---</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"># Safe File Reader</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">This Skill provides read-only file access.</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;">## Instructions</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">1. Use Read to view file contents</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">2. Use Grep to search within files</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">3. Use Glob to find files by pattern</span></span></code></pre></div></div><p><strong>Skills 存放位置</strong>：</p><div class="language-bash vp-adaptive-theme"><button title="Copy Code" class="copy" aria-label="复制代码"></button><span class="lang">bash</span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"># 个人 Skills（所有项目可用）</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">~</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">/.claude/skills/</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"># 项目 Skills（仅当前项目）</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">.claude/skills/</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"># 插件 Skills（安装插件时自动可用）</span></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"># 插件包内的 skills/ 目录</span></span></code></pre></div><p><strong>使用场景</strong>：</p><table tabindex="0"><thead><tr><th>位置</th><th>使用场景</th></tr></thead><tbody><tr><td><strong>个人 Skills</strong></td><td>您的个人工作流和偏好、实验性 Skills、个人生产力工具</td></tr><tr><td><strong>项目 Skills</strong></td><td>团队工作流和约定、项目特定专业知识、共享的实用程序和脚本</td></tr><tr><td><strong>插件 Skills</strong></td><td>安装插件时自动可用，插件包内的 skills/ 目录</td></tr></tbody></table><h3>与团队共享 Skills ⭐ </h3><div class="callout"><p><strong>推荐方法</strong></p><p><strong>通过项目存储库共享</strong>（最简单）：</p><p>将 Skill 文件放到项目的 <code>.claude/skills/</code> 目录，然后提交到 Git。团队成员拉取代码后，Skill 自动可用。</p><p><strong>具体步骤</strong>：</p><ol><li>在项目根目录创建 <code>.claude/skills/</code> 文件夹</li><li>在文件夹中创建 <code>SKILL.md</code> 文件，写入 Skill 内容</li><li>提交到 Git 并推送到远程仓库</li><li>团队成员执行 <code>git pull</code>，Skill 立即可用</li></ol><p><strong>为什么推荐</strong>：</p><table tabindex="0"><thead><tr><th>方式</th><th>优点</th><th>缺点</th></tr></thead><tbody><tr><td><strong>项目存储库</strong></td><td>自动同步、版本管理、无需额外操作</td><td>需要提交到 Git</td></tr><tr><td>插件分发</td><td>适合大型团队、集中管理</td><td>需要创建和维护插件</td></tr></tbody></table><p>对于大多数团队，项目存储库是最简单的方式。</p></div><p><strong>最佳实践</strong>：</p><table tabindex="0"><thead><tr><th>最佳实践</th><th>说明</th></tr></thead><tbody><tr><td><strong>保持 Skills 专注</strong></td><td>一个 Skill 解决一个功能</td></tr><tr><td><strong>编写清晰的描述</strong></td><td>帮助 AI 发现何时使用</td></tr><tr><td><strong>团队一起测试</strong></td><td>让队友使用并反馈</td></tr><tr><td><strong>版本记录</strong></td><td>在 SKILL.md 中添加版本历史</td></tr></tbody></table><h3>通过对话创建（临时方案） </h3><div class="language-bash vp-adaptive-theme"><button title="Copy Code" class="copy" aria-label="复制代码"></button><span class="lang">bash</span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"># 对话中定义</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">&quot;创建一个测试流程：运行测试、生成覆盖率、分析失败原因&quot;</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"># AI 会记住这个流程，当前会话有效</span></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"># 想要永久使用，请创建 SKILL.md 文件</span></span></code></pre></div><p><strong>遇到问题怎么办？</strong></p><p>创建或使用 Skills 时，你可能会遇到一些状况：</p><ul><li><strong>AI 没有自动使用你的 Skill</strong>：检查 <code>SKILL.md</code> 的 <code>description</code> 字段——描述越具体，AI 越容易判断什么时候该用它。把&quot;代码审查工具&quot;改成&quot;在用户提交代码或要求 review 时，执行类型检查、测试和安全扫描&quot;会好很多。</li><li><strong>Skill 执行到一半停了</strong>：这通常是上下文过长导致的压缩。不用慌，告诉 AI &quot;继续刚才的任务&quot;就行。如果经常压缩，考虑把一个大 Skill 拆成几个小的。</li><li><strong>执行结果不符合预期</strong>：不要重新写 Skill，直接告诉 AI 哪里不对、期望什么结果。AI 会帮你修改 <code>SKILL.md</code>——还是那句话，迭代改进，不追求一步到位。</li></ul><h3>常用 Skills 示例 </h3><table tabindex="0"><thead><tr><th>Skill</th><th>功能</th><th>适用场景</th></tr></thead><tbody><tr><td><strong>测试流程</strong></td><td>运行测试并分析</td><td>每天都要测试</td></tr><tr><td><strong>代码审查</strong></td><td>检查类型和安全</td><td>提交前审查</td></tr><tr><td><strong>文档生成</strong></td><td>为 API 生成文档</td><td>接口开发后</td></tr></tbody></table><h3>使用现有 Skills </h3><p><strong>插件包含的 Skills</strong>：</p><p>安装插件后，插件中的 Skills 会自动加载，无需额外配置：</p><div class="language-bash vp-adaptive-theme"><button title="Copy Code" class="copy" aria-label="复制代码"></button><span class="lang">bash</span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"># 安装插件</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">/plugin</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> install</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> feature-dev@anthropics</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"># AI 会自动识别并使用插件包含的 Skills</span></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"># 无需手动操作</span></span></code></pre></div><p><strong>调试 Skills</strong>：</p><div class="language-bash vp-adaptive-theme"><button title="Copy Code" class="copy" aria-label="复制代码"></button><span class="lang">bash</span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"># 查看 Skills 是否加载</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">&quot;列出所有可用的 skills&quot;</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"># 测试 Skill</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">&quot;测试 test-runner skill&quot;</span></span></code></pre></div><p>现在你有了完整的扩展工具箱——插件一键安装、MCP 连接外部服务、Skills 固化工作流。最后要注意安全问题。</p><h2>安全注意事项 </h2><div class="warning custom-block"><p><strong>MCP 安全配置</strong></p><p><strong>数据库 MCP</strong>：</p><ul><li>使用只读权限账号</li><li>不要在生产环境直接使用写权限</li></ul><p><strong>文件系统 MCP</strong>：</p><ul><li>限制访问路径，只开放必要的目录</li><li>不要允许访问根目录 <code>/</code></li></ul><p><strong>GitHub MCP</strong>：</p><ul><li>使用有期限的 token</li><li>使用最小权限范围（只读或特定仓库）</li></ul></div><div class="warning custom-block"><p><strong>插件和 Skills 安全</strong></p><p><strong>插件安全</strong>：</p><ul><li>只从可信来源安装插件</li><li>查看插件源码和权限要求</li><li>官方插件更可靠</li></ul><p><strong>Skills 安全</strong>：</p><ul><li>使用 <code>allowed-tools</code> 限制工具访问</li><li>只读 Skills 应限制为只读工具</li><li>定期审查和更新 Skills</li></ul></div><h2>常见问题 </h2><h3>Q1: Skills、MCP 和插件怎么选？ </h3><p><strong>A</strong>: 看需求。</p><table tabindex="0"><thead><tr><th>需求</th><th>选择</th></tr></thead><tbody><tr><td>自动化工作流</td><td>Skills</td></tr><tr><td>连接外部服务</td><td>MCP 或 插件</td></tr><tr><td>快捷指令</td><td>Skills</td></tr><tr><td>读取数据库</td><td>MCP 或 插件</td></tr><tr><td>一键安装</td><td>插件（更简单）</td></tr><tr><td>完整功能包</td><td>插件（包含命令+工具+工作流）</td></tr></tbody></table><p><strong>优先级建议</strong>：插件 &gt; MCP &gt; Skills（从简单到复杂）</p><h3>Q2: MCP/插件配置后不生效？ </h3><p><strong>A</strong>: 检查以下几点：</p><ol><li><strong>重启工具</strong>：配置后需要完全退出并重新打开</li><li><strong>检查 npx</strong>：确保 Node.js 已安装，<code>npx</code> 可用</li><li><strong>查看日志</strong>：Claude Desktop → Help → Developer → Toggle Logs</li><li><strong>验证连接</strong>：数据库连接字符串、GitHub token 是否正确</li></ol><h3>Q3: 如何找到更多 MCP/插件？ </h3><p><strong>A</strong>: 访问官方资源：</p><ul><li>MCP 仓库 (<a href="https://github.com/modelcontextprotocol/servers" target="_blank" rel="noreferrer">https://github.com/modelcontextprotocol/servers</a>)</li><li>使用 <code>/plugin</code> 命令浏览插件商店</li></ul><h3>Q4: MCP/插件会泄露我的数据吗？ </h3><p><strong>A</strong>:</p><p><strong>官方 MCP/插件服务器</strong>：</p><ul><li>开源代码，可审查</li><li>通常直接连接到目标服务（如 GitHub API）</li><li>不经过第三方服务器</li></ul><p><strong>第三方 MCP/插件服务器</strong>：</p><ul><li>查看源码确认数据处理方式</li><li>谨慎授权权限</li><li>使用只读 token</li></ul><h3>Q5: AI 不使用我的 Skill？ </h3><p><strong>A</strong>: 检查以下几点：</p><ol><li><strong>描述是否具体</strong>：模糊的描述会使发现变得困难</li><li><strong>YAML 是否有效</strong>：运行验证检查语法错误</li><li><strong>Skill 是否在正确的位置</strong>：检查文件路径</li><li><strong>Skills 是否冲突</strong>：使用不同的触发术语帮助 AI 选择正确的 Skill</li></ol><h2>核心理念 </h2><p><strong>扩展 AI 能力的层次</strong>：</p><p><strong>记住</strong>：</p><ol><li><strong>内置优先</strong>：先让 AI 用内置能力做</li><li><strong>按需扩展</strong>：发现不够用时再考虑 MCP/Skill</li><li><strong>安全第一</strong>：限制权限，使用只读账号</li><li><strong>保持简单</strong>：不要过度配置</li></ol><h2>相关内容 </h2><ul><li>前置：2.2 VibeCoding 工作流</li><li>详见：2.4 项目规则配置</li><li>扩展：<a href="https://github.com/modelcontextprotocol/servers" target="_blank" rel="noreferrer">MCP 官方仓库</a></li><li>扩展：<a href="https://github.com/anthropics/claude-plugins-official" target="_blank" rel="noreferrer">插件官方文档</a></li><li>扩展：<a href="https://code.claude.com/docs/zh-CN/skills" target="_blank" rel="noreferrer">Agent Skills 官方文档</a></li></ul></div></div>
+</div>
+
+
+</main>
+
+<footer class="site-footer">
+<p>© 2026 TPvibe · 内部预览版</p>
+<p style="margin-top:8px;">
+<a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer">蜀ICP备2024097797号-3</a>
+</p>
+</footer>
+<!-- THEME:tpvibe -->
+<script>
+/* Theme toggle */
+(function(){
+  var r=document.documentElement;
+  var saved=localStorage.getItem('tpvibe-theme');r.dataset.theme=saved||'light';
+  
+  /* sync button icon */
+  
+})();
+/* Reveal on scroll */
+(function(){
+  var obs=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');obs.unobserve(e.target);}});},{threshold:.15});
+  document.querySelectorAll('.reveal').forEach(function(el){obs.observe(el);});
+})();
+/* Progress bar */
+(function(){
+  var bar=document.getElementById('progress');
+  if(!bar)return;
+  window.addEventListener('scroll',function(){
+    var h=document.documentElement.scrollHeight-window.innerHeight;
+    bar.style.width=(h>0?(window.scrollY/h*100):0)+'%';
+  });
+})();
+</script>
+<script>
+/* Theme button icon sync */
+(function(){
+  var btn=document.querySelector('.theme-btn');
+  if(!btn)return;
+  function sync(){btn.textContent=document.documentElement.dataset.theme==='dark'?'☀️':'🌙';}
+  sync();
+  btn.addEventListener('click',function(){setTimeout(sync,0);});
+})();
+</script>
+
+<nav class="mobile-bottom-tabs"><ul><li><a href="/tpvibe/index.html"><svg viewBox="0 0 24 24"><path d="M3 12L12 3l9 9M5 10v10h4v-6h6v6h4V10"/></svg><span>首页</span></a></li><li><a href="/tpvibe/Basic/lecture-1.html"><svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg><span>基础篇</span></a></li><li><a href="/tpvibe/Advanced/ch01.html"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg><span>进阶篇</span></a></li><li><a href="/tpvibe/Articles/core-concepts.html"><svg viewBox="0 0 24 24"><path d="M4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zM8 7h8M8 11h8M8 15h6"/></svg><span>文章</span></a></li><li><a href="/tpvibe/Practice/index.html"><svg viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg><span>实践</span></a></li></ul></nav>
+<script>
+(function(){
+  // 判断当前页面，高亮对应的 tab（目录前缀匹配）
+  var path=location.pathname.replace(/\/index\.html$/,'/').replace(/\/$/,'');
+  var tabs=document.querySelectorAll('.mobile-bottom-tabs a');
+  var bestMatch=null;
+  var bestMatchLen=0;
+  tabs.forEach(function(a){
+    var href=a.getAttribute('href')||'';
+    if(!href)return;
+    var hrefPath=href.replace(/https?:\/\/[^\/]+/,'').replace(/\/index\.html$/,'/').replace(/\/$/,'');
+    if(path===hrefPath){bestMatch=a;return;}
+    // 目录前缀匹配：当前路径以 tab 路径开头
+    if(hrefPath.length>2&&path.indexOf(hrefPath)>=0&&hrefPath.length>bestMatchLen){bestMatch=a;bestMatchLen=hrefPath.length;}
+  });
+  if(bestMatch)bestMatch.classList.add('active');
+})();
+</script>
+
+
+<script src="/tpvibe/toc-sheet.js"></script>
+</body>
+</html>
