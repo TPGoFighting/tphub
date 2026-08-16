@@ -16,8 +16,9 @@ TPvibe 爬取脚本 v1
 """
 import os, re, json, sys, argparse, urllib.request, urllib.parse, time
 
-ROOT = os.path.dirname(os.path.abspath(__file__))          # .../tpvibe
-OUT  = os.path.join(ROOT, "_crawl")
+ROOT = os.path.dirname(os.path.abspath(__file__))          # .../scripts
+SITE = os.path.normpath(os.path.join(ROOT, "..", "tpvibe"))
+OUT  = os.path.join(SITE, "_crawl")
 UA   = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120 Safari/537.36"
 
 # 本地文件 -> 源 URL 映射（域名已统一用 vibevibe.cn，运行期替换为 vibevibe.cn）

@@ -20,8 +20,9 @@ TPvibe 填入+改造脚本 v1
 import os, re, json, argparse, shutil
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
-CRAWL = os.path.join(ROOT, "_crawl")
-IMG_DEST = os.path.join(ROOT, "images")
+SITE = os.path.normpath(os.path.join(ROOT, "..", "tpvibe"))
+CRAWL = os.path.join(SITE, "_crawl")
+IMG_DEST = os.path.join(SITE, "images")
 
 SLUG_FOR = {
     "index.html": "index",
@@ -487,7 +488,7 @@ def fill_one(local_file):
             else:
                 break
         new_page = new_page + '\n'
-    path = os.path.join(ROOT, local_file)
+    path = os.path.join(SITE, local_file)
     open(path, "w", encoding="utf-8").write(new_page)
     print(f"  ✓ {local_file}: 正文 {len(body)} 字符, 复制图片 {nimg} 张")
     return True
@@ -502,7 +503,7 @@ def fill_subs(local_file):
         return 0
     ch_dir = os.path.dirname(local_file)          # Advanced
     ch_base = os.path.basename(local_file).rsplit('.',1)[0]  # ch01
-    sub_parent = os.path.join(ROOT, ch_dir, ch_base)
+    sub_parent = os.path.join(SITE, ch_dir, ch_base)
     os.makedirs(sub_parent, exist_ok=True)
     # 复制子页图片到 images/<slug>/subs/<sub>/
     copy_sub_images(slug)
