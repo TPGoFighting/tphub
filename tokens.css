@@ -1,0 +1,95 @@
+/* Hallmark · macrostructure: Ecosystem Index · genre: modern-minimal · tone: technical
+ * pre-emit critique: P4 H5 E5 S5 R5 V4
+ * theme: TaskSkillPilot red · nav: N1b · footer: Ft2
+ */
+:root {
+  --color-paper: oklch(99% 0.002 270);
+  --color-paper-2: oklch(100% 0 0);
+  --color-ink: oklch(20% 0.018 270);
+  --color-ink-2: oklch(49% 0.025 270);
+  --color-rule: oklch(93.5% 0.008 270);
+  --color-card: oklch(100% 0 0);
+  --color-card-border: oklch(92.8% 0.01 270);
+  --color-accent: oklch(55% 0.22 24);
+  --color-accent-soft: oklch(70% 0.15 17);
+  --color-accent-pale: oklch(79% 0.1 12);
+  --color-accent-deep: oklch(48% 0.19 24);
+  --color-accent-ink: oklch(100% 0 0);
+  --color-focus: oklch(43% 0.2 260);
+  --color-grid: oklch(20% 0.018 270 / 0.04);
+  --color-shadow: oklch(20% 0.018 270 / 0.08);
+
+  --font-display: "Space Grotesk", system-ui, sans-serif;
+  --font-body: "Inter", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  --font-pixel: "Press Start 2P", ui-monospace, monospace;
+
+  --space-3xs: 0.25rem;
+  --space-2xs: 0.5rem;
+  --space-xs: 0.75rem;
+  --space-sm: 1rem;
+  --space-md: 1.5rem;
+  --space-lg: 2rem;
+  --space-xl: 3rem;
+  --space-2xl: 4.5rem;
+  --space-3xl: 7rem;
+
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-md: 1rem;
+  --text-lg: 1.25rem;
+  --text-xl: 1.75rem;
+  --text-2xl: 2.25rem;
+  --text-display: clamp(2.5rem, 5vw, 4rem);
+
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in: cubic-bezier(0.7, 0, 0.84, 0);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-short: 180ms;
+  --dur-medium: 320ms;
+  --rule-thin: 1px;
+  --radius-sm: 0.5rem;
+  --radius-control: 0.75rem;
+  --radius-card: 1.125rem;
+
+  /* Compatibility aliases retained for the existing single-file application. */
+  --bg: var(--color-paper);
+  --bg2: var(--color-paper-2);
+  --ink: var(--color-ink);
+  --ink2: var(--color-ink-2);
+  --line: var(--color-rule);
+  --card: var(--color-card);
+  --card-bd: var(--color-card-border);
+  --m: var(--color-accent);
+  --c: var(--color-accent-soft);
+  --p: var(--color-accent-pale);
+  --a: var(--color-accent-deep);
+  --grid: var(--color-grid);
+  --shadow: 0 1px 2px var(--color-shadow), 0 10px 34px var(--color-shadow);
+  --radius: var(--radius-card);
+  --maxw: 72.5rem;
+  --ease: var(--ease-out);
+  --border: var(--color-card-border);
+  --panel: var(--color-card);
+  --panel2: var(--color-paper-2);
+  --text: var(--color-ink);
+  --muted: var(--color-ink-2);
+}
+
+[data-theme="dark"] {
+  --color-paper: oklch(16% 0.018 270);
+  --color-paper-2: oklch(19% 0.022 270);
+  --color-ink: oklch(94% 0.012 270);
+  --color-ink-2: oklch(70% 0.025 270);
+  --color-rule: oklch(25% 0.025 270);
+  --color-card: oklch(20% 0.022 270);
+  --color-card-border: oklch(28% 0.035 270);
+  --color-accent: oklch(66% 0.21 20);
+  --color-accent-soft: oklch(75% 0.15 18);
+  --color-accent-pale: oklch(81% 0.11 14);
+  --color-accent-deep: oklch(58% 0.21 23);
+  --color-accent-ink: oklch(15% 0.018 270);
+  --color-focus: oklch(79% 0.15 244);
+  --color-grid: oklch(100% 0 0 / 0.035);
+  --color-shadow: oklch(0% 0 0 / 0.42);
+}
