@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+  <title id="title">AI 画布案例示意图</title>
+  <desc id="desc">一个由想法、画布和交互节点组成的 AI 画布项目示意图。</desc>
+  <rect width="1200" height="675" rx="28" fill="#f7f2e8"/>
+  <path d="M0 540C210 470 370 620 560 530s360-80 640 20V675H0z" fill="#e7dfc9"/>
+  <text x="70" y="92" fill="#26332b" font-family="system-ui,-apple-system,sans-serif" font-size="34" font-weight="700">AI 画布</text>
+  <text x="72" y="128" fill="#69746c" font-family="system-ui,-apple-system,sans-serif" font-size="18">从想法到可交互作品</text>
+  <g transform="translate(185 185) rotate(-3)">
+    <rect width="640" height="330" rx="24" fill="#fffdf8" stroke="#26332b" stroke-width="4"/>
+    <path d="M38 58h564M38 92h564M38 126h564M38 160h564M38 194h564M38 228h564M38 262h564" stroke="#b4aa76" stroke-width="2" opacity=".6"/>
+    <path d="M102 244c72-83 110-55 155-124 34-51 76-54 115-10 50 56 90 2 154-55" fill="none" stroke="#3f5b48" stroke-width="8" stroke-linecap="round"/>
+    <circle cx="102" cy="244" r="14" fill="#e57c6e"/><circle cx="257" cy="120" r="14" fill="#6f91a8"/><circle cx="526" cy="55" r="14" fill="#e57c6e"/>
+    <path d="M462 230l20-20 20 20-20 20z" fill="#b4aa76" stroke="#26332b" stroke-width="4"/>
+    <path d="M42 28h28M86 28h28M130 28h28" stroke="#e57c6e" stroke-width="10" stroke-linecap="round"/>
+  </g>
+  <g transform="translate(874 238)">
+    <circle cx="70" cy="70" r="70" fill="#3f5b48" opacity=".12"/>
+    <path d="M70 22v96M22 70h96" stroke="#3f5b48" stroke-width="8" stroke-linecap="round"/>
+    <path d="M44 44l52 52M96 44L44 96" stroke="#e57c6e" stroke-width="6" stroke-linecap="round"/>
+    <circle cx="70" cy="70" r="18" fill="#fffdf8" stroke="#3f5b48" stroke-width="5"/>
+    <text x="-8" y="185" fill="#26332b" font-family="system-ui,-apple-system,sans-serif" font-size="20" font-weight="700">节点 · 画布 · 反馈</text>
+  </g>
+</svg>
