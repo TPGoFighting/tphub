@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+  <title id="title">AI 简历优化 SaaS 案例示意图</title>
+  <desc id="desc">一个由个人资料、匹配建议和可投递简历组成的 AI 简历优化项目示意图。</desc>
+  <rect width="1200" height="675" rx="28" fill="#f7f2e8"/>
+  <text x="70" y="92" fill="#26332b" font-family="system-ui,-apple-system,sans-serif" font-size="34" font-weight="700">AI 简历优化</text>
+  <text x="72" y="128" fill="#69746c" font-family="system-ui,-apple-system,sans-serif" font-size="18">从个人资料到可投递版本</text>
+  <g transform="translate(95 190)">
+    <rect width="360" height="350" rx="20" fill="#fffdf8" stroke="#d9d3c4" stroke-width="3"/>
+    <circle cx="72" cy="78" r="32" fill="#b4aa76"/>
+    <path d="M52 130h180M52 166h255M52 202h210M52 238h170" stroke="#26332b" stroke-width="10" stroke-linecap="round" opacity=".75"/>
+    <rect x="52" y="278" width="82" height="28" rx="14" fill="#e7dfc9"/><rect x="146" y="278" width="98" height="28" rx="14" fill="#e7dfc9"/>
+    <text x="52" y="334" fill="#69746c" font-family="system-ui,-apple-system,sans-serif" font-size="17">个人资料</text>
+  </g>
+  <path d="M486 360h130" fill="none" stroke="#3f5b48" stroke-width="5" stroke-dasharray="10 12"/>
+  <circle cx="551" cy="360" r="36" fill="#e57c6e" opacity=".9"/>
+  <path d="M532 360h38M551 341v38" stroke="#26332b" stroke-width="5" stroke-linecap="round"/>
+  <g transform="translate(700 190)">
+    <rect width="360" height="350" rx="20" fill="#3f5b48"/>
+    <text x="40" y="62" fill="#fffdf8" font-family="system-ui,-apple-system,sans-serif" font-size="22" font-weight="700">匹配建议</text>
+    <rect x="40" y="96" width="280" height="56" rx="14" fill="#fffdf8" opacity=".96"/>
+    <circle cx="70" cy="124" r="12" fill="#e57c6e"/><path d="M68 124l5 5 10-12" fill="none" stroke="#fffdf8" stroke-width="3" stroke-linecap="round"/>
+    <path d="M102 118h168M102 134h120" stroke="#26332b" stroke-width="8" stroke-linecap="round" opacity=".7"/>
+    <rect x="40" y="176" width="280" height="56" rx="14" fill="#fffdf8" opacity=".96"/>
+    <circle cx="70" cy="204" r="12" fill="#b4aa76"/><path d="M68 204l5 5 10-12" fill="none" stroke="#fffdf8" stroke-width="3" stroke-linecap="round"/>
+    <path d="M102 198h168M102 214h120" stroke="#26332b" stroke-width="8" stroke-linecap="round" opacity=".7"/>
+    <rect x="40" y="256" width="160" height="42" rx="21" fill="#e57c6e"/><text x="74" y="283" fill="#26332b" font-family="system-ui,-apple-system,sans-serif" font-size="17" font-weight="700">生成版本</text>
+  </g>
+</svg>

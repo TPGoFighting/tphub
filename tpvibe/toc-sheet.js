@@ -291,3 +291,12 @@
     init();
   }
 })();
+
+// 文章页只追加一张稳定随机配图，避免把插图逻辑复制到每个 HTML 文件。
+(function loadArticleIllustrations() {
+  if (window.location.pathname.indexOf('/tpvibe/Articles/') === -1) return;
+  var script = document.createElement('script');
+  script.src = '/tpvibe/article-illustrations.js';
+  script.async = false;
+  document.head.appendChild(script);
+})();
