@@ -3150,262 +3150,6 @@ function renderFilters() {
   ).join('');
 }
 
-function cardHTML(p) {
-  let thumbMarkup = '';
-  if (p.motionKey && MOTION_HTMLS[p.motionKey]) {
-    thumbMarkup = `
-      <div class="card-ill-wrap card-motion-embed" data-motion="${p.motionKey}" style="height:190px;background:#14161a">
-        ${MOTION_HTMLS[p.motionKey]}
-      </div>`;
-  } else if (p.thumb_img) {
-    thumbMarkup = `
-      <div class="card-ill-wrap" style="--card-accent-bg:${p.accent_bg || '#fff'}">
-        <span class="card-style-badge">${p.style}</span>
-        <div class="card-scan-line"></div>
-        <img class="card-ill-img" src="${p.thumb_img}" alt="${p.name}" loading="lazy">
-      </div>`;
-  } else {
-    const iconSvg = SVG_ICONS[p.iconKey] || SVG_ICONS.wand;
-    thumbMarkup = `
-      <div class="card-ill-wrap" style="--card-accent-bg:${p.accent_bg || '#fff6e9'}">
-        <span class="card-style-badge">${p.style}</span>
-        <div class="card-scan-line"></div>
-        <div class="card-vector-header">
-          <div class="vector-badge-strip">
-            <span class="vector-category-tag">${p.tags[0] || 'Tool'}</span>
-          </div>
-          <div class="vector-center-symbol">${iconSvg}</div>
-          <span class="vector-spark-node">VECTOR // 01</span>
-        </div>
-      </div>`;
-  }
-
-  const modelIconsMarkup = p.models && p.models.length ? `
-    <div class="card-models-strip" title="适配基座模型：${p.models.join(', ')}">
-      ${p.models.map(m => `<img class="card-model-ico" src="assets/icons/${m}.svg" alt="${m}">`).join('')}
-    </div>
-  ` : '';
-
-  return `
-    <div class="cell">
-      <article class="card">
-        ${thumbMarkup}
-        <h3>${p.name}</h3>
-        <div class="desc">${p.desc}</div>
-        <div class="tags">
-          ${p.tags.map(t => `<button type="button" class="tag" data-tag="${t}">${t}</button>`).join('')}
-        </div>
-        <div class="card-foot">
-          ${modelIconsMarkup}
-          <a class="open-btn" href="${p.file}">
-            <span>打开详情页</span>
-            <span class="btn-arrow">→</span>
-          </a>
-        </div>
-      </article>
-    </div>`;
-}
-
-function listHTML(p) {
-  const iconSvg = SVG_ICONS[p.iconKey] || SVG_ICONS.wand;
-  const modelIconsMarkup = p.models && p.models.length ? `
-    <div class="card-models-strip" style="margin-top:6px" title="适配基座模型：${p.models.join(', ')}">
-      ${p.models.map(m => `<img class="card-model-ico" src="assets/icons/${m}.svg" alt="${m}">`).join('')}
-    </div>
-  ` : '';
-
-  return `
-    <div class="cell">
-      <article class="card">
-        <div class="card-ill-wrap" style="--card-accent-bg:${p.accent_bg || '#fff6e9'}">
-          <div class="card-vector-header" style="padding:8px">
-            <div class="vector-center-symbol" style="width:36px;height:36px">${iconSvg}</div>
-          </div>
-        </div>
-        <div class="card-body-wrap">
-          <h3 style="margin-bottom:4px">${p.name}</h3>
-          <div class="desc" style="font-size:13.5px">${p.desc}</div>
-          <div class="tags" style="margin:8px 0 0">
-            ${p.tags.map(t => `<button type="button" class="tag" data-tag="${t}">${t}</button>`).join('')}
-          </div>
-          ${modelIconsMarkup}
-        </div>
-        <div class="card-foot">
-          <a class="open-btn" href="${p.file}">
-            <span>打开</span>
-            <span class="btn-arrow">→</span>
-          </a>
-        </div>
-      </article>
-    </div>`;
-}
-
-/* ---------- Oil Motion: 交互式卡片倾角物理与光斑追踪 ---------- */
-function initCardMotion() {
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  if ('ontouchstart' in window && window.innerWidth < 820) return;
-
-  const cards = document.querySelectorAll('.card');
-  cards.forEach(card => {
-    let bounds;
-    let isHovered = false;
-    let rAFId = null;
-    let targetRx = 0, targetRy = 0;
-    let currRx = 0, currRy = 0;
-
-    function updatePhysics() {
-      if (!isHovered) {
-        currRx += (0 - currRx) * 0.18;
-        currRy += (0 - currRy) * 0.18;
-        if (Math.abs(currRx) < 0.01 && Math.abs(currRy) < 0.01) {
-          currRx = 0;
-          currRy = 0;
-          card.style.setProperty('--card-rx', '0deg');
-          card.style.setProperty('--card-ry', '0deg');
-          cancelAnimationFrame(rAFId);
-          rAFId = null;
-          return;
-        }
-      } else {
-        currRx += (targetRx - currRx) * 0.22;
-        currRy += (targetRy - currRy) * 0.22;
-      }
-      card.style.setProperty('--card-rx', `${currRx.toFixed(2)}deg`);
-      card.style.setProperty('--card-ry', `${currRy.toFixed(2)}deg`);
-      rAFId = requestAnimationFrame(updatePhysics);
-    }
-
-    card.addEventListener('mouseenter', () => {
-      bounds = card.getBoundingClientRect();
-      isHovered = true;
-      if (!rAFId) rAFId = requestAnimationFrame(updatePhysics);
-    });
-
-    card.addEventListener('mousemove', e => {
-      if (!bounds) bounds = card.getBoundingClientRect();
-      const x = e.clientX - bounds.left;
-      const y = e.clientY - bounds.top;
-      card.style.setProperty('--card-mx', `${x.toFixed(1)}px`);
-      card.style.setProperty('--card-my', `${y.toFixed(1)}px`);
-
-      const normX = (x / bounds.width) * 2 - 1;
-      const normY = (y / bounds.height) * 2 - 1;
-      targetRx = -normY * 4;
-      targetRy = normX * 4;
-    });
-
-    card.addEventListener('mouseleave', () => {
-      isHovered = false;
-    });
-  });
-}
-
-function render() {
-  const q = qEl.value.trim().toLowerCase();
-  const list = PROJECTS.filter(p => {
-    const okT = curTag === '全部' || p.tags.includes(curTag);
-    const okQ = !q || (p.name + p.desc + p.tags.join(' ')).toLowerCase().includes(q);
-    return okT && okQ;
-  });
-
-  count.textContent = `共 ${list.length} 个匹配项目`;
-  grid.className = 'grid' + (curView === 'list' ? ' is-list' : '');
-  grid.innerHTML = list.length
-    ? list.map(p => (curView === 'grid' ? cardHTML : listHTML)(p)).join('')
-    : `<div style="padding:48px 0;grid-column:1/-1;text-align:center;font-weight:800;color:var(--ink-secondary)">没有匹配的项目，换个关键词试试。</div>`;
-
-  // 挂载 Oil Motion 鼠标物理倾角交互
-  initCardMotion();
-  // 挂载滚动语义动效（OpenHands / Graphify / ECC / TPvibe）
-  initMotionCards();
-}
-
-qEl.oninput = render;
-
-filterChips.onclick = e => {
-  const b = e.target.closest('button[data-tag]');
-  if (!b) return;
-  curTag = b.dataset.tag;
-  renderFilters();
-  render();
-};
-
-grid.addEventListener('click', e => {
-  const b = e.target.closest('button.tag');
-  if (!b) return;
-  curTag = b.dataset.tag;
-  renderFilters();
-  render();
-  document.getElementById('explore').scrollIntoView({ behavior: 'smooth' });
-});
-
-document.getElementById('viewTabs').onclick = e => {
-  const b = e.target.closest('button');
-  if (!b) return;
-  curView = b.dataset.view;
-  [...e.currentTarget.children].forEach(x => {
-    x.classList.remove('active');
-    x.setAttribute('aria-pressed', 'false');
-  });
-  b.classList.add('active');
-  b.setAttribute('aria-pressed', 'true');
-  render();
-};
-
-renderFilters();
-render();
-
-/* ---------- 核心能力手风琴 ---------- */
-const acc = document.getElementById('acc');
-CAPS.forEach((c, i) => {
-  const d = document.createElement('div');
-  d.className = 'acc-item' + (i === 0 ? ' open' : '');
-  const panelId = `cap-panel-${i}`;
-  d.innerHTML = `
-    <button class="acc-q" type="button" aria-expanded="${i === 0 ? 'true' : 'false'}" aria-controls="${panelId}">
-      <span class="acc-ico" style="background:${c.bg}">${c.ico}</span>
-      <span>${c.q}</span>
-      <span class="chev">⌄</span>
-    </button>
-    <div class="acc-a" id="${panelId}"><div>${c.a}</div></div>
-  `;
-  const btn = d.querySelector('.acc-q');
-  btn.onclick = () => {
-    const isOpen = d.classList.contains('open');
-    d.classList.toggle('open', !isOpen);
-    btn.setAttribute('aria-expanded', String(!isOpen));
-    const a = d.querySelector('.acc-a');
-    a.style.maxHeight = !isOpen ? a.scrollHeight + 'px' : 0;
-  };
-  if (i === 0) {
-    const a = d.querySelector('.acc-a');
-    requestAnimationFrame(() => a.style.maxHeight = a.scrollHeight + 'px');
-  }
-  acc.appendChild(d);
-});
-
-/* ---------- 更新动态时间线 ---------- */
-document.getElementById('tl').innerHTML = TL.map(t => `
-  <div class="tl-item">
-    <div class="tl-card">
-      <span class="tl-date">${t.date}</span>
-      <h4>${t.h}</h4>
-      <p>${t.p}</p>
-    </div>
-  </div>
-`).join('');
-
-/* ---------- 剪贴板复制提示 ---------- */
-const toast = document.getElementById('toast');
-let tt;
-function showToast(txt) {
-  toast.textContent = '已复制 ' + txt;
-  toast.classList.add('show');
-  clearTimeout(tt);
-  tt = setTimeout(() => toast.classList.remove('show'), 1600);
-}
-
-
 /* ===========================================================================
    OIL MOTION RUNTIME — Scroll-Scrubbed Semantic Card Animations  
    Zero emoji · IntersectionObserver + rAF · No Layout Thrashing
@@ -5413,6 +5157,264 @@ function initMotionCards() {
 
   window._tpMotionObserver = scrollObserver;
 }
+
+
+
+function cardHTML(p) {
+  let thumbMarkup = '';
+  if (p.motionKey && MOTION_HTMLS[p.motionKey]) {
+    thumbMarkup = `
+      <div class="card-ill-wrap card-motion-embed" data-motion="${p.motionKey}" style="height:190px;background:#14161a">
+        ${MOTION_HTMLS[p.motionKey]}
+      </div>`;
+  } else if (p.thumb_img) {
+    thumbMarkup = `
+      <div class="card-ill-wrap" style="--card-accent-bg:${p.accent_bg || '#fff'}">
+        <span class="card-style-badge">${p.style}</span>
+        <div class="card-scan-line"></div>
+        <img class="card-ill-img" src="${p.thumb_img}" alt="${p.name}" loading="lazy">
+      </div>`;
+  } else {
+    const iconSvg = SVG_ICONS[p.iconKey] || SVG_ICONS.wand;
+    thumbMarkup = `
+      <div class="card-ill-wrap" style="--card-accent-bg:${p.accent_bg || '#fff6e9'}">
+        <span class="card-style-badge">${p.style}</span>
+        <div class="card-scan-line"></div>
+        <div class="card-vector-header">
+          <div class="vector-badge-strip">
+            <span class="vector-category-tag">${p.tags[0] || 'Tool'}</span>
+          </div>
+          <div class="vector-center-symbol">${iconSvg}</div>
+          <span class="vector-spark-node">VECTOR // 01</span>
+        </div>
+      </div>`;
+  }
+
+  const modelIconsMarkup = p.models && p.models.length ? `
+    <div class="card-models-strip" title="适配基座模型：${p.models.join(', ')}">
+      ${p.models.map(m => `<img class="card-model-ico" src="assets/icons/${m}.svg" alt="${m}">`).join('')}
+    </div>
+  ` : '';
+
+  return `
+    <div class="cell">
+      <article class="card">
+        ${thumbMarkup}
+        <h3>${p.name}</h3>
+        <div class="desc">${p.desc}</div>
+        <div class="tags">
+          ${p.tags.map(t => `<button type="button" class="tag" data-tag="${t}">${t}</button>`).join('')}
+        </div>
+        <div class="card-foot">
+          ${modelIconsMarkup}
+          <a class="open-btn" href="${p.file}">
+            <span>打开详情页</span>
+            <span class="btn-arrow">→</span>
+          </a>
+        </div>
+      </article>
+    </div>`;
+}
+
+function listHTML(p) {
+  const iconSvg = SVG_ICONS[p.iconKey] || SVG_ICONS.wand;
+  const modelIconsMarkup = p.models && p.models.length ? `
+    <div class="card-models-strip" style="margin-top:6px" title="适配基座模型：${p.models.join(', ')}">
+      ${p.models.map(m => `<img class="card-model-ico" src="assets/icons/${m}.svg" alt="${m}">`).join('')}
+    </div>
+  ` : '';
+
+  return `
+    <div class="cell">
+      <article class="card">
+        <div class="card-ill-wrap" style="--card-accent-bg:${p.accent_bg || '#fff6e9'}">
+          <div class="card-vector-header" style="padding:8px">
+            <div class="vector-center-symbol" style="width:36px;height:36px">${iconSvg}</div>
+          </div>
+        </div>
+        <div class="card-body-wrap">
+          <h3 style="margin-bottom:4px">${p.name}</h3>
+          <div class="desc" style="font-size:13.5px">${p.desc}</div>
+          <div class="tags" style="margin:8px 0 0">
+            ${p.tags.map(t => `<button type="button" class="tag" data-tag="${t}">${t}</button>`).join('')}
+          </div>
+          ${modelIconsMarkup}
+        </div>
+        <div class="card-foot">
+          <a class="open-btn" href="${p.file}">
+            <span>打开</span>
+            <span class="btn-arrow">→</span>
+          </a>
+        </div>
+      </article>
+    </div>`;
+}
+
+/* ---------- Oil Motion: 交互式卡片倾角物理与光斑追踪 ---------- */
+function initCardMotion() {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  if ('ontouchstart' in window && window.innerWidth < 820) return;
+
+  const cards = document.querySelectorAll('.card');
+  cards.forEach(card => {
+    let bounds;
+    let isHovered = false;
+    let rAFId = null;
+    let targetRx = 0, targetRy = 0;
+    let currRx = 0, currRy = 0;
+
+    function updatePhysics() {
+      if (!isHovered) {
+        currRx += (0 - currRx) * 0.18;
+        currRy += (0 - currRy) * 0.18;
+        if (Math.abs(currRx) < 0.01 && Math.abs(currRy) < 0.01) {
+          currRx = 0;
+          currRy = 0;
+          card.style.setProperty('--card-rx', '0deg');
+          card.style.setProperty('--card-ry', '0deg');
+          cancelAnimationFrame(rAFId);
+          rAFId = null;
+          return;
+        }
+      } else {
+        currRx += (targetRx - currRx) * 0.22;
+        currRy += (targetRy - currRy) * 0.22;
+      }
+      card.style.setProperty('--card-rx', `${currRx.toFixed(2)}deg`);
+      card.style.setProperty('--card-ry', `${currRy.toFixed(2)}deg`);
+      rAFId = requestAnimationFrame(updatePhysics);
+    }
+
+    card.addEventListener('mouseenter', () => {
+      bounds = card.getBoundingClientRect();
+      isHovered = true;
+      if (!rAFId) rAFId = requestAnimationFrame(updatePhysics);
+    });
+
+    card.addEventListener('mousemove', e => {
+      if (!bounds) bounds = card.getBoundingClientRect();
+      const x = e.clientX - bounds.left;
+      const y = e.clientY - bounds.top;
+      card.style.setProperty('--card-mx', `${x.toFixed(1)}px`);
+      card.style.setProperty('--card-my', `${y.toFixed(1)}px`);
+
+      const normX = (x / bounds.width) * 2 - 1;
+      const normY = (y / bounds.height) * 2 - 1;
+      targetRx = -normY * 4;
+      targetRy = normX * 4;
+    });
+
+    card.addEventListener('mouseleave', () => {
+      isHovered = false;
+    });
+  });
+}
+
+function render() {
+  const q = qEl.value.trim().toLowerCase();
+  const list = PROJECTS.filter(p => {
+    const okT = curTag === '全部' || p.tags.includes(curTag);
+    const okQ = !q || (p.name + p.desc + p.tags.join(' ')).toLowerCase().includes(q);
+    return okT && okQ;
+  });
+
+  count.textContent = `共 ${list.length} 个匹配项目`;
+  grid.className = 'grid' + (curView === 'list' ? ' is-list' : '');
+  grid.innerHTML = list.length
+    ? list.map(p => (curView === 'grid' ? cardHTML : listHTML)(p)).join('')
+    : `<div style="padding:48px 0;grid-column:1/-1;text-align:center;font-weight:800;color:var(--ink-secondary)">没有匹配的项目，换个关键词试试。</div>`;
+
+  // 挂载 Oil Motion 鼠标物理倾角交互
+  initCardMotion();
+  // 挂载滚动语义动效（OpenHands / Graphify / ECC / TPvibe）
+  initMotionCards();
+}
+
+qEl.oninput = render;
+
+filterChips.onclick = e => {
+  const b = e.target.closest('button[data-tag]');
+  if (!b) return;
+  curTag = b.dataset.tag;
+  renderFilters();
+  render();
+};
+
+grid.addEventListener('click', e => {
+  const b = e.target.closest('button.tag');
+  if (!b) return;
+  curTag = b.dataset.tag;
+  renderFilters();
+  render();
+  document.getElementById('explore').scrollIntoView({ behavior: 'smooth' });
+});
+
+document.getElementById('viewTabs').onclick = e => {
+  const b = e.target.closest('button');
+  if (!b) return;
+  curView = b.dataset.view;
+  [...e.currentTarget.children].forEach(x => {
+    x.classList.remove('active');
+    x.setAttribute('aria-pressed', 'false');
+  });
+  b.classList.add('active');
+  b.setAttribute('aria-pressed', 'true');
+  render();
+};
+
+renderFilters();
+render();
+
+/* ---------- 核心能力手风琴 ---------- */
+const acc = document.getElementById('acc');
+CAPS.forEach((c, i) => {
+  const d = document.createElement('div');
+  d.className = 'acc-item' + (i === 0 ? ' open' : '');
+  const panelId = `cap-panel-${i}`;
+  d.innerHTML = `
+    <button class="acc-q" type="button" aria-expanded="${i === 0 ? 'true' : 'false'}" aria-controls="${panelId}">
+      <span class="acc-ico" style="background:${c.bg}">${c.ico}</span>
+      <span>${c.q}</span>
+      <span class="chev">⌄</span>
+    </button>
+    <div class="acc-a" id="${panelId}"><div>${c.a}</div></div>
+  `;
+  const btn = d.querySelector('.acc-q');
+  btn.onclick = () => {
+    const isOpen = d.classList.contains('open');
+    d.classList.toggle('open', !isOpen);
+    btn.setAttribute('aria-expanded', String(!isOpen));
+    const a = d.querySelector('.acc-a');
+    a.style.maxHeight = !isOpen ? a.scrollHeight + 'px' : 0;
+  };
+  if (i === 0) {
+    const a = d.querySelector('.acc-a');
+    requestAnimationFrame(() => a.style.maxHeight = a.scrollHeight + 'px');
+  }
+  acc.appendChild(d);
+});
+
+/* ---------- 更新动态时间线 ---------- */
+document.getElementById('tl').innerHTML = TL.map(t => `
+  <div class="tl-item">
+    <div class="tl-card">
+      <span class="tl-date">${t.date}</span>
+      <h4>${t.h}</h4>
+      <p>${t.p}</p>
+    </div>
+  </div>
+`).join('');
+
+/* ---------- 剪贴板复制提示 ---------- */
+const toast = document.getElementById('toast');
+let tt;
+function showToast(txt) {
+  toast.textContent = '已复制 ' + txt;
+  toast.classList.add('show');
+  clearTimeout(tt);
+  tt = setTimeout(() => toast.classList.remove('show'), 1600);
+}
+
 
 </script>
 <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v3d52b47920f24c319d37e2661827c42b1787588026925" integrity="sha512-d9sL6GJLXn6fInD1+TVXhTcQOsmxeHfmHAvwGDIxp5TO+uo1fiWW7mHomMj4MLRlCsJDTqXzWLHJFFlPCEIj/A==" data-cf-beacon='{"version":"2024.11.0","token":"75586a0f0e29409093843a1bae73e5b1","r":1}' crossorigin="anonymous"></script>
