@@ -182,11 +182,11 @@
     display: inline-flex; align-items: center; gap: 8px;
     font-family: var(--font-display); font-weight: 900; font-size: 14.5px;
     padding: 12px 22px; border-radius: 14px; cursor: pointer;
-    border: 2.5px solid var(--border-ink); transition: all .15s ease;
+    border: 2.5px solid var(--border-ink, #1f1b19); transition: all .15s ease;
     white-space: nowrap; text-decoration: none;
   }
   .btn-main.primary {
-    background: var(--coral); color: #fff; box-shadow: var(--shadow-md);
+    background: var(--coral); color: #fff; box-shadow: var(--shadow-md, 4px 4px 0px rgba(31,27,25,.18));
   }
   .btn-main.primary:hover {
     transform: translate(-2px, -3px); box-shadow: 6px 7px 0 var(--shadow-ink);
@@ -194,7 +194,7 @@
   }
   .btn-main.primary:active { transform: translate(2px, 2px); box-shadow: 1px 1px 0 var(--shadow-ink); }
   .btn-main.secondary {
-    background: #fff; color: var(--ink); box-shadow: var(--shadow-md);
+    background: #fff; color: var(--ink); box-shadow: var(--shadow-md, 4px 4px 0px rgba(31,27,25,.18));
   }
   [data-theme="dark"] .btn-main.secondary { background: var(--paper); }
   .btn-main.secondary:hover {
@@ -286,7 +286,7 @@
   .models-strip {
     margin-top: 36px;
     background: #fff;
-    border: 2.5px solid var(--border-ink);
+    border: 2.5px solid var(--border-ink, #1f1b19);
     border-radius: 20px;
     padding: 14px 20px 16px;
     box-shadow: var(--shadow-sm);
@@ -451,7 +451,7 @@
   }
   .search-box {
     flex: 1; min-width: 260px; display: flex; align-items: center; gap: 10px;
-    background: #fff; border: 2.5px solid var(--border-ink); border-radius: 14px;
+    background: #fff; border: 2.5px solid var(--border-ink, #1f1b19); border-radius: 14px;
     padding: 10px 16px; box-shadow: var(--shadow-sm); transition: all .15s ease;
   }
   [data-theme="dark"] .search-box { background: var(--paper); }
@@ -492,8 +492,8 @@
   }
   .cell { display: flex; }
   .card {
-    position: relative; flex: 1; background: #fff; border: 2.5px solid var(--border-ink);
-    border-radius: 20px; padding: 20px; box-shadow: var(--shadow-md);
+    position: relative; flex: 1; background: #fff; border: 2.5px solid var(--border-ink, #1f1b19);
+    border-radius: 20px; padding: 20px; box-shadow: var(--shadow-md, 4px 4px 0px rgba(31,27,25,.18));
     display: flex; flex-direction: column; overflow: hidden;
     will-change: transform, box-shadow;
     transform-style: preserve-3d;
@@ -699,7 +699,7 @@
   .tl-item { position: relative; padding: 0 0 32px 12px; }
   .tl-item::before {
     content: ""; position: absolute; left: -32px; top: 4px; width: 18px; height: 18px;
-    border-radius: 50%; background: var(--lime); border: 2.5px solid var(--border-ink);
+    border-radius: 50%; background: var(--lime); border: 2.5px solid var(--border-ink, #1f1b19);
     box-shadow: 2px 2px 0 var(--border-ink);
   }
   .tl-card {
@@ -758,7 +758,7 @@
     display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 18px;
   }
   .eco-card {
-    border: 2.5px solid var(--border-ink); border-radius: 18px; background: #fff;
+    border: 2.5px solid var(--border-ink, #1f1b19); border-radius: 18px; background: #fff;
     padding: 20px; box-shadow: var(--shadow-sm); display: flex; flex-direction: column;
     text-decoration: none; transition: all .2s ease;
   }
@@ -816,8 +816,8 @@
   /* 浮动回到顶部与提示 */
   .to-top {
     position: fixed; right: 24px; bottom: 24px; width: 48px; height: 48px;
-    border-radius: 14px; border: 2.5px solid var(--border-ink); background: #fff;
-    display: grid; place-items: center; cursor: pointer; box-shadow: var(--shadow-md);
+    border-radius: 14px; border: 2.5px solid var(--border-ink, #1f1b19); background: #fff;
+    display: grid; place-items: center; cursor: pointer; box-shadow: var(--shadow-md, 4px 4px 0px rgba(31,27,25,.18));
     opacity: 0; transform: translateY(16px); pointer-events: none; transition: all .2s ease;
     z-index: 90; color: var(--ink);
   }
@@ -855,7 +855,7 @@
     .menu-toggle { display: grid; }
     .nav-links {
       display: none; position: absolute; inset: calc(100% + 2px) 16px auto;
-      margin: 0; padding: 12px; background: #fff; border: 2.5px solid var(--border-ink);
+      margin: 0; padding: 12px; background: #fff; border: 2.5px solid var(--border-ink, #1f1b19);
       border-radius: 16px; box-shadow: var(--shadow-lg); flex-direction: column;
       align-items: stretch; gap: 6px;
     }
@@ -870,1654 +870,431 @@
     .hero-left h1 { font-size: 34px; }
   }
 
+
 /* ==========================================================================
-   Oil Motion: Scroll-Scrubbed Semantic Card Animations
-   OpenHands / Graphify / ECC / TPvibe — zero emoji, pure SVG
+   Matrix Mini Motion Scenes · TP-Hub 16 个专属矢量小剧场
+   完全参考并复用 tpgofighting.top 的 --motion-progress 滚动动力学架构
    ========================================================================== */
-
-/* ---------- Shared motion card container ---------- */
-.card-motion-embed {
-  width: 100%;
-  height: 100%;
+.product-motion.matrix-motion-stage {
+  --motion-progress: 0;
+  --mm-ink: #172033;
+  --mm-paper: #fffdf7;
+  --mm-signal: #2563eb;
+  --mm-hot: #f59e0b;
   position: relative;
-  overflow: hidden;
-  border-radius: inherit;
-}
-/* Hide debug controls (scrub sliders) when embedded inside tp.html cards */
-.card-motion-embed .control-dock,
-.card-motion-embed .telemetry-bar,
-.card-motion-embed .slider-control-bar,
-.card-motion-embed .hud-panel,
-.card-motion-embed .scrub-timeline-bar,
-.card-motion-embed [id="scrubSlider"],
-.card-motion-embed [id="scrub-range"],
-.card-motion-embed input[type="range"] {
-  display: none !important;
-}
-.card-motion-embed .openhands-card,
-.card-motion-embed .graphify-card,
-.card-motion-embed .ecc-card {
-  box-shadow: none !important;
-  border-radius: 0 !important;
-  border: none !important;
+  isolation: isolate;
   width: 100%;
-  height: 100%;
+  height: 152px;
+  min-height: 152px;
+  overflow: hidden;
+  border-radius: 8px;
+  border: 1.5px solid rgba(23,32,51,.35);
+  color: var(--mm-ink);
+  background: var(--mm-paper);
+  margin-bottom: 12px;
+  transition: border-color .2s ease;
 }
 
-/* ---------- OpenHands motion CSS ---------- */
-* {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    
-
-    /* Fixed Top Control Dock */
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    .val-display {
-      font-size: 12px;
-      font-weight: 700;
-      min-width: 48px;
-    }
-
-    /* Scroll Track: generates scroll height to drive the scrub */
-    
-
-    /* Sticky Card Container */
-    
-
-    /* Neo-brutalist Motion Card */
-    .openhands-card {
-      width: 100%;
-      max-width: 760px;
-      background: var(--card-bg);
-      border: 2px solid var(--card-border);
-      box-shadow: 8px 8px 0 var(--card-border);
-      color: var(--text-bright);
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-    }
-
-    /* Header Bar */
-    .card-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 10px 16px;
-      border-bottom: 2px solid var(--card-border);
-      background: #1c1f26;
-    }
-
-    .card-header-left {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .window-controls {
-      display: flex;
-      gap: 6px;
-    }
-
-    .window-btn {
-      width: 10px;
-      height: 10px;
-      border: 1px solid #000;
-      background: #383c48;
-    }
-    .window-btn.close { background: #ff5f56; }
-    .window-btn.min { background: #ffbd2e; }
-    .window-btn.max { background: #27c93f; }
-
-    .card-title {
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      color: var(--text-dim);
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .phase-badge {
-      font-size: 11px;
-      padding: 2px 8px;
-      border: 1px solid var(--card-border);
-      font-weight: 700;
-      background: #0d0f12;
-      color: var(--accent-cyan);
-    }
-
-    /* Progress Track Bar on Card */
-    .progress-timeline-bar {
-      width: 100%;
-      height: 4px;
-      background: #242933;
-      border-bottom: 1px solid var(--card-border);
-      position: relative;
-    }
-
-    .progress-fill {
-      position: absolute;
-      left: 0;
-      top: 0;
-      bottom: 0;
-      width: calc(var(--scroll-p) * 100%);
-      background: var(--accent-green);
-      transition: width 0.05s linear;
-    }
-
-    /* Card Content Area */
-    .card-
-
-    /* SECTION 1: Prompt & Terminal (Stage: 0.00 ~ 0.30) */
-    .terminal-section {
-      background: #0c0d10;
-      border: 1px solid #292e39;
-      padding: 14px 16px;
-      position: relative;
-    }
-
-    .section-label {
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      color: var(--text-muted);
-      margin-bottom: 8px;
-      text-transform: uppercase;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .section-label svg {
-      width: 12px;
-      height: 12px;
-      fill: currentColor;
-    }
-
-    .prompt-box {
-      font-size: 13px;
-      color: var(--text-bright);
-      line-height: 1.5;
-    }
-
-    .cmd-line {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-top: 6px;
-      color: var(--accent-cyan);
-      font-weight: 600;
-    }
-
-    .cmd-cursor {
-      display: inline-block;
-      width: 8px;
-      height: 16px;
-      background: var(--accent-cyan);
-      vertical-align: middle;
-      animation: cursorBlink 0.8s infinite;
-    }
-
-    @keyframes cursorBlink {
-      0%, 49% { opacity: 1; }
-      50%, 100% { opacity: 0; }
-    }
-
-    /* SECTION 2: Docker Sandbox & Log Stream (Stage: 0.30 ~ 0.70) */
-    .sandbox-section {
-      background: #0d1015;
-      border: 1px solid #232936;
-      padding: 14px 16px;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      transition: opacity 0.2s, border-color 0.2s;
-    }
-
-    .sandbox-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .docker-status {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 12px;
-      font-weight: 700;
-    }
-
-    .status-led {
-      width: 10px;
-      height: 10px;
-      border-radius: 0;
-      border: 1px solid #000;
-      background: #414652;
-      box-shadow: 0 0 0 0 rgba(0, 229, 117, 0);
-      transition: background 0.15s, box-shadow 0.15s;
-    }
-
-    .status-led.active {
-      background: var(--accent-green);
-      box-shadow: 0 0 10px var(--accent-green);
-      animation: ledPulse 1s infinite alternate;
-    }
-
-    @keyframes ledPulse {
-      0% { opacity: 0.6; }
-      100% { opacity: 1; }
-    }
-
-    .log-stream-window {
-      background: #060709;
-      border: 1px solid #1a1e27;
-      padding: 10px 12px;
-      height: 140px;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      position: relative;
-    }
-
-    .log-entry {
-      font-size: 12px;
-      line-height: 1.4;
-      font-family: var(--font-mono);
-      opacity: 0;
-      transform: translateY(6px);
-      transition: opacity 0.15s ease-out, transform 0.15s ease-out;
-      display: flex;
-      align-items: baseline;
-      gap: 8px;
-      white-space: nowrap;
-    }
-
-    .log-entry.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .log-tag {
-      font-size: 10px;
-      font-weight: 700;
-      padding: 1px 5px;
-      border: 1px solid currentColor;
-    }
-
-    .log-tag.sys { color: var(--accent-amber); }
-    .log-tag.ast { color: var(--accent-cyan); }
-    .log-tag.diff { color: #d2a8ff; }
-    .log-tag.test { color: var(--accent-green); }
-    .log-tag.done { color: #38ef7d; }
-
-    .log-text {
-      color: var(--text-dim);
-    }
-
-    /* SECTION 3: Commit & PR Pill (Stage: 0.70 ~ 1.00) */
-    .delivery-section {
-      background: #0d1017;
-      border: 1px solid #232a38;
-      padding: 14px 16px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      min-height: 72px;
-    }
-
-    .commit-info {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-      opacity: 0;
-      transform: translateX(-10px);
-      transition: opacity 0.2s ease-out, transform 0.2s ease-out;
-    }
-
-    .commit-info.visible {
-      opacity: 1;
-      transform: translateX(0);
-    }
-
-    .commit-hash-row {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 12px;
-      font-weight: 700;
-      color: var(--text-bright);
-    }
-
-    .commit-hash-badge {
-      background: #252b37;
-      border: 1px solid #3c4456;
-      color: var(--accent-cyan);
-      padding: 2px 6px;
-      font-size: 11px;
-    }
-
-    .commit-msg {
-      font-size: 11px;
-      color: var(--text-muted);
-    }
-
-    /* Neo-brutalist PR Pill */
-    .pr-pill {
-      opacity: 0;
-      transform: scale(0.85);
-      background: var(--accent-green);
-      color: #0c0e12;
-      border: 2px solid var(--card-border);
-      box-shadow: 4px 4px 0 var(--card-border);
-      padding: 8px 14px;
-      font-size: 12px;
-      font-weight: 800;
-      letter-spacing: 0.05em;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      transition: opacity 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275),
-                  transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      white-space: nowrap;
-    }
-
-    .pr-pill.visible {
-      opacity: 1;
-      transform: scale(1);
-    }
-
-    .pr-pill svg {
-      width: 15px;
-      height: 15px;
-      fill: #0c0e12;
-    }
-
-    /* Footer Indicators */
-    .card-footer {
-      border-top: 2px solid var(--card-border);
-      background: #101217;
-      padding: 8px 16px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 10px;
-      color: var(--text-muted);
-      letter-spacing: 0.05em;
-    }
-
-    .footer-metric {
-      display: flex;
-      gap: 16px;
-    }
-
-/* ---------- Graphify motion CSS ---------- */
-* {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    
-
-    /* Rice paper grid texture */
-    .grid-canvas-bg {
-      background-color: var(--bg-card);
-      background-image: 
-        radial-gradient(var(--ink-black) 0.85px, transparent 0.85px),
-        linear-gradient(to right, rgba(31, 27, 25, 0.03) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(31, 27, 25, 0.03) 1px, transparent 1px);
-      background-size: 20px 20px, 20px 20px, 20px 20px;
-    }
-
-    /* Scroll simulation container */
-    
-
-    /* Sticky viewport container */
-    
-
-    /* Top HUD / Controls */
-    
-
-    .hud-title-group {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .hud-badge {
-      background: var(--ink-black);
-      color: var(--bg-card);
-      padding: 3px 8px;
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.5px;
-      text-transform: uppercase;
-    }
-
-    .hud-caption {
-      font-size: 13px;
-      font-weight: 700;
-      letter-spacing: 0.5px;
-    }
-
-    .hud-metrics {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      font-size: 12px;
-    }
-
-    .metric-item {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .metric-label {
-      color: var(--ink-muted);
-      font-size: 11px;
-    }
-
-    .metric-value {
-      font-weight: 800;
-      font-variant-numeric: tabular-nums;
-    }
-
-    /* Main Neo-brutalist Motion Card */
-    .graphify-card {
-      width: 100%;
-      max-width: 860px;
-      background: var(--bg-card);
-      border: var(--border-brutal);
-      box-shadow: var(--shadow-brutal);
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-      position: relative;
-    }
-
-    /* Card Header */
-    .card-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 10px 16px;
-      border-bottom: var(--border-brutal);
-      background: #ece8df;
-    }
-
-    .card-title {
-      font-size: 12px;
-      font-weight: 800;
-      letter-spacing: 1px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .bracket-dot {
-      display: inline-block;
-      width: 8px;
-      height: 8px;
-      background: var(--ink-black);
-    }
-
-    .stage-pill {
-      font-size: 11px;
-      font-weight: 700;
-      padding: 3px 10px;
-      border: var(--border-brutal);
-      background: #ffffff;
-      box-shadow: 1px 1px 0px var(--ink-black);
-      transition: background 0.2s, color 0.2s;
-    }
-
-    /* Graph Canvas Body */
-    .canvas-wrapper {
-      position: relative;
-      width: 100%;
-      height: 480px;
-      overflow: hidden;
-    }
-
-    svg.graphify-svg {
-      width: 100%;
-      height: 100%;
-      display: block;
-      user-select: none;
-    }
-
-    /* Card Footer Info bar */
-    .card-footer {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 8px 16px;
-      border-top: var(--border-brutal);
-      background: #f7f4ec;
-      font-size: 11px;
-    }
-
-    .scrub-timeline-bar {
-      flex: 1;
-      margin: 0 16px;
-      height: 6px;
-      background: #ded8cb;
-      border: 1px solid var(--ink-black);
-      position: relative;
-    }
-
-    .scrub-timeline-fill {
-      position: absolute;
-      left: 0;
-      top: 0;
-      bottom: 0;
-      background: var(--ink-black);
-      width: calc(var(--scroll-p) * 100%);
-    }
-
-    .timeline-marker-1 {
-      position: absolute;
-      left: 35%;
-      top: -3px;
-      bottom: -3px;
-      width: 2px;
-      background: var(--ink-black);
-    }
-
-    .timeline-marker-2 {
-      position: absolute;
-      left: 75%;
-      top: -3px;
-      bottom: -3px;
-      width: 2px;
-      background: var(--ink-black);
-    }
-
-    /* Manual Interactive Slider Tool for Quick Debugging */
-    
-
-    
-
-    
-
-    /* SVG typography & styling */
-    .mono-text {
-      font-family: var(--font-mono);
-    }
-
-    /* Corner neo-brutalist crosshairs */
-    .crosshair {
-      stroke: var(--ink-black);
-      stroke-width: 1.5;
-    }
-
-/* ---------- ECC motion CSS ---------- */
-/* ==========================================================================
-       ECC NEO-BRUTALIST DESIGN SYSTEM & VARIABLES
-       ========================================================================== */
-    
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    
-
-    /* Fixed top HUD / Scrubber for precise debugging */
-    
-
-    .telemetry-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-
-    .telemetry-badge-dot {
-      width: 8px;
-      height: 8px;
-      border: 1px solid var(--color-border);
-      background: var(--color-amber);
-    }
-
-    .telemetry-controls {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      flex: 1;
-      justify-content: flex-end;
-    }
-
-    
-    
-
-    .preset-btn {
-      font-family: var(--font-mono);
-      font-size: 10px;
-      font-weight: 700;
-      padding: 4px 8px;
-      border: 1.5px solid var(--color-border);
-      background: var(--color-surface);
-      cursor: pointer;
-      box-shadow: 2px 2px 0px var(--color-border);
-      transition: transform 0.05s ease, box-shadow 0.05s ease;
-    }
-    .preset-btn:active {
-      transform: translate(2px, 2px);
-      box-shadow: 0px 0px 0px var(--color-border);
-    }
-    .preset-btn:hover {
-      background: #e9e4d8;
-    }
-
-    /* Sticky Stage Container */
-    
-
-    
-
-    /* Main Neo-brutalist Card */
-    .ecc-card {
-      position: relative;
-      width: min(840px, 95vw);
-      background: var(--color-surface-dark);
-      color: var(--color-text-bright);
-      border: 2px solid var(--color-border);
-      box-shadow: 8px 8px 0px var(--color-border);
-      padding: 0;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-    }
-
-    /* Header Bar */
-    .card-header {
-      background: #1c1d20;
-      border-bottom: 2px solid var(--color-border-subtle);
-      padding: 10px 16px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      user-select: none;
-    }
-
-    .card-title {
-      font-size: 12px;
-      letter-spacing: 0.12em;
-      font-weight: 700;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      color: #eae7e0;
-    }
-
-    .card-bolt {
-      width: 10px;
-      height: 10px;
-      display: inline-block;
-    }
-
-    .stage-indicator-pills {
-      display: flex;
-      gap: 6px;
-    }
-
-    .stage-pill {
-      font-size: 9px;
-      font-weight: 700;
-      padding: 2px 6px;
-      border: 1px solid var(--color-border-subtle);
-      color: #6e6b66;
-      background: #141517;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
-
-    .stage-pill.active {
-      border-color: var(--color-amber);
-      color: var(--color-amber);
-      background: rgba(245, 158, 11, 0.12);
-    }
-
-    /* Canvas Body: 3-column Layout */
-    .card-canvas {
-      position: relative;
-      min-height: 480px;
-      display: grid;
-      grid-template-columns: 1.15fr 1.35fr 1.1fr;
-      background: #0d0e10;
-      border-bottom: 2px solid var(--color-border-subtle);
-      background-image: 
-        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-      background-size: 20px 20px;
-    }
-
-    @media (max-width: 768px) {
-      .card-canvas {
-        grid-template-columns: 1fr;
-        min-height: auto;
-      }
-    }
-
-    /* Common Section Styles */
-    .module-section {
-      position: relative;
-      padding: 16px;
-      border-right: 1px solid rgba(255, 255, 255, 0.08);
-      display: flex;
-      flex-direction: column;
-    }
-    .module-section:last-child {
-      border-right: none;
-    }
-
-    .section-tag {
-      font-size: 9px;
-      letter-spacing: 0.15em;
-      color: #888279;
-      font-weight: 700;
-      margin-bottom: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      border-bottom: 1px dashed rgba(255, 255, 255, 0.12);
-      padding-bottom: 4px;
-    }
-
-    .section-tag-num {
-      color: var(--color-amber);
-    }
-
-    /* ==========================================================================
-       ZONE 1: CHIP SLOT & "SKILL // 278" CARTRIDGE (0.00 ~ 0.40)
-       ========================================================================== */
-    .zone-chip {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .slot-stage {
-      position: relative;
-      width: 100%;
-      height: 360px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-end;
-      padding-bottom: 20px;
-    }
-
-    /* Cartridge Container */
-    .cartridge-unit {
-      position: absolute;
-      width: 170px;
-      top: 24px;
-      z-index: 20;
-      will-change: transform;
-      transform: translateY(var(--cartridge-y, 0px));
-      filter: drop-shadow(0px 8px 12px rgba(0,0,0,0.6));
-    }
-
-    .cartridge-chassis {
-      background: #1e2024;
-      border: 2px solid #3c3f47;
-      padding: 10px 12px 8px 12px;
-      position: relative;
-      clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 0 100%);
-    }
-
-    .cartridge-heat-fins {
-      display: flex;
-      gap: 3px;
-      margin-bottom: 8px;
-    }
-
-    .heat-fin {
-      flex: 1;
-      height: 4px;
-      background: #2f323a;
-      border: 1px solid #4a4e5a;
-    }
-
-    .cartridge-label {
-      font-size: 11px;
-      font-weight: 800;
-      letter-spacing: 0.08em;
-      color: #fff;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      margin-bottom: 4px;
-    }
-
-    .cartridge-label-tag {
-      background: var(--color-amber);
-      color: #000;
-      font-size: 8px;
-      font-weight: 900;
-      padding: 1px 4px;
-    }
-
-    .cartridge-subtext {
-      font-size: 8px;
-      color: #8c909c;
-      letter-spacing: 0.05em;
-      line-height: 1.3;
-    }
-
-    .cartridge-pins {
-      display: flex;
-      justify-content: space-around;
-      padding: 0 8px;
-      background: #141518;
-      border-left: 2px solid #3c3f47;
-      border-right: 2px solid #3c3f47;
-      border-bottom: 2px solid #3c3f47;
-      height: 14px;
-      align-items: flex-end;
-    }
-
-    .gold-pin {
-      width: 3px;
-      height: 10px;
-      background: #9d7728;
-      transition: background 0.15s ease;
-    }
-
-    .gold-pin.energized {
-      background: #ffb703;
-      box-shadow: 0 0 6px #ffb703;
-    }
-
-    /* Motherboard Socket Base */
-    .slot-socket {
-      position: relative;
-      width: 190px;
-      background: #17181c;
-      border: 2px solid #2e3038;
-      padding: 12px 10px 8px 10px;
-      z-index: 10;
-    }
-
-    .socket-receptacle {
-      width: 100%;
-      height: 18px;
-      background: #08090a;
-      border: 1.5px solid #3d404b;
-      margin-bottom: 10px;
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: space-around;
-      padding: 0 6px;
-    }
-
-    .socket-contact {
-      width: 3px;
-      height: 8px;
-      background: #2b2e38;
-      transition: background 0.2s ease, box-shadow 0.2s ease;
-    }
-
-    .socket-contact.hot {
-      background: var(--color-amber);
-      box-shadow: 0 0 8px var(--color-amber-glow);
-    }
-
-    /* Side Lock Clamps */
-    .socket-clamp {
-      position: absolute;
-      top: -12px;
-      width: 14px;
-      height: 22px;
-      background: #252830;
-      border: 1.5px solid #4a4e5d;
-      transition: transform 0.1s linear;
-    }
-    .socket-clamp.left {
-      left: -10px;
-      transform-origin: bottom left;
-      transform: rotate(var(--clamp-angle-left, -32deg));
-    }
-    .socket-clamp.right {
-      right: -10px;
-      transform-origin: bottom right;
-      transform: rotate(var(--clamp-angle-right, 32deg));
-    }
-
-    .clamp-notch {
-      width: 100%;
-      height: 4px;
-      background: #5b6072;
-      margin-top: 2px;
-    }
-
-    /* Motherboard Mother Traces (SVG) */
-    .pcb-trace-svg {
-      width: 100%;
-      height: 70px;
-      display: block;
-      margin-top: 6px;
-    }
-
-    .pcb-trace-path {
-      fill: none;
-      stroke: #252932;
-      stroke-width: 2;
-      stroke-linecap: square;
-      stroke-linejoin: miter;
-    }
-
-    .pcb-trace-path.glow {
-      stroke: var(--color-amber);
-      stroke-width: 2.2;
-      filter: drop-shadow(0 0 4px var(--color-amber-glow));
-      opacity: var(--trace-glow-opacity, 0);
-      transition: opacity 0.1s linear;
-    }
-
-    /* Status Readout */
-    .slot-readout {
-      width: 100%;
-      display: flex;
-      justify-content: space-between;
-      font-size: 8.5px;
-      color: #928f89;
-      border-top: 1px solid rgba(255, 255, 255, 0.08);
-      padding-top: 6px;
-      margin-top: 4px;
-    }
-
-    .slot-status-pill {
-      font-weight: 800;
-      color: var(--slot-status-color, #70757f);
-      letter-spacing: 0.06em;
-    }
-
-    /* ==========================================================================
-       ZONE 2: HOOKS INTERCEPTION PIPELINE (0.40 ~ 0.80)
-       ========================================================================== */
-    .zone-hooks {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      position: relative;
-    }
-
-    .pipeline-container {
-      position: relative;
-      width: 100%;
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: space-around;
-      padding: 10px 0;
-    }
-
-    /* Vertical Data Conduit Bus */
-    .conduit-bus {
-      position: absolute;
-      top: 15px;
-      bottom: 15px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 26px;
-      pointer-events: none;
-      z-index: 1;
-    }
-
-    /* Hook Node Cards */
-    .hook-node {
-      position: relative;
-      z-index: 5;
-      width: 86%;
-      background: #16181b;
-      border: 1.5px solid #2d3038;
-      padding: 8px 12px;
-      box-shadow: var(--shadow-brutal-sm);
-      transition: border-color 0.1s ease, box-shadow 0.1s ease, background-color 0.1s ease;
-    }
-
-    .hook-node.active {
-      border-color: var(--color-cyan);
-      box-shadow: 0 0 10px rgba(0, 229, 255, 0.3), var(--shadow-brutal-sm);
-      background: #121e24;
-    }
-
-    .hook-node.passed {
-      border-color: var(--color-green);
-      background: #131d18;
-    }
-
-    .hook-node-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 4px;
-    }
-
-    .hook-node-title {
-      font-size: 10px;
-      font-weight: 800;
-      letter-spacing: 0.08em;
-      color: #e5e7eb;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .hook-badge {
-      font-size: 7.5px;
-      padding: 1px 4px;
-      background: #252830;
-      color: #9ca3af;
-      border: 1px solid #3c404b;
-      font-weight: 700;
-    }
-
-    .hook-node.active .hook-badge {
-      background: rgba(0, 229, 255, 0.2);
-      color: var(--color-cyan);
-      border-color: var(--color-cyan);
-    }
-
-    .hook-node.passed .hook-badge {
-      background: rgba(16, 185, 129, 0.2);
-      color: var(--color-green);
-      border-color: var(--color-green);
-    }
-
-    .hook-node-
-
-    .hook-meter {
-      width: 70px;
-      height: 4px;
-      background: #252830;
-      border: 1px solid #3c404b;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hook-meter-fill {
-      position: absolute;
-      left: 0;
-      top: 0;
-      bottom: 0;
-      width: 0%;
-      background: var(--color-cyan);
-      transition: width 0.1s linear, background-color 0.1s ease;
-    }
-
-    .hook-node.passed .hook-meter-fill {
-      background: var(--color-green);
-      width: 100% !important;
-    }
-
-    /* ==========================================================================
-       ZONE 3: MEMORY VAULT MECHANICAL LOCK (0.80 ~ 1.00)
-       ========================================================================== */
-    .zone-vault {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .vault-chamber {
-      position: relative;
-      width: 100%;
-      height: 330px;
-      background: #111215;
-      border: 2px solid #2b2e38;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      box-shadow: inset 0 0 30px rgba(0,0,0,0.8);
-    }
-
-    /* Inner Secure Core */
-    .vault-core {
-      position: absolute;
-      width: 130px;
-      height: 130px;
-      background: #090a0c;
-      border: 1.5px dashed #404452;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-      z-index: 2;
-    }
-
-    .vault-core-matrix {
-      font-size: 7.5px;
-      color: #4b5263;
-      line-height: 1.2;
-      letter-spacing: 0.12em;
-      text-align: center;
-    }
-
-    .vault-core-crystal {
-      width: 28px;
-      height: 28px;
-    }
-
-    /* Mechanical Heavy Sliding Blast Shutters (Left & Right) */
-    .vault-shutter {
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      width: 52%;
-      background: #202229;
-      z-index: 10;
-      border: 2px solid #383c48;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-around;
-      padding: 10px 4px;
-      will-change: transform;
-    }
-
-    .vault-shutter.left {
-      left: 0;
-      transform: translateX(var(--shutter-left-x, -95%));
-      border-right: 3px solid #14161b;
-      box-shadow: 4px 0 10px rgba(0,0,0,0.7);
-    }
-
-    .vault-shutter.right {
-      right: 0;
-      transform: translateX(var(--shutter-right-x, 95%));
-      border-left: 3px solid #14161b;
-      box-shadow: -4px 0 10px rgba(0,0,0,0.7);
-    }
-
-    .shutter-plate-line {
-      height: 3px;
-      background: #14151a;
-      border-top: 1px solid #343743;
-      width: 100%;
-    }
-
-    .shutter-hazard-stripe {
-      height: 12px;
-      background: repeating-linear-gradient(
-        45deg,
-        #1b1c20,
-        #1b1c20 6px,
-        #f59e0b 6px,
-        #f59e0b 12px
-      );
-      opacity: 0.75;
-      border: 1px solid #000;
-    }
-
-    /* Mechanical Interlock Teeth */
-    .interlock-teeth {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 12px;
-      height: 70px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-
-    .vault-shutter.left .interlock-teeth {
-      right: -8px;
-    }
-    .vault-shutter.right .interlock-teeth {
-      left: -8px;
-    }
-
-    .tooth {
-      width: 8px;
-      height: 12px;
-      background: #3c404d;
-      border: 1px solid #575c6c;
-    }
-
-    /* Rotary Locking Bolts */
-    .vault-bolt-ring {
-      position: absolute;
-      z-index: 25;
-      width: 80px;
-      height: 80px;
-      border-radius: 50%;
-      border: 3px solid #323540;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: rgba(14, 15, 18, 0.9);
-      box-shadow: 0 0 14px rgba(0,0,0,0.8);
-      transform: rotate(var(--bolt-rotation, 0deg));
-      transition: border-color 0.15s ease;
-    }
-
-    .vault-bolt-ring.locked {
-      border-color: var(--color-green);
-      box-shadow: 0 0 18px rgba(16, 185, 129, 0.4);
-    }
-
-    .bolt-spoke {
-      position: absolute;
-      width: 6px;
-      height: 100%;
-      background: #474c5b;
-    }
-    .bolt-spoke:nth-child(2) {
-      transform: rotate(90deg);
-    }
-
-    .bolt-hub {
-      position: relative;
-      z-index: 30;
-      width: 32px;
-      height: 32px;
-      background: #17181e;
-      border: 2px solid #5b6276;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    /* Status Plaque */
-    .vault-status-panel {
-      width: 100%;
-      margin-top: 10px;
-      background: #141519;
-      border: 1.5px solid #282b34;
-      padding: 8px 10px;
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }
-
-    .vault-state-readout {
-      font-size: 10px;
-      font-weight: 800;
-      letter-spacing: 0.08em;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      color: var(--vault-status-color, #707584);
-    }
-
-    .vault-state-meta {
-      font-size: 7.5px;
-      color: #5c6270;
-      letter-spacing: 0.05em;
-    }
-
-    /* ==========================================================================
-       CARD FOOTER: TELEMETRY CONSOLE
-       ========================================================================== */
-    .card-footer {
-      background: #141517;
-      border-top: 2px solid var(--color-border-subtle);
-      padding: 10px 16px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      font-size: 9.5px;
-      letter-spacing: 0.08em;
-      color: #8c8880;
-    }
-
-    .footer-left {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-    }
-
-    .footer-metric {
-      display: flex;
-      gap: 6px;
-    }
-
-    .footer-metric-val {
-      color: #ffffff;
-      font-weight: 700;
-    }
-
-    .progress-bar-rail {
-      width: 140px;
-      height: 8px;
-      background: #090a0b;
-      border: 1px solid #373b45;
-      position: relative;
-    }
-
-    .progress-bar-fill {
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      left: 0;
-      width: calc(var(--scroll-p) * 100%);
-      background: var(--color-amber);
-    }
-
-    /* Scroll Prompt Helper */
-    .scroll-hint {
-      margin-top: 14px;
-      font-size: 11px;
-      color: var(--color-border);
-      font-weight: 700;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      background: #e7e2d7;
-      padding: 6px 14px;
-      border: 1.5px solid var(--color-border);
-      box-shadow: var(--shadow-brutal-sm);
-    }
-
-    .scroll-arrow-svg {
-      width: 12px;
-      height: 12px;
-      stroke: var(--color-border);
-      stroke-width: 2.5;
-    }
-
-/* ---------- TPvibe Waveform CSS ---------- */
-* {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    
-
-    /* 固定调试 HUD */
-    
-
-    .hud-row {
-      display: flex;
-      justify-content: space-between;
-      gap: 1.5rem;
-    }
-
-    .hud-label {
-      color: var(--text-muted);
-    }
-
-    .hud-value {
-      color: #fff;
-      font-weight: 600;
-    }
-
-    /* 容器布局 */
-    .container {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 5rem 1.5rem 12rem;
-    }
-
-    .hero-header {
-      margin-bottom: 5rem;
-      text-align: center;
-    }
-
-    .hero-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.25rem 0.75rem;
-      background: rgba(0, 242, 254, 0.1);
-      border: 1px solid rgba(0, 242, 254, 0.3);
-      border-radius: 9999px;
-      font-family: var(--font-mono);
-      font-size: 0.75rem;
-      color: var(--accent-cyan);
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      margin-bottom: 1.25rem;
-    }
-
-    .hero-badge .indicator-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: var(--accent-cyan);
-      box-shadow: 0 0 8px var(--accent-cyan);
-      animation: pulse 2s infinite ease-in-out;
-    }
-
-    @keyframes pulse {
-      0%, 100% { opacity: 0.3; transform: scale(0.9); }
-      50% { opacity: 1; transform: scale(1.1); }
-    }
-
-    .hero-title {
-      font-size: 2.5rem;
-      font-weight: 800;
-      letter-spacing: -0.03em;
-      margin-bottom: 1rem;
-      background: linear-gradient(135deg, #ffffff 40%, var(--accent-cyan) 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .hero-subtitle {
-      color: var(--text-muted);
-      font-size: 1rem;
-      max-width: 640px;
-      margin: 0 auto;
-      line-height: 1.6;
-    }
-
-    /* 滚动卡片列表 */
-    .cards-stack {
-      display: flex;
-      flex-direction: column;
-      gap: 7rem;
-    }
-
-    /* TPvibe 声波卡片外壳 */
-    .tpvibe-card {
-      position: relative;
-      background: var(--bg-surface);
-      border: 1px solid var(--border-subtle);
-      border-radius: 16px;
-      padding: 2rem;
-      overflow: hidden;
-      box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.7);
-      transition: border-color 0.25s ease, box-shadow 0.25s ease;
-      will-change: transform, opacity;
-      transform: translate3d(0, 0, 0);
-
-      /* CSS 变量驱动的动态微调 (由 ScrollScrubObserver 驱动) */
-      --scroll-p: 0.00;
-    }
-
-    /* 随着滚动进度产生光照边缘与立体投影深浅微动 */
-    .tpvibe-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 2px;
-      background: linear-gradient(90deg, 
-        transparent, 
-        hsl(calc(185 + var(--scroll-p) * 90), 100%, 55%), 
-        transparent
-      );
-      opacity: calc(0.3 + var(--scroll-p) * 0.7);
-    }
-
-    /* 卡片头部 */
-    .card-meta {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      margin-bottom: 1.5rem;
-    }
-
-    .card-title-group {
-      display: flex;
-      flex-direction: column;
-      gap: 0.25rem;
-    }
-
-    .card-label {
-      font-family: var(--font-mono);
-      font-size: 0.7rem;
-      color: var(--accent-cyan);
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-    }
-
-    .card-title {
-      font-size: 1.35rem;
-      font-weight: 700;
-      color: #ffffff;
-      letter-spacing: -0.01em;
-    }
-
-    .card-chips {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    .metric-chip {
-      background: var(--bg-surface-elevated);
-      border: 1px solid var(--border-subtle);
-      border-radius: 6px;
-      padding: 0.3rem 0.65rem;
-      font-family: var(--font-mono);
-      font-size: 0.75rem;
-      color: var(--text-muted);
-      display: flex;
-      align-items: center;
-      gap: 0.4rem;
-    }
-
-    .metric-chip .chip-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: var(--accent-emerald);
-    }
-
-    /* 声波视觉主舞台 */
-    .waveform-stage {
-      position: relative;
-      width: 100%;
-      height: 180px;
-      background: #090b12;
-      border: 1px solid var(--border-subtle);
-      border-radius: 10px;
-      overflow: hidden;
-      margin-bottom: 1.5rem;
-    }
-
-    .waveform-stage svg {
-      width: 100%;
-      height: 100%;
-      display: block;
-    }
-
-    /* 辅助网格与标线 */
-    .stage-grid {
-      position: absolute;
-      inset: 0;
-      background-image: 
-        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-      background-size: 20px 20px;
-      pointer-events: none;
-    }
-
-    .center-axis {
-      position: absolute;
-      top: 50%;
-      left: 0;
-      right: 0;
-      height: 1px;
-      background: rgba(255, 255, 255, 0.08);
-      pointer-events: none;
-    }
-
-    /* 卡片底栏遥测数值 */
-    .card-telemetry {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 1rem;
-      padding-top: 1.25rem;
-      border-top: 1px solid var(--border-subtle);
-      font-family: var(--font-mono);
-    }
-
-    .telemetry-item {
-      display: flex;
-      flex-direction: column;
-      gap: 0.25rem;
-    }
-
-    .telemetry-k {
-      font-size: 0.7rem;
-      color: var(--text-dim);
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-    }
-
-    .telemetry-v {
-      font-size: 0.95rem;
-      font-weight: 600;
-      color: var(--text-main);
-    }
-
-    
-
-    
-
-    /* 降级模式：prefers-reduced-motion */
-    @media (prefers-reduced-motion: reduce) {
-      .tpvibe-card {
-        --scroll-p: 0.50 !important;
-        transition: none !important;
-      }
-      
-      .hero-badge .indicator-dot {
-        animation: none !important;
-      }
-    }
-
+.product-motion.matrix-motion-stage:hover {
+  border-color: var(--mm-signal);
+}
+
+/* 场景配色主题 */
+.matrix-motion--openhands { --mm-signal: #e75f41; --mm-hot: #fbbf24; }
+.matrix-motion--graphify  { --mm-signal: #10b981; --mm-hot: #f59e0b; }
+.matrix-motion--ecc       { --mm-signal: #2563eb; --mm-hot: #10b981; }
+.matrix-motion--vibe      { --mm-signal: #8b5cf6; --mm-hot: #22d3ee; }
+.matrix-motion--spells    { --mm-signal: #ec4899; --mm-hot: #fbbf24; }
+.matrix-motion--tools     { --mm-signal: #0ea5e9; --mm-hot: #f59e0b; }
+.matrix-motion--refero    { --mm-signal: #6366f1; --mm-hot: #f43f5e; }
+.matrix-motion--atemplate { --mm-signal: #059669; --mm-hot: #d97706; }
+.matrix-motion--mksaas    { --mm-signal: #2563eb; --mm-hot: #10b981; }
+.matrix-motion--promptkit { --mm-signal: #d946ef; --mm-hot: #f59e0b; }
+.matrix-motion--reactbits { --mm-signal: #0284c7; --mm-hot: #e11d48; }
+.matrix-motion--animateui { --mm-signal: #f97316; --mm-hot: #8b5cf6; }
+.matrix-motion--lobehub   { --mm-signal: #e85d75; --mm-hot: #f97316; }
+.matrix-motion--iconfont  { --mm-signal: #14b8a6; --mm-hot: #f59e0b; }
+.matrix-motion--charts    { --mm-signal: #f59e0b; --mm-hot: #ef4444; }
+.matrix-motion--hacke2    { --mm-signal: #10b981; --mm-hot: #f59e0b; }
+
+.mm-grid {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  opacity: .75;
+  background-image: linear-gradient(rgba(23,32,51,.065) 1px, transparent 1px), linear-gradient(90deg, rgba(23,32,51,.065) 1px, transparent 1px);
+  background-size: 14px 14px;
+}
+
+.mm-kicker {
+  position: absolute;
+  top: 9px;
+  left: 11px;
+  z-index: 4;
+  color: var(--mm-ink);
+  font: 800 9px/1 "JetBrains Mono", monospace;
+  letter-spacing: .08em;
+  opacity: clamp(0, calc(var(--motion-progress) * 2), 1);
+  transform: translateY(calc((1 - var(--motion-progress)) * -6px));
+}
+
+.mm-spark {
+  position: absolute;
+  right: 10px;
+  top: 9px;
+  z-index: 4;
+  color: var(--mm-hot);
+  font: 900 16px/1 sans-serif;
+  opacity: clamp(0, calc(var(--motion-progress) * 2.2 - 1), 1);
+  transform: rotate(calc((1 - var(--motion-progress)) * -25deg)) scale(calc(.6 + var(--motion-progress) * .4));
+}
+
+/* --- 01 OpenHands 智能体终端 --- */
+.matrix-motion--openhands .mm-window {
+  position: absolute;
+  width: 74%;
+  height: 68%;
+  left: 13%;
+  top: 22%;
+  border: 2px solid var(--mm-ink);
+  border-radius: 6px;
+  overflow: hidden;
+  background: #ffffff;
+  box-shadow: 3px 3px 0 rgba(23,32,51,.12);
+  transform: translateY(calc((1 - var(--motion-progress)) * 20px)) scale(calc(.92 + var(--motion-progress) * .08));
+  opacity: clamp(0, calc(var(--motion-progress) * 2.2 - .15), 1);
+  z-index: 2;
+}
+.matrix-motion--openhands .mm-win-bar {
+  height: 18px;
+  padding: 4px 6px;
+  background: #fde8e4;
+  border-bottom: 1.5px solid var(--mm-ink);
+  display: flex;
+  gap: 3px;
+  align-items: center;
+}
+.matrix-motion--openhands .mm-win-bar i { width: 4px; height: 4px; background: var(--mm-ink); border-radius: 50%; }
+.matrix-motion--openhands .mm-win-bar b { margin-left: 4px; font: 700 7px/1 "JetBrains Mono", monospace; opacity: .7; }
+.matrix-motion--openhands .mm-body { padding: 8px; }
+.matrix-motion--openhands .mm-cmd { display: block; font: 800 8px/1 "JetBrains Mono", monospace; color: var(--mm-signal); margin-bottom: 6px; }
+.matrix-motion--openhands .mm-line { display: block; height: 4px; width: 75%; background: var(--mm-ink); opacity: .18; border-radius: 3px; transform-origin: left; transform: scaleX(var(--motion-progress)); }
+.matrix-motion--openhands .mm-badge--pr {
+  position: absolute;
+  right: 6px;
+  bottom: 6px;
+  padding: 3px 6px;
+  color: #fff;
+  background: #10b981;
+  border-radius: 4px;
+  font: 900 8px/1 "JetBrains Mono", monospace;
+  transform: scale(clamp(0, calc(var(--motion-progress) * 3 - 1.8), 1));
+  opacity: clamp(0, calc(var(--motion-progress) * 3 - 1.8), 1);
+}
+
+/* --- 02 Graphify 代码知识图谱 --- */
+.matrix-motion--graphify .mm-paper {
+  position: absolute;
+  width: 72%;
+  height: 66%;
+  left: 14%;
+  top: 22%;
+  padding: 9px;
+  border: 2px solid var(--mm-ink);
+  border-radius: 6px;
+  background: #ffffff;
+  box-shadow: 3px 3px 0 rgba(23,32,51,.12);
+  transform: translateY(calc((1 - var(--motion-progress)) * 20px));
+  opacity: clamp(0, calc(var(--motion-progress) * 2.1 - .1), 1);
+  z-index: 2;
+}
+.matrix-motion--graphify .mm-paper b { font: 900 8px/1 "JetBrains Mono", monospace; color: var(--mm-signal); }
+.matrix-motion--graphify .mm-scan-beam {
+  position: absolute;
+  left: 0; right: 0;
+  top: calc(15% + var(--motion-progress) * 65%);
+  height: 2px;
+  background: var(--mm-signal);
+  box-shadow: 0 0 6px var(--mm-signal);
+  opacity: clamp(0, calc(var(--motion-progress) * 2.6 - .5), 1);
+}
+.matrix-motion--graphify .mm-ast-nodes { position: relative; height: 45px; margin-top: 6px; }
+.matrix-motion--graphify .mm-node {
+  position: absolute;
+  width: 8px; height: 8px;
+  border: 1.5px solid var(--mm-ink);
+  border-radius: 50%;
+  background: #fff;
+  transform: scale(clamp(0, calc(var(--motion-progress) * 3 - var(--ni)), 1));
+}
+.matrix-motion--graphify .mm-node--1 { left: 10%; top: 12px; --ni: 0.3; background: #ff7043; }
+.matrix-motion--graphify .mm-node--2 { left: 38%; top: 4px; --ni: 0.7; background: #ff7043; }
+.matrix-motion--graphify .mm-node--3 { left: 62%; top: 24px; --ni: 1.1; background: #0ea5e9; }
+.matrix-motion--graphify .mm-node--4 { left: 84%; top: 8px; --ni: 1.5; background: #0ea5e9; }
+.matrix-motion--graphify .mm-leiden { position: absolute; bottom: 6px; font: 800 7px/1 "JetBrains Mono", monospace; padding: 2px 4px; border-radius: 3px; color: #fff; opacity: clamp(0, calc(var(--motion-progress) * 3 - 1.9), 1); }
+.matrix-motion--graphify .mm-leiden--coral { left: 8px; background: #ff7043; }
+.matrix-motion--graphify .mm-leiden--sky { right: 8px; background: #0ea5e9; }
+
+/* --- 03 ECC Agent OS 架构 --- */
+.matrix-motion--ecc .mm-rail { position: absolute; left: 12%; right: 12%; top: 44%; height: 18px; z-index: 2; }
+.matrix-motion--ecc .mm-rail-line { position: absolute; left: 0; right: 0; top: 8px; height: 2px; background: var(--mm-ink); opacity: .25; }
+.matrix-motion--ecc .mm-rail-line::after {
+  content: "";
+  position: absolute; left: 0; top: 0; bottom: 0;
+  width: calc(var(--motion-progress) * 100%);
+  background: var(--mm-signal);
+}
+.matrix-motion--ecc .mm-node {
+  position: absolute; top: 4px; width: 8px; height: 8px;
+  border: 1.5px solid var(--mm-ink); border-radius: 50%; background: #fff;
+  transform: scale(clamp(0, calc(var(--motion-progress) * 4 - var(--ei)), 1));
+}
+.matrix-motion--ecc .mm-node:nth-child(2) { left: 12%; --ei: 0.3; }
+.matrix-motion--ecc .mm-node:nth-child(3) { left: 48%; --ei: 1.1; }
+.matrix-motion--ecc .mm-node:nth-child(4) { left: 82%; --ei: 2.0; background: var(--mm-hot); }
+.matrix-motion--ecc .mm-chip-dock {
+  position: absolute; left: 14%; top: 20%;
+  padding: 4px 8px; border: 1.5px solid var(--mm-ink); border-radius: 4px; background: #fff;
+  transform: translateY(calc((1 - var(--motion-progress)) * -14px));
+  opacity: clamp(0, calc(var(--motion-progress) * 2.2 - .2), 1);
+  z-index: 3;
+}
+.matrix-motion--ecc .mm-chip-dock b { font: 900 8px/1 "JetBrains Mono", monospace; color: var(--mm-signal); }
+.matrix-motion--ecc .mm-hooks-row { display: flex; gap: 4px; margin-top: 4px; }
+.matrix-motion--ecc .mm-hooks-row i { font-style: normal; font: 700 7px/1 "JetBrains Mono", monospace; padding: 2px 4px; border-radius: 2px; background: #e0f2fe; color: #0369a1; }
+.matrix-motion--ecc .mm-vault-stamp {
+  position: absolute; right: 14%; bottom: 12%;
+  font-style: normal; font: 900 8px/1 "JetBrains Mono", monospace;
+  padding: 3px 6px; border: 1.5px solid #10b981; border-radius: 4px; color: #10b981; background: #ecfdf5;
+  transform: scale(calc(.8 + var(--motion-progress) * .2));
+  opacity: clamp(0, calc(var(--motion-progress) * 3 - 1.8), 1);
+  z-index: 3;
+}
+
+/* --- 04 TPvibe 动态心流声波 --- */
+.matrix-motion--vibe .mm-panel {
+  position: absolute;
+  width: 76%; height: 68%;
+  left: 12%; top: 20%;
+  padding: 10px;
+  border: 2px solid var(--mm-ink);
+  border-radius: 6px;
+  background: #fff;
+  box-shadow: 3px 3px 0 rgba(23,32,51,.12);
+  transform: scale(calc(.92 + var(--motion-progress) * .08));
+  opacity: clamp(0, calc(var(--motion-progress) * 2 - .05), 1);
+  z-index: 2;
+}
+.matrix-motion--vibe .mm-panel-val { font: 900 18px/.9 "JetBrains Mono", monospace; color: var(--mm-signal); }
+.matrix-motion--vibe .mm-panel-val span { font-size: 8px; margin-left: 4px; opacity: .7; }
+.matrix-motion--vibe .mm-bars { display: flex; align-items: flex-end; gap: 4px; height: 28px; margin-top: 8px; }
+.matrix-motion--vibe .mm-bars i {
+  flex: 1; min-height: 4px; background: var(--mm-signal); border-radius: 2px 2px 0 0;
+  height: calc(var(--vb) * var(--motion-progress));
+}
+.matrix-motion--vibe .mm-bars i:nth-child(1) { --vb: 35%; }
+.matrix-motion--vibe .mm-bars i:nth-child(2) { --vb: 70%; }
+.matrix-motion--vibe .mm-bars i:nth-child(3) { --vb: 95%; background: var(--mm-hot); }
+.matrix-motion--vibe .mm-bars i:nth-child(4) { --vb: 55%; }
+.matrix-motion--vibe .mm-bars i:nth-child(5) { --vb: 80%; }
+.matrix-motion--vibe .mm-trend-line { height: 16px; margin-top: 4px; overflow: hidden; }
+.matrix-motion--vibe .mm-trend-line svg { width: 100%; height: 100%; }
+.matrix-motion--vibe .mm-trend-line path {
+  fill: none; stroke: var(--mm-signal); stroke-width: 2.5; stroke-dasharray: 140;
+  stroke-dashoffset: calc(140 - var(--motion-progress) * 140);
+}
+
+/* --- 05 Design Spells 交互动效 --- */
+.matrix-motion--spells .mm-ui-stage { position: absolute; inset: 22% 12% 14%; z-index: 2; }
+.matrix-motion--spells .mm-switch {
+  position: absolute; left: 10px; top: 12px;
+  width: 36px; height: 20px; border: 2px solid var(--mm-ink); border-radius: 12px;
+  background: calc(var(--motion-progress) > 0.5 ? var(--mm-signal) : '#e2e8f0');
+}
+.matrix-motion--spells .mm-switch-knob {
+  display: block; width: 12px; height: 12px; margin: 2px;
+  border-radius: 50%; background: #fff; border: 1.5px solid var(--mm-ink);
+  transform: translateX(calc(var(--motion-progress) * 16px));
+}
+.matrix-motion--spells .mm-cursor {
+  position: absolute; right: 28px; top: 18px;
+  font-size: 14px; color: var(--mm-ink);
+  transform: translate(calc((1 - var(--motion-progress)) * 20px), calc((1 - var(--motion-progress)) * 14px));
+}
+.matrix-motion--spells .mm-card-stack { position: absolute; left: 12px; bottom: 8px; display: flex; gap: 4px; }
+.matrix-motion--spells .mm-card-stack i {
+  width: 24px; height: 16px; border: 1.5px solid var(--mm-ink); border-radius: 3px; background: #fff;
+  opacity: clamp(0, calc(var(--motion-progress) * 2.5 - .6), 1);
+}
+.matrix-motion--spells .mm-card-stack i:nth-child(2) { background: var(--mm-hot); }
+
+/* --- 06 IndieTools 工具雷达 --- */
+.matrix-motion--tools .mm-radar {
+  position: absolute; width: 80px; height: 80px; left: 50%; top: 52%;
+  transform: translate(-50%, -50%); border: 1.5px dashed var(--mm-signal); border-radius: 50%;
+  z-index: 2; opacity: clamp(0, calc(var(--motion-progress) * 2.2 - .1), 1);
+}
+.matrix-motion--tools .mm-radar-sweep {
+  position: absolute; inset: 0; border-radius: 50%;
+  background: conic-gradient(from 0deg, transparent 60%, rgba(14,165,233,.35) 100%);
+  transform: rotate(calc(var(--motion-progress) * 360deg));
+}
+.matrix-motion--tools .mm-blip {
+  position: absolute; width: 6px; height: 6px; border-radius: 50%; background: var(--mm-hot);
+  transform: scale(clamp(0, calc(var(--motion-progress) * 3 - var(--bp)), 1));
+}
+.matrix-motion--tools .mm-blip--1 { left: 24%; top: 30%; --bp: 0.4; }
+.matrix-motion--tools .mm-blip--2 { right: 22%; top: 42%; --bp: 0.9; background: var(--mm-signal); }
+.matrix-motion--tools .mm-blip--3 { left: 54%; bottom: 20%; --bp: 1.4; }
+
+/* --- 07 Refero 设计灵感 --- */
+.matrix-motion--refero .mm-screens { position: absolute; inset: 22% 14% 12%; z-index: 2; }
+.matrix-motion--refero .mm-screen {
+  position: absolute; width: 56px; height: 72px; border: 2px solid var(--mm-ink); border-radius: 6px; background: #fff;
+  box-shadow: 2px 2px 0 rgba(23,32,51,.1); padding: 5px;
+}
+.matrix-motion--refero .mm-screen--back {
+  right: 18px; top: 0; opacity: .7;
+  transform: translateY(calc((1 - var(--motion-progress)) * 14px)) rotate(4deg);
+}
+.matrix-motion--refero .mm-screen--front {
+  left: 18px; bottom: 0;
+  transform: translateY(calc((1 - var(--motion-progress)) * 22px)) rotate(-3deg);
+  opacity: clamp(0, calc(var(--motion-progress) * 2.1 - .1), 1);
+}
+.matrix-motion--refero .mm-screen b { font: 900 7px/1 "JetBrains Mono", monospace; color: var(--mm-signal); }
+.matrix-motion--refero .mm-screen i { display: block; height: 4px; margin-top: 5px; background: var(--mm-ink); opacity: .18; }
+
+/* --- 08 ATemplate 多智能体编排 --- */
+.matrix-motion--atemplate .mm-flow { position: absolute; inset: 26% 12% 14%; display: flex; align-items: center; justify-content: center; gap: 8px; z-index: 2; }
+.matrix-motion--atemplate .mm-agent-node {
+  padding: 6px 10px; border: 2px solid var(--mm-ink); border-radius: 6px; background: #fff;
+  box-shadow: 2px 2px 0 rgba(23,32,51,.1);
+  transform: scale(calc(.85 + var(--motion-progress) * .15));
+  opacity: clamp(0, calc(var(--motion-progress) * 2.2 - .1), 1);
+}
+.matrix-motion--atemplate .mm-agent-node b { font: 900 8px/1 "JetBrains Mono", monospace; color: var(--mm-signal); }
+.matrix-motion--atemplate .mm-flow-arrow {
+  width: 22px; height: 2px; background: var(--mm-ink); position: relative;
+  transform: scaleX(var(--motion-progress)); transform-origin: left;
+}
+.matrix-motion--atemplate .mm-flow-arrow::after {
+  content: "→"; position: absolute; right: -4px; top: -7px; font: 800 10px/1 sans-serif; color: var(--mm-ink);
+}
+
+/* --- 09 MKSaaS 商业化模板 --- */
+.matrix-motion--mksaas .mm-saas-card {
+  position: absolute; width: 76%; height: 68%; left: 12%; top: 22%;
+  padding: 10px; border: 2px solid var(--mm-ink); border-radius: 6px; background: #fff;
+  box-shadow: 3px 3px 0 rgba(23,32,51,.12);
+  transform: translateY(calc((1 - var(--motion-progress)) * 18px));
+  opacity: clamp(0, calc(var(--motion-progress) * 2.1 - .1), 1);
+  z-index: 2;
+}
+.matrix-motion--mksaas .mm-saas-head { display: flex; justify-content: space-between; align-items: center; }
+.matrix-motion--mksaas .mm-saas-head b { font: 900 11px/1 "JetBrains Mono", monospace; color: var(--mm-signal); }
+.matrix-motion--mksaas .mm-growth { font-style: normal; font: 800 8px/1 "JetBrains Mono", monospace; color: #10b981; background: #d1fae5; padding: 2px 4px; border-radius: 3px; }
+.matrix-motion--mksaas .mm-bars { display: flex; align-items: flex-end; gap: 5px; height: 26px; margin-top: 10px; }
+.matrix-motion--mksaas .mm-bars i { flex: 1; background: #93c5fd; border-radius: 2px; height: calc(var(--sb) * var(--motion-progress)); }
+.matrix-motion--mksaas .mm-bars i:nth-child(1) { --sb: 30%; }
+.matrix-motion--mksaas .mm-bars i:nth-child(2) { --sb: 50%; }
+.matrix-motion--mksaas .mm-bars i:nth-child(3) { --sb: 40%; }
+.matrix-motion--mksaas .mm-bars i:nth-child(4) { --sb: 80%; }
+.matrix-motion--mksaas .mm-bars i:nth-child(5) { --sb: 100%; background: var(--mm-signal); }
+
+/* --- 10 Prompt-Kit 提示词工坊 --- */
+.matrix-motion--promptkit .mm-prompt-box {
+  position: absolute; width: 74%; height: 66%; left: 13%; top: 22%;
+  padding: 8px 10px; border: 2px solid var(--mm-ink); border-radius: 6px; background: #fff;
+  box-shadow: 3px 3px 0 rgba(23,32,51,.12);
+  transform: translateY(calc((1 - var(--motion-progress)) * 18px));
+  opacity: clamp(0, calc(var(--motion-progress) * 2.1 - .1), 1);
+  z-index: 2;
+}
+.matrix-motion--promptkit .mm-prompt-box b { font: 900 8px/1 "JetBrains Mono", monospace; color: var(--mm-signal); }
+.matrix-motion--promptkit .mm-slot {
+  display: inline-block; padding: 2px 5px; margin-top: 6px; border: 1.5px solid var(--mm-hot);
+  border-radius: 3px; font: 700 7px/1 "JetBrains Mono", monospace; color: var(--mm-hot); background: #fef3c7;
+  transform: scale(clamp(0, calc(var(--motion-progress) * 3 - 1.4), 1));
+}
+.matrix-motion--promptkit .mm-prompt-box i { display: block; height: 3px; margin-top: 5px; background: var(--mm-ink); opacity: .18; }
+.matrix-motion--promptkit .mm-prompt-box i:last-child { width: 60%; }
+
+/* --- 11 ReactBits 动效组件 --- */
+.matrix-motion--reactbits .mm-button-demo { position: absolute; inset: 26% 14% 14%; display: grid; place-items: center; z-index: 2; }
+.matrix-motion--reactbits .mm-mock-btn {
+  padding: 8px 14px; border: 2px solid var(--mm-ink); border-radius: 8px; background: var(--mm-signal);
+  color: #fff; font: 900 8px/1 "JetBrains Mono", monospace; cursor: pointer;
+  box-shadow: 3px 3px 0 var(--mm-ink);
+  transform: scale(calc(.85 + var(--motion-progress) * .15));
+  opacity: clamp(0, calc(var(--motion-progress) * 2.2 - .1), 1);
+}
+
+/* --- 12 Animate-UI 缓动曲线 --- */
+.matrix-motion--animateui .mm-curve-box {
+  position: absolute; width: 76%; height: 66%; left: 12%; top: 22%;
+  padding: 8px; border: 2px solid var(--mm-ink); border-radius: 6px; background: #fff;
+  box-shadow: 3px 3px 0 rgba(23,32,51,.12);
+  z-index: 2; opacity: clamp(0, calc(var(--motion-progress) * 2.1 - .1), 1);
+}
+.matrix-motion--animateui .mm-curve-box svg { width: 100%; height: 32px; }
+.matrix-motion--animateui .mm-easing-tag { display: block; font: 800 7px/1 "JetBrains Mono", monospace; color: var(--mm-signal); margin-top: 4px; }
+
+/* --- 13 LobeHub 对话界面 --- */
+.matrix-motion--lobehub .mm-chat { position: absolute; inset: 20% 10% 12%; display: flex; flex-direction: column; gap: 5px; justify-content: center; z-index: 2; }
+.matrix-motion--lobehub .mm-bubble {
+  width: fit-content; max-width: 82%; padding: 5px 8px; border: 1.5px solid var(--mm-ink);
+  border-radius: 8px 8px 8px 2px; background: #fff; font: 700 8px/1.2 "Noto Sans SC", sans-serif;
+  transform: translateX(calc((1 - var(--motion-progress)) * -24px));
+  opacity: clamp(0, calc(var(--motion-progress) * 2.2 - .1), 1);
+}
+.matrix-motion--lobehub .mm-bubble--r { align-self: flex-end; border-radius: 8px 8px 2px 8px; background: var(--mm-hot); transform: translateX(calc((1 - var(--motion-progress)) * 24px)); opacity: clamp(0, calc(var(--motion-progress) * 2.4 - .6), 1); }
+.matrix-motion--lobehub .mm-bubble--accent { background: #fff; color: var(--mm-signal); border-color: var(--mm-signal); opacity: clamp(0, calc(var(--motion-progress) * 2.5 - 1.2), 1); }
+
+/* --- 14 Iconfont 矢量栅格 --- */
+.matrix-motion--iconfont .mm-icon-grid {
+  position: absolute; width: 66px; height: 66px; left: 50%; top: 52%; transform: translate(-50%, -50%);
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; z-index: 2;
+}
+.matrix-motion--iconfont .mm-icon-grid i {
+  border: 1.5px solid var(--mm-ink); border-radius: 4px; background: #fff;
+  opacity: clamp(0, calc(var(--motion-progress) * 2.4 - .4), 1);
+}
+.matrix-motion--iconfont .mm-icon-active { background: var(--mm-signal) !important; border-color: var(--mm-signal) !important; }
+
+/* --- 15 Chinese-Top-Charts 排行榜 --- */
+.matrix-motion--charts .mm-rank-bars {
+  position: absolute; inset: 26% 18% 14%; display: flex; align-items: flex-end; justify-content: center; gap: 8px; z-index: 2;
+}
+.matrix-motion--charts .mm-rank-col { display: flex; flex-direction: column; align-items: center; gap: 3px; }
+.matrix-motion--charts .mm-rank-col span { font: 900 8px/1 "JetBrains Mono", monospace; color: var(--mm-ink); }
+.matrix-motion--charts .mm-rank-col i {
+  width: 22px; border: 1.5px solid var(--mm-ink); border-radius: 3px 3px 0 0; background: #fed7aa;
+  height: calc(var(--rh) * var(--motion-progress));
+}
+.matrix-motion--charts .mm-rank-col:nth-child(1) i { --rh: 24px; }
+.matrix-motion--charts .mm-rank-col--top i { --rh: 42px; background: var(--mm-signal); }
+.matrix-motion--charts .mm-rank-col:nth-child(3) i { --rh: 16px; }
+
+/* --- 16 Hacke2 安全审计 --- */
+.matrix-motion--hacke2 .mm-audit-box {
+  position: absolute; width: 74%; height: 66%; left: 13%; top: 22%;
+  padding: 8px 10px; border: 2px solid var(--mm-ink); border-radius: 6px; background: #fff;
+  box-shadow: 3px 3px 0 rgba(23,32,51,.12);
+  transform: translateY(calc((1 - var(--motion-progress)) * 18px));
+  opacity: clamp(0, calc(var(--motion-progress) * 2.1 - .1), 1);
+  z-index: 2;
+}
+.matrix-motion--hacke2 .mm-audit-row { display: flex; justify-content: space-between; margin-bottom: 5px; }
+.matrix-motion--hacke2 .mm-audit-row b { font: 900 8px/1 "JetBrains Mono", monospace; color: var(--mm-signal); }
+.matrix-motion--hacke2 .mm-audit-row i { width: 30%; height: 4px; background: var(--mm-ink); opacity: .18; align-self: center; }
+.matrix-motion--hacke2 .mm-stamp--green {
+  position: absolute; right: 8px; bottom: 8px;
+  font-style: normal; font: 900 8px/1 "JetBrains Mono", monospace;
+  padding: 2px 5px; border: 1.5px solid #10b981; border-radius: 3px; color: #10b981; background: #ecfdf5;
+  transform: rotate(-6deg) scale(calc(.8 + var(--motion-progress) * .2));
+  opacity: clamp(0, calc(var(--motion-progress) * 3 - 1.8), 1);
+}
 </style>
 
 <script type="application/ld+json">
@@ -3150,1459 +1927,139 @@ function renderFilters() {
   ).join('');
 }
 
+
 /* ===========================================================================
-   OIL MOTION RUNTIME — Scroll-Scrubbed Semantic Card Animations  
-   Zero emoji · IntersectionObserver + rAF · No Layout Thrashing
+   MATRIX MOTION RUNTIME · 参考 tpgofighting.top 滚动动力学架构
+   复用 --motion-progress 0→1 连续插值与 CSS 硬件加速变换
    =========================================================================== */
 
-
-/* ===== Motion HTML Templates ===== */
-const MOTION_HTMLS = {
-  openhands: `<div class="openhands-card" id="openhandsCard">
-        
-        <!-- Header -->
-        <div class="card-header">
-          <div class="card-header-left">
-            <div class="window-controls">
-              <span class="window-btn close"></span>
-              <span class="window-btn min"></span>
-              <span class="window-btn max"></span>
-            </div>
-            <span class="card-title">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square">
-                <rect x="2" y="3" width="20" height="14"></rect>
-                <line x1="8" y1="21" x2="16" y2="21"></line>
-                <line x1="12" y1="17" x2="12" y2="21"></line>
-              </svg>
-              OPENHANDS // AUTONOMOUS AGENT RUNNER
-            </span>
-          </div>
-          <div class="phase-badge" id="phaseBadge">STAGE 1: TASK DISPATCH</div>
-        </div>
-
-        <!-- Progress Fill Bar -->
-        <div class="progress-timeline-bar">
-          <div class="progress-fill" id="progressFill"></div>
-        </div>
-
-        <!-- Body -->
-        <div class="card-body">
-          
-          <!-- STAGE 1: Prompt & Terminal Input (0.00 ~ 0.30) -->
-          <div class="terminal-section" id="stage1Section">
-            <div class="section-label">
-              <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 14H4V8h16v10z"/></svg>
-              USER PROMPT INSTRUCTION
-            </div>
-            <div class="prompt-box">
-              <div class="cmd-line">
-                <span style="color: var(--text-muted);">$</span>
-                <span id="terminalCmd"></span>
-                <span class="cmd-cursor" id="cmdCursor"></span>
-              </div>
-            </div>
-          </div>
-
-          <!-- STAGE 2: Docker Sandbox & Log Stream (0.30 ~ 0.70) -->
-          <div class="sandbox-section" id="stage2Section">
-            <div class="sandbox-header">
-              <div class="section-label">
-                <svg viewBox="0 0 24 24"><path d="M4 3h16a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2zm2 4v4h4V7H6zm6 0v4h4V7h-4zm-6 6v4h4v-4H6zm6 0v4h4v-4h-4z"/></svg>
-                ISOLATED DOCKER SANDBOX
-              </div>
-              <div class="docker-status">
-                <span class="status-led" id="dockerLed"></span>
-                <span id="dockerStatusText" style="color: var(--text-muted);">CONTAINER IDLE</span>
-              </div>
-            </div>
-
-            <!-- Log Stream -->
-            <div class="log-stream-window" id="logWindow">
-              <div class="log-entry" id="log0">
-                <span class="log-tag sys">SANDBOX</span>
-                <span class="log-text">[INIT] Spinning container: openhands-runtime-v0.2</span>
-              </div>
-              <div class="log-entry" id="log1">
-                <span class="log-tag ast">PARSE</span>
-                <span class="log-text">[AST] Inspecting codebase AST & dependency graph</span>
-              </div>
-              <div class="log-entry" id="log2">
-                <span class="log-tag diff">PATCH</span>
-                <span class="log-text">[DIFF] Applying atomic fix: core/session.py:L142-L158</span>
-              </div>
-              <div class="log-entry" id="log3">
-                <span class="log-tag test">TEST</span>
-                <span class="log-text">[VERIFY] Running pytest test_session.py ... 14 PASSED</span>
-              </div>
-              <div class="log-entry" id="log4">
-                <span class="log-tag done">CLEAN</span>
-                <span class="log-text">[AUDIT] Sandbox verification passed. Exporting diff.</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- STAGE 3: Git Commit & PR Merge Pill (0.70 ~ 1.00) -->
-          <div class="delivery-section" id="stage3Section">
-            <div class="commit-info" id="commitInfo">
-              <div class="commit-hash-row">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square">
-                  <circle cx="12" cy="12" r="4"></circle>
-                  <line x1="1.05" y1="12" x2="7" y2="12"></line>
-                  <line x1="17.01" y1="12" x2="22.96" y2="12"></line>
-                </svg>
-                <span>COMMIT</span>
-                <span class="commit-hash-badge" id="commitHash">commit 7f3a9b4</span>
-              </div>
-              <div class="commit-msg">fix: resolve async session race condition in worker loop</div>
-            </div>
-
-            <div class="pr-pill" id="prPill">
-              <svg viewBox="0 0 16 16">
-                <path d="M5 3.254V3.25a.75.75 0 1 1 1.5 0v.004a2.25 2.25 0 0 1 1.5 2.122v5.248a2.25 2.25 0 1 1-1.5 0V5.376A.75.75 0 0 0 5 4.626v5.998a2.25 2.25 0 1 1-1.5 0V3.254a.75.75 0 0 1 1.5 0zM4.25 12a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5zm6.5 0a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5zm0-8.75a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5z"/>
-              </svg>
-              <span>[PR #1024 MERGED]</span>
-            </div>
-          </div>
-
-        </div>
-
-        <!-- Footer -->
-        <div class="card-footer">
-          <div>ENGINE: OPENHANDS-HEADLESS-V1</div>
-          <div class="footer-metric">
-            <span id="metricP">SCROLL_P: 0.000</span>
-            <span>MEM: 256MB</span>
-            <span>EXIT: 0</span>
-          </div>
-        </div>
-
-      </div>`,
-  graphify: `<div class="graphify-card" id="graphifyCard">
-      <!-- Card Title Bar -->
-      <div class="card-header">
-        <div class="card-title">
-          <span class="bracket-dot"></span>
-          <span>SRC/PARSER/GRAPH_EXTRACTOR.PY</span>
-        </div>
-        <div class="stage-pill" id="stagePillLabel">[STAGE 1: TREE-SITTER SCAN]</div>
-      </div>
-
-      <!-- Graph Viewport Container -->
-      <div class="canvas-wrapper grid-canvas-bg" id="canvasWrapper">
-        <svg class="graphify-svg" id="graphSvg" viewBox="0 0 800 480" preserveAspectRatio="xMidYMid meet">
-          <defs>
-            <!-- Arrow markers -->
-            <marker id="arrow-neutral" viewBox="0 0 10 10" refX="22" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-              <path d="M 0 1 L 10 5 L 0 9 z" fill="#1f1b19" />
-            </marker>
-            <marker id="arrow-coral" viewBox="0 0 10 10" refX="22" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-              <path d="M 0 1 L 10 5 L 0 9 z" fill="#ff5733" />
-            </marker>
-            <marker id="arrow-sky" viewBox="0 0 10 10" refX="22" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-              <path d="M 0 1 L 10 5 L 0 9 z" fill="#0ea5e9" />
-            </marker>
-            
-            <!-- Code sheet drop shadow -->
-            <filter id="brutal-shadow" x="-5%" y="-5%" width="115%" height="115%">
-              <feDropShadow dx="3" dy="3" stdDeviation="0" flood-color="#1f1b19" />
-            </filter>
-          </defs>
-
-          <!-- Neo-brutalist viewport background grid accents & crosshairs -->
-          <g class="viewport-decorations" opacity="0.65">
-            <!-- 4 Corner Crosshairs -->
-            <path class="crosshair" d="M 20 15 L 20 25 M 15 20 L 25 20" />
-            <path class="crosshair" d="M 780 15 L 780 25 M 775 20 L 785 20" />
-            <path class="crosshair" d="M 20 460 L 20 470 M 15 465 L 25 465" />
-            <path class="crosshair" d="M 780 460 L 780 470 M 775 465 L 785 465" />
-          </g>
-
-          <!-- ================= LAYER 0: LEIDEN COMMUNITY CLUSTERS ================= -->
-          <g id="layerLeidenClusters" opacity="0">
-            <!-- Cluster Coral (Ast Core) -->
-            <g id="clusterCoralGroup">
-              <path id="clusterCoralHull" d="M 130,250 C 130,150 370,140 380,240 C 390,340 140,360 130,250 Z" 
-                    fill="rgba(255, 87, 51, 0.08)" stroke="#ff5733" stroke-width="2" stroke-dasharray="6 4" />
-              <g transform="translate(145, 148)">
-                <rect x="0" y="0" width="135" height="20" fill="#ff5733" stroke="#1f1b19" stroke-width="1.5" />
-                <text x="67" y="14" fill="#ffffff" font-size="10" font-weight="800" text-anchor="middle" class="mono-text">
-                  LEIDEN #01 [CORE_AST]
-                </text>
-              </g>
-            </g>
-
-            <!-- Cluster Sky (Async/IO) -->
-            <g id="clusterSkyGroup">
-              <path id="clusterSkyHull" d="M 430,250 C 430,140 670,145 680,255 C 690,365 440,360 430,250 Z" 
-                    fill="rgba(14, 165, 233, 0.08)" stroke="#0ea5e9" stroke-width="2" stroke-dasharray="6 4" />
-              <g transform="translate(540, 148)">
-                <rect x="0" y="0" width="130" height="20" fill="#0ea5e9" stroke="#1f1b19" stroke-width="1.5" />
-                <text x="65" y="14" fill="#ffffff" font-size="10" font-weight="800" text-anchor="middle" class="mono-text">
-                  LEIDEN #02 [IO_EXEC]
-                </text>
-              </g>
-            </g>
-          </g>
-
-          <!-- ================= LAYER 1: DIRECTED EDGES ================= -->
-          <g id="layerEdges"></g>
-
-          <!-- ================= LAYER 2: CODE FILE SHEET (STAGE 1) ================= -->
-          <g id="layerCodeSheet">
-            <g id="codeCardGroup" filter="url(#brutal-shadow)">
-              <!-- Code card container -->
-              <rect x="230" y="75" width="340" height="320" fill="#faf8f5" stroke="#1f1b19" stroke-width="2" />
-              
-              <!-- Code file window bar -->
-              <rect x="230" y="75" width="340" height="28" fill="#ece8df" stroke="#1f1b19" stroke-width="2" />
-              <text x="245" y="93" fill="#1f1b19" font-size="10" font-weight="800" class="mono-text">MODULE: AST_PIPELINE.PY</text>
-              <line x1="535" y1="84" x2="545" y2="94" stroke="#1f1b19" stroke-width="1.5" />
-              <line x1="545" y1="84" x2="535" y2="94" stroke="#1f1b19" stroke-width="1.5" />
-
-              <!-- Code lines representation -->
-              <g id="codeLinesGroup" transform="translate(245, 120)">
-                <!-- Line 0: import -->
-                <text x="0" y="10" fill="#6b645c" font-size="11" class="mono-text">01</text>
-                <text x="25" y="10" fill="#ff5733" font-size="11" font-weight="700" class="mono-text">import</text>
-                <text x="75" y="10" fill="#1f1b19" font-size="11" class="mono-text">asyncio, networkx</text>
-
-                <!-- Line 1: class -->
-                <text x="0" y="42" fill="#6b645c" font-size="11" class="mono-text">02</text>
-                <text x="25" y="42" fill="#0ea5e9" font-size="11" font-weight="700" class="mono-text">class</text>
-                <text x="65" y="42" fill="#1f1b19" font-size="11" font-weight="700" class="mono-text">GraphEngine:</text>
-
-                <!-- Line 2: def init -->
-                <text x="0" y="74" fill="#6b645c" font-size="11" class="mono-text">03</text>
-                <text x="40" y="74" fill="#ff5733" font-size="11" font-weight="700" class="mono-text">def</text>
-                <text x="68" y="74" fill="#1f1b19" font-size="11" class="mono-text">__init__(self, cfg):</text>
-
-                <!-- Line 3: param -->
-                <text x="0" y="106" fill="#6b645c" font-size="11" class="mono-text">04</text>
-                <text x="55" y="106" fill="#6b645c" font-size="11" class="mono-text">self.cfg = cfg</text>
-
-                <!-- Line 4: call expr -->
-                <text x="0" y="138" fill="#6b645c" font-size="11" class="mono-text">05</text>
-                <text x="55" y="138" fill="#1f1b19" font-size="11" class="mono-text">self.build_dag()</text>
-
-                <!-- Line 5: async def -->
-                <text x="0" y="170" fill="#6b645c" font-size="11" class="mono-text">06</text>
-                <text x="40" y="170" fill="#0ea5e9" font-size="11" font-weight="700" class="mono-text">async def</text>
-                <text x="110" y="170" fill="#1f1b19" font-size="11" class="mono-text">partition():</text>
-
-                <!-- Line 6: await -->
-                <text x="0" y="202" fill="#6b645c" font-size="11" class="mono-text">07</text>
-                <text x="55" y="202" fill="#0ea5e9" font-size="11" font-weight="700" class="mono-text">await</text>
-                <text x="100" y="202" fill="#1f1b19" font-size="11" class="mono-text">cluster.leiden()</text>
-
-                <!-- Line 7: return -->
-                <text x="0" y="234" fill="#6b645c" font-size="11" class="mono-text">08</text>
-                <text x="55" y="234" fill="#ff5733" font-size="11" font-weight="700" class="mono-text">return</text>
-                <text x="105" y="234" fill="#1f1b19" font-size="11" class="mono-text">self.subgraphs</text>
-              </g>
-            </g>
-
-            <!-- Laser Scan Beam & Sensor Head (Stage 1) -->
-            <g id="laserScannerGroup" transform="translate(0, 75)">
-              <!-- Laser line -->
-              <line id="laserLine" x1="210" y1="0" x2="590" y2="0" stroke="#1f1b19" stroke-width="3" />
-              <line id="laserCore" x1="210" y1="0" x2="590" y2="0" stroke="#ff5733" stroke-width="1.5" stroke-dasharray="12 4" />
-              
-              <!-- Laser head indicators on both ends -->
-              <polygon points="204,-5 212,0 204,5" fill="#1f1b19" />
-              <polygon points="596,-5 588,0 596,5" fill="#1f1b19" />
-
-              <!-- Laser HUD tag -->
-              <rect x="470" y="-18" width="115" height="14" fill="#1f1b19" />
-              <text x="527" y="-7" fill="#faf8f5" font-size="8.5" font-weight="800" text-anchor="middle" class="mono-text">
-                TREE-SITTER SCAN
-              </text>
-            </g>
-          </g>
-
-          <!-- ================= LAYER 3: AST GRAPH NODES ================= -->
-          <g id="layerNodes"></g>
-
-        </svg>
-      </div>
-
-      <!-- Bottom Card Status Bar with Scrubbing Track -->
-      <div class="card-footer">
-        <span class="mono-text" style="font-weight: 800;">0.00 CODE</span>
-        <div class="scrub-timeline-bar">
-          <div class="timeline-marker-1" title="Phase 1->2 (0.35)"></div>
-          <div class="timeline-marker-2" title="Phase 2->3 (0.75)"></div>
-          <div class="scrub-timeline-fill" id="timelineFill"></div>
-        </div>
-        <span class="mono-text" style="font-weight: 800;">1.00 LEIDEN</span>
-      </div>
-    </div>`,
-  ecc: `<div class="ecc-card" id="ecc-card">
-
-        <!-- HEADER -->
-        <div class="card-header">
-          <div class="card-title">
-            <!-- Pure SVG Hex Bolt Icon -->
-            <svg class="card-bolt" viewBox="0 0 10 10">
-              <polygon points="5,0 9.3,2.5 9.3,7.5 5,10 0.7,7.5 0.7,2.5" fill="#3c3f47" stroke="#717684" stroke-width="0.8" />
-              <circle cx="5" cy="5" r="1.5" fill="#141517" />
-            </svg>
-            <span>AGENT RUNTIME // ADAPTER EXPANSION MATRIX</span>
-          </div>
-
-          <div class="stage-indicator-pills">
-            <span class="stage-pill" id="pill-p1">P1 // CHIP-DOCK</span>
-            <span class="stage-pill" id="pill-p2">P2 // HOOKS-PIPE</span>
-            <span class="stage-pill" id="pill-p3">P3 // VAULT-LOCK</span>
-          </div>
-        </div>
-
-        <!-- 3-PHASE CANVAS -->
-        <div class="card-canvas">
-
-          <!-- ============================================================== -->
-          <!-- PHASE 1: CHIP SLOT & SKILL // 278 (0.00 ~ 0.40)                -->
-          <!-- ============================================================== -->
-          <div class="module-section zone-chip">
-            <div class="section-tag" style="width: 100%;">
-              <span>01 // BUS EXPANSION</span>
-              <span class="section-tag-num">[0.00-0.40]</span>
-            </div>
-
-            <div class="slot-stage">
-              <!-- CARTRIDGE (Slides down & locks) -->
-              <div class="cartridge-unit" id="cartridge-unit">
-                <div class="cartridge-chassis">
-                  <div class="cartridge-heat-fins">
-                    <div class="heat-fin"></div>
-                    <div class="heat-fin"></div>
-                    <div class="heat-fin"></div>
-                    <div class="heat-fin"></div>
-                    <div class="heat-fin"></div>
-                  </div>
-
-                  <div class="cartridge-label">
-                    <!-- Chip micro-vector SVG -->
-                    <svg width="12" height="12" viewBox="0 0 16 16" fill="none">
-                      <rect x="3" y="3" width="10" height="10" stroke="#f59e0b" stroke-width="1.5" fill="#2d1e0a" />
-                      <line x1="8" y1="1" x2="8" y2="3" stroke="#f59e0b" stroke-width="1.5" />
-                      <line x1="8" y1="13" x2="8" y2="15" stroke="#f59e0b" stroke-width="1.5" />
-                      <line x1="1" y1="8" x2="3" y2="8" stroke="#f59e0b" stroke-width="1.5" />
-                      <line x1="13" y1="8" x2="15" y2="8" stroke="#f59e0b" stroke-width="1.5" />
-                    </svg>
-                    <span>SKILL // 278</span>
-                    <span class="cartridge-label-tag">HOTSWAP</span>
-                  </div>
-
-                  <div class="cartridge-subtext">
-                    MODULE: ECC-VECTOR-CORE<br/>
-                    SIG: SHA256-D7E41C
-                  </div>
-                </div>
-
-                <!-- Gold Edge Pins -->
-                <div class="cartridge-pins">
-                  <div class="gold-pin" id="pin-0"></div>
-                  <div class="gold-pin" id="pin-1"></div>
-                  <div class="gold-pin" id="pin-2"></div>
-                  <div class="gold-pin" id="pin-3"></div>
-                  <div class="gold-pin" id="pin-4"></div>
-                  <div class="gold-pin" id="pin-5"></div>
-                  <div class="gold-pin" id="pin-6"></div>
-                  <div class="gold-pin" id="pin-7"></div>
-                </div>
-              </div>
-
-              <!-- MOTHERBOARD RECEPTACLE & PCB RAILS -->
-              <div class="slot-socket">
-                <!-- Dual Latches / Locking Clamps -->
-                <div class="socket-clamp left" id="clamp-left">
-                  <div class="clamp-notch"></div>
-                </div>
-                <div class="socket-clamp right" id="clamp-right">
-                  <div class="clamp-notch"></div>
-                </div>
-
-                <!-- Slot Receptacle -->
-                <div class="socket-receptacle">
-                  <div class="socket-contact"></div>
-                  <div class="socket-contact"></div>
-                  <div class="socket-contact"></div>
-                  <div class="socket-contact"></div>
-                  <div class="socket-contact"></div>
-                  <div class="socket-contact"></div>
-                  <div class="socket-contact"></div>
-                  <div class="socket-contact"></div>
-                </div>
-
-                <!-- Pure SVG Motherboard Traces with Glow Path -->
-                <svg class="pcb-trace-svg" viewBox="0 0 170 70">
-                  <!-- Base Traces -->
-                  <path class="pcb-trace-path" d="M20 0 L20 25 L45 50 L45 70" />
-                  <path class="pcb-trace-path" d="M60 0 L60 20 L85 45 L85 70" />
-                  <path class="pcb-trace-path" d="M110 0 L110 20 L85 45 L85 70" />
-                  <path class="pcb-trace-path" d="M150 0 L150 25 L125 50 L125 70" />
-                  
-                  <!-- Glowing Energized Traces -->
-                  <path class="pcb-trace-path glow" id="trace-glow-1" d="M20 0 L20 25 L45 50 L45 70" />
-                  <path class="pcb-trace-path glow" id="trace-glow-2" d="M60 0 L60 20 L85 45 L85 70" />
-                  <path class="pcb-trace-path glow" id="trace-glow-3" d="M110 0 L110 20 L85 45 L85 70" />
-                  <path class="pcb-trace-path glow" id="trace-glow-4" d="M150 0 L150 25 L125 50 L125 70" />
-                  
-                  <!-- Solder pads -->
-                  <circle cx="45" cy="65" r="3" fill="#3c404d" stroke="#f59e0b" stroke-width="1" />
-                  <circle cx="85" cy="65" r="3" fill="#3c404d" stroke="#f59e0b" stroke-width="1" />
-                  <circle cx="125" cy="65" r="3" fill="#3c404d" stroke="#f59e0b" stroke-width="1" />
-                </svg>
-              </div>
-            </div>
-
-            <!-- Status readout -->
-            <div class="slot-readout">
-              <span>INTERFACE: PCI-E-X8</span>
-              <span class="slot-status-pill" id="slot-status-label">POWER: OFF</span>
-            </div>
-          </div>
-
-          <!-- ============================================================== -->
-          <!-- PHASE 2: HOOKS INTERCEPTION PIPELINE (0.40 ~ 0.80)             -->
-          <!-- ============================================================== -->
-          <div class="module-section zone-hooks">
-            <div class="section-tag" style="width: 100%;">
-              <span>02 // INTERCEPTION PIPELINE</span>
-              <span class="section-tag-num">[0.40-0.80]</span>
-            </div>
-
-            <div class="pipeline-container">
-              <!-- Vertical SVG Data Pulse Bus -->
-              <svg class="conduit-bus" viewBox="0 0 26 320" preserveAspectRatio="none">
-                <!-- Outer Rail Pipes -->
-                <line x1="6" y1="0" x2="6" y2="320" stroke="#252932" stroke-width="2" />
-                <line x1="20" y1="0" x2="20" y2="320" stroke="#252932" stroke-width="2" />
-                <!-- Central Conduit Track -->
-                <line x1="13" y1="0" x2="13" y2="320" stroke="#1d2027" stroke-width="4" stroke-dasharray="4 4" />
-                
-                <!-- Dynamic High-voltage Pulse Stream -->
-                <line id="pulse-beam" x1="13" y1="0" x2="13" y2="320" 
-                      stroke="#00e5ff" stroke-width="4" stroke-linecap="round"
-                      stroke-dasharray="320" stroke-dashoffset="320"
-                      filter="drop-shadow(0 0 6px #00e5ff)" />
-              </svg>
-
-              <!-- Node 1: PRE-TOOL -->
-              <div class="hook-node" id="hook-node-1">
-                <div class="hook-node-header">
-                  <div class="hook-node-title">
-                    <svg width="10" height="10" viewBox="0 0 10 10">
-                      <polygon points="0,0 10,5 0,10" fill="#00e5ff" />
-                    </svg>
-                    <span>PRE-TOOL</span>
-                  </div>
-                  <span class="hook-badge" id="hook-badge-1">IDLE</span>
-                </div>
-                <div class="hook-node-body">
-                  <span>INTERCEPT // VALIDATE ARGS</span>
-                  <div class="hook-meter">
-                    <div class="hook-meter-fill" id="meter-fill-1"></div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Node 2: FILTER -->
-              <div class="hook-node" id="hook-node-2">
-                <div class="hook-node-header">
-                  <div class="hook-node-title">
-                    <svg width="10" height="10" viewBox="0 0 10 10">
-                      <rect x="1" y="1" width="8" height="8" fill="none" stroke="#00e5ff" stroke-width="1.5" />
-                      <line x1="1" y1="5" x2="9" y2="5" stroke="#00e5ff" stroke-width="1.2" />
-                    </svg>
-                    <span>FILTER</span>
-                  </div>
-                  <span class="hook-badge" id="hook-badge-2">IDLE</span>
-                </div>
-                <div class="hook-node-body">
-                  <span>POLICY ENFORCEMENT &amp; REDACT</span>
-                  <div class="hook-meter">
-                    <div class="hook-meter-fill" id="meter-fill-2"></div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Node 3: POST-TOOL -->
-              <div class="hook-node" id="hook-node-3">
-                <div class="hook-node-header">
-                  <div class="hook-node-title">
-                    <svg width="10" height="10" viewBox="0 0 10 10">
-                      <polyline points="1,5 4,8 9,2" fill="none" stroke="#10b981" stroke-width="1.8" />
-                    </svg>
-                    <span>POST-TOOL</span>
-                  </div>
-                  <span class="hook-badge" id="hook-badge-3">IDLE</span>
-                </div>
-                <div class="hook-node-body">
-                  <span>PAYLOAD AUDIT &amp; TELEMETRY</span>
-                  <div class="hook-meter">
-                    <div class="hook-meter-fill" id="meter-fill-3"></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Hooks Footer -->
-            <div class="slot-readout" style="width: 100%;">
-              <span>BUS LATENCY: 0.28ms</span>
-              <span class="slot-status-pill" id="hooks-status-label" style="color: #00e5ff;">STANDBY</span>
-            </div>
-          </div>
-
-          <!-- ============================================================== -->
-          <!-- PHASE 3: MEMORY VAULT MECHANICAL LOCK (0.80 ~ 1.00)            -->
-          <!-- ============================================================== -->
-          <div class="module-section zone-vault">
-            <div class="section-tag" style="width: 100%;">
-              <span>03 // PERSISTENCE VAULT</span>
-              <span class="section-tag-num">[0.80-1.00]</span>
-            </div>
-
-            <div class="vault-chamber">
-              <!-- Inner Secure Memory Core -->
-              <div class="vault-core">
-                <svg class="vault-core-crystal" viewBox="0 0 24 24" fill="none">
-                  <polygon points="12,2 22,8 22,16 12,22 2,16 2,8" stroke="#00e5ff" stroke-width="1.5" fill="#0c1d24" />
-                  <circle cx="12" cy="12" r="3" fill="#00e5ff" />
-                </svg>
-                <div class="vault-core-matrix">
-                  ECC-RAM // SYNC<br/>
-                  0x9AF4 :: 0x110B<br/>
-                  PERSIST_QUEUE
-                </div>
-              </div>
-
-              <!-- Left Heavy Sliding Blast Shutter -->
-              <div class="vault-shutter left" id="shutter-left">
-                <div class="shutter-plate-line"></div>
-                <div class="shutter-hazard-stripe"></div>
-                <div class="shutter-plate-line"></div>
-                <div class="interlock-teeth">
-                  <div class="tooth"></div>
-                  <div class="tooth"></div>
-                  <div class="tooth"></div>
-                </div>
-              </div>
-
-              <!-- Right Heavy Sliding Blast Shutter -->
-              <div class="vault-shutter right" id="shutter-right">
-                <div class="shutter-plate-line"></div>
-                <div class="shutter-hazard-stripe"></div>
-                <div class="shutter-plate-line"></div>
-                <div class="interlock-teeth">
-                  <div class="tooth"></div>
-                  <div class="tooth"></div>
-                  <div class="tooth"></div>
-                </div>
-              </div>
-
-              <!-- Central Rotary Locking Bolt Ring -->
-              <div class="vault-bolt-ring" id="bolt-ring">
-                <div class="bolt-spoke"></div>
-                <div class="bolt-spoke"></div>
-                <div class="bolt-hub">
-                  <!-- SVG Lock Icon (Zero Emoji) -->
-                  <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
-                    <path id="svg-lock-shackle" d="M4 7 V4 A4 4 0 0 1 12 4 V7" stroke="#ffffff" stroke-width="1.8" stroke-linecap="square" />
-                    <rect x="2" y="7" width="12" height="8" fill="#252932" stroke="#ffffff" stroke-width="1.5" />
-                    <circle cx="8" cy="11" r="1.5" fill="#ffffff" />
-                  </svg>
-                </div>
-              </div>
-            </div>
-
-            <!-- Vault Status Panel -->
-            <div class="vault-status-panel">
-              <div class="vault-state-readout" id="vault-state-display">
-                <span id="vault-state-text">STATE: OPEN</span>
-                <!-- SVG Status Hex Badge -->
-                <svg width="12" height="12" viewBox="0 0 12 12">
-                  <circle id="vault-state-led" cx="6" cy="6" r="4" fill="#6b7280" />
-                </svg>
-              </div>
-              <div class="vault-state-meta">
-                MERKLE ROOT: 0x9B42...88FA | IMMUTABLE COLD
-              </div>
-            </div>
-          </div>
-
-        </div>
-
-        <!-- FOOTER TELEMETRY STRIP -->
-        <div class="card-footer">
-          <div class="footer-left">
-            <div class="footer-metric">
-              <span>CYCLE:</span>
-              <span class="footer-metric-val">SYNCED</span>
-            </div>
-            <div class="footer-metric">
-              <span>BUS:</span>
-              <span class="footer-metric-val" id="footer-voltage">0.0V</span>
-            </div>
-            <div class="footer-metric">
-              <span>HOOKS:</span>
-              <span class="footer-metric-val" id="footer-hooks-count">0/3 ARMED</span>
-            </div>
-          </div>
-
-          <div style="display: flex; align-items: center; gap: 10px;">
-            <span>TIMELINE:</span>
-            <div class="progress-bar-rail">
-              <div class="progress-bar-fill"></div>
-            </div>
-          </div>
-        </div>
-
-      </div>`,
-  tpvibe: `<article class="tpvibe-card" data-tpvibe="card-1" data-base-bpm="128" data-base-freq="2.2">
-        <header class="card-meta">
-          <div class="card-title-group">
-            <span class="card-label">CHANNEL 01 // SYNTAX HARMONICS</span>
-            <h2 class="card-title">AST Lexical Stream Analysis</h2>
-          </div>
-          <div class="card-chips">
-            <div class="metric-chip">
-              <span class="chip-dot"></span>
-              <span class="status-bpm">128 BPM</span>
-            </div>
-            <div class="metric-chip">
-              <span>BUFFER 48kHz</span>
-            </div>
-          </div>
-        </header>
-
-        <div class="waveform-stage">
-          <div class="stage-grid"></div>
-          <div class="center-axis"></div>
-          <svg viewBox="0 0 800 180" preserveAspectRatio="none" class="vibe-svg">
-            <defs>
-              <linearGradient id="grad1" x1="0%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" stop-color="#00f2fe" stop-opacity="0.35" />
-                <stop offset="100%" stop-color="#00f2fe" stop-opacity="0.0" />
-              </linearGradient>
-              <linearGradient id="gradLine1" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%" stop-color="#00f2fe" />
-                <stop offset="50%" stop-color="#7928ca" />
-                <stop offset="100%" stop-color="#00f2fe" />
-              </linearGradient>
-            </defs>
-            <path class="wave-area" fill="url(#grad1)" d="" />
-            <path class="wave-sub" fill="none" stroke="rgba(121, 40, 202, 0.4)" stroke-width="1.5" stroke-dasharray="4 4" d="" />
-            <path class="wave-line" fill="none" stroke="url(#gradLine1)" stroke-width="2.5" d="" />
-            <g class="pulse-beacons"></g>
-          </svg>
-        </div>
-
-        <footer class="card-telemetry">
-          <div class="telemetry-item">
-            <span class="telemetry-k">NORM PROGRESS</span>
-            <span class="telemetry-v p-val">0.000</span>
-          </div>
-          <div class="telemetry-item">
-            <span class="telemetry-k">RESONANCE FREQ</span>
-            <span class="telemetry-v freq-val">2.20 Hz</span>
-          </div>
-          <div class="telemetry-item">
-            <span class="telemetry-k">PEAK AMPLITUDE</span>
-            <span class="telemetry-v amp-val">12.00 dB</span>
-          </div>
-          <div class="telemetry-item">
-            <span class="telemetry-k">CADENCE PHASE</span>
-            <span class="telemetry-v phase-val">0.00 rad</span>
-          </div>
-          <div class="telemetry-bar-wrap">
-            <div class="telemetry-bar-fill"></div>
-          </div>
-        </footer>
-      </article>`
+const MATRIX_MOTION_SCENES = {
+  openhands: {
+    cls: "matrix-motion--openhands",
+    html: '<div class="mm-grid"></div><span class="mm-kicker">AGENT // 01</span><div class="mm-window"><div class="mm-win-bar"><i></i><i></i><i></i><b>openhands://codeact</b></div><div class="mm-body"><span class="mm-cmd">$ openhands --task "fix"</span><span class="mm-line mm-line--short"></span></div><div class="mm-badge mm-badge--pr">[PR MERGED]</div></div><span class="mm-spark">✦</span>'
+  },
+  graphify: {
+    cls: "matrix-motion--graphify",
+    html: '<div class="mm-grid"></div><span class="mm-kicker">GRAPH // 02</span><div class="mm-paper"><b>AST // SCAN</b><i class="mm-scan-beam"></i><div class="mm-ast-nodes"><span class="mm-node mm-node--1"></span><span class="mm-node mm-node--2"></span><span class="mm-node mm-node--3"></span><span class="mm-node mm-node--4"></span></div><em class="mm-leiden mm-leiden--coral">CORAL</em><em class="mm-leiden mm-leiden--sky">SKY</em></div><span class="mm-spark">✦</span>'
+  },
+  ecc: {
+    cls: "matrix-motion--ecc",
+    html: '<div class="mm-grid"></div><span class="mm-kicker">OS // 03</span><div class="mm-rail"><i class="mm-rail-line"></i><span class="mm-node"></span><span class="mm-node"></span><span class="mm-node"></span></div><div class="mm-chip-dock"><b>SKILL // 278</b><span class="mm-hooks-row"><i>PRE</i><i>FILTER</i><i>POST</i></span></div><em class="mm-vault-stamp">LOCKED</em><span class="mm-spark">+</span>'
+  },
+  tpvibe: {
+    cls: "matrix-motion--vibe",
+    html: '<div class="mm-grid"></div><span class="mm-kicker">VIBE // 04</span><div class="mm-panel"><div class="mm-panel-val">128<span>BPM</span></div><div class="mm-bars"><i></i><i></i><i></i><i></i><i></i></div><div class="mm-trend-line"><svg viewBox="0 0 120 24" preserveAspectRatio="none"><path d="M0,16 C15,16 20,4 35,8 S55,20 70,6 S90,18 105,10 S115,6 120,4"/></svg></div></div><span class="mm-node mm-node--a"></span><span class="mm-spark">✦</span>'
+  },
+  wand: {
+    cls: "matrix-motion--spells",
+    html: '<div class="mm-grid"></div><span class="mm-kicker">SPELLS // 05</span><div class="mm-ui-stage"><div class="mm-switch"><i class="mm-switch-knob"></i></div><div class="mm-cursor">▲</div><div class="mm-card-stack"><i></i><i></i></div></div><span class="mm-spark">✦</span>'
+  },
+  tools: {
+    cls: "matrix-motion--tools",
+    html: '<div class="mm-grid"></div><span class="mm-kicker">TOOLS // 06</span><div class="mm-radar"><div class="mm-radar-sweep"></div><span class="mm-blip mm-blip--1"></span><span class="mm-blip mm-blip--2"></span><span class="mm-blip mm-blip--3"></span></div><span class="mm-spark">+</span>'
+  },
+  search: {
+    cls: "matrix-motion--refero",
+    html: '<div class="mm-grid"></div><span class="mm-kicker">REF // 07</span><div class="mm-screens"><div class="mm-screen mm-screen--back"><i></i><i></i></div><div class="mm-screen mm-screen--front"><b>DESIGN</b><i></i></div></div><span class="mm-spark">✦</span>'
+  },
+  blueprint: {
+    cls: "matrix-motion--atemplate",
+    html: '<div class="mm-grid"></div><span class="mm-kicker">FLOW // 08</span><div class="mm-flow"><div class="mm-agent-node mm-agent-node--1"><b>PLAN</b></div><i class="mm-flow-arrow"></i><div class="mm-agent-node mm-agent-node--2"><b>EXEC</b></div></div><span class="mm-spark">+</span>'
+  },
+  saas: {
+    cls: "matrix-motion--mksaas",
+    html: '<div class="mm-grid"></div><span class="mm-kicker">SAAS // 09</span><div class="mm-saas-card"><div class="mm-saas-head"><b>MRR $12.8k</b><em class="mm-growth">+24%</em></div><div class="mm-bars"><i></i><i></i><i></i><i></i><i></i></div></div><span class="mm-spark">✦</span>'
+  },
+  prompt: {
+    cls: "matrix-motion--promptkit",
+    html: '<div class="mm-grid"></div><span class="mm-kicker">PROMPT // 10</span><div class="mm-prompt-box"><b>SYSTEM: AGENT</b><span class="mm-slot">{variable}</span><i></i><i></i></div><span class="mm-spark">✦</span>'
+  },
+  kinetic: {
+    cls: "matrix-motion--reactbits",
+    html: '<div class="mm-grid"></div><span class="mm-kicker">BITS // 11</span><div class="mm-button-demo"><button class="mm-mock-btn" type="button"><span>CLICK ME</span></button></div><span class="mm-spark">✦</span>'
+  },
+  animate: {
+    cls: "matrix-motion--animateui",
+    html: '<div class="mm-grid"></div><span class="mm-kicker">EASING // 12</span><div class="mm-curve-box"><svg viewBox="0 0 100 50" preserveAspectRatio="none"><path d="M 0,45 C 30,45 20,5 100,5" fill="none" stroke="var(--mm-signal)" stroke-width="2.5" /></svg><b class="mm-easing-tag">cubic-bezier</b></div><span class="mm-spark">✦</span>'
+  },
+  agent: {
+    cls: "matrix-motion--lobehub",
+    html: '<div class="mm-grid"></div><span class="mm-kicker">CHAT // 13</span><div class="mm-chat"><span class="mm-bubble mm-bubble--l">Run workflow</span><span class="mm-bubble mm-bubble--r">Executed in 120ms</span><span class="mm-bubble mm-bubble--l mm-bubble--accent">Agent ready →</span></div><span class="mm-spark">✦</span>'
+  },
+  vector: {
+    cls: "matrix-motion--iconfont",
+    html: '<div class="mm-grid"></div><span class="mm-kicker">VECTOR // 14</span><div class="mm-icon-grid"><i></i><i></i><i></i><i></i><i class="mm-icon-active"></i><i></i><i></i><i></i><i></i></div><span class="mm-spark">✦</span>'
+  },
+  chart: {
+    cls: "matrix-motion--charts",
+    html: '<div class="mm-grid"></div><span class="mm-kicker">RANK // 15</span><div class="mm-rank-bars"><div class="mm-rank-col"><span>#2</span><i></i></div><div class="mm-rank-col mm-rank-col--top"><span>#1</span><i></i></div><div class="mm-rank-col"><span>#3</span><i></i></div></div><span class="mm-spark">★</span>'
+  },
+  history: {
+    cls: "matrix-motion--hacke2",
+    html: '<div class="mm-grid"></div><span class="mm-kicker">AUDIT // 16</span><div class="mm-audit-box"><div class="mm-audit-row"><b>ISSUE #1</b><i></i></div><div class="mm-audit-row"><b>CVE SCAN</b><i></i></div><em class="mm-stamp mm-stamp--green">VERIFIED</em></div><span class="mm-spark">✦</span>'
+  }
 };
 
+function initProductScrollMotion() {
+  const scenes = Array.from(document.querySelectorAll(".product-motion"));
+  if (!scenes.length) return;
 
-/* --- ScrollScrubObserver (Agent-Delta TPvibe Engine) --- */
-class ScrollScrubObserver {
-      /**
-       * @param {Object} options
-       * @param {Function} [options.onProgress] 进度分发回调 (element, progress) => void
-       * @param {string} [options.cssVar='--scroll-p'] 写入元素的 CSS 变量名
-       * @param {number} [options.precision=4] 浮点数保留小数位数
-       */
-      constructor(options = {}) {
-        this.onProgress = options.onProgress || null;
-        this.cssVarName = options.cssVar || '--scroll-p';
-        this.precision = options.precision !== undefined ? options.precision : 4;
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+  const activeScenes = new Set();
+  let rafId = 0;
 
-        // 活跃监听集合与状态维护
-        this.observedElements = new Set();
-        this.activeElements = new Set();
-        this.elementData = new Map(); // 缓存每个元素的最近 progress
+  const renderStatic = () => {
+    scenes.forEach(scene => scene.style.setProperty("--motion-progress", "1"));
+  };
 
-        // 运行帧锁与降级状态
-        this.rafId = null;
-        this.isTicking = false;
-        this.viewportHeight = window.innerHeight;
-        this.prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const render = () => {
+    rafId = 0;
+    if (reducedMotion.matches || document.hidden) return;
 
-        // 绑定上下文
-        this._onIntersection = this._onIntersection.bind(this);
-        this._onScroll = this._onScroll.bind(this);
-        this._onResize = this._onResize.bind(this);
-        this._processFrame = this._processFrame.bind(this);
+    const viewportHeight = window.innerHeight || 1;
+    activeScenes.forEach(scene => {
+      const rect = scene.getBoundingClientRect();
+      const progress = Math.max(0, Math.min(1, (viewportHeight - rect.top) / (viewportHeight + rect.height * 0.15)));
+      scene.style.setProperty("--motion-progress", progress.toFixed(3));
+    });
+  };
 
-        // 初始化 IntersectionObserver
-        this.intersectionObserver = new IntersectionObserver(this._onIntersection, {
-          root: null,
-          rootMargin: '0px',
-          threshold: [0, 0.01, 0.5, 0.99, 1.0]
-        });
-
-        // 监听视口事件
-        window.addEventListener('scroll', this._onScroll, { passive: true });
-        window.addEventListener('resize', this._onResize, { passive: true });
-
-        // 监听系统的动效偏好变更
-        const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
-        if (motionQuery.addEventListener) {
-          motionQuery.addEventListener('change', (e) => {
-            this.prefersReducedMotion = e.matches;
-            this.requestTick();
-          });
-        }
-      }
-
-      /**
-       * IntersectionObserver 回调
-       * 动态增删处于激活视口内的元素，确保计算负载 O(ActiveCount) 而非 O(TotalCount)
-       */
-      _onIntersection(entries) {
-        for (let i = 0; i < entries.length; i++) {
-          const entry = entries[i];
-          const el = entry.target;
-
-          if (entry.isIntersecting) {
-            this.activeElements.add(el);
-          } else {
-            this.activeElements.delete(el);
-            // 离开视口时，计算最终锚定值（若在视口上方则锁 1.00，在下方锁 0.00）
-            const rect = entry.boundingClientRect;
-            const finalP = rect.top < 0 ? 1.00 : 0.00;
-            this._applyElementProgress(el, finalP);
-          }
-        }
-
-        if (this.activeElements.size > 0) {
-          this.requestTick();
-        }
-      }
-
-      _onScroll() {
-        if (this.activeElements.size > 0) {
-          this.requestTick();
-        }
-      }
-
-      _onResize() {
-        this.viewportHeight = window.innerHeight;
-        if (this.activeElements.size > 0) {
-          this.requestTick();
-        }
-      }
-
-      /**
-       * 调度 requestAnimationFrame 渲染帧
-       */
-      requestTick() {
-        if (!this.isTicking) {
-          this.isTicking = true;
-          this.rafId = window.requestAnimationFrame(this._processFrame);
-        }
-      }
-
-      /**
-       * 核心渲染批处理循环
-       * 阶段一（Read Phase）：所有 getBoundingClientRect() 集中读取
-       * 阶段二（Write Phase）：集中写入 style.setProperty 与回调通知
-       */
-      _processFrame() {
-        this.isTicking = false;
-        if (this.activeElements.size === 0) {
-          return;
-        }
-
-        const vh = this.viewportHeight;
-        const measurements = [];
-
-        // -------------------------------------------------------------
-        // Phase 1: 批量集中读取 (Pure Read Phase - 零 Layout Thrashing)
-        // -------------------------------------------------------------
-        for (const el of this.activeElements) {
-          const rect = el.getBoundingClientRect();
-          measurements.push({
-            el,
-            top: rect.top,
-            height: rect.height
-          });
-        }
-
-        // -------------------------------------------------------------
-        // Phase 2: 批量集中写入 (Pure Write Phase)
-        // -------------------------------------------------------------
-        for (let i = 0; i < measurements.length; i++) {
-          const item = measurements[i];
-          let progress;
-
-          if (this.prefersReducedMotion) {
-            // 减弱动态模式降级：直接定格在居中对齐参考值
-            progress = 0.50;
-          } else {
-            const travelDistance = vh + item.height;
-            if (travelDistance <= 0) {
-              progress = 0;
-            } else {
-              progress = (vh - item.top) / travelDistance;
-              if (progress < 0) progress = 0;
-              else if (progress > 1) progress = 1;
-            }
-          }
-
-          this._applyElementProgress(item.el, progress);
-        }
-      }
-
-      /**
-       * 内部写入与分发
-       */
-      _applyElementProgress(el, progress) {
-        const pRounded = Number(progress.toFixed(this.precision));
-        const lastP = this.elementData.get(el);
-
-        // 数值未发生有效精度漂移时跳过冗余 DOM 写入
-        if (lastP === pRounded) {
-          return;
-        }
-
-        this.elementData.set(el, pRounded);
-
-        // 写入 CSS 变量
-        el.style.setProperty(this.cssVarName, pRounded.toFixed(this.precision));
-
-        // 分发外部回调
-        if (this.onProgress) {
-          this.onProgress(el, pRounded);
-        }
-      }
-
-      /**
-       * 注册要监听的元素
-       * @param {Element|NodeList|Array<Element>} targets
-       */
-      observe(targets) {
-        if (!targets) return;
-        const list = (targets instanceof NodeList || Array.isArray(targets)) ? targets : [targets];
-        for (const el of list) {
-          if (el instanceof Element && !this.observedElements.has(el)) {
-            this.observedElements.add(el);
-            this.intersectionObserver.observe(el);
-          }
-        }
-      }
-
-      /**
-       * 注销元素监听
-       * @param {Element} element
-       */
-      unobserve(element) {
-        if (this.observedElements.has(element)) {
-          this.observedElements.delete(element);
-          this.activeElements.delete(element);
-          this.elementData.delete(element);
-          this.intersectionObserver.unobserve(element);
-        }
-      }
-
-      /**
-       * 销毁并释放所有事件监听与资源
-       */
-      destroy() {
-        if (this.rafId) {
-          window.cancelAnimationFrame(this.rafId);
-          this.rafId = null;
-        }
-        this.isTicking = false;
-        window.removeEventListener('scroll', this._onScroll);
-        window.removeEventListener('resize', this._onResize);
-        this.intersectionObserver.disconnect();
-        this.observedElements.clear();
-        this.activeElements.clear();
-        this.elementData.clear();
-      }
+  const schedule = () => {
+    if (!rafId && !reducedMotion.matches && !document.hidden) {
+      rafId = requestAnimationFrame(render);
     }
+  };
 
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) activeScenes.add(entry.target);
+      else activeScenes.delete(entry.target);
+    });
+    schedule();
+  }, { rootMargin: "20% 0px 20% 0px" });
 
-    /**
-     * =========================================================================
-     * 模块 2: TPvibe 动态心流声波卡片组件 (Waveform Renderer)
-     * =========================================================================
-     * 功能规范:
-     * 1. 纯 SVG 矢量频谱波形渲染，无任何 Emoji。
-     * 2. progress 驱动参数:
-     *    - 频率: 从 baseFreq (平缓低频) 演进到 8.5x (密集共振高频)。
-     *    - 振幅: 从静态基线过渡到强烈共振主峰。
-     *    - 节拍脉冲 (Cadence Pulse): 根据 baseBpm 计算周期性卡点闪烁与标记信标。
-     * 3. 性能保证:
-     *    重用预设节点，通过 SVG path 的 d 属性单次赋值，不创建额外 DOM 节点。
-     */
+  scenes.forEach(scene => observer.observe(scene));
+  window.addEventListener("scroll", schedule, { passive: true });
+  window.addEventListener("resize", schedule, { passive: true });
+  document.addEventListener("visibilitychange", () => {
+    if (!document.hidden) schedule();
+  });
+  reducedMotion.addEventListener("change", (event) => {
+    if (event.matches) renderStatic();
+    else schedule();
+  });
 
-/* --- TPvibe Waveform Renderer --- */
-class TPvibeWaveform {
-      constructor(cardElement) {
-        this.el = cardElement;
-        this.baseBpm = parseFloat(cardElement.dataset.baseBpm || '128');
-        this.baseFreq = parseFloat(cardElement.dataset.baseFreq || '2.0');
-
-        // SVG 节点缓存
-        this.pathLine = cardElement.querySelector('.wave-line');
-        this.pathArea = cardElement.querySelector('.wave-area');
-        this.pathSub = cardElement.querySelector('.wave-sub');
-        this.beaconsGroup = cardElement.querySelector('.pulse-beacons');
-
-        // 遥测读数 DOM 缓存
-        this.pValEl = cardElement.querySelector('.p-val');
-        this.freqValEl = cardElement.querySelector('.freq-val');
-        this.ampValEl = cardElement.querySelector('.amp-val');
-        this.phaseValEl = cardElement.querySelector('.phase-val');
-
-        // 矢量舞台尺寸
-        this.viewWidth = 800;
-        this.viewHeight = 180;
-        this.centerY = 90;
-        this.samplePoints = 80; // 离散样点数，兼顾平滑度与计算吞吐
-
-        // 初始化信标 DOM 缓存（创建 5 个矢量脉冲环，无任何 Emoji）
-        this.beacons = [];
-        this._initBeacons();
-      }
-
-      _initBeacons() {
-        if (!this.beaconsGroup) return;
-        for (let i = 0; i < 5; i++) {
-          const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-          circle.setAttribute('r', '3.5');
-          circle.setAttribute('fill', '#00f2fe');
-          circle.setAttribute('opacity', '0');
-          this.beaconsGroup.appendChild(circle);
-          this.beacons.push(circle);
-        }
-      }
-
-      /**
-       * 响应滚动进度与时间节拍更新声波几何
-       * @param {number} p 归一化进度 (0.00 ~ 1.00)
-       * @param {number} timestamp 时间戳
-       */
-      update(p, timestamp = performance.now()) {
-        const t = timestamp * 0.001; // 秒级时钟
-        const bpmSec = this.baseBpm / 60;
-        const beatClock = t * bpmSec * Math.PI;
-
-        // 1. 动力学参数演进映射
-        // 频率演进: 平缓基准 -> 随进度呈幂次指数共振展开
-        const dynamicFreq = this.baseFreq * (1 + Math.pow(p, 1.35) * 4.2);
-
-        // 振幅演进: 边缘平缓，接近视口中段 (0.4 ~ 0.8) 呈现极大心流共鸣
-        const resonanceMultiplier = Math.sin(Math.PI * Math.min(1, Math.max(0, p)));
-        const maxAmp = 12 + 55 * Math.pow(p, 1.2) * (0.35 + 0.65 * resonanceMultiplier);
-
-        // 次级谐波与代码节奏脉冲 (Beat Pulse)
-        const pulse = Math.pow(Math.sin(beatClock), 8); // 锐利的卡点脉冲
-        const harmonicMix = 0.35 * Math.sin(beatClock * 0.5);
-
-        // 2. 遍历离散点生成 SVG Path
-        let pathData = '';
-        let subPathData = '';
-        const stepX = this.viewWidth / (this.samplePoints - 1);
-        const beaconInterval = Math.floor(this.samplePoints / 6);
-        let beaconIdx = 0;
-
-        for (let i = 0; i < this.samplePoints; i++) {
-          const x = i * stepX;
-          const normX = i / (this.samplePoints - 1);
-
-          // 窗函数包络 (平滑两端避免生硬截断)
-          const envelope = Math.sin(Math.PI * normX);
-
-          // 主波函数：基础正弦 + 次谐波 + 进度频偏 + 节拍扰动
-          const wavePhase = normX * dynamicFreq * 2 * Math.PI - (beatClock * 2) - (p * 4 * Math.PI);
-          const yOffset1 = Math.sin(wavePhase) * maxAmp * envelope;
-          const yOffset2 = Math.cos(wavePhase * 1.8 + beatClock) * (maxAmp * 0.28) * envelope;
-          const yOffsetPulse = pulse * 14 * Math.sin(normX * 8 * Math.PI) * envelope;
-
-          const y = this.centerY + yOffset1 + yOffset2 + yOffsetPulse;
-          const cmd = i === 0 ? 'M' : 'L';
-          pathData += `${cmd} ${x.toFixed(1)} ${y.toFixed(1)} `;
-
-          // 次级伴生相位波形
-          const subY = this.centerY + (Math.sin(wavePhase * 0.5 + harmonicMix) * (maxAmp * 0.55) * envelope);
-          subPathData += `${cmd} ${x.toFixed(1)} ${subY.toFixed(1)} `;
-
-          // 卡点信标动态锚定
-          if (i > 0 && i % beaconInterval === 0 && beaconIdx < this.beacons.length) {
-            const b = this.beacons[beaconIdx];
-            b.setAttribute('cx', x.toFixed(1));
-            b.setAttribute('cy', y.toFixed(1));
-            b.setAttribute('opacity', (0.2 + 0.8 * pulse * p).toFixed(2));
-            b.setAttribute('r', (2.5 + 2.5 * pulse).toFixed(1));
-            beaconIdx++;
-          }
-        }
-
-        // 3. 写入 SVG 路径
-        if (this.pathLine) {
-          this.pathLine.setAttribute('d', pathData);
-        }
-        if (this.pathArea) {
-          const closedArea = `${pathData} L ${this.viewWidth} ${this.viewHeight} L 0 ${this.viewHeight} Z`;
-          this.pathArea.setAttribute('d', closedArea);
-        }
-        if (this.pathSub) {
-          this.pathSub.setAttribute('d', subPathData);
-        }
-
-        // 4. 写入底栏遥测读数
-        if (this.pValEl) this.pValEl.textContent = p.toFixed(3);
-        if (this.freqValEl) this.freqValEl.textContent = `${dynamicFreq.toFixed(2)} Hz`;
-        if (this.ampValEl) this.ampValEl.textContent = `${maxAmp.toFixed(1)} dB`;
-        if (this.phaseValEl) this.phaseValEl.textContent = `${(p * Math.PI * 2).toFixed(2)} rad`;
-      }
-    }
-
-
-    /**
-     * =========================================================================
-     * 模块 3: 系统
-
-/* --- OpenHands Motion Controller (namespaced init) --- */
-function initOpenHandsMotion(container) {
-  const fullCmd = 'openhands --task "fix bug"';
-  const card = container.querySelector('.openhands-card');
-  const phaseBadge = container.querySelector('#phaseBadge');
-  const terminalCmd = container.querySelector('#terminalCmd');
-  const dockerLed = container.querySelector('#dockerLed');
-  const dockerStatusText = container.querySelector('#dockerStatusText');
-  const commitInfo = container.querySelector('#commitInfo');
-  const prPill = container.querySelector('#prPill');
-  const metricP = container.querySelector('#metricP');
-  const logEntries = [0,1,2,3,4].map(i => container.querySelector('#log' + i));
-
-  function oh_updateFrame(p) {
-    const cp = Math.max(0, Math.min(1, p));
-    if (card) card.style.setProperty('--scroll-p', cp);
-    if (metricP) metricP.textContent = 'SCROLL_P: ' + cp.toFixed(3);
-    if (cp < 0.30) {
-      if (phaseBadge) { phaseBadge.textContent = 'STAGE 1: TASK DISPATCH'; phaseBadge.style.color = '#00d2ff'; }
-      const typeP = Math.max(0, Math.min(1, (cp - 0.02) / 0.26));
-      if (terminalCmd) terminalCmd.textContent = fullCmd.slice(0, Math.floor(typeP * fullCmd.length));
-      if (dockerLed) dockerLed.classList.remove('active');
-      if (commitInfo) commitInfo.style.opacity = '0';
-      if (prPill) prPill.style.opacity = '0';
-      logEntries.forEach(el => el && (el.style.opacity = '0'));
-    } else if (cp < 0.70) {
-      if (phaseBadge) { phaseBadge.textContent = 'STAGE 2: SANDBOX EXEC'; phaseBadge.style.color = '#ffb800'; }
-      if (terminalCmd) terminalCmd.textContent = fullCmd;
-      if (dockerLed) dockerLed.classList.add('active');
-      if (dockerStatusText) dockerStatusText.textContent = 'RUNNING';
-      const logP = (cp - 0.30) / 0.40;
-      logEntries.forEach((el, i) => {
-        if (el) el.style.opacity = (logP * 5 - i) > 0.1 ? '1' : '0';
-      });
-      if (commitInfo) commitInfo.style.opacity = '0';
-      if (prPill) prPill.style.opacity = '0';
-    } else {
-      if (phaseBadge) { phaseBadge.textContent = 'STAGE 3: MERGED'; phaseBadge.style.color = '#00e575'; }
-      if (terminalCmd) terminalCmd.textContent = fullCmd;
-      if (dockerLed) dockerLed.classList.add('active');
-      if (dockerStatusText) dockerStatusText.textContent = 'EXITED(0)';
-      logEntries.forEach(el => el && (el.style.opacity = '1'));
-      const dP = (cp - 0.70) / 0.30;
-      if (commitInfo) commitInfo.style.opacity = Math.min(1, dP * 2).toString();
-      if (prPill) prPill.style.opacity = Math.min(1, (dP - 0.3) * 3).toString();
-    }
-  }
-  oh_updateFrame(0);
-  return oh_updateFrame;
+  if (reducedMotion.matches) renderStatic();
+  else schedule();
 }
-
-/* --- Graphify Motion JS (lazy-load after DOM) --- */
-function initGraphifyMotion(container) {
-  // The graphify card uses unique IDs tied to document scope.
-  // Remap getElementById calls to container-scoped querySelector
-  const graphSvg = container.querySelector('#graphSvg');
-  if (!graphSvg) return null;
-
-  // Inline minimal Graphify renderFrame (adapted from Agent-Beta output)
-  const AST_NODES = [
-    { id:0, label:"ImportDecl", codeOrigin:{x:310,y:125}, scattered:{x:620,y:100}, equilibrium:{x:500,y:180}, leiden:{x:500,y:190}, community:'sky', iconShape:'rect' },
-    { id:1, label:"ClassDef", codeOrigin:{x:340,y:157}, scattered:{x:170,y:110}, equilibrium:{x:210,y:185}, leiden:{x:210,y:195}, community:'coral', iconShape:'diamond' },
-    { id:2, label:"FuncDef", codeOrigin:{x:320,y:189}, scattered:{x:310,y:390}, equilibrium:{x:270,y:265}, leiden:{x:270,y:265}, community:'coral', iconShape:'circle' },
-    { id:3, label:"ParamBinding", codeOrigin:{x:350,y:221}, scattered:{x:130,y:320}, equilibrium:{x:185,y:335}, leiden:{x:185,y:335}, community:'coral', iconShape:'rect' },
-    { id:4, label:"CallExpr", codeOrigin:{x:330,y:253}, scattered:{x:360,y:130}, equilibrium:{x:340,y:215}, leiden:{x:340,y:215}, community:'sky', iconShape:'circle' },
-    { id:5, label:"ReturnStmt", codeOrigin:{x:325,y:285}, scattered:{x:540,y:300}, equilibrium:{x:445,y:310}, leiden:{x:445,y:310}, community:'sky', iconShape:'rect' },
-    { id:6, label:"TypeAnnot", codeOrigin:{x:315,y:317}, scattered:{x:250,y:450}, equilibrium:{x:300,y:410}, leiden:{x:300,y:410}, community:'coral', iconShape:'diamond' },
-    { id:7, label:"ExprStmt", codeOrigin:{x:345,y:349}, scattered:{x:480,y:420}, equilibrium:{x:440,y:380}, leiden:{x:440,y:380}, community:'sky', iconShape:'circle' }
-  ];
-
-  const EDGES = [[0,4],[0,5],[1,2],[1,3],[2,3],[4,5],[5,7],[6,2],[6,7]];
-  const LEIDEN_COLORS = { coral:'#ff5733', sky:'#0ea5e9' };
-  const NS = "http://www.w3.org/2000/svg";
-
-  function clamp(v,a,b) { return Math.max(a,Math.min(b,v)); }
-  function lerp(a,b,t) { return a + (b-a)*t; }
-  function easeOut(t) { return 1-(1-t)*(1-t)*(1-t); }
-
-  // Create node glyphs
-  const nodeEls = AST_NODES.map((n,i) => {
-    let el;
-    if (n.iconShape === 'circle') {
-      el = document.createElementNS(NS, 'circle');
-      el.setAttribute('r', '8');
-    } else if (n.iconShape === 'diamond') {
-      el = document.createElementNS(NS, 'polygon');
-    } else {
-      el = document.createElementNS(NS, 'rect');
-      el.setAttribute('width','14');
-      el.setAttribute('height','14');
-    }
-    el.setAttribute('fill', '#fff');
-    el.setAttribute('stroke', '#1f1b19');
-    el.setAttribute('stroke-width', '2');
-    graphSvg.appendChild(el);
-    return el;
-  });
-
-  // Create edge lines
-  const edgeEls = EDGES.map(([a,b]) => {
-    const line = document.createElementNS(NS, 'line');
-    line.setAttribute('stroke', '#666');
-    line.setAttribute('stroke-width', '1.5');
-    line.setAttribute('opacity', '0');
-    graphSvg.appendChild(line);
-    return line;
-  });
-
-  // Create community hulls
-  const hullEls = ['coral','sky'].map(com => {
-    const ellipse = document.createElementNS(NS, 'ellipse');
-    ellipse.setAttribute('fill', 'none');
-    ellipse.setAttribute('stroke', LEIDEN_COLORS[com]);
-    ellipse.setAttribute('stroke-width', '2');
-    ellipse.setAttribute('stroke-dasharray', '5,4');
-    ellipse.setAttribute('opacity', '0');
-    graphSvg.insertBefore(ellipse, graphSvg.firstChild);
-    return { ellipse, com };
-  });
-
-  // Scan line
-  const scanLine = document.createElementNS(NS,'line');
-  scanLine.setAttribute('x1','0'); scanLine.setAttribute('x2','800');
-  scanLine.setAttribute('stroke','#00d2ff'); scanLine.setAttribute('stroke-width','2');
-  scanLine.setAttribute('opacity','0');
-  graphSvg.appendChild(scanLine);
-
-  const stagePill = container.querySelector('#stagePillLabel');
-  const hudProgress = container.querySelector('#hudProgressText');
-  const hudStatus = container.querySelector('#hudStatusText');
-
-  function gf_renderFrame(p) {
-    p = clamp(p, 0, 1);
-    if (hudProgress) hudProgress.textContent = p.toFixed(3);
-
-    if (p < 0.35) {
-      // Stage 1: Scan
-      if (stagePill) stagePill.textContent = '[STAGE 1: TREE-SITTER SCAN]';
-      if (hudStatus) hudStatus.textContent = 'SYNTAX DECONSTRUCTION';
-      const scanY = lerp(0, 480, p / 0.35);
-      scanLine.setAttribute('y1', scanY); scanLine.setAttribute('y2', scanY);
-      scanLine.setAttribute('opacity', '1');
-
-      nodeEls.forEach((el, i) => {
-        const t = clamp((p * 8) - i * 0.12, 0, 1);
-        const n = AST_NODES[i];
-        const x = lerp(n.codeOrigin.x, n.scattered.x, easeOut(t));
-        const y = lerp(n.codeOrigin.y, n.scattered.y, easeOut(t));
-        if (el.tagName === 'circle') {
-          el.setAttribute('cx', x); el.setAttribute('cy', y);
-        } else if (el.tagName === 'polygon') {
-          el.setAttribute('points', `${x},${y-9} ${x+9},${y} ${x},${y+9} ${x-9},${y}`);
-        } else {
-          el.setAttribute('x', x-7); el.setAttribute('y', y-7);
-        }
-        el.setAttribute('opacity', Math.min(1, t * 3).toString());
-      });
-      edgeEls.forEach(e => e.setAttribute('opacity','0'));
-      hullEls.forEach(h => h.ellipse.setAttribute('opacity','0'));
-
-    } else if (p < 0.75) {
-      // Stage 2: NetworkX spring
-      if (stagePill) stagePill.textContent = '[STAGE 2: NETWORKX SPRING TOPOLOGY]';
-      if (hudStatus) hudStatus.textContent = 'TOPOLOGICAL ATTRACTION';
-      scanLine.setAttribute('opacity', '0');
-      const t2 = easeOut((p - 0.35) / 0.40);
-
-      nodeEls.forEach((el, i) => {
-        const n = AST_NODES[i];
-        const x = lerp(n.scattered.x, n.equilibrium.x, t2);
-        const y = lerp(n.scattered.y, n.equilibrium.y, t2);
-        if (el.tagName === 'circle') { el.setAttribute('cx', x); el.setAttribute('cy', y); }
-        else if (el.tagName === 'polygon') { el.setAttribute('points', `${x},${y-9} ${x+9},${y} ${x},${y+9} ${x-9},${y}`); }
-        else { el.setAttribute('x', x-7); el.setAttribute('y', y-7); }
-        el.setAttribute('opacity','1');
-      });
-
-      edgeEls.forEach((line, i) => {
-        const [a,b] = EDGES[i];
-        const na = AST_NODES[a]; const nb = AST_NODES[b];
-        const ax = lerp(na.scattered.x, na.equilibrium.x, t2);
-        const ay = lerp(na.scattered.y, na.equilibrium.y, t2);
-        const bx = lerp(nb.scattered.x, nb.equilibrium.x, t2);
-        const by = lerp(nb.scattered.y, nb.equilibrium.y, t2);
-        line.setAttribute('x1', ax); line.setAttribute('y1', ay);
-        line.setAttribute('x2', bx); line.setAttribute('y2', by);
-        line.setAttribute('opacity', Math.min(1, t2 * 2).toString());
-      });
-      hullEls.forEach(h => h.ellipse.setAttribute('opacity','0'));
-
-    } else {
-      // Stage 3: Leiden community
-      if (stagePill) stagePill.textContent = '[STAGE 3: LEIDEN COMMUNITY PARTITION]';
-      if (hudStatus) hudStatus.textContent = 'COMMUNITY DETECTION';
-      scanLine.setAttribute('opacity', '0');
-
-      nodeEls.forEach((el, i) => {
-        const n = AST_NODES[i];
-        const col = LEIDEN_COLORS[n.community];
-        el.setAttribute('fill', col); el.setAttribute('stroke', col);
-        if (el.tagName === 'circle') { el.setAttribute('cx', n.leiden.x); el.setAttribute('cy', n.leiden.y); }
-        else if (el.tagName === 'polygon') { el.setAttribute('points', `${n.leiden.x},${n.leiden.y-9} ${n.leiden.x+9},${n.leiden.y} ${n.leiden.x},${n.leiden.y+9} ${n.leiden.x-9},${n.leiden.y}`); }
-        else { el.setAttribute('x', n.leiden.x-7); el.setAttribute('y', n.leiden.y-7); }
-      });
-
-      edgeEls.forEach((line, i) => {
-        const [a,b] = EDGES[i];
-        const na = AST_NODES[a]; const nb = AST_NODES[b];
-        line.setAttribute('x1', na.leiden.x); line.setAttribute('y1', na.leiden.y);
-        line.setAttribute('x2', nb.leiden.x); line.setAttribute('y2', nb.leiden.y);
-        line.setAttribute('opacity', '0.7');
-      });
-
-      const t3 = (p - 0.75) / 0.25;
-      // coral community hull
-      hullEls[0].ellipse.setAttribute('cx','275'); hullEls[0].ellipse.setAttribute('cy','290');
-      hullEls[0].ellipse.setAttribute('rx', lerp(0, 140, t3).toString());
-      hullEls[0].ellipse.setAttribute('ry', lerp(0, 105, t3).toString());
-      hullEls[0].ellipse.setAttribute('opacity', Math.min(1, t3 * 2).toString());
-      // sky community hull
-      hullEls[1].ellipse.setAttribute('cx','456'); hullEls[1].ellipse.setAttribute('cy','274');
-      hullEls[1].ellipse.setAttribute('rx', lerp(0, 130, t3).toString());
-      hullEls[1].ellipse.setAttribute('ry', lerp(0, 100, t3).toString());
-      hullEls[1].ellipse.setAttribute('opacity', Math.min(1, t3 * 2).toString());
-    }
-  }
-
-  gf_renderFrame(0);
-  return gf_renderFrame;
-}
-
-/* --- ECC Motion Controller (namespaced) --- */
-function initECCMotion(container) {
-  const root = container; // use container as CSS var root
-  const pillP1 = container.querySelector('#pill-p1');
-  const pillP2 = container.querySelector('#pill-p2');
-  const pillP3 = container.querySelector('#pill-p3');
-  const cartridgeUnit = container.querySelector('#cartridge-unit');
-  const clampLeft = container.querySelector('#clamp-left');
-  const clampRight = container.querySelector('#clamp-right');
-  const slotStatusLabel = container.querySelector('#slot-status-label');
-  const traces = [1,2,3,4].map(i => container.querySelector('#trace-glow-' + i));
-  const pins = Array.from({length:8},(_,i) => container.querySelector('#pin-' + i));
-  const pulseBeam = container.querySelector('#pulse-beam');
-  const hookNodes = [1,2,3].map(i => container.querySelector('#hook-node-' + i));
-  const hookBadges = [1,2,3].map(i => container.querySelector('#hook-badge-' + i));
-  const meterFills = [1,2,3].map(i => container.querySelector('#meter-fill-' + i));
-  const vaultDoorLeft = container.querySelector('#vault-door-left');
-  const vaultDoorRight = container.querySelector('#vault-door-right');
-  const vaultLockBolt = container.querySelector('#vault-lock-bolt');
-  const vaultStatusLabel = container.querySelector('#vault-status-label');
-  const vaultStatusLight = container.querySelector('#vault-status-light');
-  const hudProgressVal = container.querySelector('#hud-progress-val');
-
-  function clamp(v,a,b) { return Math.max(a,Math.min(b,v)); }
-  function lerp(a,b,t) { return a+(b-a)*t; }
-  function easeOut(t) { return 1-(1-t)*(1-t)*(1-t); }
-
-  function ecc_applyProgress(p) {
-    p = clamp(p, 0, 1);
-    container.style.setProperty('--scroll-p', p.toFixed(4));
-    if (hudProgressVal) hudProgressVal.textContent = p.toFixed(2);
-
-    if (pillP1) pillP1.classList.toggle('active', p >= 0 && p < 0.40);
-    if (pillP2) pillP2.classList.toggle('active', p >= 0.40 && p < 0.80);
-    if (pillP3) pillP3.classList.toggle('active', p >= 0.80);
-
-    // Stage 1: 0.00 ~ 0.40 Cartridge insertion
-    if (p < 0.40) {
-      const t = easeOut(p / 0.40);
-      if (cartridgeUnit) cartridgeUnit.style.transform = `translateY(${lerp(-80, 0, t)}px)`;
-      if (clampLeft) clampLeft.style.transform = `translateX(${lerp(-12, 0, t)}px)`;
-      if (clampRight) clampRight.style.transform = `translateX(${lerp(12, 0, t)}px)`;
-      if (slotStatusLabel) slotStatusLabel.textContent = t > 0.9 ? 'LOCKED' : 'DOCKING...';
-      traces.forEach(tr => tr && (tr.style.opacity = Math.min(1, t * 1.5).toString()));
-      pins.forEach((pin, i) => pin && (pin.style.opacity = clamp((t * 8) - i, 0, 1).toString()));
-    } else {
-      if (cartridgeUnit) cartridgeUnit.style.transform = 'translateY(0px)';
-      if (clampLeft) clampLeft.style.transform = 'translateX(0px)';
-      if (clampRight) clampRight.style.transform = 'translateX(0px)';
-      if (slotStatusLabel) slotStatusLabel.textContent = 'LOCKED';
-      traces.forEach(tr => tr && (tr.style.opacity = '1'));
-      pins.forEach(pin => pin && (pin.style.opacity = '1'));
-    }
-
-    // Stage 2: 0.40 ~ 0.80 Hooks pipeline
-    if (p >= 0.40 && p < 0.80) {
-      const t2 = (p - 0.40) / 0.40;
-      if (pulseBeam) pulseBeam.style.strokeDashoffset = lerp(500, 0, t2).toString();
-      hookNodes.forEach((node, i) => {
-        const nodeP = clamp((t2 * 3) - i, 0, 1);
-        if (node) node.classList.toggle('active', nodeP > 0.5);
-        if (hookBadges[i]) hookBadges[i].style.opacity = nodeP.toString();
-        if (meterFills[i]) meterFills[i].style.width = (nodeP * 100) + '%';
-      });
-    } else if (p >= 0.80) {
-      if (pulseBeam) pulseBeam.style.strokeDashoffset = '0';
-      hookNodes.forEach((n, i) => { if (n) n.classList.add('active'); if (hookBadges[i]) hookBadges[i].style.opacity = '1'; if (meterFills[i]) meterFills[i].style.width = '100%'; });
-    }
-
-    // Stage 3: 0.80 ~ 1.00 Memory Vault lock
-    if (p >= 0.80) {
-      const t3 = easeOut((p - 0.80) / 0.20);
-      if (vaultDoorLeft) vaultDoorLeft.style.transform = `translateX(${lerp(-40, 0, t3)}px)`;
-      if (vaultDoorRight) vaultDoorRight.style.transform = `translateX(${lerp(40, 0, t3)}px)`;
-      if (vaultLockBolt) vaultLockBolt.style.transform = `rotate(${lerp(0, 90, t3)}deg)`;
-      if (vaultStatusLight) vaultStatusLight.style.fill = t3 > 0.9 ? '#00e575' : '#ffb800';
-      if (vaultStatusLabel) vaultStatusLabel.textContent = t3 > 0.9 ? 'STATE: LOCKED & PERSISTED' : 'SEALING...';
-    } else {
-      if (vaultDoorLeft) vaultDoorLeft.style.transform = 'translateX(-40px)';
-      if (vaultDoorRight) vaultDoorRight.style.transform = 'translateX(40px)';
-      if (vaultLockBolt) vaultLockBolt.style.transform = 'rotate(0deg)';
-      if (vaultStatusLabel) vaultStatusLabel.textContent = 'AWAITING LOCK';
-    }
-  }
-
-  ecc_applyProgress(0);
-  return ecc_applyProgress;
-}
-
-/* --- Master Motion Card Initializer --- */
-const _motionControllers = new Map();
-const _waveformInstances = new Map();
-
-function initMotionCards() {
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-
-  document.querySelectorAll('.card-motion-embed[data-motion="openhands"]').forEach(c => {
-    const fn = initOpenHandsMotion(c);
-    if (fn) _motionControllers.set(c, fn);
-  });
-
-  document.querySelectorAll('.card-motion-embed[data-motion="graphify"]').forEach(c => {
-    const fn = initGraphifyMotion(c);
-    if (fn) _motionControllers.set(c, fn);
-  });
-
-  document.querySelectorAll('.card-motion-embed[data-motion="ecc"]').forEach(c => {
-    const fn = initECCMotion(c);
-    if (fn) _motionControllers.set(c, fn);
-  });
-
-  document.querySelectorAll('.card-motion-embed[data-motion="tpvibe"] .tpvibe-card').forEach(card => {
-    const container = card.closest('.card-motion-embed');
-    if (!container) return;
-    const wf = new TPvibeWaveform(card);
-    _waveformInstances.set(container, wf);
-    _motionControllers.set(container, (p) => wf.update(p));
-    wf.update(0);
-  });
-
-  const allContainers = document.querySelectorAll('.card-motion-embed[data-motion]');
-  if (!allContainers.length) return;
-
-  const scrollObserver = new ScrollScrubObserver({
-    cssVar: '--scroll-p',
-    precision: 4,
-    onProgress: (cardEl, progress) => {
-      const embed = cardEl.querySelector('.card-motion-embed[data-motion]') || cardEl.closest('.card-motion-embed');
-      if (!embed) return;
-      const ctrl = _motionControllers.get(embed);
-      if (ctrl) ctrl(progress);
-    }
-  });
-
-  // Observe the parent .card elements for better scroll travel range
-  allContainers.forEach(embed => {
-    const parentCard = embed.closest('article.card') || embed;
-    scrollObserver.observe(parentCard);
-  });
-
-  // Continuous rAF loop for TPvibe time-driven waveform breathing
-  if (_waveformInstances.size > 0) {
-    function vibeLoop(ts) {
-      for (const [container, wf] of _waveformInstances) {
-        const parentCard = container.closest('article.card') || container;
-        const p = parseFloat(parentCard.style.getPropertyValue('--scroll-p') || '0');
-        wf.update(p, ts);
-      }
-      requestAnimationFrame(vibeLoop);
-    }
-    requestAnimationFrame(vibeLoop);
-  }
-
-  window._tpMotionObserver = scrollObserver;
-}
-
-
 
 function cardHTML(p) {
-  let thumbMarkup = '';
-  if (p.motionKey && MOTION_HTMLS[p.motionKey]) {
-    thumbMarkup = `
-      <div class="card-ill-wrap card-motion-embed" data-motion="${p.motionKey}" style="height:190px;background:#14161a">
-        ${MOTION_HTMLS[p.motionKey]}
-      </div>`;
-  } else if (p.thumb_img) {
-    thumbMarkup = `
-      <div class="card-ill-wrap" style="--card-accent-bg:${p.accent_bg || '#fff'}">
-        <span class="card-style-badge">${p.style}</span>
-        <div class="card-scan-line"></div>
-        <img class="card-ill-img" src="${p.thumb_img}" alt="${p.name}" loading="lazy">
-      </div>`;
-  } else {
-    const iconSvg = SVG_ICONS[p.iconKey] || SVG_ICONS.wand;
-    thumbMarkup = `
-      <div class="card-ill-wrap" style="--card-accent-bg:${p.accent_bg || '#fff6e9'}">
-        <span class="card-style-badge">${p.style}</span>
-        <div class="card-scan-line"></div>
-        <div class="card-vector-header">
-          <div class="vector-badge-strip">
-            <span class="vector-category-tag">${p.tags[0] || 'Tool'}</span>
-          </div>
-          <div class="vector-center-symbol">${iconSvg}</div>
-          <span class="vector-spark-node">VECTOR // 01</span>
-        </div>
-      </div>`;
-  }
+  const key = p.motionKey || p.iconKey || 'openhands';
+  const scene = MATRIX_MOTION_SCENES[key] || MATRIX_MOTION_SCENES['openhands'];
+  const motionMarkup = `
+    <div class="product-motion matrix-motion-stage ${scene.cls}" data-motion-scene="${key}" role="img" aria-label="${p.name} 动态示意">
+      ${scene.html}
+    </div>`;
 
   const modelIconsMarkup = p.models && p.models.length ? `
     <div class="card-models-strip" title="适配基座模型：${p.models.join(', ')}">
@@ -4613,7 +2070,7 @@ function cardHTML(p) {
   return `
     <div class="cell">
       <article class="card">
-        ${thumbMarkup}
+        ${motionMarkup}
         <h3>${p.name}</h3>
         <div class="desc">${p.desc}</div>
         <div class="tags">
@@ -4741,7 +2198,7 @@ function render() {
   // 挂载 Oil Motion 鼠标物理倾角交互
   initCardMotion();
   // 挂载滚动语义动效（OpenHands / Graphify / ECC / TPvibe）
-  initMotionCards();
+  initProductScrollMotion();
 }
 
 qEl.oninput = render;
