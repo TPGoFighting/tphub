@@ -845,31 +845,180 @@
   }
 
   /* 响应式断点 */
+  
+  /* ==========================================================================
+     Responsive & Mobile Polish (iPhone/Android Touch Optimized)
+     ========================================================================== */
   @media(max-width: 960px){
-    .hero-grid { grid-template-columns: 1fr; }
-    .hero-showcase-card { max-width: 540px; margin: 0 auto; width: 100%; }
-    .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    .eco-grid { grid-template-columns: repeat(2, 1fr); }
-  }
-  @media(max-width: 820px){
-    .menu-toggle { display: grid; }
-    .nav-links {
-      display: none; position: absolute; inset: calc(100% + 2px) 16px auto;
-      margin: 0; padding: 12px; background: #fff; border: 2.5px solid var(--border-ink, #1f1b19);
-      border-radius: 16px; box-shadow: var(--shadow-lg); flex-direction: column;
-      align-items: stretch; gap: 6px;
-    }
-    [data-theme="dark"] .nav-links { background: var(--paper); }
-    .nav-links.open { display: flex; }
-    .stats-grid { grid-template-columns: repeat(2, 1fr); }
-  }
-  @media(max-width: 580px){
-    .grid { grid-template-columns: minmax(0, 1fr); }
-    .stats-grid { grid-template-columns: repeat(2, 1fr); }
-    .eco-grid { grid-template-columns: minmax(0, 1fr); }
-    .hero-left h1 { font-size: 34px; }
+    .hero-grid { grid-template-columns: 1fr; gap: 24px; }
+    .hero-showcase-card { max-width: 100%; margin: 0 auto; width: 100%; }
+    .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+    .eco-grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+    .model-matrix-strip { margin-top: 14px; }
   }
 
+  @media(max-width: 768px){
+    /* 导航栏适配：隐藏品牌小药丸避免拥挤，汉堡按钮与图标统一 */
+    .nav-in { padding: 10px 16px; gap: 10px; }
+    .brand { font-size: 18px; gap: 9px; }
+    .brand-pill { display: none !important; }
+    .btn-icon { width: 38px; height: 38px; border-radius: 10px; }
+    .menu-toggle { display: grid; }
+    .nav-links {
+      display: none;
+      position: absolute;
+      top: calc(100% + 6px);
+      left: 12px;
+      right: 12px;
+      margin: 0;
+      padding: 14px;
+      background: #fff;
+      border: 2px solid var(--border-ink, #1f1b19);
+      border-radius: 14px;
+      box-shadow: 4px 4px 0 var(--border-ink, #1f1b19);
+      flex-direction: column;
+      align-items: stretch;
+      gap: 8px;
+      z-index: 999;
+    }
+    [data-theme="dark"] .nav-links { background: var(--paper, #1c1f26); }
+    .nav-links.open { display: flex; }
+    .nav-links a {
+      padding: 10px 14px;
+      font-size: 15px;
+      border-radius: 8px;
+      background: rgba(0,0,0,0.02);
+    }
+
+    /* Hero 首屏 */
+    .hero-sec { padding: 28px 0 20px; }
+    .hero-left h1 { font-size: 32px; line-height: 1.18; margin: 12px 0 14px; }
+    .hero-left p { font-size: 14.5px; line-height: 1.6; margin-bottom: 20px; }
+    .hero-actions { display: flex; flex-direction: column; gap: 10px; width: 100%; }
+    .hero-actions .btn-main { width: 100%; text-align: center; justify-content: center; padding: 13px 20px; }
+    .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 24px; }
+    .stat-card { padding: 14px 16px; border-radius: 14px; }
+    .stat-num { font-size: 28px; }
+    .stat-lbl { font-size: 12px; }
+  }
+
+  @media(max-width: 640px){
+    /* 容器边距收敛 */
+    .wrap { padding-left: 16px; padding-right: 16px; }
+
+    /* 顶部导航 */
+    .nav-in { padding: 8px 12px; }
+    .brand { font-size: 16px; gap: 8px; }
+    .brand img { width: 30px; height: 30px; border-radius: 8px; }
+    .btn-icon { width: 34px; height: 34px; border-radius: 8px; }
+
+    /* Model Matrix 跑马灯紧凑化 */
+    .model-matrix-strip { padding: 12px 14px; border-radius: 12px; margin-top: 10px; }
+    .model-matrix-meta { flex-direction: column; align-items: flex-start; gap: 6px; margin-bottom: 10px; }
+    .model-matrix-badge-strip { font-size: 9px; }
+    .model-matrix-legend { font-size: 9px; }
+    .model-matrix-item { padding: 5px 12px; font-size: 12px; gap: 6px; }
+    .model-matrix-icon { width: 14px; height: 14px; }
+
+    /* 搜索框与卡片模式切换 */
+    .explore-header-row { flex-direction: column; align-items: stretch; gap: 10px; }
+    .view-tabs { align-self: flex-start; width: 100%; }
+    .view-tab { flex: 1; text-align: center; justify-content: center; }
+    .search-wrap input { font-size: 14px; padding: 11px 14px 11px 36px; border-radius: 10px; }
+
+    /* 触控横向滑动标签行 (Swipeable Pills) */
+    .chips-row {
+      display: flex !important;
+      flex-wrap: nowrap !important;
+      overflow-x: auto !important;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      padding: 4px 2px 10px !important;
+      gap: 8px !important;
+      margin-bottom: 8px !important;
+    }
+    .chips-row::-webkit-scrollbar { display: none; }
+    .chips-row .filter-chip {
+      flex-shrink: 0 !important;
+      white-space: nowrap !important;
+      padding: 6px 14px !important;
+      font-size: 13px !important;
+    }
+
+    /* 单列项目卡片流 */
+    .grid {
+      grid-template-columns: 1fr !important;
+      gap: 16px !important;
+    }
+    .card {
+      padding: 16px 16px 18px !important;
+      border-radius: 16px !important;
+      border-width: 2px !important;
+    }
+    .product-motion.matrix-motion-stage {
+      height: 140px !important;
+      min-height: 140px !important;
+      margin-bottom: 12px !important;
+    }
+    .card h3 { font-size: 18px; margin-bottom: 6px; }
+    .card .desc { font-size: 13.5px; line-height: 1.55; margin-bottom: 12px; }
+    .tags { gap: 6px; margin-bottom: 12px; }
+    .tag { font-size: 11px; padding: 3px 8px; }
+    .card-foot { padding-top: 10px; }
+    .open-btn { font-size: 13px; padding: 8px 14px; }
+
+    /* 列表模式适配 */
+    .grid.is-list .card {
+      flex-direction: column !important;
+      align-items: stretch !important;
+      gap: 12px !important;
+      padding: 14px !important;
+    }
+    .grid.is-list .product-motion.matrix-motion-stage {
+      width: 100% !important;
+      height: 120px !important;
+      min-height: 120px !important;
+    }
+
+    /* 章节标题 */
+    .sec-head { margin-bottom: 16px; }
+    .sec-head h2 { font-size: 22px; }
+    .sec-head p { font-size: 13px; }
+
+    /* 核心能力手风琴 */
+    .acc-q { padding: 14px 16px; font-size: 15px; }
+    .acc-a { padding: 0 16px 14px; font-size: 13.5px; }
+
+    /* 里程碑时间线 */
+    .tl { padding-left: 20px; margin-left: 0; }
+    .tl::before { left: 4px; }
+    .tl-item::before { left: -22px; width: 14px; height: 14px; }
+    .tl-card { padding: 14px 16px; border-radius: 12px; }
+
+    /* GitHub 周报卡片 */
+    .weekly-card { border-radius: 16px; border-width: 2.5px; }
+    .wc-body { padding: 20px 16px; }
+    .wc-body h3 { font-size: 20px; }
+    .wc-body p { font-size: 13.5px; }
+
+    /* 生态卡片单列 */
+    .eco-grid { grid-template-columns: 1fr !important; gap: 12px !important; }
+    .eco-card { padding: 16px; border-radius: 14px; }
+
+    /* 底部导航 */
+    footer { padding: 32px 0 40px; }
+    .foot-links { flex-wrap: wrap; gap: 8px; justify-content: center; }
+    .foot-links a { font-size: 12px; padding: 4px 8px; }
+
+    /* 悬浮置顶按钮 */
+    .back-top {
+      right: 16px;
+      bottom: 24px;
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+    }
+  }
 
 /* ==========================================================================
    Matrix Mini Motion Scenes · TP-Hub 16 个专属矢量小剧场
