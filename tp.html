@@ -232,48 +232,132 @@
     font-size: 12.5px; font-weight: 800; color: var(--ink-secondary); margin-top: 6px;
   }
 
-  /* AI 模型与厂商生态展示带 */
+  /* ==========================================================================
+     AI 模型生态展示区：高级简约无缝流动长廊 (Sleek Model Ticker with Edge Mask)
+     ========================================================================== */
   .models-strip {
-    margin-top: 24px; background: #fff; border: 2.5px solid var(--border-ink);
-    border-radius: 18px; padding: 14px 18px; box-shadow: var(--shadow-sm);
+    margin-top: 24px;
+    background: #fff;
+    border: 2.5px solid var(--border-ink);
+    border-radius: 18px;
+    padding: 14px 18px;
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+    position: relative;
   }
-  [data-theme="dark"] .models-strip { background: var(--paper); }
+  [data-theme="dark"] .models-strip {
+    background: var(--paper);
+  }
+
   .models-strip-head {
-    display: flex; align-items: center; justify-content: space-between;
-    gap: 8px; margin-bottom: 11px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+    padding: 0 2px;
   }
   .models-head-left {
-    display: flex; align-items: center; gap: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
   }
   .strip-dot {
-    width: 8px; height: 8px; border-radius: 50%; background: var(--coral);
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--coral);
     box-shadow: 0 0 0 2px rgba(255,107,87,0.3);
   }
-  .strip-title {
-    font-family: var(--font-mono); font-size: 11px; font-weight: 900;
-    letter-spacing: .08em; color: var(--ink-secondary); text-transform: uppercase;
+  .strip-tag {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 950;
+    color: var(--ink);
+    background: var(--lime);
+    border: 1.5px solid var(--border-ink);
+    padding: 1px 7px;
+    border-radius: 5px;
+    letter-spacing: .06em;
   }
-  .strip-hint {
-    font-family: var(--font-mono); font-size: 10.5px; font-weight: 800;
+  .strip-sub {
+    font-size: 12px;
+    font-weight: 750;
+    color: var(--ink-secondary);
+  }
+  .strip-counter {
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    font-weight: 850;
     color: var(--ink-muted);
+    letter-spacing: .06em;
   }
-  .models-badges-scroll {
-    display: flex; gap: 8px; flex-wrap: wrap; align-items: center;
+
+  /* 双向边缘虚化遮罩容器 */
+  .ticker-wrapper {
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+    padding: 4px 0 2px;
+    mask-image: linear-gradient(90deg, transparent 0%, #000 7%, #000 93%, transparent 100%);
+    -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 7%, #000 93%, transparent 100%);
   }
-  .model-badge {
-    display: inline-flex; align-items: center; gap: 7px;
-    background: var(--bg2); border: 1.5px solid var(--border-ink);
-    border-radius: 999px; padding: 5px 11px; font-size: 12px; font-weight: 850;
-    color: var(--ink); box-shadow: 1.5px 1.5px 0 var(--border-ink);
-    transition: all .15s ease; white-space: nowrap; text-decoration: none;
+  .ticker-track {
+    display: flex;
+    gap: 10px;
+    width: max-content;
+    animation: modelTickerScroll 30s linear infinite;
+    will-change: transform;
   }
-  [data-theme="dark"] .model-badge { background: var(--card-bg-subtle); }
-  .model-badge:hover {
-    transform: translate(-1px, -2px); box-shadow: 3px 3px 0 var(--border-ink);
+  .ticker-wrapper:hover .ticker-track {
+    animation-play-state: paused;
+  }
+  @keyframes modelTickerScroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  .ticker-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    background: var(--bg2);
+    border: 1.5px solid var(--border-ink);
+    border-radius: 10px;
+    padding: 6px 12px;
+    box-shadow: 1.5px 1.5px 0 var(--border-ink);
+    cursor: default;
+    flex-shrink: 0;
+    transition: transform .18s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow .18s ease, background .15s ease;
+  }
+  [data-theme="dark"] .ticker-item {
+    background: var(--card-bg-subtle);
+  }
+  .ticker-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 3px 3px 0 var(--border-ink);
     background: var(--lime);
   }
-  .model-badge img {
-    width: 16px; height: 16px; object-fit: contain; flex-shrink: 0;
+  .ticker-item img {
+    width: 16px;
+    height: 16px;
+    object-fit: contain;
+    flex-shrink: 0;
+    filter: grayscale(35%);
+    opacity: 0.85;
+    transition: filter .18s ease, opacity .18s ease, transform .18s ease;
+  }
+  .ticker-item:hover img {
+    filter: grayscale(0%);
+    opacity: 1;
+    transform: scale(1.15);
+  }
+  .ticker-item span {
+    font-family: var(--font-display);
+    font-size: 12.5px;
+    font-weight: 850;
+    color: var(--ink);
+    white-space: nowrap;
+    letter-spacing: -.01em;
   }
 
   /* 右侧 Hero 司令台插画卡片 (Showcase Card) */
@@ -556,14 +640,14 @@
   .card:hover .card-model-ico:nth-child(2) { transform: translateY(-2px) scale(1.22); transition-delay: 45ms; }
   .card:hover .card-model-ico:nth-child(3) { transform: translateY(-2px) scale(1.22); transition-delay: 90ms; }
 
-  .card .open-btn {
+  .open-btn {
     display: inline-flex; align-items: center; gap: 6px;
     font-family: var(--font-display); font-weight: 900; font-size: 13.5px;
     color: var(--ink); background: var(--lime); border: 2px solid var(--border-ink);
     padding: 6px 14px; border-radius: 10px; box-shadow: 2px 2px 0 var(--border-ink);
     transition: all .15s ease; white-space: nowrap; margin-left: auto;
   }
-  .card .open-btn .btn-arrow {
+  .open-btn .btn-arrow {
     display: inline-block; transition: transform .2s cubic-bezier(0.34, 1.56, 0.64, 1);
   }
   .card:hover .open-btn .btn-arrow { transform: translateX(4px); }
@@ -761,7 +845,7 @@
 
   /* 减弱动态偏好 */
   @media(prefers-reduced-motion: reduce){
-    .card, .card-ill-img, .vector-center-symbol, .open-btn .btn-arrow, .card-model-ico {
+    .card, .card-ill-img, .vector-center-symbol, .open-btn .btn-arrow, .card-model-ico, .ticker-track {
       transition: none !important;
       animation: none !important;
       transform: none !important;
@@ -890,29 +974,45 @@
         </div>
       </div>
 
-      <!-- AI 知名厂商与模型生态展示带 (Iconfont 矢量装饰) -->
+      <!-- AI 知名厂商与模型生态：高端简约无缝流动长廊 (Sleek Ticker) -->
       <div class="models-strip" id="models">
         <div class="models-strip-head">
           <div class="models-head-left">
             <span class="strip-dot"></span>
-            <span class="strip-title">AI ECOSYSTEM · 深度覆盖与支持厂商</span>
+            <span class="strip-tag">MODEL MATRIX</span>
+            <span class="strip-sub">深度适配与基座厂商</span>
           </div>
-          <span class="strip-hint">Iconfont 官方矢量图标</span>
+          <span class="strip-counter">12 FRONTIER LABS &amp; ARCHITECTURES</span>
         </div>
-        <div class="models-badges-scroll">
-          <span class="model-badge"><img src="assets/icons/openai.svg" alt="OpenAI"><span>OpenAI / o1</span></span>
-          <span class="model-badge"><img src="assets/icons/claude.svg" alt="Claude"><span>Anthropic Claude</span></span>
-          <span class="model-badge"><img src="assets/icons/deepseek.svg" alt="DeepSeek"><span>DeepSeek R1 / V3</span></span>
-          <span class="model-badge"><img src="assets/icons/gemini.svg" alt="Gemini"><span>Google Gemini</span></span>
-          <span class="model-badge"><img src="assets/icons/meta.svg" alt="Meta"><span>Meta Llama</span></span>
-          <span class="model-badge"><img src="assets/icons/huggingface.svg" alt="Hugging Face"><span>Hugging Face</span></span>
-          <span class="model-badge"><img src="assets/icons/mistral.svg" alt="Mistral"><span>Mistral AI</span></span>
-          <span class="model-badge"><img src="assets/icons/grok.svg" alt="Grok"><span>xAI Grok</span></span>
-          <span class="model-badge"><img src="assets/icons/ollama.svg" alt="Ollama"><span>Ollama Local</span></span>
-          <span class="model-badge"><img src="assets/icons/qwen.svg" alt="Qwen"><span>阿里通义千问</span></span>
-          <span class="model-badge"><img src="assets/icons/kimi.svg" alt="Kimi"><span>月之暗面 Kimi</span></span>
-          <span class="model-badge"><img src="assets/icons/glm.svg" alt="GLM"><span>智谱清言 GLM</span></span>
-          <span class="model-badge"><img src="assets/icons/doubao.svg" alt="Doubao"><span>字节豆包</span></span>
+        <div class="ticker-wrapper" title="悬停暂停滚动">
+          <div class="ticker-track">
+            <!-- 循环项序列 (去除了任何 Emoji，纯极简排版) -->
+            <div class="ticker-item"><img src="assets/icons/openai.svg" alt="OpenAI"><span>OpenAI</span></div>
+            <div class="ticker-item"><img src="assets/icons/claude.svg" alt="Claude"><span>Claude</span></div>
+            <div class="ticker-item"><img src="assets/icons/deepseek.svg" alt="DeepSeek"><span>DeepSeek</span></div>
+            <div class="ticker-item"><img src="assets/icons/gemini.svg" alt="Gemini"><span>Gemini</span></div>
+            <div class="ticker-item"><img src="assets/icons/meta.svg" alt="Meta"><span>Llama</span></div>
+            <div class="ticker-item"><img src="assets/icons/mistral.svg" alt="Mistral"><span>Mistral</span></div>
+            <div class="ticker-item"><img src="assets/icons/grok.svg" alt="Grok"><span>Grok</span></div>
+            <div class="ticker-item"><img src="assets/icons/ollama.svg" alt="Ollama"><span>Ollama</span></div>
+            <div class="ticker-item"><img src="assets/icons/qwen.svg" alt="Qwen"><span>Qwen 通义</span></div>
+            <div class="ticker-item"><img src="assets/icons/kimi.svg" alt="Kimi"><span>Kimi</span></div>
+            <div class="ticker-item"><img src="assets/icons/glm.svg" alt="GLM"><span>GLM 智谱</span></div>
+            <div class="ticker-item"><img src="assets/icons/doubao.svg" alt="Doubao"><span>豆包</span></div>
+            <!-- 无缝闭环复制序列 -->
+            <div class="ticker-item"><img src="assets/icons/openai.svg" alt="OpenAI"><span>OpenAI</span></div>
+            <div class="ticker-item"><img src="assets/icons/claude.svg" alt="Claude"><span>Claude</span></div>
+            <div class="ticker-item"><img src="assets/icons/deepseek.svg" alt="DeepSeek"><span>DeepSeek</span></div>
+            <div class="ticker-item"><img src="assets/icons/gemini.svg" alt="Gemini"><span>Gemini</span></div>
+            <div class="ticker-item"><img src="assets/icons/meta.svg" alt="Meta"><span>Llama</span></div>
+            <div class="ticker-item"><img src="assets/icons/mistral.svg" alt="Mistral"><span>Mistral</span></div>
+            <div class="ticker-item"><img src="assets/icons/grok.svg" alt="Grok"><span>Grok</span></div>
+            <div class="ticker-item"><img src="assets/icons/ollama.svg" alt="Ollama"><span>Ollama</span></div>
+            <div class="ticker-item"><img src="assets/icons/qwen.svg" alt="Qwen"><span>Qwen 通义</span></div>
+            <div class="ticker-item"><img src="assets/icons/kimi.svg" alt="Kimi"><span>Kimi</span></div>
+            <div class="ticker-item"><img src="assets/icons/glm.svg" alt="GLM"><span>GLM 智谱</span></div>
+            <div class="ticker-item"><img src="assets/icons/doubao.svg" alt="Doubao"><span>豆包</span></div>
+          </div>
         </div>
       </div>
     </div>
@@ -1125,7 +1225,7 @@ const PROJECTS = [
     style: "全流程图解",
     accent: "var(--sky)",
     accent_bg: "#edf7ff",
-    models: ["claude", "huggingface"],
+    models: ["claude"],
     desc: "多模态知识图谱技能。解析 tree-sitter 代码抽取、Claude 视觉理解、NetworkX 构图与 Leiden 社区聚类的完整 7 段流水线。",
     tags: ["Knowledge Graph", "Multimodal", "tree-sitter"]
   },
@@ -1337,8 +1437,8 @@ const TL = [
   },
   {
     date: "2026-09-03",
-    h: "TP Space 全生态视觉统一与 Oil Motion 动画升级",
-    p: "对齐新野兽派纸张网格美学，全面引入 Iconfont AI 厂商矢量图标，并重构纯矢量卡片物理倾角交互与微动效（零 Emoji）。"
+    h: "TP Space 全生态视觉统一与流动长廊升级",
+    p: "对齐新野兽派纸张网格美学，全面引入无缝流动基座模型长廊与纯矢量卡片物理倾角交互（零 Emoji）。"
   }
 ];
 
