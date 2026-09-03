@@ -201,7 +201,7 @@
   }
 
   /* 关键词药丸 Marquee */
-  .marquee { margin: 28px 0 6px; }
+  .marquee { margin: 26px 0 4px; }
   .marquee .track { display: flex; flex-wrap: wrap; gap: 9px; }
   .pill {
     display: inline-flex; align-items: center; gap: 6px;
@@ -216,7 +216,7 @@
   /* 统计指标卡片 (4格新野兽派硬阴影) */
   .stats-grid {
     display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px;
-    margin-top: 32px;
+    margin-top: 28px;
   }
   .stat-card {
     border: 2px solid var(--border-ink); border-radius: 16px; background: #fff;
@@ -230,6 +230,52 @@
   }
   .stat-lbl {
     font-size: 12.5px; font-weight: 800; color: var(--ink-secondary); margin-top: 6px;
+  }
+
+  /* -------------------------------------------------------------
+     AI 模型与厂商生态展示带 (AI Ecosystem Ribbon)
+     ------------------------------------------------------------- */
+  .models-strip {
+    margin-top: 24px; background: #fff; border: 2.5px solid var(--border-ink);
+    border-radius: 18px; padding: 14px 18px; box-shadow: var(--shadow-sm);
+  }
+  [data-theme="dark"] .models-strip { background: var(--paper); }
+  .models-strip-head {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 8px; margin-bottom: 11px;
+  }
+  .models-head-left {
+    display: flex; align-items: center; gap: 8px;
+  }
+  .strip-dot {
+    width: 8px; height: 8px; border-radius: 50%; background: var(--coral);
+    box-shadow: 0 0 0 2px rgba(255,107,87,0.3);
+  }
+  .strip-title {
+    font-family: var(--font-mono); font-size: 11px; font-weight: 900;
+    letter-spacing: .08em; color: var(--ink-secondary); text-transform: uppercase;
+  }
+  .strip-hint {
+    font-family: var(--font-mono); font-size: 10.5px; font-weight: 800;
+    color: var(--ink-muted);
+  }
+  .models-badges-scroll {
+    display: flex; gap: 8px; flex-wrap: wrap; align-items: center;
+  }
+  .model-badge {
+    display: inline-flex; align-items: center; gap: 7px;
+    background: var(--bg2); border: 1.5px solid var(--border-ink);
+    border-radius: 999px; padding: 5px 11px; font-size: 12px; font-weight: 850;
+    color: var(--ink); box-shadow: 1.5px 1.5px 0 var(--border-ink);
+    transition: all .15s ease; white-space: nowrap; text-decoration: none;
+  }
+  [data-theme="dark"] .model-badge { background: var(--card-bg-subtle); }
+  .model-badge:hover {
+    transform: translate(-1px, -2px); box-shadow: 3px 3px 0 var(--border-ink);
+    background: var(--lime);
+  }
+  .model-badge img {
+    width: 16px; height: 16px; object-fit: contain; flex-shrink: 0;
   }
 
   /* 右侧 Hero 司令台插画卡片 (Showcase Card) */
@@ -272,16 +318,24 @@
   }
   .hero-showcase-card:hover .showcase-img-wrap img { transform: scale(1.04); }
   .showcase-foot {
-    padding: 14px 18px; display: flex; align-items: center; justify-content: space-between; gap: 10px;
+    padding: 12px 18px; display: flex; align-items: center; justify-content: space-between; gap: 10px;
     background: #fff;
   }
   [data-theme="dark"] .showcase-foot { background: var(--paper); }
-  .foot-tag {
-    font-family: var(--font-mono); font-size: 10.5px; font-weight: 950;
-    color: var(--ink); background: var(--sky); border: 1.5px solid var(--border-ink);
-    padding: 3px 9px; border-radius: 999px;
+  .showcase-models {
+    display: flex; align-items: center;
   }
-  .foot-txt { font-size: 13px; font-weight: 850; color: var(--ink-secondary); }
+  .model-avatar {
+    width: 28px; height: 28px; border-radius: 50%; border: 2px solid var(--border-ink);
+    background: #fff; display: grid; place-items: center; margin-left: -7px;
+    box-shadow: 1.5px 1.5px 0 var(--border-ink); transition: transform .15s ease;
+    cursor: pointer;
+  }
+  [data-theme="dark"] .model-avatar { background: var(--paper); }
+  .model-avatar:first-child { margin-left: 0; }
+  .model-avatar:hover { transform: translateY(-3px) scale(1.2); z-index: 5; }
+  .model-avatar img { width: 15px; height: 15px; object-fit: contain; }
+  .foot-txt { font-size: 12.5px; font-weight: 850; color: var(--ink-secondary); }
 
   /* 板块通用头部 (带 01 / 02 编号徽章，统一 TP Space) */
   section { padding: 48px 0; }
@@ -410,6 +464,7 @@
     font-family: var(--font-mono); font-size: 10.5px; font-weight: 900;
     padding: 3px 8px; border-radius: 6px; border: 1.5px solid var(--border-ink);
     background: var(--lime); color: var(--ink); box-shadow: 2px 2px 0 var(--border-ink);
+    z-index: 2;
   }
 
   .card h3 {
@@ -426,16 +481,29 @@
     padding: 3px 8px; border-radius: 999px; cursor: pointer; transition: all .15s ease;
   }
   .tag:hover { background: var(--lime); transform: translateY(-1px); }
+  
+  /* 卡片脚部：支持模型图标 + 动作按钮 */
   .card .card-foot {
-    display: flex; align-items: center; justify-content: space-between;
+    display: flex; align-items: center; justify-content: space-between; gap: 10px;
     padding-top: 12px; border-top: 1.5px dashed var(--line); margin-top: auto;
   }
+  .card-models-strip {
+    display: inline-flex; align-items: center; gap: 5px;
+    background: var(--bg2); border: 1.5px solid var(--border-ink);
+    padding: 3px 7px; border-radius: 8px; box-shadow: 1px 1px 0 var(--border-ink);
+  }
+  [data-theme="dark"] .card-models-strip { background: var(--card-bg-subtle); }
+  .card-model-ico {
+    width: 15px; height: 15px; object-fit: contain; transition: transform .15s ease;
+  }
+  .card-model-ico:hover { transform: scale(1.25); }
+
   .card .open-btn {
     display: inline-flex; align-items: center; gap: 6px;
     font-family: var(--font-display); font-weight: 900; font-size: 13.5px;
     color: var(--ink); background: var(--lime); border: 2px solid var(--border-ink);
     padding: 6px 14px; border-radius: 10px; box-shadow: 2px 2px 0 var(--border-ink);
-    transition: all .15s ease;
+    transition: all .15s ease; white-space: nowrap; margin-left: auto;
   }
   .card .open-btn:hover {
     transform: translate(-1px, -2px); box-shadow: 4px 4px 0 var(--border-ink);
@@ -576,6 +644,15 @@
   .eco-card p {
     font-size: 13px; color: var(--ink-secondary); line-height: 1.6; flex: 1;
   }
+  .eco-models-row {
+    display: flex; gap: 7px; margin-top: 12px;
+  }
+  .eco-models-row img {
+    width: 22px; height: 22px; object-fit: contain; padding: 2px;
+    border: 1.5px solid var(--border-ink); border-radius: 7px;
+    background: #fff; box-shadow: 1px 1px 0 var(--border-ink);
+  }
+  [data-theme="dark"] .eco-models-row img { background: var(--paper); }
   .eco-go {
     font-family: var(--font-display); font-weight: 900; font-size: 12.5px;
     color: var(--ink); margin-top: 14px; display: inline-flex; align-items: center; gap: 4px;
@@ -675,6 +752,7 @@
     </a>
     <div class="nav-links" id="primaryNav">
       <a href="#explore">探索项目</a>
+      <a href="#models">AI 生态</a>
       <a href="#caps">核心能力</a>
       <a href="#timeline">更新动态</a>
       <a href="#weekly">热榜周报</a>
@@ -737,6 +815,32 @@
           <div class="stat-lbl">ECC 技能全索引</div>
         </div>
       </div>
+
+      <!-- AI 知名厂商与模型生态展示带 (Iconfont 矢量装饰) -->
+      <div class="models-strip" id="models">
+        <div class="models-strip-head">
+          <div class="models-head-left">
+            <span class="strip-dot"></span>
+            <span class="strip-title">AI ECOSYSTEM · 深度覆盖与支持厂商</span>
+          </div>
+          <span class="strip-hint">Iconfont 官方矢量图标</span>
+        </div>
+        <div class="models-badges-scroll">
+          <span class="model-badge"><img src="assets/icons/openai.svg" alt="OpenAI"><span>OpenAI / o1</span></span>
+          <span class="model-badge"><img src="assets/icons/claude.svg" alt="Claude"><span>Anthropic Claude</span></span>
+          <span class="model-badge"><img src="assets/icons/deepseek.svg" alt="DeepSeek"><span>DeepSeek R1 / V3</span></span>
+          <span class="model-badge"><img src="assets/icons/gemini.svg" alt="Gemini"><span>Google Gemini</span></span>
+          <span class="model-badge"><img src="assets/icons/meta.svg" alt="Meta"><span>Meta Llama</span></span>
+          <span class="model-badge"><img src="assets/icons/huggingface.svg" alt="Hugging Face"><span>Hugging Face</span></span>
+          <span class="model-badge"><img src="assets/icons/mistral.svg" alt="Mistral"><span>Mistral AI</span></span>
+          <span class="model-badge"><img src="assets/icons/grok.svg" alt="Grok"><span>xAI Grok</span></span>
+          <span class="model-badge"><img src="assets/icons/ollama.svg" alt="Ollama"><span>Ollama Local</span></span>
+          <span class="model-badge"><img src="assets/icons/qwen.svg" alt="Qwen"><span>阿里通义千问</span></span>
+          <span class="model-badge"><img src="assets/icons/kimi.svg" alt="Kimi"><span>月之暗面 Kimi</span></span>
+          <span class="model-badge"><img src="assets/icons/glm.svg" alt="GLM"><span>智谱清言 GLM</span></span>
+          <span class="model-badge"><img src="assets/icons/doubao.svg" alt="Doubao"><span>字节豆包</span></span>
+        </div>
+      </div>
     </div>
 
     <!-- 右侧插画司令台看板 (Showcase Card) -->
@@ -754,8 +858,13 @@
           </picture>
         </div>
         <div class="showcase-foot">
-          <span class="foot-tag">AGENT COMMAND</span>
-          <span class="foot-txt">多Agent协同 · 知识图谱 · CodeAct 沙箱</span>
+          <div class="showcase-models" title="当前司令台核心联动模型群">
+            <span class="model-avatar" title="Anthropic Claude 3.5"><img src="assets/icons/claude.svg" alt="Claude"></span>
+            <span class="model-avatar" title="OpenAI GPT-4o / o1"><img src="assets/icons/openai.svg" alt="OpenAI"></span>
+            <span class="model-avatar" title="DeepSeek R1"><img src="assets/icons/deepseek.svg" alt="DeepSeek"></span>
+            <span class="model-avatar" title="Google Gemini Pro"><img src="assets/icons/gemini.svg" alt="Gemini"></span>
+          </div>
+          <span class="foot-txt">多Agent流水线驱动中枢</span>
         </div>
       </div>
     </div>
@@ -770,7 +879,7 @@
         <span class="sec-index">01</span>
         <h2>探索解析项目</h2>
       </div>
-      <div class="sub">按关键词秒级检索，或点选标签过滤。每张卡片直达源码级架构解析交互页。</div>
+      <div class="sub">按关键词秒级检索，或点选标签过滤。每张卡片展示深度适配的基座模型与源码级架构解析。</div>
     </div>
     <div class="view-tabs" id="viewTabs" role="group" aria-label="项目显示方式">
       <button class="active" type="button" data-view="grid" aria-pressed="true">卡片网格</button>
@@ -867,6 +976,12 @@
       <span class="eco-num">GATEWAY / 03</span>
       <h4>TokenPool 网关</h4>
       <p>统一管理 AI API 通道、令牌池与模型调用入口，为各智能体工具提供坚实基座。</p>
+      <div class="eco-models-row" title="支持的主流厂商接口">
+        <img src="assets/icons/openai.svg" alt="OpenAI" title="OpenAI">
+        <img src="assets/icons/claude.svg" alt="Claude" title="Claude">
+        <img src="assets/icons/gemini.svg" alt="Gemini" title="Gemini">
+        <img src="assets/icons/deepseek.svg" alt="DeepSeek" title="DeepSeek">
+      </div>
       <span class="eco-go">进入网关 →</span>
     </a>
     <a class="eco-card" href="/tpvibe/" target="_blank" rel="noopener">
@@ -883,6 +998,7 @@
   <div>© 2026 TaskSkillPilot · TP Space 生态 AI 开源项目深度解读库</div>
   <div class="fnav">
     <a href="#explore">探索项目</a>
+    <a href="#models">AI 生态</a>
     <a href="#caps">核心能力</a>
     <a href="#timeline">更新动态</a>
     <a href="#weekly">周报</a>
@@ -897,7 +1013,7 @@
 <div class="toast" id="toast" role="status" aria-live="polite">已复制 ✓</div>
 
 <script>
-/* ---------- 数据集 (包含 4 个核心手绘插画项目与 12 个精选项目) ---------- */
+/* ---------- 数据集 (包含 4 个核心手绘插画项目与 12 个精选项目，集成模型图标映射) ---------- */
 const PROJECTS = [
   {
     name: "OpenHands 深度解读",
@@ -906,6 +1022,7 @@ const PROJECTS = [
     style: "源码级解读",
     accent: "var(--coral)",
     accent_bg: "#fff0ee",
+    models: ["claude", "openai", "deepseek"],
     desc: "开源 AI 软件工程智能体。深度拆解事件流（EventStream）、CodeAct 执行模型与 Docker 运行时，不只停在 README。",
     tags: ["AI Agent", "Code Act", "Docker Runtime"]
   },
@@ -916,6 +1033,7 @@ const PROJECTS = [
     style: "全流程图解",
     accent: "var(--sky)",
     accent_bg: "#edf7ff",
+    models: ["claude", "huggingface"],
     desc: "多模态知识图谱技能。解析 tree-sitter 代码抽取、Claude 视觉理解、NetworkX 构图与 Leiden 社区聚类的完整 7 段流水线。",
     tags: ["Knowledge Graph", "Multimodal", "tree-sitter"]
   },
@@ -926,6 +1044,7 @@ const PROJECTS = [
     style: "交互式深读",
     accent: "var(--lime)",
     accent_bg: "#f7fce4",
+    models: ["claude", "deepseek", "ollama"],
     desc: "跨 harness 的 agent 操作系统。67 代理 + 278 技能 + hooks + 记忆 + 安全，深度拆解安装路径与跨工具一致性。",
     tags: ["Agent OS", "Skills", "Hooks"]
   },
@@ -936,6 +1055,7 @@ const PROJECTS = [
     style: "AI 教程",
     accent: "var(--sand)",
     accent_bg: "#fff6eb",
+    models: ["openai", "claude"],
     desc: "AI 创作教程，从零基础到进阶的 Vibe Coding 实战指南，涵盖环境配置、提示词调优、多模态创作等 18 章节。",
     tags: ["AI 教程", "Vibe Coding", "实战"]
   },
@@ -946,6 +1066,7 @@ const PROJECTS = [
     symbol: "✨",
     accent: "var(--pink)",
     accent_bg: "#fff0f5",
+    models: ["openai"],
     desc: "精心策划的 UI/UX 设计灵感平台，汇集 Dropbox、Snapchat、Apple Sports 等优秀界面细节与交互效果。",
     tags: ["UI 灵感", "交互设计", "动效"]
   },
@@ -956,6 +1077,7 @@ const PROJECTS = [
     symbol: "🛠️",
     accent: "var(--sand)",
     accent_bg: "#fff7ec",
+    models: ["deepseek", "qwen"],
     desc: "独立开发者工具目录聚合平台，收录 650+ 高质量工具，覆盖开发、设计、运营全链路。",
     tags: ["工具导航", "独立开发", "资源聚合"]
   },
@@ -966,6 +1088,7 @@ const PROJECTS = [
     symbol: "🔍",
     accent: "var(--coral)",
     accent_bg: "#fff2ee",
+    models: ["gemini", "claude"],
     desc: "面向 AI 时代的设计研究与灵感收集平台，帮助系统化沉淀真实产品的高质量设计参考资料。",
     tags: ["设计研究", "灵感管理", "AI 工作流"]
   },
@@ -976,6 +1099,7 @@ const PROJECTS = [
     symbol: "📐",
     accent: "var(--lime)",
     accent_bg: "#f7fce4",
+    models: ["qwen"],
     desc: "提供 1000+ 免费网站模板的大型资源平台，企业官网、博客、电商、SaaS 页均可商用。",
     tags: ["网站模板", "免费资源", "响应式"]
   },
@@ -986,6 +1110,7 @@ const PROJECTS = [
     symbol: "⚡",
     accent: "var(--sand)",
     accent_bg: "#fff6eb",
+    models: ["openai", "claude"],
     desc: "基于 Next.js 的 AI SaaS 产品构建模板，开箱即用认证、支付、数据库与 AI API 集成。",
     tags: ["Next.js", "SaaS 模板", "全栈"]
   },
@@ -996,6 +1121,7 @@ const PROJECTS = [
     symbol: "💬",
     accent: "var(--coral)",
     accent_bg: "#fff2ee",
+    models: ["openai", "gemini"],
     desc: "专为 AI 应用设计的 React 组件库，无障碍达标、可定制，主打聊天与提示词界面。",
     tags: ["React 组件", "AI UI", "可访问性"]
   },
@@ -1006,6 +1132,7 @@ const PROJECTS = [
     symbol: "🌀",
     accent: "var(--sky)",
     accent_bg: "#edf7ff",
+    models: ["mistral"],
     desc: "100+ 精美 React 动画组件，基于 Tailwind 与 Framer Motion，覆盖文本、背景、加载等。",
     tags: ["React", "动画组件", "Framer Motion"]
   },
@@ -1016,6 +1143,7 @@ const PROJECTS = [
     symbol: "🎬",
     accent: "var(--grape)",
     accent_bg: "#f8f4ff",
+    models: ["meta"],
     desc: "轻量级 React 动画组件库，声明式 API，适合只需少量动画增强的项目。",
     tags: ["React", "轻量动画", "声明式"]
   },
@@ -1026,6 +1154,7 @@ const PROJECTS = [
     symbol: "🤖",
     accent: "var(--pink)",
     accent_bg: "#fff0f5",
+    models: ["openai", "claude", "ollama"],
     desc: "AI Agent 运营与管理平台，可视化编排 7×24 运行的智能体团队，本身也是开源项目。",
     tags: ["AI Agent", "工作流", "开源"]
   },
@@ -1036,6 +1165,7 @@ const PROJECTS = [
     symbol: "🏷️",
     accent: "var(--sand)",
     accent_bg: "#fff7ec",
+    models: ["qwen"],
     desc: "阿里巴巴矢量图标库，3356 万+ 矢量图标，支持 SVG、PNG 与 Icon Font 多格式。",
     tags: ["图标", "矢量", "阿里巴巴"]
   },
@@ -1046,6 +1176,7 @@ const PROJECTS = [
     symbol: "📈",
     accent: "var(--lime)",
     accent_bg: "#f7fce4",
+    models: ["deepseek", "glm", "qwen"],
     desc: "GitHub 开源项目，每日追踪中文开源项目增长趋势，帮助发现国内优质项目。",
     tags: ["开源排行", "GitHub", "中文社区"]
   },
@@ -1056,6 +1187,7 @@ const PROJECTS = [
     symbol: "📜",
     accent: "var(--coral)",
     accent_bg: "#fff2ee",
+    models: ["kimi"],
     desc: "2014 年中文前端资源分享帖，记录当时社区热门学习资源，珍贵的前端历史档案。",
     tags: ["前端历史", "资源分享", "GitHub"]
   }
@@ -1114,7 +1246,7 @@ const TL = [
   {
     date: "2026-09-03",
     h: "TP Space 全生态视觉统一升级",
-    p: "对齐 tpgofighting.top、prompts.tpgofighting.top 与 token.tpgofighting.top 的新野兽派纸张网格美学，全新集成 Command Center、CodeAct、Graphify 等系列手绘科技插图。"
+    p: "对齐 tpgofighting.top、prompts.tpgofighting.top 与 token.tpgofighting.top 的新野兽派纸张网格美学，全新集成 Command Center、CodeAct、Graphify 等系列手绘科技插图，并全面引入 Iconfont 知名 AI 厂商矢量图标装饰。"
   }
 ];
 
@@ -1220,6 +1352,12 @@ function cardHTML(p) {
       </div>`;
   }
 
+  const modelIconsMarkup = p.models && p.models.length ? `
+    <div class="card-models-strip" title="适配基座模型：${p.models.join(', ')}">
+      ${p.models.map(m => `<img class="card-model-ico" src="assets/icons/${m}.svg" alt="${m}">`).join('')}
+    </div>
+  ` : '';
+
   return `
     <div class="cell">
       <article class="card">
@@ -1230,6 +1368,7 @@ function cardHTML(p) {
           ${p.tags.map(t => `<button type="button" class="tag" data-tag="${t}">${t}</button>`).join('')}
         </div>
         <div class="card-foot">
+          ${modelIconsMarkup}
           <a class="open-btn" href="${p.file}">打开详情页 →</a>
         </div>
       </article>
@@ -1237,6 +1376,12 @@ function cardHTML(p) {
 }
 
 function listHTML(p) {
+  const modelIconsMarkup = p.models && p.models.length ? `
+    <div class="card-models-strip" style="margin-top:6px" title="适配基座模型：${p.models.join(', ')}">
+      ${p.models.map(m => `<img class="card-model-ico" src="assets/icons/${m}.svg" alt="${m}">`).join('')}
+    </div>
+  ` : '';
+
   return `
     <div class="cell">
       <article class="card">
@@ -1251,6 +1396,7 @@ function listHTML(p) {
           <div class="tags" style="margin:8px 0 0">
             ${p.tags.map(t => `<button type="button" class="tag" data-tag="${t}">${t}</button>`).join('')}
           </div>
+          ${modelIconsMarkup}
         </div>
         <div class="card-foot">
           <a class="open-btn" href="${p.file}">打开 →</a>
