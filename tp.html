@@ -232,9 +232,7 @@
     font-size: 12.5px; font-weight: 800; color: var(--ink-secondary); margin-top: 6px;
   }
 
-  /* -------------------------------------------------------------
-     AI 模型与厂商生态展示带 (AI Ecosystem Ribbon)
-     ------------------------------------------------------------- */
+  /* AI 模型与厂商生态展示带 */
   .models-strip {
     margin-top: 24px; background: #fff; border: 2.5px solid var(--border-ink);
     border-radius: 18px; padding: 14px 18px; box-shadow: var(--shadow-sm);
@@ -337,7 +335,7 @@
   .model-avatar img { width: 15px; height: 15px; object-fit: contain; }
   .foot-txt { font-size: 12.5px; font-weight: 850; color: var(--ink-secondary); }
 
-  /* 板块通用头部 (带 01 / 02 编号徽章，统一 TP Space) */
+  /* 板块通用头部 */
   section { padding: 48px 0; }
   .sec-head {
     display: flex; align-items: flex-end; justify-content: space-between;
@@ -410,18 +408,41 @@
     color: var(--ink-secondary); margin-bottom: 16px;
   }
 
-  /* 项目卡片网格 (包含手绘插画头图与新野兽派结构) */
-  .grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+  /* ==========================================================================
+     Oil Motion 卡片系统 (无 Emoji · 指针物理倾角 · 动态光斑与科技扫光)
+     ========================================================================== */
+  .grid {
+    display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px;
+    perspective: 1200px;
+  }
   .cell { display: flex; }
   .card {
     position: relative; flex: 1; background: #fff; border: 2.5px solid var(--border-ink);
     border-radius: 20px; padding: 20px; box-shadow: var(--shadow-md);
-    transition: transform .2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow .2s ease;
     display: flex; flex-direction: column; overflow: hidden;
+    will-change: transform, box-shadow;
+    transform-style: preserve-3d;
+    transition: transform .22s cubic-bezier(0.16, 1, 0.3, 1), box-shadow .22s ease, border-color .15s ease;
   }
   [data-theme="dark"] .card { background: var(--paper); }
+
+  /* 指针追踪光斑 (Specular Glare) */
+  .card::before {
+    content: ""; position: absolute; inset: 0; pointer-events: none; border-radius: inherit;
+    background: radial-gradient(
+      380px circle at var(--card-mx, 50%) var(--card-my, 50%),
+      rgba(217, 239, 127, 0.22),
+      transparent 72%
+    );
+    opacity: 0; transition: opacity .25s ease; z-index: 1;
+  }
+  .card:hover::before { opacity: 1; }
+
   .card:hover {
-    transform: translate(-3px, -4px); box-shadow: var(--shadow-hover);
+    transform: translate3d(calc(var(--card-tx, 0px) - 3px), calc(var(--card-ty, 0px) - 4px), 0)
+               rotateX(var(--card-rx, 0deg))
+               rotateY(var(--card-ry, 0deg));
+    box-shadow: var(--shadow-hover);
   }
 
   /* 插图头图 / 视觉展示区 */
@@ -433,30 +454,64 @@
       linear-gradient(rgba(31, 27, 25, 0.05) 1px, transparent 1px),
       linear-gradient(90deg, rgba(31, 27, 25, 0.05) 1px, transparent 1px);
     background-size: 16px 16px;
+    transform: translateZ(10px);
   }
+
+  /* 科技扫光线 (Scan-Line Beam) */
+  .card-scan-line {
+    position: absolute; inset: -100% 0 auto 0; height: 50%;
+    background: linear-gradient(180deg, transparent, rgba(255, 255, 255, 0.5), transparent);
+    pointer-events: none; opacity: 0; z-index: 3;
+  }
+  .card:hover .card-scan-line {
+    opacity: 1;
+    animation: scanLineAnim 1.4s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+  }
+  @keyframes scanLineAnim {
+    0% { transform: translateY(-100%); }
+    100% { transform: translateY(380%); }
+  }
+
+  /* 插画视差缩放 */
   .card-ill-img {
     width: 100%; height: 100%; object-fit: cover;
-    transition: transform .35s ease;
+    transition: transform .35s cubic-bezier(0.16, 1, 0.3, 1);
   }
-  .card:hover .card-ill-img { transform: scale(1.06); }
+  .card:hover .card-ill-img { transform: scale(1.07); }
 
-  /* 没有生成全图时的设计感手绘矢量头图 */
+  /* 纯矢量工程图形头部 (无任何 Emoji) */
   .card-vector-header {
     width: 100%; height: 100%; display: flex; flex-direction: column;
     justify-content: space-between; padding: 14px; position: relative;
   }
-  .vector-badge-strip { display: flex; justify-content: space-between; align-items: center; }
+  .vector-badge-strip {
+    display: flex; justify-content: space-between; align-items: center; z-index: 2;
+  }
   .vector-category-tag {
     font-family: var(--font-mono); font-size: 10.5px; font-weight: 900;
     padding: 3px 8px; border-radius: 6px; border: 1.5px solid var(--border-ink);
     background: #fff; color: var(--ink); box-shadow: 1.5px 1.5px 0 var(--border-ink);
   }
+  [data-theme="dark"] .vector-category-tag { background: var(--paper); }
   .vector-center-symbol {
-    font-family: var(--font-display); font-size: 42px; font-weight: 950;
-    color: var(--ink); text-align: center; letter-spacing: -.04em;
-    text-shadow: 2px 2px 0 rgba(255,255,255,0.8);
+    width: 54px; height: 54px; margin: 0 auto; display: grid; place-items: center;
+    border-radius: 14px; border: 2px solid var(--border-ink); background: #fff;
+    color: var(--ink); box-shadow: 2.5px 2.5px 0 var(--border-ink);
+    transition: transform .35s cubic-bezier(0.34, 1.56, 0.64, 1), background .2s ease;
+    z-index: 2;
   }
-  .vector-spark { position: absolute; right: 14px; bottom: 12px; font-size: 18px; color: var(--coral); }
+  [data-theme="dark"] .vector-center-symbol { background: var(--paper); }
+  .card:hover .vector-center-symbol {
+    transform: scale(1.15) rotate(5deg); background: var(--lime);
+  }
+  .vector-center-symbol svg {
+    width: 28px; height: 28px; stroke-width: 2.2;
+  }
+  .vector-spark-node {
+    position: absolute; right: 14px; bottom: 12px;
+    font-family: var(--font-mono); font-size: 10.5px; font-weight: 900;
+    color: var(--ink-secondary); z-index: 2; letter-spacing: .08em;
+  }
 
   /* 徽章悬浮在头图右上角 */
   .card-style-badge {
@@ -464,7 +519,7 @@
     font-family: var(--font-mono); font-size: 10.5px; font-weight: 900;
     padding: 3px 8px; border-radius: 6px; border: 1.5px solid var(--border-ink);
     background: var(--lime); color: var(--ink); box-shadow: 2px 2px 0 var(--border-ink);
-    z-index: 2;
+    z-index: 4;
   }
 
   .card h3 {
@@ -494,9 +549,12 @@
   }
   [data-theme="dark"] .card-models-strip { background: var(--card-bg-subtle); }
   .card-model-ico {
-    width: 15px; height: 15px; object-fit: contain; transition: transform .15s ease;
+    width: 15px; height: 15px; object-fit: contain;
+    transition: transform .25s cubic-bezier(0.34, 1.56, 0.64, 1);
   }
-  .card-model-ico:hover { transform: scale(1.25); }
+  .card:hover .card-model-ico:nth-child(1) { transform: translateY(-2px) scale(1.22); transition-delay: 0ms; }
+  .card:hover .card-model-ico:nth-child(2) { transform: translateY(-2px) scale(1.22); transition-delay: 45ms; }
+  .card:hover .card-model-ico:nth-child(3) { transform: translateY(-2px) scale(1.22); transition-delay: 90ms; }
 
   .card .open-btn {
     display: inline-flex; align-items: center; gap: 6px;
@@ -505,7 +563,11 @@
     padding: 6px 14px; border-radius: 10px; box-shadow: 2px 2px 0 var(--border-ink);
     transition: all .15s ease; white-space: nowrap; margin-left: auto;
   }
-  .card .open-btn:hover {
+  .card .open-btn .btn-arrow {
+    display: inline-block; transition: transform .2s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  .card:hover .open-btn .btn-arrow { transform: translateX(4px); }
+  .card:hover .open-btn {
     transform: translate(-1px, -2px); box-shadow: 4px 4px 0 var(--border-ink);
     background: var(--sand);
   }
@@ -615,7 +677,7 @@
     transform: translate(-1px, -2px); box-shadow: 5px 5px 0 var(--border-ink);
   }
 
-  /* TP Space 生态协同展区 (全面统一 tpgofighting.top, prompts, token) */
+  /* TP Space 生态协同展区 */
   .eco-hub-sec { margin-top: 24px; }
   .eco-grid {
     display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 18px;
@@ -682,11 +744,13 @@
     border-radius: 14px; border: 2.5px solid var(--border-ink); background: #fff;
     display: grid; place-items: center; cursor: pointer; box-shadow: var(--shadow-md);
     opacity: 0; transform: translateY(16px); pointer-events: none; transition: all .2s ease;
-    z-index: 90; color: var(--ink); font-family: var(--font-display); font-weight: 900; font-size: 20px;
+    z-index: 90; color: var(--ink);
   }
   [data-theme="dark"] .to-top { background: var(--paper); }
   .to-top.show { opacity: 1; transform: none; pointer-events: auto; }
   .to-top:hover { transform: translate(-2px, -3px); box-shadow: 6px 7px 0 var(--shadow-ink); background: var(--lime); }
+  .to-top svg { width: 22px; height: 22px; stroke-width: 2.5; }
+
   .toast {
     position: fixed; bottom: 28px; left: 50%; transform: translateX(-50%) translateY(20px);
     background: var(--ink); color: var(--cream); padding: 12px 24px; border-radius: 12px;
@@ -694,6 +758,16 @@
     z-index: 100; box-shadow: var(--shadow-lg); border: 2px solid var(--border-ink);
   }
   .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+  /* 减弱动态偏好 */
+  @media(prefers-reduced-motion: reduce){
+    .card, .card-ill-img, .vector-center-symbol, .open-btn .btn-arrow, .card-model-ico {
+      transition: none !important;
+      animation: none !important;
+      transform: none !important;
+    }
+    .card-scan-line { display: none !important; }
+  }
 
   /* 响应式断点 */
   @media(max-width: 960px){
@@ -1009,11 +1083,29 @@
   </div>
 </footer>
 
-<button class="to-top" id="toTop" type="button" aria-label="返回页面顶部">↑</button>
-<div class="toast" id="toast" role="status" aria-live="polite">已复制 ✓</div>
+<button class="to-top" id="toTop" type="button" aria-label="返回页面顶部">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+</button>
+<div class="toast" id="toast" role="status" aria-live="polite">已复制链接</div>
 
 <script>
-/* ---------- 数据集 (包含 4 个核心手绘插画项目与 12 个精选项目，集成模型图标映射) ---------- */
+/* ---------- 零 Emoji 纯矢量技术图标库 ---------- */
+const SVG_ICONS = {
+  wand: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round"><path d="m15 4-2 2M18 7l-2 2M21 10l-2 2M3 21l9-9M12.5 8.5l3 3M8 4h.01M4 8h.01M6 2h.01M2 6h.01"/></svg>',
+  tools: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>',
+  search: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/><path d="M11 8v6M8 11h6"/></svg>',
+  blueprint: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M3 9h18M9 21V9M15 9v12"/></svg>',
+  saas: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>',
+  prompt: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><path d="M8 9h8M8 13h4"/></svg>',
+  kinetic: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>',
+  animate: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round"><path d="m22 8-6 4 6 4V8Z"/><rect width="14" height="12" x="2" y="6" rx="2"/></svg>',
+  agent: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round"><rect width="18" height="12" x="3" y="8" rx="2"/><path d="M12 2v6M8 14v1M16 14v1M9 19h6"/></svg>',
+  vector: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round"><path d="m19 11-8-8-8 8M12 3v18M5 19h14"/></svg>',
+  chart: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round"><path d="m3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>',
+  history: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/><path d="M8 7h6M8 11h8M8 15h4"/></svg>'
+};
+
+/* ---------- 数据集 (零 Emoji · 全工程矢量图标) ---------- */
 const PROJECTS = [
   {
     name: "OpenHands 深度解读",
@@ -1063,7 +1155,7 @@ const PROJECTS = [
     name: "Design Spells 深度解读",
     file: "designspells_intro.html",
     style: "设计灵感库",
-    symbol: "✨",
+    iconKey: "wand",
     accent: "var(--pink)",
     accent_bg: "#fff0f5",
     models: ["openai"],
@@ -1074,7 +1166,7 @@ const PROJECTS = [
     name: "IndieTools 深度解读",
     file: "indietools_intro.html",
     style: "工具导航",
-    symbol: "🛠️",
+    iconKey: "tools",
     accent: "var(--sand)",
     accent_bg: "#fff7ec",
     models: ["deepseek", "qwen"],
@@ -1085,7 +1177,7 @@ const PROJECTS = [
     name: "Refero 深度解读",
     file: "refero_intro.html",
     style: "设计研究",
-    symbol: "🔍",
+    iconKey: "search",
     accent: "var(--coral)",
     accent_bg: "#fff2ee",
     models: ["gemini", "claude"],
@@ -1096,7 +1188,7 @@ const PROJECTS = [
     name: "ATemplate 深度解读",
     file: "atemplate_intro.html",
     style: "模板资源",
-    symbol: "📐",
+    iconKey: "blueprint",
     accent: "var(--lime)",
     accent_bg: "#f7fce4",
     models: ["qwen"],
@@ -1107,7 +1199,7 @@ const PROJECTS = [
     name: "MKSaaS 深度解读",
     file: "mksaas_intro.html",
     style: "SaaS 模板",
-    symbol: "⚡",
+    iconKey: "saas",
     accent: "var(--sand)",
     accent_bg: "#fff6eb",
     models: ["openai", "claude"],
@@ -1118,7 +1210,7 @@ const PROJECTS = [
     name: "Prompt-Kit 深度解读",
     file: "promptkit_intro.html",
     style: "AI 组件",
-    symbol: "💬",
+    iconKey: "prompt",
     accent: "var(--coral)",
     accent_bg: "#fff2ee",
     models: ["openai", "gemini"],
@@ -1129,7 +1221,7 @@ const PROJECTS = [
     name: "ReactBits 深度解读",
     file: "reactbits_intro.html",
     style: "动画组件",
-    symbol: "🌀",
+    iconKey: "kinetic",
     accent: "var(--sky)",
     accent_bg: "#edf7ff",
     models: ["mistral"],
@@ -1140,7 +1232,7 @@ const PROJECTS = [
     name: "Animate-UI 深度解读",
     file: "animateui_intro.html",
     style: "轻量动画",
-    symbol: "🎬",
+    iconKey: "animate",
     accent: "var(--grape)",
     accent_bg: "#f8f4ff",
     models: ["meta"],
@@ -1151,7 +1243,7 @@ const PROJECTS = [
     name: "LobeHub 深度解读",
     file: "lobehub_intro.html",
     style: "AI Agent",
-    symbol: "🤖",
+    iconKey: "agent",
     accent: "var(--pink)",
     accent_bg: "#fff0f5",
     models: ["openai", "claude", "ollama"],
@@ -1162,7 +1254,7 @@ const PROJECTS = [
     name: "Iconfont 深度解读",
     file: "iconfont_intro.html",
     style: "图标库",
-    symbol: "🏷️",
+    iconKey: "vector",
     accent: "var(--sand)",
     accent_bg: "#fff7ec",
     models: ["qwen"],
@@ -1173,7 +1265,7 @@ const PROJECTS = [
     name: "Chinese-Top-Charts 深度解读",
     file: "ctcharts_intro.html",
     style: "开源榜单",
-    symbol: "📈",
+    iconKey: "chart",
     accent: "var(--lime)",
     accent_bg: "#f7fce4",
     models: ["deepseek", "glm", "qwen"],
@@ -1184,7 +1276,7 @@ const PROJECTS = [
     name: "Hacke2 Issue #1 深度解读",
     file: "hacke2_intro.html",
     style: "前端史料",
-    symbol: "📜",
+    iconKey: "history",
     accent: "var(--coral)",
     accent_bg: "#fff2ee",
     models: ["kimi"],
@@ -1245,8 +1337,8 @@ const TL = [
   },
   {
     date: "2026-09-03",
-    h: "TP Space 全生态视觉统一升级",
-    p: "对齐 tpgofighting.top、prompts.tpgofighting.top 与 token.tpgofighting.top 的新野兽派纸张网格美学，全新集成 Command Center、CodeAct、Graphify 等系列手绘科技插图，并全面引入 Iconfont 知名 AI 厂商矢量图标装饰。"
+    h: "TP Space 全生态视觉统一与 Oil Motion 动画升级",
+    p: "对齐新野兽派纸张网格美学，全面引入 Iconfont AI 厂商矢量图标，并重构纯矢量卡片物理倾角交互与微动效（零 Emoji）。"
   }
 ];
 
@@ -1336,18 +1428,21 @@ function cardHTML(p) {
     thumbMarkup = `
       <div class="card-ill-wrap" style="--card-accent-bg:${p.accent_bg || '#fff'}">
         <span class="card-style-badge">${p.style}</span>
+        <div class="card-scan-line"></div>
         <img class="card-ill-img" src="${p.thumb_img}" alt="${p.name}" loading="lazy">
       </div>`;
   } else {
+    const iconSvg = SVG_ICONS[p.iconKey] || SVG_ICONS.wand;
     thumbMarkup = `
       <div class="card-ill-wrap" style="--card-accent-bg:${p.accent_bg || '#fff6e9'}">
         <span class="card-style-badge">${p.style}</span>
+        <div class="card-scan-line"></div>
         <div class="card-vector-header">
           <div class="vector-badge-strip">
             <span class="vector-category-tag">${p.tags[0] || 'Tool'}</span>
           </div>
-          <div class="vector-center-symbol">${p.symbol || '✦'}</div>
-          <span class="vector-spark">✦</span>
+          <div class="vector-center-symbol">${iconSvg}</div>
+          <span class="vector-spark-node">VECTOR // 01</span>
         </div>
       </div>`;
   }
@@ -1369,13 +1464,17 @@ function cardHTML(p) {
         </div>
         <div class="card-foot">
           ${modelIconsMarkup}
-          <a class="open-btn" href="${p.file}">打开详情页 →</a>
+          <a class="open-btn" href="${p.file}">
+            <span>打开详情页</span>
+            <span class="btn-arrow">→</span>
+          </a>
         </div>
       </article>
     </div>`;
 }
 
 function listHTML(p) {
+  const iconSvg = SVG_ICONS[p.iconKey] || SVG_ICONS.wand;
   const modelIconsMarkup = p.models && p.models.length ? `
     <div class="card-models-strip" style="margin-top:6px" title="适配基座模型：${p.models.join(', ')}">
       ${p.models.map(m => `<img class="card-model-ico" src="assets/icons/${m}.svg" alt="${m}">`).join('')}
@@ -1387,7 +1486,7 @@ function listHTML(p) {
       <article class="card">
         <div class="card-ill-wrap" style="--card-accent-bg:${p.accent_bg || '#fff6e9'}">
           <div class="card-vector-header" style="padding:8px">
-            <div class="vector-center-symbol" style="font-size:28px">${p.symbol || '✦'}</div>
+            <div class="vector-center-symbol" style="width:36px;height:36px">${iconSvg}</div>
           </div>
         </div>
         <div class="card-body-wrap">
@@ -1399,10 +1498,73 @@ function listHTML(p) {
           ${modelIconsMarkup}
         </div>
         <div class="card-foot">
-          <a class="open-btn" href="${p.file}">打开 →</a>
+          <a class="open-btn" href="${p.file}">
+            <span>打开</span>
+            <span class="btn-arrow">→</span>
+          </a>
         </div>
       </article>
     </div>`;
+}
+
+/* ---------- Oil Motion: 交互式卡片倾角物理与光斑追踪 ---------- */
+function initCardMotion() {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  if ('ontouchstart' in window && window.innerWidth < 820) return;
+
+  const cards = document.querySelectorAll('.card');
+  cards.forEach(card => {
+    let bounds;
+    let isHovered = false;
+    let rAFId = null;
+    let targetRx = 0, targetRy = 0;
+    let currRx = 0, currRy = 0;
+
+    function updatePhysics() {
+      if (!isHovered) {
+        currRx += (0 - currRx) * 0.18;
+        currRy += (0 - currRy) * 0.18;
+        if (Math.abs(currRx) < 0.01 && Math.abs(currRy) < 0.01) {
+          currRx = 0;
+          currRy = 0;
+          card.style.setProperty('--card-rx', '0deg');
+          card.style.setProperty('--card-ry', '0deg');
+          cancelAnimationFrame(rAFId);
+          rAFId = null;
+          return;
+        }
+      } else {
+        currRx += (targetRx - currRx) * 0.22;
+        currRy += (targetRy - currRy) * 0.22;
+      }
+      card.style.setProperty('--card-rx', `${currRx.toFixed(2)}deg`);
+      card.style.setProperty('--card-ry', `${currRy.toFixed(2)}deg`);
+      rAFId = requestAnimationFrame(updatePhysics);
+    }
+
+    card.addEventListener('mouseenter', () => {
+      bounds = card.getBoundingClientRect();
+      isHovered = true;
+      if (!rAFId) rAFId = requestAnimationFrame(updatePhysics);
+    });
+
+    card.addEventListener('mousemove', e => {
+      if (!bounds) bounds = card.getBoundingClientRect();
+      const x = e.clientX - bounds.left;
+      const y = e.clientY - bounds.top;
+      card.style.setProperty('--card-mx', `${x.toFixed(1)}px`);
+      card.style.setProperty('--card-my', `${y.toFixed(1)}px`);
+
+      const normX = (x / bounds.width) * 2 - 1;
+      const normY = (y / bounds.height) * 2 - 1;
+      targetRx = -normY * 4;
+      targetRy = normX * 4;
+    });
+
+    card.addEventListener('mouseleave', () => {
+      isHovered = false;
+    });
+  });
 }
 
 function render() {
@@ -1418,6 +1580,9 @@ function render() {
   grid.innerHTML = list.length
     ? list.map(p => (curView === 'grid' ? cardHTML : listHTML)(p)).join('')
     : `<div style="padding:48px 0;grid-column:1/-1;text-align:center;font-weight:800;color:var(--ink-secondary)">没有匹配的项目，换个关键词试试。</div>`;
+
+  // 挂载 Oil Motion 动态交互
+  initCardMotion();
 }
 
 qEl.oninput = render;
@@ -1499,7 +1664,7 @@ document.getElementById('tl').innerHTML = TL.map(t => `
 const toast = document.getElementById('toast');
 let tt;
 function showToast(txt) {
-  toast.textContent = '已复制 ✓ ' + txt;
+  toast.textContent = '已复制 ' + txt;
   toast.classList.add('show');
   clearTimeout(tt);
   tt = setTimeout(() => toast.classList.remove('show'), 1600);
