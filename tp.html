@@ -3276,10 +3276,7 @@ const MOTION_HTMLS = {
           </div>
         </div>
 
-      </div>
-
-    </div>
-  </div>`,
+      </div>`,
   graphify: `<div class="graphify-card" id="graphifyCard">
       <!-- Card Title Bar -->
       <div class="card-header">
@@ -3438,17 +3435,7 @@ const MOTION_HTMLS = {
         </div>
         <span class="mono-text" style="font-weight: 800;">1.00 LEIDEN</span>
       </div>
-    </div>
-
-    <!-- Manual Scrub Controller (Ensures rapid validation & debugging) -->
-    <div class="slider-control-bar">
-      <label for="scrubSlider">MANUAL SCRUB:</label>
-      <input type="range" id="scrubSlider" min="0" max="1" step="0.001" value="0" />
-      <span class="mono-text" id="sliderValDisplay" style="width: 48px; text-align: right; font-weight: 800;">0.000</span>
-    </div>
-
-  </div>
-</div>`,
+    </div>`,
   ecc: `<div class="ecc-card" id="ecc-card">
 
         <!-- HEADER -->
@@ -3771,63 +3758,8 @@ const MOTION_HTMLS = {
           </div>
         </div>
 
-      </div>
-
-      <!-- SCROLL DOWN HINT -->
-      <div class="scroll-hint">
-        <svg class="scroll-arrow-svg" viewBox="0 0 24 24" fill="none">
-          <line x1="12" y1="4" x2="12" y2="20" stroke-linecap="square" />
-          <polyline points="6 14 12 20 18 14" />
-        </svg>
-        <span>SCROLL PAGE TO SCRUB HARDWARE BUS TIMELINE</span>
-      </div>
-
-    </div>
-  </div>
-
-  <!-- ==========================================================================
-       ECC MOTION CONTROLLER JAVASCRIPT
-       ========================================================================== -->`,
-  tpvibe: `
-</head>
-<body>
-
-  <!-- 全局实况 HUD -->
-  <aside class="hud-panel" id="hudPanel" aria-hidden="true">
-    <div class="hud-row">
-      <span class="hud-label">ENGINE:</span>
-      <span class="hud-value">ScrollScrubObserver</span>
-    </div>
-    <div class="hud-row">
-      <span class="hud-label">ACTIVE OBSERVED:</span>
-      <span class="hud-value" id="hudActiveCount">0</span>
-    </div>
-    <div class="hud-row">
-      <span class="hud-label">GLOBAL SCROLL Y:</span>
-      <span class="hud-value" id="hudScrollY">0 px</span>
-    </div>
-    <div class="hud-row">
-      <span class="hud-label">FPS:</span>
-      <span class="hud-value" id="hudFps">60</span>
-    </div>
-  </aside>
-
-  <main class="container">
-    <header class="hero-header">
-      <div class="hero-badge">
-        <span class="indicator-dot"></span>
-        <span>TPvibe Dynamic Telemetry</span>
-      </div>
-      <h1 class="hero-title">Flow State Waveform Engine</h1>
-      <p class="hero-subtitle">
-        基于 IntersectionObserver 结合 rAF 批处理计算归一化进度（0.00 ~ 1.00）。
-        严格隔离 DOM 读写阶段以消除 Layout Thrashing，由 CSS 变量与矢量 SVG 驱动频谱动力学演进。
-      </p>
-    </header>
-
-    <section class="cards-stack" id="cardsStack">
-      <!-- 卡片 1: 核心节拍 -->
-      <article class="tpvibe-card" data-tpvibe="card-1" data-base-bpm="128" data-base-freq="2.2">
+      </div>`,
+  tpvibe: `<article class="tpvibe-card" data-tpvibe="card-1" data-base-bpm="128" data-base-freq="2.2">
         <header class="card-meta">
           <div class="card-title-group">
             <span class="card-label">CHANNEL 01 // SYNTAX HARMONICS</span>
@@ -3887,198 +3819,7 @@ const MOTION_HTMLS = {
             <div class="telemetry-bar-fill"></div>
           </div>
         </footer>
-      </article>
-
-      <!-- 卡片 2: 并发管道 -->
-      <article class="tpvibe-card" data-tpvibe="card-2" data-base-bpm="144" data-base-freq="3.0">
-        <header class="card-meta">
-          <div class="card-title-group">
-            <span class="card-label">CHANNEL 02 // PIPELINE FLUX</span>
-            <h2 class="card-title">Concurrent Event Loop Demux</h2>
-          </div>
-          <div class="card-chips">
-            <div class="metric-chip">
-              <span class="chip-dot" style="background: var(--accent-cyan)"></span>
-              <span class="status-bpm">144 BPM</span>
-            </div>
-            <div class="metric-chip">
-              <span>ZERO-COPY</span>
-            </div>
-          </div>
-        </header>
-
-        <div class="waveform-stage">
-          <div class="stage-grid"></div>
-          <div class="center-axis"></div>
-          <svg viewBox="0 0 800 180" preserveAspectRatio="none" class="vibe-svg">
-            <defs>
-              <linearGradient id="grad2" x1="0%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" stop-color="#10b981" stop-opacity="0.3" />
-                <stop offset="100%" stop-color="#10b981" stop-opacity="0.0" />
-              </linearGradient>
-              <linearGradient id="gradLine2" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%" stop-color="#10b981" />
-                <stop offset="60%" stop-color="#00f2fe" />
-                <stop offset="100%" stop-color="#7928ca" />
-              </linearGradient>
-            </defs>
-            <path class="wave-area" fill="url(#grad2)" d="" />
-            <path class="wave-sub" fill="none" stroke="rgba(0, 242, 254, 0.35)" stroke-width="1.5" stroke-dasharray="2 3" d="" />
-            <path class="wave-line" fill="none" stroke="url(#gradLine2)" stroke-width="2.5" d="" />
-            <g class="pulse-beacons"></g>
-          </svg>
-        </div>
-
-        <footer class="card-telemetry">
-          <div class="telemetry-item">
-            <span class="telemetry-k">NORM PROGRESS</span>
-            <span class="telemetry-v p-val">0.000</span>
-          </div>
-          <div class="telemetry-item">
-            <span class="telemetry-k">RESONANCE FREQ</span>
-            <span class="telemetry-v freq-val">3.00 Hz</span>
-          </div>
-          <div class="telemetry-item">
-            <span class="telemetry-k">PEAK AMPLITUDE</span>
-            <span class="telemetry-v amp-val">15.40 dB</span>
-          </div>
-          <div class="telemetry-item">
-            <span class="telemetry-k">CADENCE PHASE</span>
-            <span class="telemetry-v phase-val">0.00 rad</span>
-          </div>
-          <div class="telemetry-bar-wrap">
-            <div class="telemetry-bar-fill"></div>
-          </div>
-        </footer>
-      </article>
-
-      <!-- 卡片 3: 内存分配共振 -->
-      <article class="tpvibe-card" data-tpvibe="card-3" data-base-bpm="160" data-base-freq="4.5">
-        <header class="card-meta">
-          <div class="card-title-group">
-            <span class="card-label">CHANNEL 03 // MEMORY RESONANCE</span>
-            <h2 class="card-title">Generational Garbage Collector</h2>
-          </div>
-          <div class="card-chips">
-            <div class="metric-chip">
-              <span class="chip-dot" style="background: var(--accent-crimson)"></span>
-              <span class="status-bpm">160 BPM</span>
-            </div>
-            <div class="metric-chip">
-              <span>LATENCY 0.8ms</span>
-            </div>
-          </div>
-        </header>
-
-        <div class="waveform-stage">
-          <div class="stage-grid"></div>
-          <div class="center-axis"></div>
-          <svg viewBox="0 0 800 180" preserveAspectRatio="none" class="vibe-svg">
-            <defs>
-              <linearGradient id="grad3" x1="0%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" stop-color="#ff007a" stop-opacity="0.3" />
-                <stop offset="100%" stop-color="#ff007a" stop-opacity="0.0" />
-              </linearGradient>
-              <linearGradient id="gradLine3" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%" stop-color="#ff007a" />
-                <stop offset="50%" stop-color="#7928ca" />
-                <stop offset="100%" stop-color="#00f2fe" />
-              </linearGradient>
-            </defs>
-            <path class="wave-area" fill="url(#grad3)" d="" />
-            <path class="wave-sub" fill="none" stroke="rgba(255, 0, 122, 0.4)" stroke-width="1.5" stroke-dasharray="3 3" d="" />
-            <path class="wave-line" fill="none" stroke="url(#gradLine3)" stroke-width="2.5" d="" />
-            <g class="pulse-beacons"></g>
-          </svg>
-        </div>
-
-        <footer class="card-telemetry">
-          <div class="telemetry-item">
-            <span class="telemetry-k">NORM PROGRESS</span>
-            <span class="telemetry-v p-val">0.000</span>
-          </div>
-          <div class="telemetry-item">
-            <span class="telemetry-k">RESONANCE FREQ</span>
-            <span class="telemetry-v freq-val">4.50 Hz</span>
-          </div>
-          <div class="telemetry-item">
-            <span class="telemetry-k">PEAK AMPLITUDE</span>
-            <span class="telemetry-v amp-val">18.20 dB</span>
-          </div>
-          <div class="telemetry-item">
-            <span class="telemetry-k">CADENCE PHASE</span>
-            <span class="telemetry-v phase-val">0.00 rad</span>
-          </div>
-          <div class="telemetry-bar-wrap">
-            <div class="telemetry-bar-fill"></div>
-          </div>
-        </footer>
-      </article>
-
-      <!-- 卡片 4: 矢量计算吞吐 -->
-      <article class="tpvibe-card" data-tpvibe="card-4" data-base-bpm="176" data-base-freq="5.8">
-        <header class="card-meta">
-          <div class="card-title-group">
-            <span class="card-label">CHANNEL 04 // SIMD ACCELERATION</span>
-            <h2 class="card-title">Vector Tensor Kernel Concurrency</h2>
-          </div>
-          <div class="card-chips">
-            <div class="metric-chip">
-              <span class="chip-dot" style="background: var(--accent-violet)"></span>
-              <span class="status-bpm">176 BPM</span>
-            </div>
-            <div class="metric-chip">
-              <span>AVX-512</span>
-            </div>
-          </div>
-        </header>
-
-        <div class="waveform-stage">
-          <div class="stage-grid"></div>
-          <div class="center-axis"></div>
-          <svg viewBox="0 0 800 180" preserveAspectRatio="none" class="vibe-svg">
-            <defs>
-              <linearGradient id="grad4" x1="0%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" stop-color="#7928ca" stop-opacity="0.35" />
-                <stop offset="100%" stop-color="#00f2fe" stop-opacity="0.0" />
-              </linearGradient>
-              <linearGradient id="gradLine4" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%" stop-color="#7928ca" />
-                <stop offset="45%" stop-color="#ff007a" />
-                <stop offset="100%" stop-color="#00f2fe" />
-              </linearGradient>
-            </defs>
-            <path class="wave-area" fill="url(#grad4)" d="" />
-            <path class="wave-sub" fill="none" stroke="rgba(121, 40, 202, 0.4)" stroke-width="1.5" stroke-dasharray="5 5" d="" />
-            <path class="wave-line" fill="none" stroke="url(#gradLine4)" stroke-width="2.5" d="" />
-            <g class="pulse-beacons"></g>
-          </svg>
-        </div>
-
-        <footer class="card-telemetry">
-          <div class="telemetry-item">
-            <span class="telemetry-k">NORM PROGRESS</span>
-            <span class="telemetry-v p-val">0.000</span>
-          </div>
-          <div class="telemetry-item">
-            <span class="telemetry-k">RESONANCE FREQ</span>
-            <span class="telemetry-v freq-val">5.80 Hz</span>
-          </div>
-          <div class="telemetry-item">
-            <span class="telemetry-k">PEAK AMPLITUDE</span>
-            <span class="telemetry-v amp-val">22.40 dB</span>
-          </div>
-          <div class="telemetry-item">
-            <span class="telemetry-k">CADENCE PHASE</span>
-            <span class="telemetry-v phase-val">0.00 rad</span>
-          </div>
-          <div class="telemetry-bar-wrap">
-            <div class="telemetry-bar-fill"></div>
-          </div>
-        </footer>
-      </article>
-    </section>
-  </main>`
+      </article>`
 };
 
 
