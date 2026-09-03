@@ -69,7 +69,7 @@
     transition: width .08s linear;
   }
 
-  /* 导航栏 (统一 TPrompts & TP Space 风格) */
+  /* 导航栏 */
   nav {
     position: sticky; top: 0; z-index: 80;
     background: rgba(255, 249, 241, 0.94);
@@ -141,11 +141,13 @@
   .menu-toggle { display: none; }
 
   /* Hero 核心区域 (左右双栏：大标+陈述 + 司令台插画卡片) */
-  .hero-sec { padding: 48px 0 28px; }
+  .hero-sec { padding: 48px 0 32px; }
   .hero-grid {
-    display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 36px;
+    display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 40px;
     align-items: center;
   }
+  .hero-left, .hero-right { min-width: 0; }
+
   .kicker-badge {
     display: inline-flex; align-items: center; gap: 8px;
     font-family: var(--font-mono); font-size: 11.5px; font-weight: 900;
@@ -171,10 +173,10 @@
     border-radius: 8px; margin-top: 4px;
   }
   .hero-left p {
-    font-size: 16.5px; line-height: 1.75; color: var(--ink-secondary); max-width: 600px;
+    font-size: 16px; line-height: 1.75; color: var(--ink-secondary); max-width: 580px;
   }
   .hero-actions {
-    display: flex; gap: 12px; margin-top: 26px; flex-wrap: wrap; align-items: center;
+    display: flex; gap: 12px; margin-top: 24px; flex-wrap: wrap; align-items: center;
   }
   .btn-main {
     display: inline-flex; align-items: center; gap: 8px;
@@ -200,164 +202,23 @@
     background: var(--cream);
   }
 
-  /* 关键词药丸 Marquee */
-  .marquee { margin: 26px 0 4px; }
-  .marquee .track { display: flex; flex-wrap: wrap; gap: 9px; }
-  .pill {
-    display: inline-flex; align-items: center; gap: 6px;
-    font-family: var(--font-mono); font-size: 12px; font-weight: 800; color: var(--ink);
-    border: 1.5px solid var(--border-ink); background: #fff; padding: 5px 12px;
-    border-radius: 999px; box-shadow: var(--shadow-xs); transition: transform .15s ease;
-  }
-  [data-theme="dark"] .pill { background: var(--paper); }
-  .pill:hover { transform: translateY(-2px); box-shadow: 3px 3px 0 var(--border-ink); }
-  .pill i { width: 7px; height: 7px; border-radius: 50%; background: var(--coral); }
-
   /* 统计指标卡片 (4格新野兽派硬阴影) */
   .stats-grid {
-    display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px;
-    margin-top: 28px;
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;
+    margin-top: 26px;
   }
   .stat-card {
     border: 2px solid var(--border-ink); border-radius: 16px; background: #fff;
-    padding: 16px 18px; box-shadow: var(--shadow-sm); transition: transform .15s ease;
+    padding: 14px 16px; box-shadow: var(--shadow-sm); transition: transform .15s ease;
   }
   [data-theme="dark"] .stat-card { background: var(--paper); }
   .stat-card:hover { transform: translate(-2px, -2px); box-shadow: 5px 5px 0 var(--shadow-ink); }
   .stat-num {
-    font-family: var(--font-display); font-weight: 950; font-size: 32px;
+    font-family: var(--font-display); font-weight: 950; font-size: 30px;
     color: var(--ink); line-height: 1; letter-spacing: -.03em;
   }
   .stat-lbl {
-    font-size: 12.5px; font-weight: 800; color: var(--ink-secondary); margin-top: 6px;
-  }
-
-  /* ==========================================================================
-     AI 模型生态展示区：高级简约无缝流动长廊 (Sleek Model Ticker with Edge Mask)
-     ========================================================================== */
-  .models-strip {
-    margin-top: 24px;
-    background: #fff;
-    border: 2.5px solid var(--border-ink);
-    border-radius: 18px;
-    padding: 14px 18px;
-    box-shadow: var(--shadow-sm);
-    overflow: hidden;
-    position: relative;
-  }
-  [data-theme="dark"] .models-strip {
-    background: var(--paper);
-  }
-
-  .models-strip-head {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 12px;
-    padding: 0 2px;
-  }
-  .models-head-left {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-  .strip-dot {
-    width: 7px;
-    height: 7px;
-    border-radius: 50%;
-    background: var(--coral);
-    box-shadow: 0 0 0 2px rgba(255,107,87,0.3);
-  }
-  .strip-tag {
-    font-family: var(--font-mono);
-    font-size: 11px;
-    font-weight: 950;
-    color: var(--ink);
-    background: var(--lime);
-    border: 1.5px solid var(--border-ink);
-    padding: 1px 7px;
-    border-radius: 5px;
-    letter-spacing: .06em;
-  }
-  .strip-sub {
-    font-size: 12px;
-    font-weight: 750;
-    color: var(--ink-secondary);
-  }
-  .strip-counter {
-    font-family: var(--font-mono);
-    font-size: 10.5px;
-    font-weight: 850;
-    color: var(--ink-muted);
-    letter-spacing: .06em;
-  }
-
-  /* 双向边缘虚化遮罩容器 */
-  .ticker-wrapper {
-    overflow: hidden;
-    position: relative;
-    width: 100%;
-    padding: 4px 0 2px;
-    mask-image: linear-gradient(90deg, transparent 0%, #000 7%, #000 93%, transparent 100%);
-    -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 7%, #000 93%, transparent 100%);
-  }
-  .ticker-track {
-    display: flex;
-    gap: 10px;
-    width: max-content;
-    animation: modelTickerScroll 30s linear infinite;
-    will-change: transform;
-  }
-  .ticker-wrapper:hover .ticker-track {
-    animation-play-state: paused;
-  }
-  @keyframes modelTickerScroll {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(-50%); }
-  }
-
-  .ticker-item {
-    display: inline-flex;
-    align-items: center;
-    gap: 7px;
-    background: var(--bg2);
-    border: 1.5px solid var(--border-ink);
-    border-radius: 10px;
-    padding: 6px 12px;
-    box-shadow: 1.5px 1.5px 0 var(--border-ink);
-    cursor: default;
-    flex-shrink: 0;
-    transition: transform .18s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow .18s ease, background .15s ease;
-  }
-  [data-theme="dark"] .ticker-item {
-    background: var(--card-bg-subtle);
-  }
-  .ticker-item:hover {
-    transform: translateY(-2px);
-    box-shadow: 3px 3px 0 var(--border-ink);
-    background: var(--lime);
-  }
-  .ticker-item img {
-    width: 16px;
-    height: 16px;
-    object-fit: contain;
-    flex-shrink: 0;
-    filter: grayscale(35%);
-    opacity: 0.85;
-    transition: filter .18s ease, opacity .18s ease, transform .18s ease;
-  }
-  .ticker-item:hover img {
-    filter: grayscale(0%);
-    opacity: 1;
-    transform: scale(1.15);
-  }
-  .ticker-item span {
-    font-family: var(--font-display);
-    font-size: 12.5px;
-    font-weight: 850;
-    color: var(--ink);
-    white-space: nowrap;
-    letter-spacing: -.01em;
+    font-size: 12px; font-weight: 800; color: var(--ink-secondary); margin-top: 6px;
   }
 
   /* 右侧 Hero 司令台插画卡片 (Showcase Card) */
@@ -418,6 +279,136 @@
   .model-avatar:hover { transform: translateY(-3px) scale(1.2); z-index: 5; }
   .model-avatar img { width: 15px; height: 15px; object-fit: contain; }
   .foot-txt { font-size: 12.5px; font-weight: 850; color: var(--ink-secondary); }
+
+  /* ==========================================================================
+     全宽 AI 基座模型流动生态长廊 (高级简约 Transitional Dock)
+     ========================================================================== */
+  .models-strip {
+    margin-top: 36px;
+    background: #fff;
+    border: 2.5px solid var(--border-ink);
+    border-radius: 20px;
+    padding: 14px 20px 16px;
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+    position: relative;
+    min-width: 0;
+  }
+  [data-theme="dark"] .models-strip {
+    background: var(--paper);
+  }
+
+  .models-strip-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+    padding: 0 4px;
+  }
+  .models-head-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .strip-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--coral);
+    box-shadow: 0 0 0 2px rgba(255,107,87,0.3);
+  }
+  .strip-tag {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 950;
+    color: var(--ink);
+    background: var(--lime);
+    border: 1.5px solid var(--border-ink);
+    padding: 2px 8px;
+    border-radius: 6px;
+    letter-spacing: .06em;
+  }
+  .strip-sub {
+    font-size: 12.5px;
+    font-weight: 750;
+    color: var(--ink-secondary);
+  }
+  .strip-counter {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 850;
+    color: var(--ink-muted);
+    letter-spacing: .08em;
+  }
+
+  /* 双向边缘柔和渐变虚化 */
+  .ticker-wrapper {
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+    min-width: 0;
+    padding: 4px 0 2px;
+    mask-image: linear-gradient(90deg, transparent 0%, #000 6%, #000 94%, transparent 100%);
+    -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 6%, #000 94%, transparent 100%);
+  }
+  .ticker-track {
+    display: flex;
+    gap: 12px;
+    width: max-content;
+    animation: modelTickerScroll 32s linear infinite;
+    will-change: transform;
+  }
+  .ticker-wrapper:hover .ticker-track {
+    animation-play-state: paused;
+  }
+  @keyframes modelTickerScroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  .ticker-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--bg2);
+    border: 1.5px solid var(--border-ink);
+    border-radius: 999px;
+    padding: 6px 14px;
+    box-shadow: 1.5px 1.5px 0 var(--border-ink);
+    cursor: default;
+    flex-shrink: 0;
+    transition: transform .18s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow .18s ease, background .15s ease;
+  }
+  [data-theme="dark"] .ticker-item {
+    background: var(--card-bg-subtle);
+  }
+  .ticker-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 3.5px 3.5px 0 var(--border-ink);
+    background: var(--lime);
+  }
+  .ticker-item img {
+    width: 17px;
+    height: 17px;
+    object-fit: contain;
+    flex-shrink: 0;
+    filter: grayscale(25%);
+    opacity: 0.9;
+    transition: filter .18s ease, opacity .18s ease, transform .18s ease;
+  }
+  .ticker-item:hover img {
+    filter: grayscale(0%);
+    opacity: 1;
+    transform: scale(1.15);
+  }
+  .ticker-item span {
+    font-family: var(--font-display);
+    font-size: 13px;
+    font-weight: 850;
+    color: var(--ink);
+    white-space: nowrap;
+    letter-spacing: -.01em;
+  }
 
   /* 板块通用头部 */
   section { padding: 48px 0; }
@@ -953,8 +944,6 @@
         <a class="btn-main secondary" href="#caps">了解核心能力</a>
       </div>
 
-      <div class="marquee"><div class="track" id="mtrack"></div></div>
-
       <div class="stats-grid">
         <div class="stat-card">
           <div class="stat-num" data-to="16">0</div>
@@ -971,48 +960,6 @@
         <div class="stat-card">
           <div class="stat-num" data-to="278">0</div>
           <div class="stat-lbl">ECC 技能全索引</div>
-        </div>
-      </div>
-
-      <!-- AI 知名厂商与模型生态：高端简约无缝流动长廊 (Sleek Ticker) -->
-      <div class="models-strip" id="models">
-        <div class="models-strip-head">
-          <div class="models-head-left">
-            <span class="strip-dot"></span>
-            <span class="strip-tag">MODEL MATRIX</span>
-            <span class="strip-sub">深度适配与基座厂商</span>
-          </div>
-          <span class="strip-counter">12 FRONTIER LABS &amp; ARCHITECTURES</span>
-        </div>
-        <div class="ticker-wrapper" title="悬停暂停滚动">
-          <div class="ticker-track">
-            <!-- 循环项序列 (去除了任何 Emoji，纯极简排版) -->
-            <div class="ticker-item"><img src="assets/icons/openai.svg" alt="OpenAI"><span>OpenAI</span></div>
-            <div class="ticker-item"><img src="assets/icons/claude.svg" alt="Claude"><span>Claude</span></div>
-            <div class="ticker-item"><img src="assets/icons/deepseek.svg" alt="DeepSeek"><span>DeepSeek</span></div>
-            <div class="ticker-item"><img src="assets/icons/gemini.svg" alt="Gemini"><span>Gemini</span></div>
-            <div class="ticker-item"><img src="assets/icons/meta.svg" alt="Meta"><span>Llama</span></div>
-            <div class="ticker-item"><img src="assets/icons/mistral.svg" alt="Mistral"><span>Mistral</span></div>
-            <div class="ticker-item"><img src="assets/icons/grok.svg" alt="Grok"><span>Grok</span></div>
-            <div class="ticker-item"><img src="assets/icons/ollama.svg" alt="Ollama"><span>Ollama</span></div>
-            <div class="ticker-item"><img src="assets/icons/qwen.svg" alt="Qwen"><span>Qwen 通义</span></div>
-            <div class="ticker-item"><img src="assets/icons/kimi.svg" alt="Kimi"><span>Kimi</span></div>
-            <div class="ticker-item"><img src="assets/icons/glm.svg" alt="GLM"><span>GLM 智谱</span></div>
-            <div class="ticker-item"><img src="assets/icons/doubao.svg" alt="Doubao"><span>豆包</span></div>
-            <!-- 无缝闭环复制序列 -->
-            <div class="ticker-item"><img src="assets/icons/openai.svg" alt="OpenAI"><span>OpenAI</span></div>
-            <div class="ticker-item"><img src="assets/icons/claude.svg" alt="Claude"><span>Claude</span></div>
-            <div class="ticker-item"><img src="assets/icons/deepseek.svg" alt="DeepSeek"><span>DeepSeek</span></div>
-            <div class="ticker-item"><img src="assets/icons/gemini.svg" alt="Gemini"><span>Gemini</span></div>
-            <div class="ticker-item"><img src="assets/icons/meta.svg" alt="Meta"><span>Llama</span></div>
-            <div class="ticker-item"><img src="assets/icons/mistral.svg" alt="Mistral"><span>Mistral</span></div>
-            <div class="ticker-item"><img src="assets/icons/grok.svg" alt="Grok"><span>Grok</span></div>
-            <div class="ticker-item"><img src="assets/icons/ollama.svg" alt="Ollama"><span>Ollama</span></div>
-            <div class="ticker-item"><img src="assets/icons/qwen.svg" alt="Qwen"><span>Qwen 通义</span></div>
-            <div class="ticker-item"><img src="assets/icons/kimi.svg" alt="Kimi"><span>Kimi</span></div>
-            <div class="ticker-item"><img src="assets/icons/glm.svg" alt="GLM"><span>GLM 智谱</span></div>
-            <div class="ticker-item"><img src="assets/icons/doubao.svg" alt="Doubao"><span>豆包</span></div>
-          </div>
         </div>
       </div>
     </div>
@@ -1040,6 +987,48 @@
           </div>
           <span class="foot-txt">多Agent流水线驱动中枢</span>
         </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 全宽 AI 基座模型流动生态长廊 (高级简约 Transitional Dock) -->
+  <div class="models-strip" id="models">
+    <div class="models-strip-head">
+      <div class="models-head-left">
+        <span class="strip-dot"></span>
+        <span class="strip-tag">MODEL MATRIX</span>
+        <span class="strip-sub">深度适配与支持主流 AI 基座</span>
+      </div>
+      <span class="strip-counter">12 FRONTIER LABS // RUNTIME ADAPTED</span>
+    </div>
+    <div class="ticker-wrapper" title="悬停暂停流动">
+      <div class="ticker-track">
+        <!-- 循环项序列 (去除了任何 Emoji，纯极简排版) -->
+        <div class="ticker-item"><img src="assets/icons/openai.svg" alt="OpenAI"><span>OpenAI</span></div>
+        <div class="ticker-item"><img src="assets/icons/claude.svg" alt="Claude"><span>Claude</span></div>
+        <div class="ticker-item"><img src="assets/icons/deepseek.svg" alt="DeepSeek"><span>DeepSeek</span></div>
+        <div class="ticker-item"><img src="assets/icons/gemini.svg" alt="Gemini"><span>Gemini</span></div>
+        <div class="ticker-item"><img src="assets/icons/meta.svg" alt="Meta"><span>Llama</span></div>
+        <div class="ticker-item"><img src="assets/icons/mistral.svg" alt="Mistral"><span>Mistral</span></div>
+        <div class="ticker-item"><img src="assets/icons/grok.svg" alt="Grok"><span>Grok</span></div>
+        <div class="ticker-item"><img src="assets/icons/ollama.svg" alt="Ollama"><span>Ollama</span></div>
+        <div class="ticker-item"><img src="assets/icons/qwen.svg" alt="Qwen"><span>Qwen 通义</span></div>
+        <div class="ticker-item"><img src="assets/icons/kimi.svg" alt="Kimi"><span>Kimi</span></div>
+        <div class="ticker-item"><img src="assets/icons/glm.svg" alt="GLM"><span>GLM 智谱</span></div>
+        <div class="ticker-item"><img src="assets/icons/doubao.svg" alt="Doubao"><span>豆包</span></div>
+        <!-- 无缝闭环复制序列 -->
+        <div class="ticker-item"><img src="assets/icons/openai.svg" alt="OpenAI"><span>OpenAI</span></div>
+        <div class="ticker-item"><img src="assets/icons/claude.svg" alt="Claude"><span>Claude</span></div>
+        <div class="ticker-item"><img src="assets/icons/deepseek.svg" alt="DeepSeek"><span>DeepSeek</span></div>
+        <div class="ticker-item"><img src="assets/icons/gemini.svg" alt="Gemini"><span>Gemini</span></div>
+        <div class="ticker-item"><img src="assets/icons/meta.svg" alt="Meta"><span>Llama</span></div>
+        <div class="ticker-item"><img src="assets/icons/mistral.svg" alt="Mistral"><span>Mistral</span></div>
+        <div class="ticker-item"><img src="assets/icons/grok.svg" alt="Grok"><span>Grok</span></div>
+        <div class="ticker-item"><img src="assets/icons/ollama.svg" alt="Ollama"><span>Ollama</span></div>
+        <div class="ticker-item"><img src="assets/icons/qwen.svg" alt="Qwen"><span>Qwen 通义</span></div>
+        <div class="ticker-item"><img src="assets/icons/kimi.svg" alt="Kimi"><span>Kimi</span></div>
+        <div class="ticker-item"><img src="assets/icons/glm.svg" alt="GLM"><span>GLM 智谱</span></div>
+        <div class="ticker-item"><img src="assets/icons/doubao.svg" alt="Doubao"><span>豆包</span></div>
       </div>
     </div>
   </div>
@@ -1442,12 +1431,6 @@ const TL = [
   }
 ];
 
-const KEYWORDS = [
-  "AI Agent", "Knowledge Graph", "Agent OS", "Code Act", "tree-sitter",
-  "Leiden", "Docker Runtime", "Hooks", "深度解读", "Skills", "Multimodal",
-  "Event Stream", "UI 灵感", "React 组件", "动画", "图标", "SaaS 模板", "开源排行"
-];
-
 /* ---------- 主题切换逻辑 ---------- */
 const root = document.documentElement;
 const themeBtn = document.getElementById('themeBtn');
@@ -1483,10 +1466,6 @@ addEventListener('scroll', () => {
   toTopBtn.classList.toggle('show', scrollY > 400);
 });
 toTopBtn.onclick = () => window.scrollTo({ top: 0, behavior: 'smooth' });
-
-/* ---------- 跑马灯关键词渲染 ---------- */
-const mt = document.getElementById('mtrack');
-mt.innerHTML = KEYWORDS.map(k => `<span class="pill"><i></i>${k}</span>`).join('');
 
 /* ---------- 数字计数动画 ---------- */
 const cio = new IntersectionObserver(es => {
