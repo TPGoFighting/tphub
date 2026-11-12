@@ -133,3 +133,7 @@
   --text: var(--ink);
   --muted: var(--ink-secondary);
 }
+
+/* --- Antigravity Batch Fix: UI & Contrast --- */
+body { max-width: 100vw; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+pre code, code { background-color: #1e1e1e !important; color: #ffffff !important; }
